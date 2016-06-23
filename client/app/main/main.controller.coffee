@@ -2,6 +2,8 @@
 
 angular.module 'clublootApp'
 .controller 'MainCtrl', ($scope, $http, socket) ->
+  $('body').css({background: '#fff'});
+
   $scope.awesomeThings = []
 
   $http.get('/api/things').success (awesomeThings) ->
