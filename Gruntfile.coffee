@@ -8,7 +8,6 @@ module.exports = (grunt) ->
   catch e
     localConfig = {}
 
-  grunt.loadNpmTasks('grunt-forever');
 
   # Load grunt tasks automatically, when needed
   require('jit-grunt') grunt,
@@ -19,6 +18,7 @@ module.exports = (grunt) ->
     protractor: 'grunt-protractor-runner'
     injector: 'grunt-asset-injector'
     buildcontrol: 'grunt-build-control'
+    forever: 'grunt-forever'
 
   # Time how long tasks take. Can help when optimizing build times
   require('time-grunt') grunt
@@ -26,22 +26,23 @@ module.exports = (grunt) ->
   # Define the configuration for all the tasks
   grunt.initConfig
 
-    forever: {
-      server: {
-        options: {
-          index: 'server/app.js',
-          logDir: 'logs'
-        }
-      }
-    },
 
     # Project settings
     pkg: grunt.file.readJSON 'package.json'
     yeoman:
       # configurable paths
-
       client: require('./bower.json').appPath or 'client'
       dist: 'dist'
+
+    forever:
+      server:
+        options:
+          command: 'coffee'
+          index: 'server/app.coffee'
+          logDir: 'logs'
+          logFile: 'access.log'
+          errFile: 'errors.log'
+          outFile: 'outs.log'
 
     express:
       options:
@@ -688,4 +689,3 @@ module.exports = (grunt) ->
     'test'
     'build'
   ])
-
