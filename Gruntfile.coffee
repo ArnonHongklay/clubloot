@@ -36,7 +36,7 @@ module.exports = (grunt) ->
       server:
         options:
           command: 'coffee'
-          index: 'server/app.coffee'
+          index: '.server/app.coffee'
           logDir: 'logs'
           logFile: 'access.log'
           errFile: 'errors.log'
