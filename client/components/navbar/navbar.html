@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <a href="/" class="navbar-brand" style="padding: 0">
-        <img src="assets/images/logo.png" height="42">
+        <img src="assets/images/logo.png" height="50">
       </a>
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
@@ -17,6 +17,20 @@
             <a ng-href="{{item.link}}" style="color: #fff">{{item.title}}</a>
         </li>
         <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav" style="margin-left: 100px">
+        <li><a href="#" style="color: #fff"><img src="assets/images/Trophy Icon (White).png" height="16">&nbsp;&nbsp;&nbsp;New Contest</a></li>
+        <li><a href="#" style="color: #fff"><img src="assets/images/Money Bag Icon (White).png" height="16">&nbsp;&nbsp;&nbsp;Add Coins</a></li>
+        <li><a href="#" style="color: #fff"><img src="assets/images/Conversion Arrows (White).png" height="20">&nbsp;Convert Gems</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav" style="margin-left: 100px">
+        <li>
+          <input type="searh" name="name" value="" style="border-radius: 5px; border-radius: 5px; outline: none; border: none; padding: 2px 15px; width: 300px; margin-top: 13px;">
+          <i class="fa fa-search" aria-hidden="true" style="margin-left: -300px; color: #50ACC4"></i>
+        </li>
+
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
