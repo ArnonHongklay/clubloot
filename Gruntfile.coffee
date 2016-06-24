@@ -17,6 +17,7 @@ module.exports = (grunt) ->
     protractor: 'grunt-protractor-runner'
     injector: 'grunt-asset-injector'
     buildcontrol: 'grunt-build-control'
+    forever: 'grunt-forever'
 
   # Time how long tasks take. Can help when optimizing build times
   require('time-grunt') grunt
@@ -28,9 +29,17 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON 'package.json'
     yeoman:
       # configurable paths
-      
       client: require('./bower.json').appPath or 'client'
       dist: 'dist'
+
+    forever:
+      server:
+        options:
+          index: '.server/app.js'
+          logDir: 'logs'
+          logFile: 'access.log'
+          errFile: 'errors.log'
+          outFile: 'outs.log'
 
     express:
       options:
@@ -232,10 +241,10 @@ module.exports = (grunt) ->
           /bootstrap.js/
           '/json3/'
           '/es5-shim/'
-          
+
           /bootstrap.css/
           /font-awesome.css/
-          
+
         ]
 
     # Renames files for browser caching purposes
@@ -677,4 +686,3 @@ module.exports = (grunt) ->
     'test'
     'build'
   ])
-

@@ -3,8 +3,18 @@
 angular.module 'clublootApp'
 .controller 'NavbarCtrl', ($scope, $location, Auth) ->
   $scope.menu = [
-    title: 'Home'
-    link: '/'
+    {
+      title: 'Dashboard'
+      link: '/'
+    },
+    {
+      title: 'Contests',
+      link: '/contests'
+    },
+    {
+      title: 'Prizes',
+      link: '/prizes'
+    }
   ]
   $scope.isCollapsed = true
   $scope.isLoggedIn = Auth.isLoggedIn
