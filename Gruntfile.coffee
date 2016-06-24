@@ -8,7 +8,6 @@ module.exports = (grunt) ->
   catch e
     localConfig = {}
 
-
   # Load grunt tasks automatically, when needed
   require('jit-grunt') grunt,
     express: 'grunt-express-server'
@@ -25,7 +24,6 @@ module.exports = (grunt) ->
 
   # Define the configuration for all the tasks
   grunt.initConfig
-
 
     # Project settings
     pkg: grunt.file.readJSON 'package.json'
