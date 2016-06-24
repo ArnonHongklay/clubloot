@@ -8,6 +8,8 @@ module.exports = (grunt) ->
   catch e
     localConfig = {}
 
+  grunt.loadNpmTasks('grunt-forever');
+
   # Load grunt tasks automatically, when needed
   require('jit-grunt') grunt,
     express: 'grunt-express-server'
@@ -24,11 +26,20 @@ module.exports = (grunt) ->
   # Define the configuration for all the tasks
   grunt.initConfig
 
+    forever: {
+      server: {
+        options: {
+          index: 'server/app.js',
+          logDir: 'logs'
+        }
+      }
+    },
+
     # Project settings
     pkg: grunt.file.readJSON 'package.json'
     yeoman:
       # configurable paths
-      
+
       client: require('./bower.json').appPath or 'client'
       dist: 'dist'
 
@@ -232,10 +243,10 @@ module.exports = (grunt) ->
           /bootstrap.js/
           '/json3/'
           '/es5-shim/'
-          
+
           /bootstrap.css/
           /font-awesome.css/
-          
+
         ]
 
     # Renames files for browser caching purposes
