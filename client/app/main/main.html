@@ -1,6 +1,63 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container" style="color: #93898A">
+<div class="container-fluid phone">
+  <div class="row">
+    <div class="col-lg-12" style="font-size: 20px; color: #625F80;">
+      <h2 style="color: #8066A0">Anthony's Dashboard</h2>
+
+      <div style="padding: 5px 0px; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
+        <div style="font-size: 20px; line-height: 27px; display: inline-block; float: left; width: 90%;">Announcements</div>
+        <div style="font-size: 20px; line-height: 27px; background: #B84644; color: #fff; width: 10%; text-align: center;" class="pull-right">03</div>
+        <div style="clear: both;"></div>
+      </div>
+
+      <div style="padding: 5px 0px; border-bottom: 1px solid #ccc;">
+        <div style="font-size: 20px; line-height: 27px; display: inline-block; float: left; width: 90%;">Wins</div>
+        <div style="font-size: 20px; line-height: 27px; background: #755998; color: #fff; width: 10%; text-align: center;" class="pull-right">08</div>
+        <div style="clear: both;"></div>
+      </div>
+
+      <div style="padding: 5px 0px; border-bottom: 1px solid #ccc;">
+        <div style="font-size: 20px; line-height: 27px; display: inline-block; float: left; width: 90%;">Live Contests</div>
+        <div style="font-size: 20px; line-height: 27px; background: #42A3BE; color: #fff; width: 10%; text-align: center;" class="pull-right">04</div>
+        <div style="clear: both;"></div>
+      </div>
+
+      <div style="padding: 5px 0px; border-bottom: 1px solid #ccc;">
+        <div style="font-size: 20px; line-height: 27px; display: inline-block; float: left; width: 90%;">Upcoming Contests</div>
+        <div style="font-size: 20px; line-height: 27px; background: #42A3BE; color: #fff; width: 10%; text-align: center;" class="pull-right">03</div>
+        <div style="clear: both;"></div>
+      </div>
+
+      <div style="margin: 15px 0px"></div>
+
+      <div style="font-size: 20px; line-height: 27px;">My Loot</div>
+
+      <div style="border-radius: 5px; border: 1px solid #ccc; padding: 5px 30px;">
+        <img src="assets/images/Piggy Bank Icon.png" width="32">
+        <span class="pull-right">567,250</span>
+      </div>
+      <div style="border-radius: 5px; border: 1px solid #ccc; margin-top: 10px; padding: 5px 30px;">
+        <i class="fa fa-diamond" aria-hidden="true" style="color: #951111"></i>
+        <span class="pull-right">31</span>
+      </div>
+      <div style="border-radius: 5px; border: 1px solid #ccc; margin-top: 10px; padding: 5px 30px;">
+        <i class="fa fa-diamond" aria-hidden="true" style="color: #2A4C7A"></i>
+        <span class="pull-right">9</span>
+      </div>
+      <div style="border-radius: 5px; border: 1px solid #ccc; margin-top: 10px; padding: 5px 30px;">
+        <i class="fa fa-diamond" aria-hidden="true" style="color: #758F42"></i>
+        <span class="pull-right">22</span>
+      </div>
+      <div style="border-radius: 5px; border: 1px solid #ccc; margin-top: 10px; padding: 5px 30px;">
+        <i class="fa fa-diamond" aria-hidden="true" style="color: #9F9B93"></i>
+        <span class="pull-right">5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container desktop" style="color: #93898A">
   <div class="row">
     <div class="col-lg-12">
       <h2 style="color: #8066A0">Anthony's Dashboard</h2>
@@ -38,22 +95,22 @@
         <div style="width: 50px"></div>
         <div class="flex-main-item">
           567,520 <br>
-          <i class="fa fa-money" aria-hidden="true"></i>
+          <img src="assets/images/Piggy Bank Icon.png" width="44">
         </div>
-        <div class="flex-main-item" style="color: #9F9B93">
-          05 <br>
-          <i class="fa fa-diamond" aria-hidden="true"></i>
-        </div>
-        <div class="flex-main-item" style="color: #758F42">
-          22 <br>
+        <div class="flex-main-item" style="color: #951111">
+          31 <br>
           <i class="fa fa-diamond" aria-hidden="true"></i>
         </div>
         <div class="flex-main-item" style="color: #2A4C7A">
           09 <br>
           <i class="fa fa-diamond" aria-hidden="true"></i>
         </div>
-        <div class="flex-main-item" style="color: #951111">
-          31 <br>
+        <div class="flex-main-item" style="color: #758F42">
+          22 <br>
+          <i class="fa fa-diamond" aria-hidden="true"></i>
+        </div>
+        <div class="flex-main-item" style="color: #9F9B93">
+          05 <br>
           <i class="fa fa-diamond" aria-hidden="true"></i>
         </div>
       </div>
@@ -65,7 +122,7 @@
 
     <div ng-if="live" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
-        1,000 <i class="fa fa-money" aria-hidden="true"></i>
+        1,000 <img src="assets/images/Money Bag Icon.png" width="24">
       </div>
       <div style="width: 10%; display: inline-block; float:left; color: #912927">
         02 <i class="fa fa-diamond" aria-hidden="true"></i>
@@ -83,7 +140,7 @@
 
     <div ng-if="live" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
-        60,000 <i class="fa fa-money" aria-hidden="true"></i>
+        60,000 <img src="assets/images/Money Bag Icon.png" width="24">
       </div>
       <div style="width: 10%; display: inline-block; float:left; color: #A7A6A0">
         02 <i class="fa fa-diamond" aria-hidden="true"></i>
@@ -101,7 +158,7 @@
 
     <div ng-if="live" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
-        12,000 <i class="fa fa-money" aria-hidden="true"></i>
+        12,000 <img src="assets/images/Money Bag Icon.png" width="24">
       </div>
       <div style="width: 10%; display: inline-block; float:left; color: #1C3F71">
         05 <i class="fa fa-diamond" aria-hidden="true"></i>
@@ -119,7 +176,7 @@
 
     <div ng-if="live" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
-        25,000 <i class="fa fa-money" aria-hidden="true"></i>
+        25,000 <img src="assets/images/Money Bag Icon.png" width="24">
       </div>
       <div style="width: 10%; display: inline-block; float:left; color: #6D8837">
         01 <i class="fa fa-diamond" aria-hidden="true"></i>
@@ -139,7 +196,7 @@
 
     <div ng-if="upcoming" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
-        1,000 <i class="fa fa-money" aria-hidden="true"></i>
+        1,000 <img src="assets/images/Money Bag Icon.png" width="24">
       </div>
       <div style="width: 10%; display: inline-block; float:left; color: #6D8837">
         20 <i class="fa fa-diamond" aria-hidden="true"></i>
@@ -157,7 +214,7 @@
 
     <div ng-if="upcoming" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
-        400,000 <i class="fa fa-money" aria-hidden="true"></i>
+        400,000 <img src="assets/images/Money Bag Icon.png" width="24">
       </div>
       <div style="width: 10%; display: inline-block; float:left; color: #A7A6A0">
         09 <i class="fa fa-diamond" aria-hidden="true"></i>
@@ -175,7 +232,7 @@
 
     <div ng-if="upcoming" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
-        50,000 <i class="fa fa-money" aria-hidden="true"></i>
+        50,000 <img src="assets/images/Money Bag Icon.png" width="24">
       </div>
       <div style="width: 10%; display: inline-block; float:left; color: #912927">
         10 <i class="fa fa-diamond" aria-hidden="true"></i>
