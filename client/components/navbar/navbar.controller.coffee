@@ -8,12 +8,12 @@ angular.module 'clublootApp'
       link: '/'
     },
     {
-      title: 'Contests',
-      link: '/contests'
+      title: 'Contest',
+      link: '/contest'
     },
     {
-      title: 'Prizes',
-      link: '/prizes'
+      title: 'Prize',
+      link: '/prize'
     }
   ]
   $scope.isCollapsed = true

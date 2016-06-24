@@ -2,7 +2,7 @@
 
 angular.module 'clublootApp'
 .controller 'SignupCtrl', ($scope, Auth, $location, $window) ->
-  $('body').css({background: '#50ACC4'});
+  $('body').css({background: '#50ACC4'})
   $scope.user = {}
   $scope.errors = {}
   $scope.register = (form) ->

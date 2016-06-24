@@ -2,7 +2,7 @@
 
 angular.module 'clublootApp'
 .controller 'MainCtrl', ($scope, $http, socket) ->
-  $('body').css({background: '#fff'});
+  $('body').css({background: '#fff'})
 
   $scope.awesomeThings = []
 
@@ -22,3 +22,13 @@ angular.module 'clublootApp'
 
   $scope.$on '$destroy', ->
     socket.unsyncUpdates 'thing'
+
+  $scope.setFilter = (value) ->
+    if value == 'live'
+      $scope.live = true
+      $scope.upcoming = false
+    else
+      $scope.live = false
+      $scope.upcoming = true
+
+  $scope.setFilter('live')
