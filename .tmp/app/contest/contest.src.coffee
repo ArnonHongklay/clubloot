@@ -27,3 +27,6 @@ angular.module 'clublootApp'
     $('.show-' + elm + '> .item-show').css 'display', 'none'
     $('.show-' + elm + '> .item-hover').css 'display', 'block'
     return
+
+  $scope.selectContest = (contest) ->
+    window.location.href = "contest/#{contest}"
