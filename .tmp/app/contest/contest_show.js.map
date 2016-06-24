@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "contest_show.js",
+  "sourceRoot": "",
+  "sources": [
+    "contest_show.controller.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;EAAA;EAEA,OAAO,CAAC,MAAR,CAAe,aAAf,CACA,CAAC,UADD,CACY,iBADZ,EAC+B,SAAC,MAAD,EAAS,KAAT,EAAgB,MAAhB,GAAA,CAD/B;AAFA"
+}

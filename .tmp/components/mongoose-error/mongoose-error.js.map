@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "mongoose-error.js",
+  "sourceRoot": "",
+  "sources": [
+    "mongoose-error.directive.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;EAAA;;AAEA;;;EAGA,OAAO,CAAC,MAAR,CAAe,aAAf,CACA,CAAC,SADD,CACW,eADX,EAC4B,SAAA;WAC1B;MAAA,QAAA,EAAU,GAAV;MACA,OAAA,EAAS,SADT;MAEA,IAAA,EAAM,SAAC,KAAD,EAAQ,OAAR,EAAiB,KAAjB,EAAwB,OAAxB;eACJ,OAAO,CAAC,EAAR,CAAW,SAAX,EAAsB,SAAA;iBACpB,OAAO,CAAC,YAAR,CAAqB,UAArB,EAAiC,IAAjC;QADoB,CAAtB;MADI,CAFN;;EAD0B,CAD5B;AALA"
+}

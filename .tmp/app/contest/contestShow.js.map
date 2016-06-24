@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "contestShow.js",
+  "sourceRoot": "",
+  "sources": [
+    "contestShow.controller.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;;AAAA"
+}
