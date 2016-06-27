@@ -40,7 +40,7 @@ module.exports = (app) ->
     saveUninitialized: true
     store: new mongoStore(mongooseConnection: mongoose.connection)
   )
-  
+
 
   if 'production' is env
     app.use favicon(path.join(config.root, 'public', 'favicon.ico'))
