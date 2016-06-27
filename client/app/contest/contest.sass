@@ -34,7 +34,163 @@
 .phone
   display: none
 
+section.contest-show
+  .list-group
+    border-radius: 0px
+
+  .list-group-item
+    border-color: #fff
+    background: #d2d2d2
+    border-radius: 0px
+    height: 40px
+    font-weight: 300
+    border-left: none
+    border-right: none
+    color: #fff
+    cursor: pointer
+    &:last-child, &:first-child
+      border-radius: 0px !important
+
+  td
+    &:first-child, &:last-child
+      border-radius: 0px !important
+
+  .panel
+    border-radius: 0px !important
+
+  .chanel-detail tr
+    cursor: pointer
+
+  .list-box
+    position: absolute
+    top: 50px
+    bottom: 0px
+    width: 250px
+    left: 0px
+    background: #d2d2d2
+    box-sizing: border-box
+    padding-right: 1px
+    overflow-y: auto
+
+  .chanel-detail
+    position: absolute
+    left: 260px
+    box-sizing: border-box
+    right: 0px
+    top: 50px
+    bottom: 0px
+    overflow-y: auto
+    background: #fff
+    padding: 0px 40px
+    font-weight: 400 !important
+
+  .contest-detail, .player-detail
+    position: absolute
+    left: 260px
+    box-sizing: border-box
+    width: 400px
+    top: 50px
+    bottom: 0px
+    overflow-y: auto
+    background: #fff
+    padding: 10px
+    font-weight: 400 !important
+
+  .room-detail
+    position: absolute
+    left: 670px
+    box-sizing: border-box
+    right: 0px
+    top: 50px
+    bottom: 0px
+    overflow-y: auto
+    background: #fff
+    padding: 10px
+    font-weight: 400 !important
+
+  td:first-child
+    text-align: right
+
+  .loot
+    text-align: center
+
+  .gem-red
+    color: rgb(158, 9, 63)
+
+  .gem-blue
+    color: rgb(49, 80, 126)
+
+  .gem-grey
+    color: rgb(139, 134, 130)
+
+  .gem-green
+    color: rgb(128, 149, 92)
+
+  .circle
+    position: absolute
+    width: 20px
+    text-align: center
+    height: 20px
+    line-height: 20px
+    font-weight: 300
+    font-size: 12px
+    border-radius: 50px
+    display: inline-block
+    &.blue
+      border: 1px solid rgb(116, 205, 234)
+      color: rgb(116, 205, 234)
+    &.grey
+      border: 1px solid rgb(212, 212, 212)
+      color: rgb(212, 212, 212)
+
+  .text-contest
+    margin-left: 25px
+
+  .text-blue
+    color: rgb(116, 205, 234)
+
+  .text-grey
+    color: rgb(212, 212, 212)
+
+  .money-bag
+    display: inline-block
+    width: 20px
+    margin-top: -3px
+
+  .tbody td:last-child
+    text-align: right
+
+  .text-right
+    text-align: right
+    padding-right: 30px !important
+
+  .full-circle
+    width: 20px
+    text-align: center
+    height: 20px
+    line-height: 20px
+    font-weight: 300
+    font-size: 12px
+    border-radius: 50px
+    display: inline-block
+    color: #fff
+    &.blue
+      background: rgb(116, 205, 234)
+    &.grey
+      background: rgb(212, 212, 212)
+
+  .menuactive
+    background: rgb(147, 205, 221)
+
 @media (max-width: 768px)
+  section.contest-show.phone
+    .contest-detail, .player-detail
+      left: 0px
+      width: 100%
+      padding: 0
+    .player-detail
+      background: #fff
+      text-indent: 5px
   .desktop
     display: none
   .phone
