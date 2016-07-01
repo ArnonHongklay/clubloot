@@ -8,11 +8,11 @@ angular.module 'clublootApp'
       link: '/'
     },
     {
-      title: 'Contest',
+      title: 'Contests',
       link: '/contest'
     },
     {
-      title: 'Prize',
+      title: 'Prizes',
       link: '/prize'
     }
   ]

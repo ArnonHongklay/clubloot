@@ -10,4 +10,3 @@ dist
 /server/config/local.env.js
 npm-debug.log
 logs
-client/app/app.scss
