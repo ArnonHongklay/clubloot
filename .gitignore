@@ -4,9 +4,9 @@ public
 .tmp
 .sass-cache
 .idea
+.DS_Store
 client/bower_components
 dist
 /server/config/local.env.js
 npm-debug.log
 logs
-.DS_Store

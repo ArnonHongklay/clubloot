@@ -15,6 +15,7 @@ angular.module 'clublootApp'
       title: 'Prizes',
       link: '/prize'
     }
+
   ]
   $scope.isCollapsed = true
   $scope.isLoggedIn = Auth.isLoggedIn
