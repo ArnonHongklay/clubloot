@@ -1,0 +1,30 @@
+'use strict'
+
+angular.module 'clublootApp'
+.controller 'AdminNavbarCtrl', ($scope, $location, Auth) ->
+  $scope.menu = [
+    {
+      title: 'Dashboard'
+      link: '/dashboard'
+    },
+    {
+      title: 'Services',
+      link: '/service'
+    },
+    {
+      title: 'System',
+      link: '/system'
+    }
+
+  ]
+  # $scope.isCollapsed = true
+  # $scope.isLoggedIn = Auth.isLoggedIn
+  # $scope.isAdmin = Auth.isAdmin
+  # $scope.getCurrentUser = Auth.getCurrentUser
+  #
+  # $scope.logout = ->
+  #   Auth.logout()
+  #   $location.path '/login'
+  #
+  # $scope.isActive = (route) ->
+  #   route is $location.path()
