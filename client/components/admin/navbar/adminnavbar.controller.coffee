@@ -5,11 +5,11 @@ angular.module 'clublootApp'
   $scope.menu = [
     {
       title: 'Dashboard'
-      link: '/dashboard'
+      link: '/admin/dashboard'
     },
     {
       title: 'Services',
-      link: '/service'
+      link: '/admin/service'
     },
     {
       title: 'System',
