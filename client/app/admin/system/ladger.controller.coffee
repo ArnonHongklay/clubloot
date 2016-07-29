@@ -1,5 +1,5 @@
 angular.module 'clublootApp'
-.controller 'AdminSystemLadgerCtrl', ($scope, $http, socket) ->
+.controller 'AdminSystemLadgerCtrl', ($scope, $http, socket, $state) ->
   console.log "AdminSystemLadgerCtrl"
   $scope.ladgers = [
     {id: 1, status: 'plus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
