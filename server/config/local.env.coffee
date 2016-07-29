@@ -9,8 +9,8 @@ module.exports =
   DOMAIN: 'http://localhost:9000'
   SESSION_SECRET: "clubloot-secret"
 
-  FACEBOOK_ID: 'app-id'
-  FACEBOOK_SECRET: 'secret'
+  FACEBOOK_ID: '1725131707746453'
+  FACEBOOK_SECRET: '2e57915f8ef7d2241267f00ac72b9ac2'
 
   TWITTER_ID: 'app-id'
   TWITTER_SECRET: 'secret'
