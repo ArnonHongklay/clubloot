@@ -41,7 +41,7 @@ angular.module 'clublootApp'
   .state 'AdminSystem.gems',
     url: '/gems'
     templateUrl: 'app/admin/system/gems.html'
-    controller: 'AdminSystemCtrl'
+    controller: 'AdminSystemGemCtrl'
 
   .state 'AdminSystem.users',
     url: '/users'

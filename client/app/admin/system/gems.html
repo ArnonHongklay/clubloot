@@ -1,1 +1,218 @@
-gems
+<div class="row tax">
+  <div class="col-md-3">
+    <div class="tag-menu-box">
+      <div class="tag-menu" ng-click="taxMenu='gem'" ng-class="{'active': taxMenu=='gem'}">Gem Conversion</div>
+      <div class="tag-menu" ng-click="taxMenu='tax'" ng-class="{'active': taxMenu=='tax'}">Coin Packages</div>
+
+    </div>
+  </div>
+
+  <div class="col-md-9" ng-show="taxMenu=='gem'">
+    <h5>Gem Conversion</h5>
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond gem-grey" aria-hidden="true"></i></span>&nbsp Diamond
+      </div>
+      <div class="rate-value-box pull-right">
+      5 &nbsp <i class="fa fa-diamond gem-green" style="margin-right: 50px;"></i>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Diamond',rate:'5'}"></i>
+      </div>
+    </div>
+
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond gem-green" aria-hidden="true"></i></span>&nbsp Emerald
+      </div>
+      <div class="rate-value-box pull-right">
+      5 &nbsp <i class="fa fa-diamond gem-blue" style="margin-right: 50px;"></i>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Diamond',rate:'5'}"></i>
+      </div>
+    </div>
+
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond gem-blue" aria-hidden="true" ></i></span>&nbsp Sapphire
+      </div>
+      <div class="rate-value-box pull-right">
+      5 &nbsp <i class="fa fa-diamond gem-red" style="margin-right: 50px;"></i>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Diamond',rate:'5'}"></i>
+      </div>
+    </div>
+
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond gem-red" aria-hidden="true"></i></span>&nbsp Ruby
+      </div>
+      <div class="rate-value-box pull-right">
+      100 &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png" style="margin-right: 50px;">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Ruby',rate:'100'}"></i>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+  <div class="col-md-9" ng-show="taxMenu=='tax'">
+  <h5>Coin Packages</h5>
+    <table class="table" style="border-radius: 0px;">
+      <thead style="background:#dedede;">
+        <tr>
+          <td>Bucket</td>
+          <td>Coins</td>
+          <td>Bonus</td>
+          <td>Price</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
+          <td class="text-blue">A
+          </td>
+          <td class="loot">6,250
+          </td>
+          <td>
+            <div class="circle blue">0</div>
+          </td>
+          <td class="text-blue">$ 5.00</td>
+          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+        </tr>
+
+        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
+          <td class="text-blue">B
+          </td>
+          <td class="loot">12,500
+          </td>
+          <td>
+            <div class="circle blue">1,250</div>
+          </td>
+          <td class="text-blue">$ 10.00</td>
+          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+        </tr>
+
+        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
+          <td class="text-blue">C
+          </td>
+          <td class="loot">31,250
+          </td>
+          <td>
+            <div class="circle blue">3,125</div>
+          </td>
+          <td class="text-blue">$ 25.00</td>
+          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+        </tr>
+
+        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
+          <td class="text-blue">D
+          </td>
+          <td class="loot">62,500
+          </td>
+          <td>
+            <div class="circle blue">12,500</div>
+          </td>
+          <td class="text-blue">$ 50.00</td>
+          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+        </tr>
+
+        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
+          <td class="text-blue">E
+          </td>
+          <td class="loot">125,000
+          </td>
+          <td>
+            <div class="circle blue">31,250</div>
+          </td>
+          <td class="text-blue">$ 100.0</td>
+          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="system-modal" ng-show="showLadgerModal">
+    <div class="modal-bg" ng-click="showLadgerModal=false;refund=false;confirmRefund=false;"></div>
+    <div class="context-box" style="height: 340px;width:350px;top: 15%;" ng-hide="refund || confirmRefund">
+      <a class="close-btn" ng-click="showLadgerModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title b-text" style="text-align: left;">transaction_{{showLadgerModal.id}}</div>
+      <div style="padding: 0px 10px;">
+        <div class="ladger-detail-box">
+          [amount]
+        </div>
+        <div class="ladger-detail-box">
+          [payment_type]
+        </div>
+        <div class="ladger-detail-box">
+          [description]
+        </div>
+        <div class="ladger-detail-box">
+          [screen_name]
+        </div>
+        <div class="ladger-detail-box">
+          [transaction_date]
+        </div>
+        <div class="ladger-detail-box">
+          [transaction_time]
+        </div>
+      </div>
+      <br>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;" ng-click="showLadgerModal=false">CANCEL</div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;background:rgb(190,81,80);" ng-click="refund=true;">REFUND</div>
+
+    </div>
+    <div class="context-box" style="border-color: rgb(190,81,80);height: 280px; " ng-show="refund">
+      <a class="close-btn" ng-click="showLadgerModal=false;refund=false;"><i style="color:rgb(190,81,80);" class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title" style="color:rgb(190,81,80);">Refund [transacttion_{{showLadgerModal.id}}]</div>
+      <div class="desc g-text">Are you sure?<br>Please provide detailed description.
+      <br>
+        <div style="padding: 10px">
+          <textarea style="width: 100%;height: 80px;"></textarea>
+        </div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;background:rgb(190,81,80);" ng-click="confirmRefund=true;refund=false;">YES, DISCARD</div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;" ng-click="showLadgerModal=false;refund=false;">NO, CANCEL</div>
+
+      </div>
+
+    </div>
+
+    <div class="context-box" style="border-color: rgb(190,81,80);height: 250px; " ng-show="confirmRefund">
+      <a class="close-btn" ng-click="showLadgerModal=false;refund=false;confirmRefund=false;"><i style="color:rgb(190,81,80);" class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title" style="color:rgb(190,81,80);">Confirm Refund</div>
+      <div class="desc g-text">Authorized user, enter your pin to confirm entry.<br><br>
+        <input>
+      </div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="showLadgerModal=false;refund=false;confirmRefund=false;">VERIFY</div>
+
+    </div>
+  </div>
+
+  <div class="system-modal" ng-show="showRateModal">
+    <div class="modal-bg" ng-click="showSystemModal=false"></div>
+    <div class="context-box" ng-hide="confirmChange">
+      <a class="close-btn" ng-click="showRateModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title b-text">Update {{showRateModal.name}} Rate</div>
+      <div class="desc g-text">Changes are effective immediately<br><br>
+        <input ng-model="showRateModal.rate" value="{{showRateModal.rate}}" style="text-align:center;">
+      </div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="confirmChange=true">SUBMIT</div>
+
+    </div>
+
+    <div class="context-box" ng-show="confirmChange">
+      <a class="close-btn" ng-click="showRateModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title b-text">New {{showRateModal.name}} Rate: {{showRateModal.rate}}</div>
+      <div class="desc g-text">Authorized user, enter your pin to confirm entry.<br><br>
+        <input style="text-align:center;">
+      </div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="showRateModal=false;confirmChange=false">CONFIRM</div>
+
+    </div>
+  </div>
+
+
+</div>
