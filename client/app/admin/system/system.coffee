@@ -27,18 +27,22 @@ angular.module 'clublootApp'
     url: '/activeTemplate'
     templateUrl: 'app/admin/system/programs/active.template.html'
     controller: 'ActiveTemplateCtrl'
+
   .state 'AdminSystem.programming.expiredTemplate',
     url: '/expiredTemplate'
     templateUrl: 'app/admin/system/programs/expired.template.html'
     controller: 'ExpiredTemplateCtrl'
+
   .state 'AdminSystem.programming.programList',
     url: '/programList'
     templateUrl: 'app/admin/system/programs/program.list.html'
     controller: 'ProgramListCtrl'
+
   .state 'AdminSystem.programming.AddNewProgram',
     url: '/AddNewProgram'
     templateUrl: 'app/admin/system/programs/add.new.program.html'
     controller: 'AddNewProgramCtrl'
+
   .state 'AdminSystem.programming.AddNewTemplate',
     url: '/AddNewTemplate'
     templateUrl: 'app/admin/system/programs/add.new.template.html'
