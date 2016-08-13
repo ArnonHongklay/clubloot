@@ -20,8 +20,58 @@ angular.module 'clublootApp'
 
   .state 'AdminSystem.programming',
     url: '/programming'
-    templateUrl: 'app/admin/system/programming.html'
-    controller: 'AdminSystemCtrl'
+    templateUrl: 'app/admin/system/programs/programming.html'
+    controller: 'ProgrammingCtrl'
+
+  .state 'AdminSystem.programming.activeTemplate',
+    url: '/activeTemplate'
+    templateUrl: 'app/admin/system/programs/active.template.html'
+    controller: 'ActiveTemplateCtrl'
+  .state 'AdminSystem.programming.expiredTemplate',
+    url: '/expiredTemplate'
+    templateUrl: 'app/admin/system/programs/expired.template.html'
+    controller: 'ExpiredTemplateCtrl'
+  .state 'AdminSystem.programming.programList',
+    url: '/programList'
+    templateUrl: 'app/admin/system/programs/program.list.html'
+    controller: 'ProgramListCtrl'
+  .state 'AdminSystem.programming.AddNewProgram',
+    url: '/AddNewProgram'
+    templateUrl: 'app/admin/system/programs/add.new.program.html'
+    controller: 'AddNewProgramCtrl'
+  .state 'AdminSystem.programming.AddNewTemplate',
+    url: '/AddNewTemplate'
+    templateUrl: 'app/admin/system/programs/add.new.template.html'
+    controller: 'AddNewTemplateCtrl'
+
+  .state 'AdminSystem.question',
+    url: '/question'
+    templateUrl: 'app/admin/system/programs/question.html'
+    controller: 'QuestionCtrl'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   .state 'AdminSystem.ladger',
     url: '/ladger'
