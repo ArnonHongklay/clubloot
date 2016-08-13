@@ -20,37 +20,37 @@ angular.module 'clublootApp'
 
   .state 'AdminSystem.programming',
     url: '/programming'
-    templateUrl: 'app/admin/system/programming/programming.html'
+    templateUrl: 'app/admin/system/programming.html'
     controller: 'ProgrammingCtrl'
 
   .state 'AdminSystem.programming.activeTemplate',
     url: '/activeTemplate'
-    templateUrl: 'app/admin/system/programming/active.template.html'
+    templateUrl: 'app/admin/system/active.template.html'
     controller: 'ActiveTemplateCtrl'
 
   .state 'AdminSystem.programming.expiredTemplate',
     url: '/expiredTemplate'
-    templateUrl: 'app/admin/system/programming/expired.template.html'
+    templateUrl: 'app/admin/system/expired.template.html'
     controller: 'ExpiredTemplateCtrl'
 
   .state 'AdminSystem.programming.programList',
     url: '/programList'
-    templateUrl: 'app/admin/system/programming/program.list.html'
+    templateUrl: 'app/admin/system/program.list.html'
     controller: 'ProgramListCtrl'
 
   .state 'AdminSystem.programming.AddNewProgram',
     url: '/AddNewProgram'
-    templateUrl: 'app/admin/system/programming/add.new.program.html'
+    templateUrl: 'app/admin/system/add.new.program.html'
     controller: 'AddNewProgramCtrl'
 
   .state 'AdminSystem.programming.AddNewTemplate',
     url: '/AddNewTemplate'
-    templateUrl: 'app/admin/system/programming/add.new.template.html'
+    templateUrl: 'app/admin/system/add.new.template.html'
     controller: 'AddNewTemplateCtrl'
 
   .state 'AdminSystem.question',
     url: '/question'
-    templateUrl: 'app/admin/system/programming/question.html'
+    templateUrl: 'app/admin/system/question.html'
     controller: 'QuestionCtrl'
 
   .state 'AdminSystem.ladger',
