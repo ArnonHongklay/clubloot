@@ -49,30 +49,6 @@ angular.module 'clublootApp'
     templateUrl: 'app/admin/system/programs/question.html'
     controller: 'QuestionCtrl'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   .state 'AdminSystem.ladger',
     url: '/ladger'
     templateUrl: 'app/admin/system/ladger.html'
