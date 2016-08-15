@@ -13,7 +13,7 @@ angular.module 'clublootApp'
     },
     {
       title: 'System',
-      link: '/system'
+      link: '/admin/system'
     }
 
   ]
