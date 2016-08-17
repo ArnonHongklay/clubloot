@@ -18,7 +18,7 @@
     "grunt-express": "^1.4.1",
     "grunt-forever": "^0.4.7",
     "jsonwebtoken": "~5.4.1",
-    "lodash": "~3.10.1",
+    "lodash": "^3.10.1",
     "method-override": "~2.3.3",
     "mongoose": "~4.3.0",
     "morgan": "~1.6.1",
