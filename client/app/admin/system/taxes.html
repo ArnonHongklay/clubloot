@@ -1,0 +1,203 @@
+<div class="row tax">
+  <div class="col-md-3">
+    <div class="tag-menu-box">
+      <div class="tag-menu" ng-click="taxMenu='tax'" ng-class="{'active': taxMenu=='tax'}">Tax Collected</div>
+      <div class="tag-menu" ng-click="taxMenu='rate'" ng-class="{'active': taxMenu=='rate'}">Rates</div>
+    </div>
+  </div>
+
+  <div class="col-md-9" ng-show="taxMenu=='rate'">
+    <h5>Rates</h5>
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond " aria-hidden="true"></i></span>&nbsp Diamond
+      </div>
+      <div class="rate-value-box pull-right">
+      50,000 &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Diamond',rate:'50,000'}"></i>
+      </div>
+    </div>
+
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond " aria-hidden="true"></i></span>&nbsp Emerald
+      </div>
+      <div class="rate-value-box pull-right">
+      10,000 &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Emerald',rate:'10,000'}"></i>
+      </div>
+    </div>
+
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond " aria-hidden="true"></i></span>&nbsp Sapphire
+      </div>
+      <div class="rate-value-box pull-right">
+      2,000 &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Sapphire',rate:'2,000'}"></i>
+      </div>
+    </div>
+
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond " aria-hidden="true"></i></span>&nbsp Ruby
+      </div>
+      <div class="rate-value-box pull-right">
+      10% &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Ruby',rate:'10%'}"></i>
+      </div>
+    </div>
+
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond " aria-hidden="true"></i></span>&nbsp Coin
+      </div>
+      <div class="rate-value-box pull-right">
+      10% &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Coin',rate:'10%'}"></i>
+      </div>
+    </div>
+
+    <div class="rate-box g-text">
+      <div class="rate-value-box pull-left">
+        <i class="fa fa-diamond " aria-hidden="true"></i></span>&nbsp Prize
+      </div>
+      <div class="rate-value-box pull-right">
+      10% &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Prize',rate:'10%'}"></i>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="col-md-9" ng-show="taxMenu=='tax'">
+    <h5>Tax Collected
+      <div class="ladger-value-box pull-right">
+        <span class="pull-left">$</span>
+        <span class="pull-right">234,432.21</span>
+      </div>
+    </h5>
+    <div class="col-md-12" style="margin-top: 30px;">
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">Today</div>
+      <input id="ex2" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="0">
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">5/11/55</div>
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">YTD</div>
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">2015</div>
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">2014</div>
+    </div>
+    <div class="col-md-12" style="margin-top: 20px;">
+      <table class="table" style="border-radius: 0px;">
+          <tbody>
+            <tr ng-repeat="lad in ladgers" ng-click="selectLadger(lad)">
+              <td>
+                <i class="fa" ng-class="{'fa-plus': lad.status=='plus','fa-minus': lad.status=='minus'}" aria-hidden="true"></i>
+              </td>
+              <td class="b-text">
+                [{{lad.screenName}}]
+              </td>
+              <td>
+                {{lad.time}}
+              </td>
+              <td>
+                {{lad.transaction}}{{$index}}
+              </td>
+              <td>
+                {{lad.description}}
+              </td>
+              <td>
+                {{lad.amount}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div class="system-modal" ng-show="showLadgerModal">
+    <div class="modal-bg" ng-click="showLadgerModal=false;refund=false;confirmRefund=false;"></div>
+    <div class="context-box" style="height: 340px;width:350px;top: 15%;" ng-hide="refund || confirmRefund">
+      <a class="close-btn" ng-click="showLadgerModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title b-text" style="text-align: left;">transaction_{{showLadgerModal.id}}</div>
+      <div style="padding: 0px 10px;">
+        <div class="ladger-detail-box">
+          [amount]
+        </div>
+        <div class="ladger-detail-box">
+          [payment_type]
+        </div>
+        <div class="ladger-detail-box">
+          [description]
+        </div>
+        <div class="ladger-detail-box">
+          [screen_name]
+        </div>
+        <div class="ladger-detail-box">
+          [transaction_date]
+        </div>
+        <div class="ladger-detail-box">
+          [transaction_time]
+        </div>
+      </div>
+      <br>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;" ng-click="showLadgerModal=false">CANCEL</div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;background:rgb(190,81,80);" ng-click="refund=true;">REFUND</div>
+
+    </div>
+    <div class="context-box" style="border-color: rgb(190,81,80);height: 280px; " ng-show="refund">
+      <a class="close-btn" ng-click="showLadgerModal=false;refund=false;"><i style="color:rgb(190,81,80);" class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title" style="color:rgb(190,81,80);">Refund [transacttion_{{showLadgerModal.id}}]</div>
+      <div class="desc g-text">Are you sure?<br>Please provide detailed description.
+      <br>
+        <div style="padding: 10px">
+          <textarea style="width: 100%;height: 80px;"></textarea>
+        </div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;background:rgb(190,81,80);" ng-click="confirmRefund=true;refund=false;">YES, DISCARD</div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;" ng-click="showLadgerModal=false;refund=false;">NO, CANCEL</div>
+
+      </div>
+
+    </div>
+
+    <div class="context-box" style="border-color: rgb(190,81,80);height: 250px; " ng-show="confirmRefund">
+      <a class="close-btn" ng-click="showLadgerModal=false;refund=false;confirmRefund=false;"><i style="color:rgb(190,81,80);" class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title" style="color:rgb(190,81,80);">Confirm Refund</div>
+      <div class="desc g-text">Authorized user, enter your pin to confirm entry.<br><br>
+        <input>
+      </div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="showLadgerModal=false;refund=false;confirmRefund=false;">VERIFY</div>
+
+    </div>
+  </div>
+
+  <div class="system-modal" ng-show="showRateModal">
+    <div class="modal-bg" ng-click="showSystemModal=false"></div>
+    <div class="context-box" ng-hide="confirmChange">
+      <a class="close-btn" ng-click="showRateModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title b-text">Update {{showRateModal.name}} Rate</div>
+      <div class="desc g-text">Changes are effective immediately<br><br>
+        <input ng-model="showRateModal.rate" value="{{showRateModal.rate}}" style="text-align:center;">
+      </div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="confirmChange=true">SUBMIT</div>
+
+    </div>
+
+    <div class="context-box" ng-show="confirmChange">
+      <a class="close-btn" ng-click="showRateModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title b-text">New {{showRateModal.name}} Rate: {{showRateModal.rate}}</div>
+      <div class="desc g-text">Authorized user, enter your pin to confirm entry.<br><br>
+        <input style="text-align:center;">
+      </div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="showRateModal=false;confirmChange=false">CONFIRM</div>
+
+    </div>
+  </div>
+
+
+</div>
