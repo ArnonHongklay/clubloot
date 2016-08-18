@@ -23,4 +23,4 @@ angular.module 'clublootApp'
     console.log "-----------"
     return if $scope.systemTab.state == $scope.menus[index].state
     $scope.systemTab = $scope.menus[index]
-    $state.go("AdminSystem.#{$scope.systemTab.state}");
+    $state.go("AdminSystem.#{$scope.systemTab.state}")

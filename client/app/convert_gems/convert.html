@@ -3,14 +3,14 @@
 <section class="convert-gem" ng-hide="getPrice" ng-class="{hmb: itemSelected}">
   <div class="container">
     <div class="row" ng-init="cateFilter = '1'">
-        <div class="col-md-8 col-sm-8 box-left">
+        <div class="col-md-12 col-sm-12">
           <h3 style="margin-top: 0px;" class="pp-text"><i class="fa fa-exchange" aria-hidden="true"></i> Convert Gems</h3>
           <h5 class="g-text" style="line-height: 20px;">Convert lower value gems to higher value gems.<br>Only Diamonds can be traded for prizes.</h5>
           <h5 class="g-text" style="margin-top: 20px;">Click on the arrow to convert the disired gem type.</h5>
 
-          <div class="col-md-12 convert-box" ng-click="showModal=true">
+          <div class="col-md-12 convert-box">
             <div class="gem-box">
-              <i class="fa fa-diamond gem-green" aria-hidden="true"></i>
+              <i class="fa fa-diamond gem-green" aria-hidden="true">X5</i>
               <span class="gem-name g-text">Emerald</span>
             </div>
 
@@ -21,16 +21,16 @@
               <span class="gem-name g-text">Diamond</span>
             </div>
 
-            <div class="btn btn-primary" style="background: #50ACC4;border: 0px;margin-top: -6px;margin-left: 20px;">
+            <div class="btn btn-primary" ng-click="convertGem('diamond')" style="height: 39px;line-height: 28px;background: #50ACC4;border: 0px;margin-top: -6px;margin-left: 20px;">
             Exchange Fee 30,000 coins
             </div>
 
 
           </div>
 
-          <div class="col-md-12 convert-box" ng-click="showModal=true">
+          <div class="col-md-12 convert-box">
             <div class="gem-box">
-              <i class="fa fa-diamond gem-blue" aria-hidden="true"></i>
+              <i class="fa fa-diamond gem-blue" aria-hidden="true">X5</i>
               <span class="gem-name g-text">Sapphire</span>
             </div>
 
@@ -41,7 +41,7 @@
               <span class="gem-name g-text">Emerald</span>
             </div>
 
-            <div class="btn btn-primary" style="background: #50ACC4;border: 0px;margin-top: -6px;margin-left: 20px;">
+            <div class="btn btn-primary" ng-click="convertGem('emerald')" style="height: 39px;line-height: 28px;background: #50ACC4;border: 0px;margin-top: -6px;margin-left: 20px;">
             Exchange Fee 20,000 coins
             </div>
 
@@ -49,9 +49,10 @@
 
           </div>
 
-          <div class="col-md-12 convert-box" ng-click="showModal=true">
+
+          <div class="col-md-12 convert-box">
             <div class="gem-box">
-              <i class="fa fa-diamond gem-red" aria-hidden="true"></i>
+              <i class="fa fa-diamond gem-red" aria-hidden="true">X5</i>
               <span class="gem-name g-text">Ruby</span>
             </div>
 
@@ -62,7 +63,7 @@
               <span class="gem-name g-text">Sapphire</span>
             </div>
 
-            <div class="btn btn-primary" style="background: #50ACC4;border: 0px;margin-top: -6px;margin-left: 20px;">
+            <div class="btn btn-primary" ng-click="convertGem('sapphire')" style="height: 39px;line-height: 28px;background: #50ACC4;border: 0px;margin-top: -6px;margin-left: 20px;">
             Exchange Fee 10,000 coins
             </div>
 
@@ -74,29 +75,33 @@
         </div>
 
 
+        <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+          <h5 class="g-text snap-title">Here's your bags</h5>
 
-        <div class="col-md-4 col-sm-4 box-right">
-          <h5 class="g-text snap-title">Here's a snapshot of your Loot. {{showModal}}</h5>
 
-
-          <div class="col-sm-12 col-md-12 value-box-added pp pull-left">
+          <div class="col-sm-12 col-md-12 value-box-added pp pull-left diamond">
             <span class="pull-left"><i class="fa fa-diamond" aria-hidden="true"></i></span>
-            <span class="pull-right">5</span>
+            <span class="pull-right">{{currentGem.diamond}}</span>
           </div>
 
-          <div class="col-sm-12 col-md-12 value-box-added pp pull-left">
+          <div class="col-sm-12 col-md-12 value-box-added pp pull-left emerald">
             <span class="pull-left gem-green"><i class="fa fa-diamond" aria-hidden="true"></i></span>
-            <span class="pull-right">22</span>
+            <span class="pull-right">{{currentGem.emerald}}</span>
           </div>
 
-          <div class="col-sm-12 col-md-12 value-box-added pp pull-left">
+          <div class="col-sm-12 col-md-12 value-box-added pp pull-left sapphire">
             <span class="pull-left gem-blue"><i class="fa fa-diamond" aria-hidden="true"></i></span>
-            <span class="pull-right">9</span>
+            <span class="pull-right">{{currentGem.sapphire}}</span>
           </div>
 
-          <div class="col-sm-12 col-md-12 value-box-added pp pull-left">
+          <div class="col-sm-12 col-md-12 value-box-added pp pull-left ruby">
             <span class="pull-left gem-red"><i class="fa fa-diamond" aria-hidden="true"></i></span>
-            <span class="pull-right">31</span>
+            <span class="pull-right">{{currentGem.ruby}}</span>
+          </div>
+
+          <div class="col-sm-12 col-md-12 value-box-added pp pull-left coins">
+            <span class="pull-left gem-red"><img style="margin-top: -5px;" src="assets/images/money-bag-grey.png"></span>
+            <span class="pull-right">{{currentGem.coins}}</span>
           </div>
 
         </div>

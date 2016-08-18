@@ -55,9 +55,16 @@ section.convert-gem
     cursor: pointer
 
   .value-box-added
-    width: 250px
+    width: 85px
     max-width: 100%
-    clear: both
+    display: inline-block
+    margin-right: 10px
+    &.changed
+      border-color: green
+    &.coins
+      width: 150px
+      img
+        width: 30px
   .box-left
     border-right: 1px solid #dedede
   .arrow
@@ -66,7 +73,7 @@ section.convert-gem
     margin-left: 10px
     margin-right: 10px
   .gem-box
-    width: 120px
+    width: 140px
     display: inline-block
     height: 40px
     padding: 0px 10px 0px 10px
