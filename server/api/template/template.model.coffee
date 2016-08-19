@@ -5,6 +5,7 @@ Schema = mongoose.Schema
 
 TemplateSchema = new Schema
   name: String
+  description: String
   info: String
   active: Boolean
 
