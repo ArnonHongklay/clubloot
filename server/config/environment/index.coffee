@@ -38,7 +38,6 @@ all =
       db:
         safe: true
 
-
   facebook:
     clientID: process.env.FACEBOOK_ID or '1725131707746453'
     clientSecret: process.env.FACEBOOK_SECRET or '2e57915f8ef7d2241267f00ac72b9ac2'
