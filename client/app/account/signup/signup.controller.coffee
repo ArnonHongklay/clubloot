@@ -6,6 +6,7 @@ angular.module 'clublootApp'
   $scope.user = {}
   $scope.errors = {}
   $scope.register = (form) ->
+    console.log "form"
     $scope.submitted = true
 
     if form.$valid
