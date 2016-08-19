@@ -11,7 +11,6 @@ exports.index = (req, res) ->
     res.status(200).json payments
 
 
-
 # Get a single payment
 exports.show = (req, res) ->
   Payment.findById req.params.id, (err, payment) ->
