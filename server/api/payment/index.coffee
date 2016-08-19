@@ -1,7 +1,7 @@
 'use strict'
 
 express = require 'express'
-controller = require './template.controller'
+controller = require './payment.controller'
 
 router = express.Router()
 
