@@ -40,9 +40,9 @@ all =
 
 
   facebook:
-    clientID: process.env.FACEBOOK_ID or '1725131707746453'
-    clientSecret: process.env.FACEBOOK_SECRET or '2e57915f8ef7d2241267f00ac72b9ac2'
-    callbackURL: (process.env.DOMAIN or '') + '/auth/facebook/callback'
+    clientID: '1725131707746453'
+    clientSecret: '2e57915f8ef7d2241267f00ac72b9ac2'
+    callbackURL: '/auth/facebook/callback'
 
   twitter:
     clientID: process.env.TWITTER_ID or 'id'
