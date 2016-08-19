@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'ConvertGemsCtrl', ($scope, $http, socket) ->
+.controller 'ConvertGemsCtrl', ($scope, $http, socket, $timeout) ->
   console.log "ConvertGemsCtrl"
   $scope.showModal = false
 
@@ -59,25 +59,49 @@ angular.module 'clublootApp'
         return
 
   $scope.confirmConvert = (type) ->
+    coinFee = 0
+    subType = ''
     console.log $scope.mirorCurrent = $scope.currentGem
     if type == "diamond"
+      subType = "emerald"
+      coinFee = 30000
       $scope.currentGem.diamond = $scope.currentGem.diamond + 1
       $scope.currentGem.emerald = $scope.currentGem.emerald - 5
-      $scope.currentGem.coins   = $scope.currentGem.coins - 30000
-      $(".value-box-added."+type).addClass('changed')
+      $scope.currentGem.coins   = $scope.currentGem.coins - coinFee
 
     else if type == "emerald"
+      subType = "sapphire"
+      coinFee = 20000
       $scope.currentGem.emerald  = $scope.currentGem.emerald + 1
       $scope.currentGem.sapphire = $scope.currentGem.sapphire - 5
-      $scope.currentGem.coins   = $scope.currentGem.coins - 20000
-      $(".value-box-added."+type).addClass('changed')
+      $scope.currentGem.coins   = $scope.currentGem.coins - coinFee
 
     else if type == "sapphire"
+      subType = "ruby"
+      coinFee = 10000
       $scope.currentGem.sapphire = $scope.currentGem.sapphire + 1
       $scope.currentGem.ruby = $scope.currentGem.ruby - 5
-      $scope.currentGem.coins   = $scope.currentGem.coins - 10000
-      $(".value-box-added."+type).addClass('changed')
+      $scope.currentGem.coins   = $scope.currentGem.coins - coinFee
     $scope.$apply()
+    $(".value-box-added."+type+" .num-noti").html("+1")
+    $(".value-box-added."+subType+" .num-noti").html("-5")
+    $(".value-box-added.coins .num-noti").html("-"+coinFee)
+
+    $(".value-box-added."+type+" .num-noti").addClass("plus show")
+    $(".value-box-added."+subType+" .num-noti").addClass("minus show")
+    $(".value-box-added.coins .num-noti").addClass("minus show")
+
+    $(".value-box-added."+type).addClass('changed')
+    $(".value-box-added."+type).addClass('shake-rotate shake-constant')
+    $timeout ->
+      $(".value-box-added."+type).removeClass('shake-rotate shake-constant')
+    , 1000
+    $timeout ->
+      $(".value-box-added.coins .num-noti").removeClass("minus show")
+      $(".value-box-added."+type).removeClass('changed')
+      $(".value-box-added."+type+" .num-noti").removeClass("plus show")
+      $(".value-box-added."+subType+" .num-noti").removeClass("minus show")
+    , 2000
 
   $scope.goDashboard = () ->
     window.location.href = "/dashboard"
