@@ -4,17 +4,43 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 crypto = require 'crypto'
 authTypes = [
-  'github'
-  'twitter'
+  # 'github'
+  # 'twitter'
   'facebook'
-  'google'
+  # 'google'
 ]
 
 UserSchema = new Schema(
   name: String
+  username:
+    type: String
+    lowercase: true
+    index:
+      unique: true
   email:
     type: String
     lowercase: true
+  first_name: String
+  last_name: String
+  birthday: Date
+  billing_address: String
+  billing_city: String
+  billing_state: String
+  billing_zipcode: String
+  mailing_address: String
+  mailing_city: String
+  mailing_state: String
+  mailing_zipcode: String
+  lifetime_puchases: Number
+  lastest_purchase: Date
+  total_logins: Number
+  consecutive_logins: Number
+  diamonds: Number
+  emeralds: Number
+  sapphires: Number
+  rubies: Number
+  coins: Number
+  prizes: Number
   role:
     type: String
     default: 'user'
@@ -22,9 +48,9 @@ UserSchema = new Schema(
   provider: String
   salt: String
   facebook: {}
-  twitter: {}
-  google: {}
-  github: {}
+  # twitter: {}
+  # google: {}
+  # github: {}
 )
 
 ###*
