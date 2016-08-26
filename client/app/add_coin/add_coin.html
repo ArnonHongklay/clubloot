@@ -13,53 +13,19 @@
 
       <table class="table" style="border-radius: 0px;">
         <tbody>
-          <tr>
+
+          <tr ng-repeat="bucket in buckets">
             <td class="pp-text">
-              <input type="radio" name="bucket" ng-model="selectedBucket" value="6,250"> &nbsp Wee bucket
+              <input type="radio" name="bucket" ng-model="$parent.selectedBucket" ng-value="bucket.coins+bucket.bonus"> &nbsp {{bucket.bucket}}
             </td>
             <td>
-              6,250 + 0% bonus = <span class="bold-text">6,250 coins</span>
+              {{bucket.coins | currency:"":0}} + {{bucket.bonus | currency:"":0}} bonus = <span class="bold-text">{{bucket.coins+bucket.bonus | currency:"":0}} coins</span>
             </td>
             <td>
-              <span class="bold-text">$ 5.00</span>
+              <span class="bold-text">{{bucket.price | currency:"$ ":2}}</span>
             </td>
           </tr>
 
-          <tr>
-            <td class="pp-text">
-              <input type="radio" name="bucket" ng-model="selectedBucket" value="13,750"> &nbsp Petite bucket
-            </td>
-            <td>
-              12,500 + 10% bonus = <span class="bold-text">13,750 coins</span>
-            </td>
-            <td>
-              <span class="bold-text">$ 10.00</span>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="pp-text">
-              <input type="radio" name="bucket" ng-model="selectedBucket" value="34,750"> &nbsp Grande bucket
-            </td>
-            <td>
-              31,250 + 10% bonus = <span class="bold-text">34,375 coins</span>
-            </td>
-            <td>
-              <span class="bold-text">$ 25.00</span>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="pp-text">
-              <input type="radio" name="bucket" ng-model="selectedBucket" value="75,000"> &nbsp Full bucket
-            </td>
-            <td>
-              62,500 + 20% bonus = <span class="bold-text">75,000 coins</span>
-            </td>
-            <td>
-              <span class="bold-text">$ 50.00</span>
-            </td>
-          </tr>
 
           <tr>
             <td class="pp-text">

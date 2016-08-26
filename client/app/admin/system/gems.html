@@ -14,7 +14,7 @@
         <i class="fa fa-diamond gem-grey" aria-hidden="true"></i></span>&nbsp Diamond
       </div>
       <div class="rate-value-box pull-right">
-      5 &nbsp <i class="fa fa-diamond gem-green" style="margin-right: 50px;"></i>
+      {{gems.diamond.rate}} &nbsp <i class="fa fa-diamond gem-green" style="margin-right: 50px;"></i>
       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
       <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Diamond',rate:'5'}"></i>
       </div>
@@ -25,9 +25,9 @@
         <i class="fa fa-diamond gem-green" aria-hidden="true"></i></span>&nbsp Emerald
       </div>
       <div class="rate-value-box pull-right">
-      5 &nbsp <i class="fa fa-diamond gem-blue" style="margin-right: 50px;"></i>
+      {{gems.emerald.rate}} &nbsp <i class="fa fa-diamond gem-blue" style="margin-right: 50px;"></i>
       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Diamond',rate:'5'}"></i>
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Emerald',rate:'5'}"></i>
       </div>
     </div>
 
@@ -36,9 +36,9 @@
         <i class="fa fa-diamond gem-blue" aria-hidden="true" ></i></span>&nbsp Sapphire
       </div>
       <div class="rate-value-box pull-right">
-      5 &nbsp <i class="fa fa-diamond gem-red" style="margin-right: 50px;"></i>
+      {{gems.sapphire.rate}} &nbsp <i class="fa fa-diamond gem-red" style="margin-right: 50px;"></i>
       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Diamond',rate:'5'}"></i>
+      <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Sapphire',rate:'5'}"></i>
       </div>
     </div>
 
@@ -47,7 +47,7 @@
         <i class="fa fa-diamond gem-red" aria-hidden="true"></i></span>&nbsp Ruby
       </div>
       <div class="rate-value-box pull-right">
-      100 &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png" style="margin-right: 50px;">
+      {{gems.ruby.rate}} &nbsp <img class="money-bag" src="assets/images/Money Bag Icon.png" style="margin-right: 50px;">
       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
       <i class="fa fa-pencil" aria-hidden="true" ng-click="showRateModal={name:'Ruby',rate:'100'}"></i>
       </div>
@@ -68,67 +68,53 @@
           <td>Bonus</td>
           <td>Price</td>
           <td></td>
+          <td></td>
         </tr>
       </thead>
       <tbody>
-        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
-          <td class="text-blue">A
+
+        <tr style="text-align:left;" class="buckets">
+          <td class="text-blue">
+            <input ng-model="newBucket.bucket" placeholder="Bucket name">
           </td>
-          <td class="loot">6,250
+          <td class="loot">
+            <input ng-model="newBucket.coins" type="number" placeholder="coins">
           </td>
           <td>
-            <div class="circle blue">0</div>
+            <div class="circle blue">
+              <input ng-model="newBucket.bonus" type="number" placeholder="bonus">
+            </div>
           </td>
-          <td class="text-blue">$ 5.00</td>
-          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+          <td class="text-blue">
+            <input ng-model="newBucket.price" type="number" placeholder="price">
+          </td>
+          <td><div class="btn btn-success" ng-click="addNewBucket()">Add</td>
         </tr>
 
-        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
-          <td class="text-blue">B
+        <tr style="text-align:left;" ng-repeat="bucket in buckets" class="buckets">
+          <td class="text-blue">
+            <span ng-hide="bucket.showEdit" >{{bucket.bucket}}</span>
+            <input ng-model="bucket.bucket" ng-show="bucket.showEdit">
           </td>
-          <td class="loot">12,500
-          </td>
-          <td>
-            <div class="circle blue">1,250</div>
-          </td>
-          <td class="text-blue">$ 10.00</td>
-          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-        </tr>
-
-        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
-          <td class="text-blue">C
-          </td>
-          <td class="loot">31,250
+          <td class="loot">
+            <span ng-hide="bucket.showEdit" >{{bucket.coins | currency:"":0}}</span>
+            <input ng-model="bucket.coins" ng-show="bucket.showEdit" type="number">
           </td>
           <td>
-            <div class="circle blue">3,125</div>
+            <div class="circle blue">
+              <span ng-hide="bucket.showEdit" >{{bucket.bonus | currency:"":0}}</span>
+              <input ng-model="bucket.bonus" ng-show="bucket.showEdit" type="number">
+            </div>
           </td>
-          <td class="text-blue">$ 25.00</td>
-          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-        </tr>
-
-        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
-          <td class="text-blue">D
-          </td>
-          <td class="loot">62,500
+          <td class="text-blue">
+            <span ng-hide="bucket.showEdit" >{{bucket.price | currency:"$ ":2}}</span>
+            <input ng-model="bucket.price" ng-show="bucket.showEdit" type="number">
           </td>
           <td>
-            <div class="circle blue">12,500</div>
+            <i class="fa fa-pencil" aria-hidden="true" ng-click="bucket.showEdit = true" ng-hide="bucket.showEdit"></i>
+            <i class="fa fa-check" aria-hidden="true" style="color:green;font-size:18px;" ng-click="bucket.showEdit = false;saveEditBucket(bucket)" ng-show="bucket.showEdit"></i>
           </td>
-          <td class="text-blue">$ 50.00</td>
-          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-        </tr>
-
-        <tr style="text-align:left;" ng-click="showContestDetail='Amazing Chicks of Long Beach'">
-          <td class="text-blue">E
-          </td>
-          <td class="loot">125,000
-          </td>
-          <td>
-            <div class="circle blue">31,250</div>
-          </td>
-          <td class="text-blue">$ 100.0</td>
-          <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+          <td><i class="fa fa-close" aria-hidden="true" style="color:red;font-size:18px;" ng-click="removeBucket(bucket._id, $index)"></i></td>
         </tr>
 
       </tbody>
@@ -197,7 +183,12 @@
       <a class="close-btn" ng-click="showRateModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
       <div class="title b-text">Update {{showRateModal.name}} Rate</div>
       <div class="desc g-text">Changes are effective immediately<br><br>
-        <input ng-model="showRateModal.rate" value="{{showRateModal.rate}}" style="text-align:center;">
+        <!-- <input ng-model="showRateModal.rate" value="{{showRateModal.rate}}" style="text-align:center;"> -->
+        <input ng-model="gems.diamond.rate" ng-show="showRateModal.name == 'Diamond'">
+        <input ng-model="gems.emerald.rate" ng-show="showRateModal.name == 'Emerald'">
+        <input ng-model="gems.sapphire.rate" ng-show="showRateModal.name == 'Sapphire'">
+        <input ng-model="gems.ruby.rate" ng-show="showRateModal.name == 'Ruby'">
+
       </div>
       <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="confirmChange=true">SUBMIT</div>
 
@@ -209,7 +200,7 @@
       <div class="desc g-text">Authorized user, enter your pin to confirm entry.<br><br>
         <input style="text-align:center;">
       </div>
-      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="showRateModal=false;confirmChange=false">CONFIRM</div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="showRateModal=false;confirmChange=false;update()">CONFIRM</div>
 
     </div>
   </div>
