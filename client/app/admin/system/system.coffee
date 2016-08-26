@@ -72,6 +72,13 @@ angular.module 'clublootApp'
     url: '/gems'
     templateUrl: 'app/admin/system/gems.html'
     controller: 'AdminSystemGemCtrl'
+    resolve:
+      gems: ($http, $stateParams) ->
+        $http.get "/api/gem_conversion"
+      buckets: ($http, $stateParams) ->
+        $http.get "/api/coin_package"
+
+
 
   .state 'AdminSystem.users',
     url: '/users'
