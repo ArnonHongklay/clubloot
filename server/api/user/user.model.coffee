@@ -4,10 +4,10 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 crypto = require 'crypto'
 authTypes = [
-  # 'github'
-  # 'twitter'
+  'github'
+  'twitter'
   'facebook'
-  # 'google'
+  'google'
 ]
 
 UserSchema = new Schema(
@@ -48,9 +48,9 @@ UserSchema = new Schema(
   provider: String
   salt: String
   facebook: {}
-  # twitter: {}
-  # google: {}
-  # github: {}
+  twitter: {}
+  google: {}
+  github: {}
 )
 
 ###*
