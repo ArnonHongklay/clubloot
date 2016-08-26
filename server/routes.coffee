@@ -11,7 +11,8 @@ module.exports = (app) ->
 
   # Insert routes below
   app.use '/api/things', require './api/thing'
-  app.use '/api/template', require './api/template'
+  app.use '/api/templates', require './api/template'
+  # app.use '/api/contest', require './api/contest'
   app.use '/api/users', require './api/user'
   app.use '/api/gem_conversion', require './api/gem_conversion'
   app.use '/api/coin_package', require './api/coin_package'
