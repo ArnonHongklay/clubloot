@@ -14,6 +14,8 @@ module.exports = (app) ->
   app.use '/api/templates', require './api/template'
   # app.use '/api/contest', require './api/contest'
   app.use '/api/users', require './api/user'
+  app.use '/api/gem_conversion', require './api/gem_conversion'
+  app.use '/api/coin_package', require './api/coin_package'
   app.use '/auth', require './auth'
 
   # All undefined asset or api routes should return a 404

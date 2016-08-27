@@ -1,0 +1,34 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Adjustment</h3>
+        <select style="border: 1px solid #ddd" name="">
+          <option value="option"></option>
+        </select>
+        <input type="text" name="name" value="">
+        <select style="border: 1px solid #ddd" name="">
+          <option value="option"></option>
+        </select>        <br>
+                <button type="button" name="button" class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">Submit</button>
+
+      </div>
+      <div class="col-sm-6">
+        <h3>History</h3>
+        <div class="row" ng-repeat="hist in history">
+          <div class="col-sm-4">
+            <i class="fa" ng-class="{'fa-plus': hist.status=='plus','fa-minus': hist.status=='minus'}" aria-hidden="true"></i>
+            &nbsp;&nbsp;&nbsp;[Date]
+          </div>
+          <div class="col-sm-6">
+            <i class="fa fa-diamond {{hist.color}}" aria-hidden="true"></i> {{hist.name}}
+          </div>
+          <div class="col-sm-2">
+            {{hist.amount}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

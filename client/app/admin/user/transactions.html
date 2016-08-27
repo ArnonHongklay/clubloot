@@ -1,0 +1,26 @@
+<div class="col-md-12" style="margin-top: 20px;">
+  <table class="table" style="border-radius: 0px;">
+    <tbody>
+      <tr ng-repeat="transaction in transactions">
+        <td>
+          <i class="fa" ng-class="{'fa-plus': transaction.status=='plus','fa-minus': transaction.status=='minus'}" aria-hidden="true"></i>
+        </td>
+        <td class="b-text">
+          [{{transaction.screenName}}]
+        </td>
+        <td>
+          {{transaction.time}}
+        </td>
+        <td>
+          {{transaction.transaction}}{{$index}}
+        </td>
+        <td>
+          {{transaction.description}}
+        </td>
+        <td>
+          {{transaction.amount}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
