@@ -1,0 +1,29 @@
+<div class="row tax">
+  <div class="col-sm-2">
+    <div class="tag-menu-box">
+      <div class="tag-menu" ng-click="taxMenu='gem'" ng-class="{'active': taxMenu=='gem'}">Hosting</div>
+      <div class="tag-menu" ng-click="taxMenu='tax'" ng-class="{'active': taxMenu=='tax'}">Participating</div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <h2>Program List</h2>
+    <table class="table">
+      <tr ng-repeat="list in programList">
+        <td>
+          <i ng-if="list.play" class="fa fa-play" aria-hidden="true" style="border: 1px solid #94CE58;
+          padding: 7px 10px; color: #94CE58; border-radius: 5px"></i>
+          <i ng-if="!list.play" class="fa fa-pause" aria-hidden="true" style="border: 1px solid #BE5150;
+          padding: 7px 10px; color: #BE5150; border-radius: 5px"></i>
+          <span style="color: #57B1C9"> {{list.name}}</span>
+        </td>
+        <td class="text-right">
+          [Player]
+        </td>
+        <td class="text-right">
+          x
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
