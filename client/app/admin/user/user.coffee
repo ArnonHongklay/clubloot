@@ -32,3 +32,8 @@ angular.module 'clublootApp'
     url: '/notes'
     templateUrl: 'app/admin/user/notes.html'
     controller: 'AdminUserNotesCtrl'
+
+  .state 'Adminuser.accounting',
+    url: '/accounting'
+    templateUrl: 'app/admin/user/accounting.html'
+    controller: 'AdminUserAccountingCtrl'

@@ -22,5 +22,4 @@ angular.module 'clublootApp'
     {id: 17, status: 'minus', screenName: 'Date Time', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
     {id: 18, status: 'plus', screenName: 'Date Time', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
     {id: 19, status: 'plus', screenName: 'Date Time', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
-
   ]
