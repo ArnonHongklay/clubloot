@@ -1,42 +1,80 @@
 
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-12">
 
     <h2>Add New Template</h2>
 
-    <div style="border: 1px solid #ccc; background: #F2F2F2; font-size: 16px;">
-      <style media="screen">
-        tr {
-          line-height: 30px;
-        }
-        td {
-          padding: 0px 10px;
-        }
-      </style>
-      <table>
-        <tr>
-          <td width="80%">Program Name</td>
-          <td width="20%">Category</td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" name="name" value="" style="width: 95%;">
-          </td>
-          <td>
-            <select class="" name="">
-              <option value="option" style="border-radius: 0;">Select One</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <a ui-sref="#">+ Upload Image</a>
-          </td>
-        </tr>
-      </table>
+    <style media="screen">
+      select {
+        width: 100%;
+      }
+      option {
+        border-radius: 0;
+      }
+      input[type=text] {
+        width: 100%
+      }
+      .row {
+        margin: 10px 0px;
+      }
+    </style>
 
+    <div class="row">
+      <div class="col-sm-6">
+        <label for="name">Template Name</label>
+        <input type="text" name="name" value="">
+      </div>
+      <div class="col-sm-6">
+        <label for="program">Program</label>
+        <select class="program" name="program">
+          <option value="option">Select One</option>
+        </select>
+      </div>
     </div>
-
+    <div class="row">
+      <div class="col-sm-4 text-right">
+        <label for="number-question">Number of Questions</label>
+      </div>
+      <div class="col-sm-2">
+        <select class="number-question" name="number-question">
+          <option value="option">select one</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 text-right">
+        <label for="number-question">Max Number of Answers</label>
+      </div>
+      <div class="col-sm-2">
+        <select class="max-number-question" name="max-number-question">
+          <option value="option">select one</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 text-right">
+        <label for="number-question">Start Date & Time</label>
+      </div>
+      <div class="col-sm-6">
+          <div class="input-group input-daterange">
+            <input type="text" class="form-control" value="2012-04-05">
+            <span class="input-group-addon">to</span>
+            <input type="text" class="form-control" value="2012-04-19">
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 text-right">
+        <label for="number-question">End Date & Time</label>
+      </div>
+      <div class="col-sm-6">
+          <div class="input-group input-daterange">
+            <input type="text" class="form-control" value="2012-04-05">
+            <span class="input-group-addon">to</span>
+            <input type="text" class="form-control" value="2012-04-19">
+          </div>
+      </div>
+    </div>
           <a ui-sref="#" style="margin-top: 20px;
         display: inline-block;
         padding: 10px 60px;

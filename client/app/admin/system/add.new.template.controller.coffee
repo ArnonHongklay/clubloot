@@ -2,4 +2,7 @@
 
 angular.module 'clublootApp'
 .controller 'AddNewTemplateCtrl', ($scope, $http, Auth, User) ->
-  console.log 'AddNewTemplateCtrl'
+
+  $('.input-daterange input').each ->
+    $(this).datepicker 'clearDates'
+    return
