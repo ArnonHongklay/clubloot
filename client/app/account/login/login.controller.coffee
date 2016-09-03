@@ -19,6 +19,7 @@ angular.module 'clublootApp'
 
       .catch (err) ->
         $scope.errors.other = err.message
+    location.reload()
 
   $scope.loginOauth = (provider) ->
     $window.location.href = '/auth/' + provider

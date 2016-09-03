@@ -35,12 +35,18 @@ UserSchema = new Schema(
   lastest_purchase: Date
   total_logins: Number
   consecutive_logins: Number
-  diamonds: Number
-  emeralds: Number
-  sapphires: Number
-  rubies: Number
-  coins: Number
+  diamonds: { type: Number, default: 0 }
+  emeralds: { type: Number, default: 0 }
+  sapphires: { type: Number, default: 0 }
+  rubies: { type: Number, default: 0 }
+  coins: { type: Number, default: 0 }
   prizes: Number
+  free_loot: { type: Boolean, default: true }
+  free_loot_log: [
+    {
+      date: Date
+    }
+  ]
   role:
     type: String
     default: 'user'

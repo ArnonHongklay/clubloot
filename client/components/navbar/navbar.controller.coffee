@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'NavbarCtrl', ($scope, $location, Auth) ->
+.controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope) ->
   $scope.menu = [
     {
       title: 'Dashboard'
@@ -22,9 +22,32 @@ angular.module 'clublootApp'
   $scope.isAdmin = Auth.isAdmin
   $scope.getCurrentUser = Auth.getCurrentUser
 
+
+
+  $scope.CurrentUser =  Auth.getCurrentUser()
+  $rootScope.currentUser = Auth.getCurrentUser()
+
+
   $scope.logout = ->
     Auth.logout()
     $location.path '/login'
 
   $scope.isActive = (route) ->
     route is $location.path()
+
+  $scope.getFreeLoot = () ->
+    id = $scope.CurrentUser._id
+    $http.put("/api/daily_loot/#{id}/getfreeloot",
+        id: id
+      ).success((data, status, headers, config) ->
+        console.log "---------------"
+        $rootScope.freeLootToday = data.freeCoins
+        $rootScope.showDailyLoot = true
+      ).error((data, status, headers, config) ->
+
+      )
+
+  if Auth.getCurrentUser().free_loot
+    $scope.getFreeLoot()
+
+
