@@ -17,6 +17,7 @@ angular.module 'clublootApp'
     }
 
   ]
+
   # $scope.isCollapsed = true
   # $scope.isLoggedIn = Auth.isLoggedIn
   # $scope.isAdmin = Auth.isAdmin
