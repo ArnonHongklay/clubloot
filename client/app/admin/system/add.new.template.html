@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row adminTemplate">
   <div class="col-sm-12">
 
     <h2>Add New Template</h2>
@@ -14,56 +14,68 @@
       input[type=text] {
         width: 100%
       }
-      .row {
+      .m-t-10 {
         margin: 10px 0px;
+      }
+
+      .adminTemplate {
+        background: #F2F2F2;
+        border: 1px solid #ccc;
       }
     </style>
 
-    <div class="row">
+    <div class="row m-t-10">
       <div class="col-sm-6">
         <label for="name">Template Name</label>
         <input type="text" name="name" value="" class="form-control">
       </div>
       <div class="col-sm-6">
         <label for="program">Program</label>
-        <select class="form-control program" name="program">
-          <option value="option">Select One</option>
-        </select>
+        <select class="form-control program" name="program" ng-options="program.name for program in programList" ng-model="template.program" ng-change="changeProgram(template.program)" ></select>
       </div>
     </div>
-    <div class="row">
+    <div class="row m-t-10">
       <div class="col-sm-4 text-right">
         <label for="number-question">Number of Questions</label>
       </div>
       <div class="col-sm-2">
-        <select class="form-control number-question" name="number-question">
+        <select class="form-control number-question" name="number-questions" ng-model="template.numberQuestion">
           <option value="option">select one</option>
+          <option ng-repeat="i in getNumber(number) track by $index" value="{{i}}">{{$index}}</option>
         </select>
       </div>
     </div>
-    <div class="row">
+    <div class="row m-t-10">
       <div class="col-sm-4 text-right">
         <label for="number-question">Max Number of Answers</label>
       </div>
       <div class="col-sm-2">
-        <select class="form-control max-number-question" name="max-number-question">
+        <select class="form-control max-number-question" name="max-number-answers" ng-model="template.maxNumberAnswer">
           <option value="option">select one</option>
+          <option ng-repeat="i in getNumber(number) track by $index" value="{{i}}">{{$index}}</option>
         </select>
       </div>
     </div>
-    <div class="row">
+    <div class="row m-t-10">
       <div class="col-sm-4 text-right">
         <label for="number-question">Start Date & Time</label>
       </div>
       <div class="col-sm-6">
-          <div class="input-group input-daterange">
-            <input type="text" class="form-control" value="2012-04-05">
-            <span class="input-group-addon">to</span>
-            <input type="text" class="form-control" value="2012-04-19">
-          </div>
+        <div class='input-group date' id='start-date'>
+          <input type='text' class="form-control" />
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-time"></span>
+          </span>
+        </div>
+        <div class='input-group time' id='start-time'>
+          <input type='text' class="form-control" />
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-time"></span>
+          </span>
+        </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row m-t-10">
       <div class="col-sm-4 text-right">
         <label for="number-question">End Date & Time</label>
       </div>
@@ -75,10 +87,15 @@
           </div>
       </div>
     </div>
-    <a class="btn btn-default" ui-sref="#" style="margin-top: 20px;
-        display: inline-block;
-        padding: 10px 60px;
-        background: #50ACC4;
-        color: #fff;">SUBMIT</a>
+
+    <div class="row m-t-10">
+      <div class="col-sm-12">
+        <a class="btn btn-default m-t-10" ui-sref="#" style="margin-top: 20px;
+            display: inline-block;
+            padding: 10px 60px;
+            background: #50ACC4;
+            color: #fff;">SUBMIT</a>
+      </div>
+    </div>
   </div>
 </div>

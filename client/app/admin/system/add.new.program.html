@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row adminProgram">
   <div class="col-sm-12">
 
     <h2>Add New Program</h2>
@@ -13,43 +13,52 @@
       input[type=text] {
         width: 100%
       }
-      .row {
-        margin: 10px 0px;
+      .m-t-10 {
+        margin: 15px 0px;
+      }
+      .adminProgram {
+        background: #F2F2F2;
+        border: 1px solid #ccc;
       }
     </style>
 
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="name">Program Name</label>
-          <input type="text" name="name" value="" class="form-control">
+    <form name="adminProgram">
+      <div class="row m-t-10">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="name">Program Name</label>
+            <input type="text" ng-model="program.name" value="" class="form-control">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="program">Category</label>
+            <select class="form-control" ng-model="program.category">
+              <option value="option" style="border-radius: 0;">Select One</option>
+              <option ng-repeat="category in categories" name="{{category.name}}">{{category.title}}</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="program">Category</label>
-          <select class="form-control" name="category">
-            <option value="option" style="border-radius: 0;">Select One</option>
-            <option ng-repeat="category in categories" name="{{category.name}}">{{category.title}}</option>
-          </select>
+      <div class="row m-t-10">
+        <div class="col-sm-4">
+          <a class="" ngf-select ng-model="image_program" name="file" ngf-pattern="'image/*'"
+            ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+            ngf-resize="{width: 250, height: 250}">+ Upload Image</a>
+        </div>
+        <div class="col-sm-8">
+          <img ngf-thumbnail="image_program" width="100%">
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <a class="" ngf-select ng-model="image_program" name="file" ngf-pattern="'image/*'"
-          ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-          ngf-resize="{width: 250, height: 250}">+ Upload Image</a>
+    </form>
+    <div class="row m-t-10">
+      <div class="col-sm-12">
+          <a class="btn btn-default" style="margin-top: 20px;
+            display: inline-block;
+            padding: 10px 60px;
+            background: #50ACC4;
+            color: #fff;" ng-click="submit()">SUBMIT</a>
       </div>
-      <div class="col-sm-2">
-      </div>
     </div>
-
-    </div>
-      <a class="btn btn-default" style="margin-top: 20px;
-        display: inline-block;
-        padding: 10px 60px;
-        background: #50ACC4;
-        color: #fff;" ng-click="submit()">SUBMIT</a>
   </div>
 </div>

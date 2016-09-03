@@ -1,7 +1,7 @@
 angular.module 'clublootApp'
 .controller 'AdminSystemCtrl', ($scope, $http, socket, $state) ->
-  console.log "AdminSystemCtrl"
-  console.log $state
+  # console.log "AdminSystemCtrl"
+  # console.log $state
   $scope.menus = [
     { name: "Announcements", state: 'announcements' , title: 'New Announcement'},
     { name: "Daily Loot",    state: 'dailyLoot' ,     title: '' }

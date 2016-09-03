@@ -4,6 +4,9 @@
 _ = require 'lodash'
 Program = require './program.model'
 
+fs = require 'fs'
+im = require 'imagemagick'
+
 # Get list of programs
 exports.index = (req, res) ->
   Program.find (err, programs) ->
@@ -20,6 +23,7 @@ exports.show = (req, res) ->
 # Creates a new program in the DB.
 exports.create = (req, res) ->
   Program.create req.body, (err, program) ->
+    console.log program
     return handleError(res, err)  if err
     res.status(201).json program
 
@@ -42,6 +46,19 @@ exports.destroy = (req, res) ->
     program.remove (err) ->
       return handleError(res, err)  if err
       res.status(204).end()
+
+exports.upload = (req, res) ->
+  fs.readFile req.files.file.path, (err, data) ->
+    imageName = req.files.file.name
+    console.log imageName
+    #/ If there's an error
+    if imageName
+      imagePath = __dirname.replace('/.server/api/program', '') + '/uploads/fullsize/' + imageName
+      console.log imagePath
+      fs.writeFile imagePath, data, (err) ->
+        res.status(200).json imagePath
+    else
+      res.status(404).json imageName
 
 handleError = (res, err) ->
   res.status(500).json err
