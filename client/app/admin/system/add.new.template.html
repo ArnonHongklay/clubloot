@@ -27,11 +27,11 @@
     <div class="row m-t-10">
       <div class="col-sm-6">
         <label for="name">Template Name</label>
-        <input type="text" name="name" value="" class="form-control">
+        <input type="text" name="name" value="" class="form-control" ng-model=template.name>
       </div>
       <div class="col-sm-6">
         <label for="program">Program</label>
-        <select class="form-control program" name="program" ng-options="program.name for program in programList" ng-model="template.program" ng-change="changeProgram(template.program)" ></select>
+        <select class="form-control program" name="program" ng-options="program.name for program in programList" ng-model="program" ng-change="setProgram(program)"></select>
       </div>
     </div>
     <div class="row m-t-10">
@@ -39,10 +39,7 @@
         <label for="number-question">Number of Questions</label>
       </div>
       <div class="col-sm-2">
-        <select class="form-control number-question" name="number-questions" ng-model="template.numberQuestion">
-          <option value="option">select one</option>
-          <option ng-repeat="i in getNumber(number) track by $index" value="{{i}}">{{$index}}</option>
-        </select>
+        <select class="form-control number-question" name="number-questions" ng-options="item.number for item in items"  ng-model="number_questions" ng-change="setQuestion(number_questions)"></select>
       </div>
     </div>
     <div class="row m-t-10">
@@ -50,10 +47,7 @@
         <label for="number-question">Max Number of Answers</label>
       </div>
       <div class="col-sm-2">
-        <select class="form-control max-number-question" name="max-number-answers" ng-model="template.maxNumberAnswer">
-          <option value="option">select one</option>
-          <option ng-repeat="i in getNumber(number) track by $index" value="{{i}}">{{$index}}</option>
-        </select>
+        <select class="form-control max-number-question" name="number-answers" ng-options="item.number for item in items"  ng-model="number_answers" ng-change="setAnswer(number_answers)"></select>
       </div>
     </div>
     <div class="row m-t-10">
@@ -61,16 +55,10 @@
         <label for="number-question">Start Date & Time</label>
       </div>
       <div class="col-sm-6">
-        <div class='input-group date' id='start-date'>
-          <input type='text' class="form-control" />
+        <div class='input-group date' id='start-time'>
+          <input class="datetimepicker form-control" type="text" ng-model="template.start_time">
           <span class="input-group-addon">
-              <span class="glyphicon glyphicon-time"></span>
-          </span>
-        </div>
-        <div class='input-group time' id='start-time'>
-          <input type='text' class="form-control" />
-          <span class="input-group-addon">
-              <span class="glyphicon glyphicon-time"></span>
+            <span class="glyphicon glyphicon-time"></span>
           </span>
         </div>
       </div>
@@ -80,22 +68,47 @@
         <label for="number-question">End Date & Time</label>
       </div>
       <div class="col-sm-6">
-          <div class="input-group input-daterange">
-            <input type="text" class="form-control" value="2012-04-05">
-            <span class="input-group-addon">to</span>
-            <input type="text" class="form-control" value="2012-04-19">
-          </div>
+        <div class='input-group date' id='end-time'>
+          <input class="datetimepicker form-control" type="text" ng-model="template.end_time">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-time"></span>
+          </span>
+        </div>
       </div>
     </div>
 
     <div class="row m-t-10">
       <div class="col-sm-12">
-        <a class="btn btn-default m-t-10" ui-sref="#" style="margin-top: 20px;
+        <a class="btn btn-default m-t-10" style="margin-top: 20px;
             display: inline-block;
             padding: 10px 60px;
             background: #50ACC4;
-            color: #fff;">SUBMIT</a>
+            color: #fff;" ng-click="submit()" data-toggle="modal" data-target="#myModal">SUBMIT</a>
       </div>
     </div>
+  </div>
+</div>
+
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
   </div>
 </div>

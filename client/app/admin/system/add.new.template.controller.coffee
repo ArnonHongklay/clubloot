@@ -2,23 +2,19 @@
 
 angular.module 'clublootApp'
 .controller 'AddNewTemplateCtrl', ($scope, $http, Auth, User) ->
+  $scope.template = {}
+  $scope.items = []
 
-  # $('#start-date').each ->
-  #   $(this).datetimepicker 'clearDates'
-  $('#start-date').each ->
-    $(this).datepicker 'clearDates'
+  i = 1
+  while i < 20
+    $scope.items.push({number: i})
+    i++
+
+  $('.datetimepicker').datetimepicker()
+
+  $('#myModal').on 'shown.bs.modal', ->
+    $('#myInput').focus()
     return
-  $('#start-time').datetimepicker()
-  # $('#end-date').each ->
-  #   $(this).datepicker 'clearDates'
-  #   return
-  # $('#end-time').each ->
-  #   $(this).datetimepicker format: 'HH:mm'
-  #   return
-
-  $scope.number = 100;
-  $scope.getNumber = (n) ->
-    new Array(n)
 
   $http.get("/api/program",
       null
@@ -28,5 +24,13 @@ angular.module 'clublootApp'
       swal("Not found!!")
     )
 
-  $scope.changeProgram = (option) ->
-    console.log(option)
+  $scope.submit = ->
+    console.log $scope.template
+
+  $scope.setProgram = (option) ->
+    $scope.template.program = option.name
+
+  $scope.setQuestion = (option) ->
+    $scope.template.number_questions = option.number
+  $scope.setAnswer = (option) ->
+    $scope.template.number_answers = option.number

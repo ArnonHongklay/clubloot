@@ -10,8 +10,8 @@ TemplateSchema = new Schema
   questions:
     question:
       type: String
-  start_date: Date
-  end_date: Date
+  start_time: Date
+  end_time: Date
   active: Boolean
 
 module.exports = mongoose.model 'Template', TemplateSchema
