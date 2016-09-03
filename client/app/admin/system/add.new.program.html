@@ -13,34 +13,43 @@
           padding: 0px 10px;
         }
       </style>
-      <table>
-        <tr>
-          <td width="80%">Program Name</td>
-          <td width="20%">Category</td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" name="name" value="" style="width: 95%;">
-          </td>
-          <td>
-            <select class="" name="">
-              <option value="option" style="border-radius: 0;">Select One</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <a ui-sref="#">+ Upload Image</a>
-          </td>
-        </tr>
-      </table>
+      <form name="form">
+        <table>
+          <tr>
+            <td width="80%">Program Name</td>
+            <td width="20%">Category</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" name="name" value="" style="width: 95%;">
+            </td>
+            <td>
+              <select class="category" name="category">
+                <option value="option" style="border-radius: 0;">Select One</option>
+                <option ng-repeat="category in categories" name="{{category.name}}">{{category.title}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <a class="" ngf-select ng-model="image_program" name="file" ngf-pattern="'image/*'"
+                ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                ngf-resize="{width: 250, height: 250}">+ Upload Image</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img ngf-thumbnail="image_program || '/thumb.jpg'" width="100%">
+            </td>
+          </tr>
+        </table>
+      </form>
 
     </div>
-
-          <a ui-sref="#" style="margin-top: 20px;
+      <a style="margin-top: 20px;
         display: inline-block;
         padding: 10px 60px;
         background: #50ACC4;
-        color: #fff;">SUBMIT</a>
+        color: #fff;" ng-click="submit()">SUBMIT</a>
   </div>
 </div>
