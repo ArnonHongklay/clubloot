@@ -10,8 +10,6 @@ exports.index = (req, res) ->
     return handleError(res, err)  if err
     res.status(200).json templates
 
-
-
 # Get a single template
 exports.show = (req, res) ->
   Template.findById req.params.id, (err, template) ->
