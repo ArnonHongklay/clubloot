@@ -27,11 +27,11 @@
     <div class="row m-t-10">
       <div class="col-sm-6">
         <label for="name">Template Name</label>
-        <input type="text" name="name" value="" class="form-control" ng-model=template.name>
+        <input type="text" name="name" value="" class="form-control" ng-model="template.name" required>
       </div>
       <div class="col-sm-6">
         <label for="program">Program</label>
-        <select class="form-control program" name="program" ng-options="program.name for program in programList" ng-model="program" ng-change="setProgram(program)"></select>
+        <select class="form-control program" name="program" ng-options="program.name for program in programList" ng-model="program" ng-change="setProgram(program)" required></select>
       </div>
     </div>
     <div class="row m-t-10">
@@ -39,7 +39,7 @@
         <label for="number-question">Number of Questions</label>
       </div>
       <div class="col-sm-2">
-        <select class="form-control number-question" name="number-questions" ng-options="item.number for item in items"  ng-model="number_questions" ng-change="setQuestion(number_questions)"></select>
+        <select class="form-control number-question" name="number-questions" ng-options="item.number for item in items"  ng-model="number_questions" ng-change="setQuestion(number_questions)" required></select>
       </div>
     </div>
     <div class="row m-t-10">
@@ -47,7 +47,7 @@
         <label for="number-question">Max Number of Answers</label>
       </div>
       <div class="col-sm-2">
-        <select class="form-control max-number-question" name="number-answers" ng-options="item.number for item in items"  ng-model="number_answers" ng-change="setAnswer(number_answers)"></select>
+        <select class="form-control max-number-question" name="number-answers" ng-options="item.number for item in items"  ng-model="number_answers" ng-change="setAnswer(number_answers)" required></select>
       </div>
     </div>
     <div class="row m-t-10">
@@ -56,7 +56,7 @@
       </div>
       <div class="col-sm-6">
         <div class='input-group date' id='start-time'>
-          <input class="datetimepicker form-control" type="text" ng-model="template.start_time">
+          <input class="datetimepicker form-control" type="text" ng-model="template.start_time" required>
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-time"></span>
           </span>
@@ -69,7 +69,7 @@
       </div>
       <div class="col-sm-6">
         <div class='input-group date' id='end-time'>
-          <input class="datetimepicker form-control" type="text" ng-model="template.end_time">
+          <input class="datetimepicker form-control" type="text" ng-model="template.end_time" required>
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-time"></span>
           </span>
@@ -83,7 +83,7 @@
             display: inline-block;
             padding: 10px 60px;
             background: #50ACC4;
-            color: #fff;" ng-click="submit()" data-toggle="modal" data-target="#myModal">SUBMIT</a>
+            color: #fff;" ng-click="submit()">SUBMIT</a>
       </div>
     </div>
   </div>
@@ -91,10 +91,11 @@
 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog">
+<div data-toggle="modal" data-target="#add_template" id="showModal"></div>
 
+<!-- Modal -->
+<div class="modal" id="add_template" role="dialog">
+  <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -102,9 +103,34 @@
         <h4 class="modal-title">Modal Header</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+        <div class="row">
+          <div class="col-sm-12">
+            <ul class="form-group" style="padding-left: 0; margin: 0px">
+              <li ng-repeat="(i,question) in getNumber(number_questions) track by i" style="border-bottom: 1px solid #ccc; padding-bottom: 0px; margin-top: 20px;" class="list-group-item">
+                <div class="form-group form-inline">
+                  <label>
+                    [ Question: {{i + 1}} ]
+                  </label>
+                  <input type="text" ng-model="questions[i].title" class="form-control">
+                </div>
+
+                <div class="form-group form-inline">
+                  <ul class="list-group">
+                    <li ng-repeat="(x,answer) in getNumber(number_answers) track by x" class="list-group-item" style="height: 55px">
+                      [ Answer: {{x + 1}} ]
+                      <input type="text" ng-model="questions[i].answers[x]" class="form-control">
+                    </li>
+                  </ul>
+                </div>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="add_question()">Submit</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

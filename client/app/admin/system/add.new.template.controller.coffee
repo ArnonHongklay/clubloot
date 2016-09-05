@@ -12,7 +12,7 @@ angular.module 'clublootApp'
 
   $('.datetimepicker').datetimepicker()
 
-  $('#myModal').on 'shown.bs.modal', ->
+  $('#add_template').on 'shown.bs.modal', ->
     $('#myInput').focus()
     return
 
@@ -27,6 +27,8 @@ angular.module 'clublootApp'
 
   $scope.submit = ->
     console.log $scope.template
+    return if Object.keys($scope.template).length < 6
+
     currentdate = new Date()
     start_time = new Date($scope.template.start_time)
     end_time = new Date($scope.template.end_time)
@@ -37,7 +39,13 @@ angular.module 'clublootApp'
     $http.post("/api/templates",
         $scope.template
       ).success((data, status, headers, config) ->
-        $scope.programList.push(data)
+        # $scope.programList.push(data)
+        $('#showModal').click()
+        $scope.data_question = data
+        $scope.number_questions = data.number_questions
+        $scope.number_answers   = data.number_answers
+        $scope.questions = new Array()
+
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )
@@ -49,3 +57,19 @@ angular.module 'clublootApp'
     $scope.template.number_questions = option.number
   $scope.setAnswer = (option) ->
     $scope.template.number_answers = option.number
+
+  $scope.getNumber = (num) ->
+    new Array(num)
+
+  $scope.add_question = ->
+    console.log $scope.data_question
+    console.log $scope.questions
+
+    $http.put("/api/templates/#{$scope.data_question._id}",
+        $scope.questions
+      ).success((data, status, headers, config) ->
+        # $scope.programList = data
+        console.log "fuck #{data}"
+      ).error((data, status, headers, config) ->
+        swal("Not found!!")
+      )
