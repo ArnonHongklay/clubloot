@@ -16,6 +16,7 @@ angular.module 'clublootApp'
     $('#myInput').focus()
     return
 
+  # $scope.programList = {}
   $http.get("/api/program",
       null
     ).success((data, status, headers, config) ->
@@ -26,6 +27,20 @@ angular.module 'clublootApp'
 
   $scope.submit = ->
     console.log $scope.template
+    currentdate = new Date()
+    start_time = new Date($scope.template.start_time)
+    end_time = new Date($scope.template.end_time)
+
+    $scope.template.active = start_time > currentdate
+    $scope.template.active = end_time < currentdate
+
+    $http.post("/api/templates",
+        $scope.template
+      ).success((data, status, headers, config) ->
+        $scope.programList.push(data)
+      ).error((data, status, headers, config) ->
+        swal("Not found!!")
+      )
 
   $scope.setProgram = (option) ->
     $scope.template.program = option.name
