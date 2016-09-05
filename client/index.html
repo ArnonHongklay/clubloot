@@ -13,9 +13,12 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
-      <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
       <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css" />
       <link rel="stylesheet" href="bower_components/csshake/dist/csshake.css" />
+      <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+      <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
+      <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+      <link rel="stylesheet" href="bower_components/datetimepicker/jquery.datetimepicker.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -58,8 +61,17 @@
       <script src="bower_components/lodash/lodash.js"></script>
       <script src="bower_components/angular-socket-io/socket.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
       <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+      <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+      <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
+      <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+      <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+      <script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
+      <script src="bower_components/php-date-formatter/js/php-date-formatter.js"></script>
+      <script src="bower_components/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -83,13 +95,6 @@
           <script src="app/admin/system/ladger.js"></script>
           <script src="app/admin/system/program.js"></script>
           <script src="app/admin/system/programming.js"></script>
-          <script src="app/admin/system/programming/active.js"></script>
-          <script src="app/admin/system/programming/add.js"></script>
-          <script src="app/admin/system/programming/admin.js"></script>
-          <script src="app/admin/system/programming/expired.js"></script>
-          <script src="app/admin/system/programming/program.js"></script>
-          <script src="app/admin/system/programming/programming.js"></script>
-          <script src="app/admin/system/programming/question.js"></script>
           <script src="app/admin/system/question.js"></script>
           <script src="app/admin/system/system.js"></script>
           <script src="app/admin/system/tax.js"></script>

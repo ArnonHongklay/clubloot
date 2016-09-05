@@ -1,46 +1,113 @@
 
-<div class="row">
-  <div class="col-sm-6">
+<div class="row adminTemplate">
+  <div class="col-sm-12">
 
-    <h2>Add New template</h2>
+    <h2>Add New Template</h2>
 
-    <div style="border: 1px solid #ccc; background: #F2F2F2; font-size: 16px;">
-      <style media="screen">
-        tr {
-          line-height: 30px;
-        }
-        td {
-          padding: 0px 10px;
-        }
-      </style>
-      <table>
-        <tr>
-          <td width="80%">Program Name</td>
-          <td width="20%">Category</td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" name="name" value="" style="width: 95%;">
-          </td>
-          <td>
-            <select class="" name="">
-              <option value="option" style="border-radius: 0;">Select One</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <a ui-sref="#">+ Upload Image</a>
-          </td>
-        </tr>
-      </table>
+    <style media="screen">
+      select {
+        width: 100%;
+      }
+      option {
+        border-radius: 0;
+      }
+      input[type=text] {
+        width: 100%
+      }
+      .m-t-10 {
+        margin: 10px 0px;
+      }
 
+      .adminTemplate {
+        background: #F2F2F2;
+        border: 1px solid #ccc;
+      }
+    </style>
+
+    <div class="row m-t-10">
+      <div class="col-sm-6">
+        <label for="name">Template Name</label>
+        <input type="text" name="name" value="" class="form-control" ng-model=template.name>
+      </div>
+      <div class="col-sm-6">
+        <label for="program">Program</label>
+        <select class="form-control program" name="program" ng-options="program.name for program in programList" ng-model="program" ng-change="setProgram(program)"></select>
+      </div>
+    </div>
+    <div class="row m-t-10">
+      <div class="col-sm-4 text-right">
+        <label for="number-question">Number of Questions</label>
+      </div>
+      <div class="col-sm-2">
+        <select class="form-control number-question" name="number-questions" ng-options="item.number for item in items"  ng-model="number_questions" ng-change="setQuestion(number_questions)"></select>
+      </div>
+    </div>
+    <div class="row m-t-10">
+      <div class="col-sm-4 text-right">
+        <label for="number-question">Max Number of Answers</label>
+      </div>
+      <div class="col-sm-2">
+        <select class="form-control max-number-question" name="number-answers" ng-options="item.number for item in items"  ng-model="number_answers" ng-change="setAnswer(number_answers)"></select>
+      </div>
+    </div>
+    <div class="row m-t-10">
+      <div class="col-sm-4 text-right">
+        <label for="number-question">Start Date & Time</label>
+      </div>
+      <div class="col-sm-6">
+        <div class='input-group date' id='start-time'>
+          <input class="datetimepicker form-control" type="text" ng-model="template.start_time">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-time"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row m-t-10">
+      <div class="col-sm-4 text-right">
+        <label for="number-question">End Date & Time</label>
+      </div>
+      <div class="col-sm-6">
+        <div class='input-group date' id='end-time'>
+          <input class="datetimepicker form-control" type="text" ng-model="template.end_time">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-time"></span>
+          </span>
+        </div>
+      </div>
     </div>
 
-          <a ui-sref="#" style="margin-top: 20px;
-        display: inline-block;
-        padding: 10px 60px;
-        background: #50ACC4;
-        color: #fff;">SUBMIT</a>
+    <div class="row m-t-10">
+      <div class="col-sm-12">
+        <a class="btn btn-default m-t-10" style="margin-top: 20px;
+            display: inline-block;
+            padding: 10px 60px;
+            background: #50ACC4;
+            color: #fff;" ng-click="submit()" data-toggle="modal" data-target="#myModal">SUBMIT</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
   </div>
 </div>
