@@ -8,6 +8,8 @@ TemplateSchema = new Schema
   questions:
     question:
       type: String
+    answers:
+      type: String
   number_answers: Number
   number_questions: Number
   program: String

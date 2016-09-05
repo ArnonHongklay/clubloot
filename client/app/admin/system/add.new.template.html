@@ -103,15 +103,13 @@
         <h4 class="modal-title">Modal Header</h4>
       </div>
       <div class="modal-body">
-
-        {{getNumber(number_questions)}}
         <div class="row">
           <div class="col-sm-12">
             <ul class="form-group" style="padding-left: 0; margin: 0px">
               <li ng-repeat="(i,question) in getNumber(number_questions) track by i" style="border-bottom: 1px solid #ccc; padding-bottom: 0px; margin-top: 20px;" class="list-group-item">
                 <div class="form-group form-inline">
                   <label>
-                    {{i}} {{question}}
+                    [ Question: {{i + 1}} ]
                   </label>
                   <input type="text" ng-model="questions[i].title" class="form-control">
                 </div>
@@ -119,7 +117,7 @@
                 <div class="form-group form-inline">
                   <ul class="list-group">
                     <li ng-repeat="(x,answer) in getNumber(number_answers) track by x" class="list-group-item" style="height: 55px">
-                      [ Answer: {{x}} {{answer}} ]
+                      [ Answer: {{x + 1}} ]
                       <input type="text" ng-model="questions[i].answers[x]" class="form-control">
                     </li>
                   </ul>

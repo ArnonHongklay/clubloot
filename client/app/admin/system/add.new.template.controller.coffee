@@ -26,8 +26,8 @@ angular.module 'clublootApp'
     )
 
   $scope.submit = ->
-    # console.log $scope.template
-    # return if Object.keys($scope.template).length < 6
+    console.log $scope.template
+    return if Object.keys($scope.template).length < 6
 
     currentdate = new Date()
     start_time = new Date($scope.template.start_time)
@@ -41,32 +41,11 @@ angular.module 'clublootApp'
       ).success((data, status, headers, config) ->
         # $scope.programList.push(data)
         $('#showModal').click()
-
-        # console.log data
         $scope.data_question = data
-
         $scope.number_questions = data.number_questions
         $scope.number_answers   = data.number_answers
-
-        # console.log $scope.number_questions
-        # console.log $scope.number_answers
-
-        # ans = 0
-        # que = 0
-        #
         $scope.questions = new Array()
-        # question = new Object()
-        #
-        # while que < $scope.number_questions
-        #   console.log que
-        #   answers = new Array()
-        #   while ans < $scope.number_answers
-        #     answers.push({que: que, title: ans++})
-        #
-        #   $scope.questions.push({title: que, answers: answers})
-        #   que += 1
-        #
-        # console.log $scope.questions
+
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )
@@ -83,4 +62,14 @@ angular.module 'clublootApp'
     new Array(num)
 
   $scope.add_question = ->
+    console.log $scope.data_question
     console.log $scope.questions
+
+    $http.put("/api/templates/#{$scope.data_question._id}",
+        $scope.questions
+      ).success((data, status, headers, config) ->
+        # $scope.programList = data
+        console.log "fuck #{data}"
+      ).error((data, status, headers, config) ->
+        swal("Not found!!")
+      )
