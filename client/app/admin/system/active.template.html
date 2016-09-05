@@ -1,9 +1,9 @@
 <h2>Active Templates</h2>
 <table class="table">
-  <tr ng-repeat="active in activeTemplate">
+  <tr ng-repeat="active in activeTemplate" ng-if="active.active == true">
     <td><a ui-sref="AdminSystem.question">{{active.name}}</a></td>
-    <td>{{active.game}}</td>
-    <td>{{active.created}}</td>
-    <td>{{active.updated}}</td>
+    <td>{{active.program}}</td>
+    <td>{{active.start_time}}</td>
+    <td>{{active.end_time}}</td>
   </tr>
 </table>

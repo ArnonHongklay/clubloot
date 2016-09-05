@@ -4,59 +4,13 @@ angular.module 'clublootApp'
 .controller 'ExpiredTemplateCtrl', ($scope, $http, Auth, User) ->
   console.log 'ExpiredTemplateCtrl'
 
-  $scope.expiredTemplate = [
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    },
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    },
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    },
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    },
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    },
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    },
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    },
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    },
-    {
-      name: 'The Bachelorette – Season 10 – Episode 2'
-      game: 'Bachelorette'
-      created: '05/10/2016 08:00 PM'
-      updated: '05/10/2016 10:00 PM'
-    }
-  ]
+  $scope.loadList = ->
+    $http.get("/api/templates",
+        null
+      ).success((data, status, headers, config) ->
+        $scope.expiredTemplate = data
+      ).error((data, status, headers, config) ->
+        swal("Not found!!")
+      )
+
+  $scope.loadList()
