@@ -8,7 +8,7 @@ TemplateSchema = new Schema
   questions:
     question:
       type: String
-  nummber_answers: Number
+  number_answers: Number
   number_questions: Number
   program: String
   start_time: Date
