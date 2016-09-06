@@ -5,11 +5,12 @@ Schema = mongoose.Schema
 
 TemplateSchema = new Schema
   name: String
-  questions:
-    question:
+  questions: [
+    title: String
+    answers: [
       type: String
-    answers:
-      type: String
+    ]
+  ]
   number_answers: Number
   number_questions: Number
   program: String
