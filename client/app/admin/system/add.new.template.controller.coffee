@@ -25,6 +25,18 @@ angular.module 'clublootApp'
       swal("Not found!!")
     )
 
+  $scope.setProgram = (option) ->
+    $scope.template.program = option.name
+
+  $scope.setQuestion = (option) ->
+    $scope.template.number_questions = option.number
+  $scope.setAnswer = (option) ->
+    $scope.template.number_answers = option.number
+
+  $scope.getNumber = (num) ->
+    new Array(num)
+
+
   $scope.submit = ->
     console.log $scope.template
     return if Object.keys($scope.template).length < 6
@@ -49,27 +61,25 @@ angular.module 'clublootApp'
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )
-
-  $scope.setProgram = (option) ->
-    $scope.template.program = option.name
-
-  $scope.setQuestion = (option) ->
-    $scope.template.number_questions = option.number
-  $scope.setAnswer = (option) ->
-    $scope.template.number_answers = option.number
-
-  $scope.getNumber = (num) ->
-    new Array(num)
-
   $scope.add_question = ->
     console.log $scope.data_question
     console.log $scope.questions
 
+
+    $scope.data_question.questions = $scope.questions
+    $.each $scope.data_question.questions, (index, value) ->
+      $scope.data_question.questions[index].answers = $.map value.answers, (v, i) ->
+        [v]
+
+    console.log "xxx"
+    console.log $scope.data_question
+
     $http.put("/api/templates/#{$scope.data_question._id}",
-        $scope.questions
+        $scope.data_question
       ).success((data, status, headers, config) ->
         # $scope.programList = data
-        console.log "fuck #{data}"
+        console.log "fuck"
+        console.log data
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )

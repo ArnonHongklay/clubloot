@@ -118,7 +118,7 @@
                   <ul class="list-group">
                     <li ng-repeat="(x,answer) in getNumber(number_answers) track by x" class="list-group-item" style="height: 55px">
                       [ Answer: {{x + 1}} ]
-                      <input type="text" ng-model="questions[i].answers[x]" class="form-control">
+                      <input type="text" ng-model="questions[i].answers[x].title" class="form-control">
                     </li>
                   </ul>
                 </div>
