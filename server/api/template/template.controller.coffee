@@ -27,6 +27,7 @@ exports.create = (req, res) ->
 exports.update = (req, res) ->
   delete req.body._id  if req.body._id
   Template.findById req.params.id, (err, template) ->
+    console.log template
     return handleError(res, err)  if err
     return res.status(404).end()  unless template
     updated = _.merge(template, req.body)

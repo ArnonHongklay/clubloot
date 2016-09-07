@@ -6,10 +6,15 @@ Schema = mongoose.Schema
 TemplateSchema = new Schema
   name: String
   questions: [
-    title: String
-    answers: [
-      type: String
-    ]
+    {
+      title: String
+      answers: [
+        {
+          title: String
+          is_correct: Boolean
+        }
+      ]
+    }
   ]
   number_answers: Number
   number_questions: Number
