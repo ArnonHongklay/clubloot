@@ -1,6 +1,6 @@
 
 <div class="row">
-  <div class="col-sm-3">
+  <div class="col-sm-12">
     <div>
       1,236
       Contests
@@ -10,7 +10,7 @@
       Coins
     </div>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-12">
     <ul>
       <li ng-repeat="question in questions" style="border-bottom: 1px solid #ccc;
     padding-bottom: 50px;
@@ -18,7 +18,7 @@
         {{question.title}}
         <ul>
           <li ng-repeat="answer in question.answers">
-            <input type="radio" name="{{question.title}}"> {{answer}}
+            <input type="radio" name="{{question.title}}">&nbsp;&nbsp;{{answer.title}}
           </li>
         </ul>
         <a class="btn btn-default pull-right" style="    border: 0;

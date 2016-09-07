@@ -48,7 +48,7 @@ angular.module 'clublootApp'
     templateUrl: 'app/admin/system/add.new.template.html'
     controller: 'AddNewTemplateCtrl'
 
-  .state 'AdminSystem.question',
+  .state 'AdminSystem.programming.question',
     url: '/question'
     templateUrl: 'app/admin/system/question.html'
     controller: 'QuestionCtrl'
