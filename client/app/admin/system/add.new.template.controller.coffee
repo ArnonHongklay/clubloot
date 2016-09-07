@@ -65,7 +65,11 @@ angular.module 'clublootApp'
     console.log $scope.data_question
     console.log $scope.questions
 
+
     $scope.data_question.questions = $scope.questions
+    $.each $scope.data_question.questions, (index, value) ->
+      $scope.data_question.questions[index].answers = $.map value.answers, (v, i) ->
+        [v]
 
     console.log "xxx"
     console.log $scope.data_question
