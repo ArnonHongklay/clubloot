@@ -5,7 +5,12 @@ angular.module 'clublootApp'
   # upload later on form submit or something similar
 
   $scope.categories = [
-    { title: 'xxx', name: 'yyyy' },
+    { title: 'Talent', name: 'talent' },
+    { title: 'Competition', name: 'competition' },
+    { title: 'Dating', name: 'dating' },
+    { title: 'Cooking', name: 'cooking' },
+    { title: 'Lifestyle', name: 'lifestyle' },
+    { title: 'Awards', name: 'awards' },
   ]
 
   $scope.submit = ->

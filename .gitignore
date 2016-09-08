@@ -11,3 +11,5 @@ dist
 npm-debug.log
 logs
 grunt.log
+
+uploads/fullsize

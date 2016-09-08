@@ -34,7 +34,6 @@
           <div class="form-group">
             <label for="program">Category</label>
             <select class="form-control" ng-model="program.category">
-              <option value="option" style="border-radius: 0;">Select One</option>
               <option ng-repeat="category in categories" name="{{category.name}}">{{category.title}}</option>
             </select>
           </div>
