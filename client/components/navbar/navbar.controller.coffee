@@ -45,6 +45,9 @@ angular.module 'clublootApp'
         console.log data
         $rootScope.freeLootToday = data.freeCoins
         $rootScope.showDailyLoot = true
+        $scope.CurrentUser = data.user
+        $rootScope.currentUser = data.user
+
       ).error((data, status, headers, config) ->
 
       )
