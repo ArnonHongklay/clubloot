@@ -15,7 +15,7 @@
               <tr>
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">Name your contest (please, nothing in appropriate</div>
-                  <div class="box-right pull-right"><input class="in-contest-name" ng-model="tournament.name"></div>
+                  <div class="box-right pull-right"><input class="in-contest-name" ng-model="contests.name"></div>
                 </td>
               </tr>
 
@@ -23,11 +23,8 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">Which program do you wish to compete in?</div>
                   <div class="box-right pull-right">
-                    <select class="form-control" id="sel1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                    <select class="form-control" ng-model="contests.program">
+                      <option ng-repeat="program in programList" name="{{program.name}}">{{program.name}}</option>
                     </select>
                   </div>
                 </td>
@@ -37,11 +34,8 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">How many players?</div>
                   <div class="box-right pull-right">
-                    <select class="form-control" id="sel1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                    <select class="form-control" ng-model="contests.player">
+                      <option ng-repeat="number in numbers" name="{{number.title}}">{{number.title}}</option>
                     </select>
                   </div>
                   </div>
@@ -52,11 +46,8 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">How would the prize be structured?</div>
                   <div class="box-right pull-right">
-                    <select class="form-control" id="sel1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                    <select class="form-control" ng-model="contests.prize">
+                      <option ng-repeat="number in numbers" name="{{number.title}}">{{number.title}}</option>
                     </select>
                   </div>
                   </div>
@@ -66,7 +57,9 @@
               <tr>
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">What is the entry fee? (in coins)</div>
-                  <div class="box-right pull-right"><input class="in-contest-name"></div>
+                  <div class="box-right pull-right">
+                    <input class="in-contest-name" ng-model="contests.fee">
+                  </div>
                 </td>
               </tr>
 
@@ -74,11 +67,9 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">Public or private contest? (private contests do not appear)</div>
                   <div class="box-right pull-right">
-                    <select class="form-control" id="sel1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                    <select class="form-control" ng-model="contests.public">
+                      <option>true</option>
+                      <option>false</option>
                     </select>
                   </div>
                   </div>
@@ -133,11 +124,6 @@
               </div>
             </div>
             <div class="btn get-prize" style="margin-top: 20px;" ng-click="createNewStep='3'" ng-show="unlessEmpty()">CONTINUE</div>
-
-
-
-
-
         </div>
       </div>
     </div>

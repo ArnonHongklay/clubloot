@@ -10,8 +10,6 @@ exports.index = (req, res) ->
     return handleError(res, err)  if err
     res.status(200).json contests
 
-
-
 # Get a single contest
 exports.show = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->
