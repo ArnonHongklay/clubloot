@@ -12,6 +12,7 @@ angular.module 'clublootApp'
         $scope.freeLoot
       ).success((data, status, headers, config) ->
         console.log data
+        return swal("Free Loot updated");
       ).error((data, status, headers, config) ->
 
       )
