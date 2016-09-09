@@ -2,6 +2,7 @@
 
 angular.module 'clublootApp'
 .controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope) ->
+  console.log Auth.getCurrentUser()
   $scope.menu = [
     {
       title: 'Dashboard'
@@ -41,13 +42,17 @@ angular.module 'clublootApp'
         id: id
       ).success((data, status, headers, config) ->
         console.log "---------------"
+        console.log data
         $rootScope.freeLootToday = data.freeCoins
         $rootScope.showDailyLoot = true
       ).error((data, status, headers, config) ->
 
       )
 
-  if Auth.getCurrentUser().free_loot
-    $scope.getFreeLoot()
-
+  if Auth.getCurrentUser()
+    console.log "8888888888888888"
+    console.log Auth.getCurrentUser()
+    $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) =>
+      console.log data
+      $scope.getFreeLoot() if data.free_loot
 

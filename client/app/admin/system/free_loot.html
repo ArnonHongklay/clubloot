@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-9" style="max-width: 400px;">
+    <h4>Setting Free loot</h4>
+    <div class="col-md-12" style="margin-top: 5px;">
+      Free coins base
+       <input ng-model="freeLoot.base" type="number" class="pull-right">
+    </div>
+    <div class="col-md-12" style="margin-top: 5px;">
+      Min Consecutive login
+      <input ng-model="freeLoot.minConsecutive" type="number" class="pull-right">
+    </div>
+    <div class="col-md-12" style="margin-top: 5px;">
+      Max Consecutive login
+      <input ng-model="freeLoot.maxConsecutive" class="pull-right" type="number">
+    </div>
+    <div class="col-md-12" style="margin-top: 5px;">
+      More coin per consecutive
+      <input ng-model="freeLoot.moreCoin" class="pull-right" type="number">
+    </div>
+    <div class="col-md-12" style="margin-top: 5px;">
+      <div class="btn btn-success pull-right" ng-click="updateFreeLoot()">Update</div>
+    </div>
+  </div>
+</div>
