@@ -18,7 +18,16 @@ angular.module 'clublootApp'
     if $scope.adminProgram.file.$valid and $scope.image_program
       $scope.upload $scope.image_program
     else
-      swal("Not found!!")
+      $scope.no_image()
+
+  $scope.no_image = ->
+    $http.post("/api/program",
+        $scope.program
+      ).success((data, status, headers, config) ->
+        swal("Program #{data.name} created")
+      ).error((data, status, headers, config) ->
+        swal("Not found!!")
+      )
 
   $scope.upload = (file) ->
     console.log file
@@ -34,7 +43,7 @@ angular.module 'clublootApp'
       $http.post("/api/program",
           $scope.program
         ).success((data, status, headers, config) ->
-          swal("program #{data.name} created")
+          swal("Program #{data.name} created")
         ).error((data, status, headers, config) ->
           swal("Not found!!")
         )
