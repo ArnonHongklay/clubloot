@@ -10,6 +10,9 @@ router.get '/', controller.index
 router.get '/:id', controller.show
 router.post '/', controller.create
 router.put '/:id', controller.update
+router.post '/:id/questions', controller.create_question
+router.put '/:id/questions/:q', controller.update_question
+router.get '/:id/questions', controller.find_question_by_templates
 router.patch '/:id', controller.update
 router.delete '/:id', controller.destroy
 

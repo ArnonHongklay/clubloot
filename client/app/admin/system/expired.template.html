@@ -1,7 +1,7 @@
 <h2>Expired Templates</h2>
 <table class="table">
   <tr ng-repeat="expired in expiredTemplate" ng-if="expired.active == false">
-    <td><a ui-sref="AdminSystem.programming.question">{{expired.name}}</a></td>
+    <td><a ui-sref="AdminSystem.programming.question({id: expired._id})">{{expired.name}}</a></td>
     <td>{{expired.program}}</td>
     <td>{{expired.start_time}}</td>
     <td>{{expired.end_time}}</td>
