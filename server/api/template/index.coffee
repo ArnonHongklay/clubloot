@@ -16,5 +16,4 @@ router.get '/:id/questions', controller.find_question_by_templates
 router.patch '/:id', controller.update
 router.delete '/:id', controller.destroy
 
-
 module.exports = router

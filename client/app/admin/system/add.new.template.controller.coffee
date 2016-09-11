@@ -36,7 +36,6 @@ angular.module 'clublootApp'
   $scope.getNumber = (num) ->
     new Array(num)
 
-
   $scope.submit = ->
     console.log $scope.template
     return if Object.keys($scope.template).length < 6

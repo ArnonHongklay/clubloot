@@ -3,8 +3,7 @@
 
 _ = require 'lodash'
 Template = require './template.model'
-Question = require './question.model'
-# Answer = require './answer.model'
+Question = require '../question/question.model'
 
 # Get list of templates
 exports.index = (req, res) ->
