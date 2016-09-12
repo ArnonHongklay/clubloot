@@ -57,12 +57,14 @@ Get a single user
 exports.show = (req, res, next) ->
   userId = req.params.id
   User.findById userId, (err, user) ->
-    if user.free_loot_log.length > 0
-      prevDay = user.free_loot_log[user.free_loot_log.length-1].date
-      today = new Date()
-      freeStatus = DateDiff.inDays(prevDay, today)
-      if freeStatus > 0
-        user.free_loot = true
+    console.log user
+    if user
+      if user.free_loot_log.length > 0
+        prevDay = user.free_loot_log[user.free_loot_log.length-1].date
+        today = new Date()
+        freeStatus = DateDiff.inDays(prevDay, today)
+        if freeStatus > 0
+          user.free_loot = true
     return next(err)  if err
     return res.status(401).end()  unless user
     res.json user
@@ -98,6 +100,8 @@ Get my info
 ###
 exports.me = (req, res, next) ->
   userId = req.user._id
+  console.log "----------------------------------++++++++++++++++++++++++++++++++"
+  console.log req.user
   User.findOne
     _id: userId
   , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
