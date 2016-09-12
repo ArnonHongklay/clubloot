@@ -5,8 +5,8 @@ angular.module 'clublootApp'
   console.log "ConvertGemsCtrl"
   $scope.showModal = false
   $scope.gems = gems.data[0]
-  user = Auth.getCurrentUser()
-  window.location.href = "/login" unless user
+  user = $rootScope.currentUser || Auth.getCurrentUser()
+  return window.location.href = "/login" unless user
   $scope.currentGem = {
     diamonds: user.diamonds, emeralds: user.emeralds, sapphires: user.sapphires, rubies: user.rubies, coins: user.coins
   }

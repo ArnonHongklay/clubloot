@@ -5,6 +5,24 @@ passport = require 'passport'
 config = require '../../config/environment'
 jwt = require 'jsonwebtoken'
 
+DateDiff =
+  inDays: (d1, d2) ->
+    t2 = d2.getTime()
+    t1 = d1.getTime()
+    parseInt (t2 - t1) / (24 * 3600 * 1000)
+  inWeeks: (d1, d2) ->
+    t2 = d2.getTime()
+    t1 = d1.getTime()
+    parseInt (t2 - t1) / (24 * 3600 * 1000 * 7)
+  inMonths: (d1, d2) ->
+    d1Y = d1.getFullYear()
+    d2Y = d2.getFullYear()
+    d1M = d1.getMonth()
+    d2M = d2.getMonth()
+    d2M + 12 * d2Y - (d1M + 12 * d1Y)
+  inYears: (d1, d2) ->
+    d2.getFullYear() - d1.getFullYear()
+
 validationError = (res, err) ->
   res.status(422).json err
 
@@ -39,9 +57,17 @@ Get a single user
 exports.show = (req, res, next) ->
   userId = req.params.id
   User.findById userId, (err, user) ->
+    console.log user
+    if user
+      if user.free_loot_log.length > 0
+        prevDay = user.free_loot_log[user.free_loot_log.length-1].date
+        today = new Date()
+        freeStatus = DateDiff.inDays(prevDay, today)
+        if freeStatus > 0
+          user.free_loot = true
     return next(err)  if err
     return res.status(401).end()  unless user
-    res.json user.profile
+    res.json user
 
 ###*
 Deletes a user
@@ -74,6 +100,8 @@ Get my info
 ###
 exports.me = (req, res, next) ->
   userId = req.user._id
+  console.log "----------------------------------++++++++++++++++++++++++++++++++"
+  console.log req.user
   User.findOne
     _id: userId
   , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
