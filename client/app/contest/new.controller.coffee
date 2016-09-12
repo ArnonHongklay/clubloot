@@ -4,6 +4,7 @@ angular.module 'clublootApp'
 .controller 'NewContestCtrl', ($scope, $http, socket, $timeout) ->
   console.log "NewContestCtrl"
 
+  $scope.qaSelection = []
   $scope.loadList = ->
     $http.get("/api/program",
         null
@@ -45,14 +46,14 @@ angular.module 'clublootApp'
         console.log $scope.templates
         console.log $scope.questions
 
-        $scope.xxx = []
+        $scope.template_id = []
         for template in $scope.templates
           if template.program == data.program #&& template.active == true
-            $scope.xxx.push(template._id)
+            $scope.template_id.push(template._id)
             console.log template._id
 
-        console.log $scope.xxx[0]
-        $http.get("/api/templates/#{$scope.xxx[0]}/questions",
+        console.log $scope.template_id[0]
+        $http.get("/api/templates/#{$scope.template_id[0]}/questions",
             null
           ).success((ok) ->
             $scope.ques = ok
@@ -65,7 +66,6 @@ angular.module 'clublootApp'
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )
-    # $scope.createNewStep = '2'
 
   $scope.numbers = [
     { title: 1 },
@@ -98,17 +98,26 @@ angular.module 'clublootApp'
 
   $scope.unlessEmpty = () ->
     # console.log $scope.contests
-    for q in $scope.newContestQuestion
-      if q.ans == ''
-        return false
-    return true
+    # for q in $scope.newContestQuestion
+    #   if q.ans == ''
+    #     return false
+    # return true
+    return if $scope.qaSelection == undefined
+    return if $scope.ques == undefined
+    console.log "xxxxx"
+    if $scope.qaSelection.length == $scope.ques.length
+      return true
 
+  $scope.qaShowAns = []
   $scope.openAns = (index) ->
-    if $scope.newContestQuestion[index].showAns == true
-      $scope.newContestQuestion[index].showAns = false
-      return
-    for q in $scope.newContestQuestion
-      q.showAns = false
+    console.log index
+    $scope.qaShowAns[index] = true
+    # if $scope.newContestQuestion[index].showAns == true
+    #   $scope.newContestQuestion[index].showAns = false
+    #   return
+    # for q in $scope.newContestQuestion
+    #   q.showAns = false
 
 
-    $scope.newContestQuestion[index].showAns = true
+
+    # $scope.newContestQuestion[index].showAns = true
