@@ -1,6 +1,6 @@
 
 <div class="row">
-  <div class="col-sm-3">
+  <div class="col-sm-12">
     <div>
       1,236
       Contests
@@ -10,21 +10,24 @@
       Coins
     </div>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-12">
     <ul>
       <li ng-repeat="question in questions" style="border-bottom: 1px solid #ccc;
-    padding-bottom: 50px;
-    margin-top: 20px;">
+          padding-bottom: 50px;
+          margin-top: 20px;">
         {{question.title}}
         <ul>
           <li ng-repeat="answer in question.answers">
-            <input type="radio" name="{{question.title}}"> {{answer}}
+            <!-- {{question._id}}-{{answer._id}} -->
+            <input type="radio" class="check-{{answer.is_correct}}" name="qa-{{question._id}}" ng-click="setAns(question._id, answer._id)">&nbsp;&nbsp;&nbsp;{{answer.title}}
+            &nbsp;( {{answer.is_correct}} )
           </li>
         </ul>
-        <a class="btn btn-default pull-right" style="    border: 0;
-    outline: 0;
-    border-radius: 0px;
-    background: #ccc;" ui-sref="AdminSystem.programming">SUBMIT</a>
+        <br>
+        <a class="btn btn-default pull-right" style=" border: 0;
+          outline: 0;
+          border-radius: 0px;
+          background: #ccc;" ng-click="chooseQuestion(question._id)">SUBMIT</a>
       </li>
     </ul>
   </div>

@@ -3,33 +3,25 @@
 angular.module 'clublootApp'
 .controller 'ProgramListCtrl', ($scope, $http, Auth, User) ->
 
-  $scope.programList = [
-    {
-      name: 'Academy Awards'
-      play: true
-    },{
-      name: 'Amazing Race'
-      play: true
-    },{
-      name: 'Bachelor'
-      play: true
-    },{
-      name: 'Bachelorette'
-      play: true
-    },{
-      name: 'Big Brother'
-      play: true
-    },{
-      name: 'Emmys'
-      play: false
-    },{
-      name: 'Golden Globes'
-      play: true
-    },{
-      name: 'Grammys'
-      play: true
-    },{
-      name: 'Survivor'
-      play: false
-    }
-  ]
+  $scope.loadList = ->
+    $http.get("/api/program",
+        null
+      ).success((data, status, headers, config) ->
+        $scope.programList = data
+      ).error((data, status, headers, config) ->
+        swal("Not found!!")
+      )
+
+  $scope.loadList()
+
+  $scope.active = (list) ->
+    $http.put("/api/program/#{list._id}",
+      active: !list.active
+    ).success((data, status, headers, config) ->
+      console.log data.active
+      $.each $scope.programList, (key, value) ->
+        if value._id == list._id
+          $scope.programList[key].active = data.active
+    ).error((data, status, headers, config) ->
+        swal("Not found!!")
+    )

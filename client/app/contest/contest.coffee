@@ -15,7 +15,3 @@ angular.module 'clublootApp'
     url: '/contest/:contest'
     templateUrl: 'app/contest/show.html'
     controller: 'ContestShowCtrl'
-
-
-
-

@@ -5,13 +5,11 @@ Schema = mongoose.Schema
 
 TemplateSchema = new Schema
   name: String
-  description: String
-  info: String
-  questions:
-    question:
-      type: String
-  start_date: Date
-  end_date: Date
+  number_answers: Number
+  number_questions: Number
+  program: String
+  start_time: Date
+  end_time: Date
   active: Boolean
 
 module.exports = mongoose.model 'Template', TemplateSchema

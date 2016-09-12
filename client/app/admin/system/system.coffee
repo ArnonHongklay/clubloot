@@ -48,10 +48,14 @@ angular.module 'clublootApp'
     templateUrl: 'app/admin/system/add.new.template.html'
     controller: 'AddNewTemplateCtrl'
 
-  .state 'AdminSystem.question',
-    url: '/question'
+  .state 'AdminSystem.programming.question',
+    url: '/question/:id'
     templateUrl: 'app/admin/system/question.html'
     controller: 'QuestionCtrl'
+    resolve:
+      id: ($http, $state, $stateParams) ->
+        console.log $stateParams.id
+        $http.get "/api/templates/#{$stateParams.id}/questions"
 
   .state 'AdminSystem.ladger',
     url: '/ladger'

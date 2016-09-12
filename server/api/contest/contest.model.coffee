@@ -3,10 +3,12 @@
 mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
-TemplateSchema = new Schema
+ContestSchema = new Schema
   name: String
-  description: String
-  info: String
-  active: Boolean
+  program: String
+  player: Number
+  prize: String
+  fee: Number
+  public: Boolean
 
-module.exports = mongoose.model 'Template', TemplateSchema
+module.exports = mongoose.model 'Contest', ContestSchema
