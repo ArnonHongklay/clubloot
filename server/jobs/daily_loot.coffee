@@ -5,6 +5,8 @@ rule = new schedule.RecurrenceRule()
 rule.minute = 59
 rule.hour = 23
 
+return
+
 j = schedule.scheduleJob(rule, ->
   console.log "Can get more free coins"
   User.find (err, users) ->

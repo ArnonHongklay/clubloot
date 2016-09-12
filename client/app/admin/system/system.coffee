@@ -82,9 +82,16 @@ angular.module 'clublootApp'
       buckets: ($http, $stateParams) ->
         $http.get "/api/coin_package"
 
-
-
   .state 'AdminSystem.users',
     url: '/users'
     templateUrl: 'app/admin/system/users.html'
     controller: 'AdminSystemCtrl'
+
+  .state 'AdminSystem.freeloot',
+    url: '/free_loot'
+    templateUrl: 'app/admin/system/free_loot.html'
+    controller: 'AdminSystemFreeLootCtrl'
+    resolve:
+      freeLoot: ($http, $stateParams) ->
+        $http.get "/api/daily_loot"
+
