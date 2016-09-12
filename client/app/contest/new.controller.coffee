@@ -98,14 +98,20 @@ angular.module 'clublootApp'
 
   $scope.unlessEmpty = () ->
     # console.log $scope.contests
-    for q in $scope.newContestQuestion
-      if q.ans == ''
-        return false
-    return true
+    # for q in $scope.newContestQuestion
+    #   if q.ans == ''
+    #     return false
+    # return true
+    return if $scope.qaSelection == undefined
+    return if $scope.ques == undefined
+    console.log "xxxxx"
+    if $scope.qaSelection.length == $scope.ques.length
+      return true
 
+  $scope.qaShowAns = []
   $scope.openAns = (index) ->
     console.log index
-    $scope.ques[index] = true
+    $scope.qaShowAns[index] = true
     # if $scope.newContestQuestion[index].showAns == true
     #   $scope.newContestQuestion[index].showAns = false
     #   return
@@ -114,4 +120,4 @@ angular.module 'clublootApp'
 
 
 
-    $scope.newContestQuestion[index].showAns = true
+    # $scope.newContestQuestion[index].showAns = true

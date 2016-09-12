@@ -107,11 +107,11 @@
           <h5 class="g-text" style="text-indent: 10px;">Answer [ xx ] questions for your [ program ] contest.</h5>
             <div class="main-q-box">
               <div ng-repeat="(i,q) in ques track by i" class="g-text">
-                <i class="fa fa-check-circle checked-icon" aria-hidden="true" ng-show="qa[i]"></i>
+                <i class="fa fa-check-circle checked-icon" aria-hidden="true" ng-show="qaSelection[i]"></i>
                 <div class="q-box" ng-click="openAns(i)">Question {{q.title}}</div>
 
-                <div class="q-box ans" ng-repeat="(x,a) in q.answers track by x">
-                  <input type=radio ng-model="qaSelection[i]" value="A"> {{a.title}} {{qaSelection[i][x]}}
+                <div class="q-box ans" ng-repeat="(x,a) in q.answers track by x" ng-show="qaShowAns[i]">
+                  <input type=radio ng-model="qaSelection[i]" value="{{a.title}}"> {{a.title}}
                 </div>
                 <!-- <div class="q-box ans" ng-show="q.showAns">
                   <input type=radio ng-model="q.ans[$index]" name="q{{$index}}1" value="A"> Answer A
