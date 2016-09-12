@@ -4,7 +4,10 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
 ProgramSchema = new Schema
-  name: String
+  name:
+    type: String
+    index:
+      unique: true
   category: String
   image: String
   active: Boolean

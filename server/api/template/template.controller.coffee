@@ -3,6 +3,7 @@
 
 _ = require 'lodash'
 Template = require './template.model'
+Question = require '../question/question.model'
 
 # Get list of templates
 exports.index = (req, res) ->
@@ -27,7 +28,6 @@ exports.create = (req, res) ->
 exports.update = (req, res) ->
   delete req.body._id  if req.body._id
   Template.findById req.params.id, (err, template) ->
-    console.log template
     return handleError(res, err)  if err
     return res.status(404).end()  unless template
     updated = _.merge(template, req.body)
@@ -43,6 +43,37 @@ exports.destroy = (req, res) ->
     template.remove (err) ->
       return handleError(res, err)  if err
       res.status(204).end()
+
+
+exports.create_question = (req, res) ->
+  Template.findById req.params.id, (err, template) ->
+    Question.create req.body, (err, questions) ->
+      console.log questions
+      for q in questions
+        q.templates = template._id
+        q.save()
+      return handleError(res, err)  if err
+      res.status(201).json template
+
+exports.update_question = (req, res) ->
+  Question.findById req.params.q, (err, question) ->
+    # console.log question.answers
+    # console.log req.body.answers
+    for ans, i in question.answers
+      # console.log ans
+      # console.log req.body.answers[i]
+      question.answers[i].is_correct = req.body.answers[i].is_correct
+    # console.log question
+      # question.answers.save()
+    question.save()
+
+    res.status(200).json question
+
+exports.find_question_by_templates = (req, res) ->
+  query = Question.find({'templates': req.params.id})
+  query.exec (err, templates) ->
+    return handleError(res, err)  if err
+    res.status(200).json templates
 
 handleError = (res, err) ->
   res.status(500).json err

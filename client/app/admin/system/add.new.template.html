@@ -111,14 +111,14 @@
                   <label>
                     [ Question: {{i + 1}} ]
                   </label>
-                  <input type="text" ng-model="questions[i].title" class="form-control">
+                  <input type="text" ng-model="questions[i].title" class="form-control" value="{{i + 1}}">
                 </div>
 
                 <div class="form-group form-inline">
                   <ul class="list-group">
                     <li ng-repeat="(x,answer) in getNumber(number_answers) track by x" class="list-group-item" style="height: 55px">
                       [ Answer: {{x + 1}} ]
-                      <input type="text" ng-model="questions[i].answers[x].title" class="form-control">
+                      <input type="text" ng-model="questions[i].answers[x].title" class="form-control" value="{{x + 1}}">
                     </li>
                   </ul>
                 </div>

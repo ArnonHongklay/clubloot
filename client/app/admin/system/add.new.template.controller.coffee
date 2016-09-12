@@ -36,7 +36,6 @@ angular.module 'clublootApp'
   $scope.getNumber = (num) ->
     new Array(num)
 
-
   $scope.submit = ->
     console.log $scope.template
     return if Object.keys($scope.template).length < 6
@@ -61,21 +60,22 @@ angular.module 'clublootApp'
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )
-  $scope.add_question = ->
-    console.log $scope.data_question
-    console.log $scope.questions
 
+  $scope.add_question = ->
+    # console.log $scope.data_question
+    # console.log $scope.questions
 
     $scope.data_question.questions = $scope.questions
     $.each $scope.data_question.questions, (index, value) ->
       $scope.data_question.questions[index].answers = $.map value.answers, (v, i) ->
         [v]
+      for answer, a_index in $scope.data_question.questions[index].answers
+        $scope.data_question.questions[index].answers[a_index].is_correct = false
 
-    console.log "xxx"
-    console.log $scope.data_question
+    console.log $scope.data_question.questions
 
-    $http.put("/api/templates/#{$scope.data_question._id}",
-        $scope.data_question
+    $http.post("/api/templates/#{$scope.data_question._id}/questions",
+        $scope.data_question.questions
       ).success((data, status, headers, config) ->
         # $scope.programList = data
         console.log "fuck"
