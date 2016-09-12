@@ -106,10 +106,10 @@
           </h3>
           <h5 class="g-text" style="text-indent: 10px;">Answer [ xx ] questions for your [ program ] contest.</h5>
             <div class="main-q-box">
-              <div ng-repeat="que in ques" class="g-text">
-                <!-- <i class="fa fa-check-circle checked-icon" aria-hidden="true" ng-show="q.ans"></i>
-                <div class="q-box" ng-click="openAns($index)">Question {{$index+1}}</div> -->
-                <!-- <div class="q-box ans" ng-show="q.a">
+              <div ng-repeat="q in newContestQuestion" class="g-text">
+                <i class="fa fa-check-circle checked-icon" aria-hidden="true" ng-show="q.ans"></i>
+                <div class="q-box" ng-click="openAns($index)">Question {{$index+1}}</div>
+                <div class="q-box ans" ng-show="q.showAns">
                   <input type=radio ng-model="q.ans" name="q{{$index}}1" value="A"> Answer A
                 </div>
                 <div class="q-box ans" ng-show="q.showAns">
@@ -121,16 +121,6 @@
                 <div class="q-box ans" ng-show="q.showAns">
                   <input type=radio ng-model="q.ans" name="q{{$index}}4" value="D"> Answer D
                 </div>
-
-                 -->
-
-                <i class="fa fa-check-circle checked-icon" aria-hidden="true" ng-show="que.ans"></i>
-                <div class="q-box" ng-click="openAns($index)">Question {{que.title}}</div>
-                <div class="q-box ans" ng-repeat="ans in que.answers">
-                  <input type=radio ng-model="q.ans" name=""> {{ans.title}}
-                </div>
-
-
               </div>
             </div>
             <div class="btn get-prize" style="margin-top: 20px;" ng-click="createNewStep='3'" ng-show="unlessEmpty()">CONTINUE</div>
