@@ -8,4 +8,4 @@ module.exports =
   mongo:
     uri: 'mongodb://localhost/clubloot-dev'
 
-  # seedDB: true
+  seedDB: true
