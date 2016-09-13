@@ -6,7 +6,7 @@ angular.module 'clublootApp'
   $scope.items = []
 
   i = 1
-  while i < 20
+  while i <= 20
     $scope.items.push({number: i})
     i++
 

@@ -20,10 +20,3 @@ angular.module 'clublootApp'
 
   $scope.selectContest = (contest) ->
     window.location.href = "contest/#{contest}"
-
-  # $scope.contests = [
-  #   { item: 'xxx', xxx: 'xxxxxxx' },
-  #   { item: 'xxx', xxx: 'xxxxxxx' },
-  #   { item: 'xxx', xxx: 'xxxxxxx' },
-  #   { item: 'xxx', xxx: 'xxxxxxx' }
-  # ]
