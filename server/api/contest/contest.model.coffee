@@ -10,9 +10,11 @@ ContestSchema = new Schema
   owner: String
   participant: []
   prize: Number
-  loot:
+  loot: {
     prize: Number
-    type: String
+    category: String
+  }
+
   fee: Number
   public: Boolean
 
