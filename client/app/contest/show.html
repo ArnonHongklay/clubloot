@@ -10,41 +10,11 @@
   <div class="list-box">
     <div class="col-lg-12" style="margin: 0px;padding: 0px;">
       <ul class="list-group">
-        <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-          <span class="pull-left">Academy Awards</span>
+        <li class="list-group-item" ng-repeat="contest in contests" ng-class="{menuactive: menu=='contest.name'}" ng-click="menu='contest.name'">
+          <span class="pull-left">{{contest.name}}</span>
+
+          <!-- {{contest}} -->
           <span class="pull-right" style="color:red;">12:39</span>
-        </li>
-        <li class="list-group-item" ng-class="{menuactive: menu=='Amazing Race'}" ng-click="menu='Amazing Race'">
-          <span class="pull-left">Amazing Race</span>
-          <span class="pull-right">Jun 24</span>
-        </li>
-        <li class="list-group-item" ng-class="{menuactive: menu=='Bechelor'}" ng-click="menu='Bechelor'">
-          <span class="pull-left">Bechelor</span>
-          <span class="pull-right">Jan 3 2017</span>
-        </li>
-        <li class="list-group-item" ng-class="{menuactive: menu=='Bechelorette'}" ng-click="menu='Bechelorette'">
-          <span class="pull-left">Bechelorette</span>
-          <span class="pull-right">Jun 8</span>
-        </li>
-        <li class="list-group-item" ng-class="{menuactive: menu=='Big Brother'}" ng-click="menu='Big Brother'">
-          <span class="pull-left">Big Brother</span>
-          <span class="pull-right" style="color: red;">0:16</span>
-        </li>
-        <li class="list-group-item" ng-class="{menuactive: menu=='Emmy Awards'}" ng-click="menu='Emmy Awards'">
-          <span class="pull-left">Emmy Awards</span>
-          <span class="pull-right">Nov 8</span>
-        </li>
-        <li class="list-group-item" ng-class="{menuactive: menu=='Golden Globes'}" ng-click="menu='Golden Globes'">
-          <span class="pull-left">Golden Globes</span>
-          <span class="pull-right">Sep 10</span>
-        </li>
-        <li class="list-group-item" ng-class="{menuactive: menu=='Grammy Awards'}" ng-click="menu='Grammy Awards'">
-          <span class="pull-left">Grammy Awards</span>
-          <span class="pull-right">Oct 15</span>
-        </li>
-        <li class="list-group-item" ng-class="{menuactive: menu=='Survivor'}" ng-click="menu='Survivor'">
-          <span class="pull-left">Survivor</span>
-          <span class="pull-right">Jun 10</span>
         </li>
       </ul>
     </div>
@@ -232,11 +202,10 @@
             <td class="text-grey" style="color:#999;width:200px;text-align:left;">
               Challenge
             </td>
-            <td class="loot text-blue" style="text-align:left;"">
+            <td class="loot text-blue" style="text-align:left;">
               26 Questions
             </td>
           </tr>
-
         </tbody>
       </table>
       <div class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;">JOIN CONTEST</div>
@@ -634,28 +603,8 @@
               utterfly
             </td>
           </tr>
-
         </tbody>
       </table>
-
-
-
     </div>
   </div>
-
-
-
-
-
 </section>
-
-
-
-
-
-
-
-
-
-
-

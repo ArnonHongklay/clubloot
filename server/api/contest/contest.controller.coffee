@@ -68,6 +68,14 @@ exports.findProgramActive = (req, res) ->
       render(res, bucket)
     ), 100
 
+# exports.findContestByProgram = (req, res) ->
+#   program = Program.find({}).select('name -_id')
+#   program.exec (err, programs) ->
+#     if err
+#       return next(err)
+#
+#     console.log programs
+
 handleError = (res, err) ->
   res.status(500).json err
 

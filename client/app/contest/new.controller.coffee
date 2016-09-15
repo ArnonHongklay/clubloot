@@ -1,42 +1,12 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'NewContestCtrl', ($scope, $http, socket, $timeout) ->
-  console.log "NewContestCtrl"
+.controller 'NewContestCtrl', ($scope, $http, socket, $timeout, programs, templates, questions) ->
+  $scope.programList = programs.data
+  $scope.templates = templates.data
+  $scope.questions = questions.data
 
   $scope.qaSelection = []
-  $scope.loadList = ->
-    $http.get("/api/templates/program",
-        null
-      ).success((data, status, headers, config) ->
-        $scope.programList = data
-        console.log data
-
-      ).error((data, status, headers, config) ->
-        swal("program Not found!!")
-      )
-
-    $http.get("/api/templates",
-        null
-      ).success((data, status, headers, config) ->
-        $scope.templates = data
-        console.log data
-
-      ).error((data, status, headers, config) ->
-        swal("template Not found!!")
-      )
-
-    $http.get("/api/questions",
-        null
-      ).success((data, status, headers, config) ->
-        $scope.questions = data
-        console.log data
-
-      ).error((data, status, headers, config) ->
-        swal("questions Not found!!")
-      )
-
-  $scope.loadList()
 
   $scope.landingContest = ->
     $http.post("/api/contest",
