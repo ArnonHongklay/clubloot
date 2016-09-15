@@ -3,6 +3,7 @@
 
 _ = require 'lodash'
 Contest = require './contest.model'
+Program = require '../program/program.model'
 
 # Get list of contests
 exports.index = (req, res) ->
@@ -43,5 +44,32 @@ exports.destroy = (req, res) ->
       return handleError(res, err)  if err
       res.status(204).end()
 
+exports.findProgramActive = (req, res) ->
+  bucket = []
+  program = Program.find({}).select('name -_id')
+  program.exec (err, programs) ->
+    if err
+      return next(err)
+
+    for program in programs
+      console.log program
+      contest = Contest.findOne({program: program.name})
+      contest.exec (err, temp) ->
+        if temp
+          bucket.push({
+            name: temp.name,
+            prize: temp.prize,
+            loot: temp.loot,
+            fee: temp.fee,
+          })
+
+    setTimeout (->
+      console.log bucket
+      render(res, bucket)
+    ), 100
+
 handleError = (res, err) ->
   res.status(500).json err
+
+render = (res, data) ->
+  res.status(200).json data

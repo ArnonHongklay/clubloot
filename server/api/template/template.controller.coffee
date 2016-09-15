@@ -57,7 +57,7 @@ exports.create_question = (req, res) ->
       return handleError(res, err)  if err
       res.status(201).json template
 
-exports.update_question = (req, res) ->
+exports.updateQuestion = (req, res) ->
   Question.findById req.params.q, (err, question) ->
     # console.log question.answers
     # console.log req.body.answers
@@ -71,7 +71,7 @@ exports.update_question = (req, res) ->
 
     res.status(200).json question
 
-exports.find_question_by_templates = (req, res) ->
+exports.findQuestionByTemplate = (req, res) ->
   query = Question.find({'templates': req.params.id})
   query.exec (err, templates) ->
     return handleError(res, err)  if err
@@ -90,7 +90,6 @@ exports.findProgramActive = (req, res) ->
       template.exec (err, temp) ->
         if temp
           bucket.push({name: program.name})
-          # console.log bucket
 
     setTimeout (->
       render(res, bucket)

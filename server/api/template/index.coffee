@@ -12,8 +12,8 @@ router.get '/:id', controller.show
 router.post '/', controller.create
 router.put '/:id', controller.update
 router.post '/:id/questions', controller.create_question
-router.put '/:id/questions/:q', controller.update_question
-router.get '/:id/questions', controller.find_question_by_templates
+router.put '/:id/questions/:q', controller.updateQuestion
+router.get '/:id/questions', controller.findQuestionByTemplate
 router.patch '/:id', controller.update
 router.delete '/:id', controller.destroy
 

@@ -9,7 +9,7 @@ angular.module 'clublootApp'
     controller: 'ContestCtrl'
     resolve:
       contests: ($http, $stateParams) ->
-        $http.get "/api/contest"
+        $http.get "/api/templates/program"
 
   .state 'contestnew',
     url: '/contest/new'
