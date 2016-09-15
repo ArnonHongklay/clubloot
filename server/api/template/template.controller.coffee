@@ -4,6 +4,8 @@
 _ = require 'lodash'
 Template = require './template.model'
 Question = require '../question/question.model'
+Program = require '../program/program.model'
+
 
 # Get list of templates
 exports.index = (req, res) ->
@@ -75,5 +77,27 @@ exports.find_question_by_templates = (req, res) ->
     return handleError(res, err)  if err
     res.status(200).json templates
 
+exports.findProgramActive = (req, res) ->
+  bucket = []
+  program = Program.find({}).select('name -_id')
+  program.exec (err, programs) ->
+    if err
+      return next(err)
+
+    for program in programs
+      console.log program
+      template = Template.findOne({program: program.name})
+      template.exec (err, temp) ->
+        if temp
+          bucket.push({name: program.name})
+          # console.log bucket
+
+    setTimeout (->
+      render(res, bucket)
+    ), 100
+
 handleError = (res, err) ->
   res.status(500).json err
+
+render = (res, data) ->
+  res.status(200).json data

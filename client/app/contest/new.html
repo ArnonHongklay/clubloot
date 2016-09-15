@@ -24,6 +24,7 @@
                   <div class="box-left pull-left">Which program do you wish to compete in?</div>
                   <div class="box-right pull-right">
                     <select class="form-control" ng-model="contests.program">
+                      <option value="">Program</option>
                       <option ng-repeat="program in programList" name="{{program.name}}">{{program.name}}</option>
                     </select>
                   </div>
@@ -35,6 +36,7 @@
                   <div class="box-left pull-left">How many players?</div>
                   <div class="box-right pull-right">
                     <select class="form-control" ng-model="contests.player">
+                      <option value="">Player</option>
                       <option ng-repeat="number in numbers" name="{{number.title}}">{{number.title}}</option>
                     </select>
                   </div>
@@ -47,6 +49,7 @@
                   <div class="box-left pull-left">How would the prize be structured?</div>
                   <div class="box-right pull-right">
                     <select class="form-control" ng-model="contests.prize">
+                      <option value="">Prize</option>
                       <option ng-repeat="number in numbers" name="{{number.title}}">{{number.title}}</option>
                     </select>
                   </div>
@@ -68,21 +71,15 @@
                   <div class="box-left pull-left">Public or private contest? (private contests do not appear)</div>
                   <div class="box-right pull-right">
                     <select class="form-control" ng-model="contests.public">
-                      <option>true</option>
-                      <option>false</option>
+                      <option value="" selected>true</option>
+                      <option value="false">false</option>
                     </select>
                   </div>
                   </div>
                 </td>
               </tr>
-
-
             </tbody>
           </table>
-
-
-
-
         </div>
       </div>
       <div class="row terms hmb" style="margin-top: 60px">

@@ -6,7 +6,7 @@ angular.module 'clublootApp'
 
   $scope.qaSelection = []
   $scope.loadList = ->
-    $http.get("/api/program",
+    $http.get("/api/templates/program",
         null
       ).success((data, status, headers, config) ->
         $scope.programList = data

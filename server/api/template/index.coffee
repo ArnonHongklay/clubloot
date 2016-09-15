@@ -6,6 +6,7 @@ controller = require './template.controller'
 router = express.Router()
 
 router.get '/', controller.index
+router.get '/program', controller.findProgramActive
 
 router.get '/:id', controller.show
 router.post '/', controller.create
