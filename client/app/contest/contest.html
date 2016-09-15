@@ -12,10 +12,10 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="row">
-        <div class="col-sm-2" ng-repeat="contest in contests" ng-mouseover="hoverIn($index)" ng-mouseleave="hoverOut($index)" ng-click="selectContest(contest.name)">
+        <div class="col-sm-2" ng-repeat="contest in contests" ng-mouseover="hoverIn($index)" ng-mouseleave="hoverOut($index)" ui-sref="contestshow({contest: contest._id})">
            <div class="flex-container upcomming show-{{$index}}">
              <div class="item-show">
-               <p>{{contest.name}}</p>
+               <p>{{contest.program}}</p>
                <p>{{contest.prize}}</p>
                <p>Starts in</p>
                <p>12 hr 39 min</p>

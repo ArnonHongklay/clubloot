@@ -24,26 +24,6 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
     res.status(201).json contest
 
-# Updates an existing contest in the DB.
-exports.update = (req, res) ->
-  delete req.body._id  if req.body._id
-  Contest.findById req.params.id, (err, contest) ->
-    return handleError(res, err)  if err
-    return res.status(404).end()  unless contest
-    updated = _.merge(contest, req.body)
-    updated.save (err) ->
-      return handleError(res, err)  if err
-      res.status(200).json contest
-
-# Deletes a contest from the DB.
-exports.destroy = (req, res) ->
-  Contest.findById req.params.id, (err, contest) ->
-    return handleError(res, err)  if err
-    return res.status(404).end()  unless contest
-    contest.remove (err) ->
-      return handleError(res, err)  if err
-      res.status(204).end()
-
 exports.findProgramActive = (req, res) ->
   bucket = []
   program = Program.find({}).select('name -_id')
@@ -55,26 +35,14 @@ exports.findProgramActive = (req, res) ->
       console.log program
       contest = Contest.findOne({program: program.name})
       contest.exec (err, temp) ->
+        console.log temp
         if temp
-          bucket.push({
-            name: temp.name,
-            prize: temp.prize,
-            loot: temp.loot,
-            fee: temp.fee,
-          })
+          bucket.push(temp)
 
     setTimeout (->
       console.log bucket
       render(res, bucket)
     ), 100
-
-# exports.findContestByProgram = (req, res) ->
-#   program = Program.find({}).select('name -_id')
-#   program.exec (err, programs) ->
-#     if err
-#       return next(err)
-#
-#     console.log programs
 
 handleError = (res, err) ->
   res.status(500).json err
