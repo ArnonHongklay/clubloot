@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'QuestionCtrl', ($timeout, $scope, $http, Auth, templates, contest) ->
+.controller 'ContestQuestionCtrl', ($timeout, $scope, $http, Auth, templates, contest) ->
   $scope.templates = templates.data
   $scope.contests = contest.data
 

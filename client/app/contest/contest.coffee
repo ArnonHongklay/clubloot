@@ -37,7 +37,7 @@ angular.module 'clublootApp'
   .state 'question',
     url: '/question/:contest/'
     templateUrl: 'app/contest/question.html'
-    controller: 'QuestionCtrl'
+    controller: 'ContestQuestionCtrl'
     resolve:
       templates: ($http, $stateParams) ->
         $http.get "/api/templates"
