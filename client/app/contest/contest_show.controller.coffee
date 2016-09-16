@@ -6,6 +6,11 @@ angular.module 'clublootApp'
   $scope.contest = contest.data
   $scope.menu = $stateParams.contest
   $scope.$apend
+  console.log "contest"
+  console.log $scope.contest
+  console.log "prigram"
+
+
 
   $scope.stepBack = () ->
     window.location.href = '/contest'

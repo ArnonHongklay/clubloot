@@ -54,6 +54,8 @@ exports.updateQuestion = (req, res) ->
     # console.log question
       # question.answers.save()
     question.save()
+    exports.register = (socket) ->
+      socket.emit 'question:update', doc
 
     res.status(200).json question
 
