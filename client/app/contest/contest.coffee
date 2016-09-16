@@ -33,3 +33,13 @@ angular.module 'clublootApp'
         $http.get "/api/contest/program"
       contest: ($http, $stateParams) ->
         $http.get "/api/contest/program/#{$stateParams.contest}"
+
+  .state 'question',
+    url: '/question/:contest/'
+    templateUrl: 'app/contest/question.html'
+    controller: 'QuestionCtrl'
+    resolve:
+      templates: ($http, $stateParams) ->
+        $http.get "/api/templates"
+      contest: ($http, $stateParams) ->
+        $http.get "/api/contest/#{$stateParams.contest}"

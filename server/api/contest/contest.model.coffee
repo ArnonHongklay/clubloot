@@ -24,7 +24,6 @@ ContestSchema = new Schema
     }
   ]
 
-
   fee: Number
   public: Boolean
 

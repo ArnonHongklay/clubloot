@@ -114,9 +114,10 @@ Program.find({}).remove ->
     , (err, contest) ->
       console.log "contest created"
 
-Program.create
-  name: 'The Voice'
-  category: '1'
-  image: 'https://upload.wikimedia.org/wikipedia/en/4/44/The_Voice_NBC_logo_blackwhite.png'
-  active: true
-
+  Program.create
+    name: 'The Voice'
+    category: '1'
+    image: 'https://upload.wikimedia.org/wikipedia/en/4/44/The_Voice_NBC_logo_blackwhite.png'
+    active: true
+  , (err, program) ->
+    console.log program

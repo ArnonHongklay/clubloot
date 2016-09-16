@@ -21,19 +21,20 @@ angular.module 'clublootApp'
         # console.log $scope.questions
 
         console.log data
-        $scope.template_id = []
+        $scope.template_ids = []
         for template in $scope.templates
           if template.program == data.program #&& template.active == true
-            $scope.template_id.push(template._id)
+            $scope.template_ids.push(template._id)
             console.log template._id
 
-        console.log $scope.template_id[0]
+        $scope.template_id = $scope.template_ids[$scope.template_ids.length-1]
+
         $scope.contest = {}
         $scope.contest.id = data._id
-        $http.get("/api/templates/#{$scope.template_id[0]}", null).success (d) ->
+        $http.get("/api/templates/#{$scope.template_id}", null).success (d) ->
           $scope.contest.status = d.start_time
 
-        $http.get("/api/templates/#{$scope.template_id[0]}/questions",
+        $http.get("/api/templates/#{$scope.template_id}/questions",
             null
           ).success((ques) ->
             $scope.contest.challenge = ques.length
@@ -73,8 +74,6 @@ angular.module 'clublootApp'
 
   $scope.doneProcessing =  ->
     console.log $scope.newContestQuestion
-    # $http.post("")
-
 
   $scope.unlessEmpty = () ->
     return false if $scope.qaSelection == undefined
@@ -110,12 +109,3 @@ angular.module 'clublootApp'
   $scope.openAns = (index) ->
     console.log index
     $scope.qaShowAns[index] = true
-    # if $scope.newContestQuestion[index].showAns == true
-    #   $scope.newContestQuestion[index].showAns = false
-    #   return
-    # for q in $scope.newContestQuestion
-    #   q.showAns = false
-
-
-
-    # $scope.newContestQuestion[index].showAns = true
