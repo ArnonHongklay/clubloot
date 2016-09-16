@@ -17,6 +17,12 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
     res.status(201).json template
 
+exports.show = (req, res) ->
+  Template.findById req.params.id, (err, template) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless template
+    res.json template
+
 exports.update = (req, res) ->
   delete req.body._id  if req.body._id
   Template.findById req.params.id, (err, template) ->

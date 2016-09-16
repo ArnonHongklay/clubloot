@@ -11,5 +11,6 @@ router.get '/program/:id', controller.show
 router.get '/program/:name/all', controller.findAllProgram
 
 router.post '/', controller.create
+router.put  '/:id', controller.updateQuestion
 
 module.exports = router

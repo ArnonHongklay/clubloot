@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'NewContestCtrl', ($scope, $http, socket, $timeout, programs, templates, questions) ->
+.controller 'NewContestCtrl', ($scope, $http, socket, $timeout, User, programs, templates, questions) ->
   $scope.programList = programs.data
   $scope.templates = templates.data
   $scope.questions = questions.data
@@ -9,6 +9,10 @@ angular.module 'clublootApp'
   $scope.qaSelection = []
 
   $scope.landingContest = ->
+    $scope.contests.owner = User.email
+    $scope.contests.loot.category = "red"
+    $scope.contests.participant = []
+    $scope.contests.participant.push(User)
     $http.post("/api/contest",
         $scope.contests
       ).success((data, status, headers, config) ->
@@ -24,11 +28,16 @@ angular.module 'clublootApp'
             console.log template._id
 
         console.log $scope.template_id[0]
+        $scope.contest = {}
+        $scope.contest.id = data._id
+        $http.get("/api/templates/#{$scope.template_id[0]}", null).success (d) ->
+          $scope.contest.status = d.start_time
+
         $http.get("/api/templates/#{$scope.template_id[0]}/questions",
             null
-          ).success((ok) ->
-            $scope.ques = ok
-            console.log ok
+          ).success((ques) ->
+            $scope.contest.challenge = ques.length
+            $scope.contest.ques = ques
           ).error((data, status, headers, config) ->
             swal("Not Active")
           )
@@ -68,16 +77,34 @@ angular.module 'clublootApp'
 
 
   $scope.unlessEmpty = () ->
-    # console.log $scope.contests
-    # for q in $scope.newContestQuestion
-    #   if q.ans == ''
-    #     return false
-    # return true
-    return if $scope.qaSelection == undefined
-    return if $scope.ques == undefined
-    console.log "xxxxx"
-    if $scope.qaSelection.length == $scope.ques.length
+    return false if $scope.qaSelection == undefined
+    return false if $scope.contest == undefined
+    return false if $scope.contest.ques == undefined
+
+    console.log $scope.contest.ques
+    console.log $scope.qaSelection
+    if $scope.contest.ques.length == $scope.qaSelection.length
+      console.log "xxxxx"
       return true
+
+  $scope.addScore = ->
+    counter = 0
+    for q,i in $scope.contest.ques
+      for a in q.answers
+        console.log a
+        console.log a.is_correct
+        console.log $scope.qaSelection[i]
+        if a.title == $scope.qaSelection[i] && a.is_correct
+          console.log "=============================================fuck"
+          counter += 1
+
+    $timeout ->
+      console.log counter
+      $scope.contest.player = [{ uid: User._id, score: counter }]
+      $http.put("/api/contest/#{$scope.contest.id}", $scope.contest).success (data) ->
+        console.log data
+      $scope.createNewStep = '3'
+    , 300
 
   $scope.qaShowAns = []
   $scope.openAns = (index) ->

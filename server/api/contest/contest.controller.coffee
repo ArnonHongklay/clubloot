@@ -24,6 +24,21 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
     res.status(201).json contest
 
+exports.updateQuestion = (req, res) ->
+  Contest.findById req.params.id, (err, contest) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless contest
+
+    console.log "============================================"
+    console.log contest
+    console.log req.body
+
+    updated = _.merge(contest, req.body)
+    updated.save (err) ->
+      return handleError(res, err)  if err
+      res.status(200).json contest
+
+
 exports.findAllProgram = (req, res) ->
   Contest.find (err, contests) ->
     bucket = []

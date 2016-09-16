@@ -7,7 +7,6 @@ ContestSchema = new Schema
   name: String
   program: String
   owner: String
-  participant: []
   prize: Number
   loot: {
     prize: Number
@@ -16,7 +15,8 @@ ContestSchema = new Schema
   status: String
   challenge: Number
   max_player: Number
-  payer: [
+  participant: []
+  player: [
     {
       uid: String
       score: Number

@@ -35,7 +35,7 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">How many players?</div>
                   <div class="box-right pull-right">
-                    <select class="form-control" ng-model="contests.player">
+                    <select class="form-control" ng-model="contests.max_player">
                       <option value="">Player</option>
                       <option ng-repeat="number in numbers" name="{{number.title}}">{{number.title}}</option>
                     </select>
@@ -48,7 +48,7 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">How would the prize be structured?</div>
                   <div class="box-right pull-right">
-                    <select class="form-control" ng-model="contests.prize">
+                    <select class="form-control" ng-model="contests.loot.prize">
                       <option value="">Prize</option>
                       <option ng-repeat="number in numbers" name="{{number.title}}">{{number.title}}</option>
                     </select>
@@ -103,28 +103,17 @@
           </h3>
           <h5 class="g-text" style="text-indent: 10px;">Answer [ xx ] questions for your [ program ] contest.</h5>
             <div class="main-q-box">
-              <div ng-repeat="(i,q) in ques track by i" class="g-text">
+              <div ng-repeat="(i,q) in contest.ques track by i" class="g-text">
                 <i class="fa fa-check-circle checked-icon" aria-hidden="true" ng-show="qaSelection[i]"></i>
                 <div class="q-box" ng-click="openAns(i)">Question {{q.title}}</div>
 
                 <div class="q-box ans" ng-repeat="(x,a) in q.answers track by x" ng-show="qaShowAns[i]">
                   <input type=radio ng-model="qaSelection[i]" value="{{a.title}}"> {{a.title}}
                 </div>
-                <!-- <div class="q-box ans" ng-show="q.showAns">
-                  <input type=radio ng-model="q.ans[$index]" name="q{{$index}}1" value="A"> Answer A
-                </div>
-                <div class="q-box ans" ng-show="q.showAns">
-                  <input type=radio ng-model="q.ans[$index]" name="q{{$index}}2" value="B"> Answer B
-                </div>
-                <div class="q-box ans" ng-show="q.showAns">
-                  <input type=radio ng-model="q.ans[$index]" name="q{{$index}}3" value="C"> Answer C
-                </div>
-                <div class="q-box ans" ng-show="q.showAns">
-                  <input type=radio ng-model="q.ans[$index]" name="q{{$index}}4" value="D"> Answer D
-                </div> -->
+
               </div>
             </div>
-            <div class="btn get-prize" style="margin-top: 20px;" ng-click="createNewStep='3'" ng-show="unlessEmpty()">CONTINUE</div>
+            <div class="btn get-prize" style="margin-top: 20px;" ng-click="addScore()" ng-show="unlessEmpty()">CONTINUE</div>
         </div>
       </div>
     </div>
