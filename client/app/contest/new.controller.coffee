@@ -99,7 +99,7 @@ angular.module 'clublootApp'
 
     $timeout ->
       console.log counter
-      $scope.contest.player = [{ uid: Auth.getCurrentUser()._id, name: Auth.getCurrentUser().email, score: counter }]
+      $scope.contest.player = [{ uid: Auth.getCurrentUser()._id, name: Auth.getCurrentUser().email, score: counter, answers: $scope.qaSelection }]
       $http.put("/api/contest/#{$scope.contest.id}", $scope.contest).success (data) ->
         console.log data
       $scope.createNewStep = '3'

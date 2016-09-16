@@ -56,6 +56,18 @@ exports.updateQuestion = (req, res) ->
       return handleError(res, err)  if err
       res.status(200).json contest
 
+exports.joinPlayer = (req, res) ->
+  Contest.findById req.params.id, (err, contest) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless contest
+
+    contest.player.push(req.body.player)
+
+    console.log req.body.player
+    contest.save (err) ->
+      return handleError(res, err)  if err
+      res.status(200).json contest
+
 exports.findAllProgram = (req, res) ->
   Contest.find (err, contests) ->
     bucket = []

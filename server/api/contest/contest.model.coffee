@@ -21,6 +21,7 @@ ContestSchema = new Schema
       uid: String
       name: String
       score: Number
+      answers: []
     }
   ]
 
