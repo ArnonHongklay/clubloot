@@ -12,5 +12,6 @@ router.get '/program/:name/all', controller.findAllProgram
 
 router.post '/', controller.create
 router.put  '/:id', controller.updateQuestion
+router.put '/:id/join', controller.joinContest
 
 module.exports = router
