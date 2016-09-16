@@ -1,9 +1,11 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'QuestionCtrl', ($scope, $http, Auth, templates, contest) ->
+.controller 'QuestionCtrl', ($timeout, $scope, $http, Auth, templates, contest) ->
   $scope.templates = templates.data
   $scope.contests = contest.data
+
+  $scope.qaSelection = []
 
   $scope.template_ids = []
   for template in $scope.templates
@@ -14,6 +16,7 @@ angular.module 'clublootApp'
   $scope.template_id = $scope.template_ids[$scope.template_ids.length-1]
   $scope.contest = {}
 
+  $scope.contest._id = $scope.contests._id
   $http.get("/api/templates/#{$scope.template_id}/questions",
       null
     ).success((ques) ->
@@ -21,6 +24,25 @@ angular.module 'clublootApp'
     ).error((data, status, headers, config) ->
       swal("Not Active")
     )
+
+  $scope.addScore = ->
+    counter = 0
+    for q,i in $scope.contest.ques
+      for a in q.answers
+        console.log a
+        console.log a.is_correct
+        console.log $scope.qaSelection[i]
+        if a.title == $scope.qaSelection[i] && a.is_correct
+          console.log "=============================================fuck"
+          counter += 1
+
+    $timeout ->
+      console.log counter
+      $scope.contest.player = { uid: Auth.getCurrentUser()._id, name: Auth.getCurrentUser().email, score: counter, answers: $scope.qaSelection }
+      $http.put("/api/contest/#{$scope.contest._id}/player", $scope.contest).success (data) ->
+        console.log data
+      $scope.createNewStep = '3'
+    , 300
 
   $scope.unlessEmpty = () ->
     return false if $scope.qaSelection == undefined

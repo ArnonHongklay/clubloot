@@ -40,7 +40,7 @@ angular.module 'clublootApp'
         Auth.getCurrentUser()
       ).success((ok) ->
         $scope.contestSelection = ok
-        # $state.go("question", { contest: con._id })
+        $state.go("question", { contest: con._id })
       ).error((data, status, headers, config) ->
         swal("Not Active")
       )
