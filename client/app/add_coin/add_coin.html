@@ -16,7 +16,7 @@
 
           <tr ng-repeat="bucket in buckets">
             <td class="pp-text">
-              <input type="radio" name="bucket" ng-model="$parent.selectedBucket" ng-value="bucket.coins+bucket.bonus"> &nbsp {{bucket.bucket}}
+              <input type="radio" name="bucket" ng-model="$parent.selectedBucket" ng-value="bucket"> &nbsp {{bucket.bucket}}
             </td>
             <td>
               {{bucket.coins | currency:"":0}} + {{bucket.bonus | currency:"":0}} bonus = <span class="bold-text">{{bucket.coins+bucket.bonus | currency:"":0}} coins</span>
@@ -38,12 +38,12 @@
 
       <div class="col-sm-3 col-md-3 value-box gr" style="margin-left: 20px;">
         <span class="pull-left">Coins Added</span>
-        <span class="pull-right">{{selectedBucket || 0}}</span>
+        <span class="pull-right">{{selectedBucket.coins + selectedBucket.bonus || 0}}</span>
       </div>
 
       <div class="col-sm-3 col-md-3 value-box pp pull-right">
         <span class="pull-left">New bank</span>
-        <span class="pull-right">{{$root.currentUser.coins + selectedBucket || '- - -'}}</span>
+        <span class="pull-right">{{$root.currentUser.coins + (selectedBucket.coins + selectedBucket.bonus) || '- - -'}}</span>
       </div>
 
 
@@ -57,7 +57,7 @@
     </div>
 
     <div class="row" style="margin-top: 10px;">
-      <div class="btn get-prize" ng-disabled="!selectedBucket" ng-click="getCoin = true">BUY NOW</div>
+      <div class="btn get-prize" ng-disabled="!selectedBucket" ng-click="buyCoin()">BUY NOW</div>
     </div>
 
 </section>

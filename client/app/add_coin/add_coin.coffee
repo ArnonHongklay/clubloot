@@ -10,3 +10,5 @@ angular.module 'clublootApp'
     resolve:
       buckets: ($http, $stateParams) ->
         $http.get "/api/coin_package"
+      user: ($http, $stateParams) ->
+        $http.get "/api/users/me"

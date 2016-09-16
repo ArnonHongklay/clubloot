@@ -2,6 +2,13 @@
 
 angular.module 'clublootApp'
 .controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope, $timeout) ->
+  console.log "NavbarCtrl"
+
+
+  $scope.reAfterLoot = () ->
+    console.log "wpoepwoepwoepowpeowpeowpoewoepwofosfospfosp"
+    location.reload()
+
   $scope.menu = [
     {
       title: 'Dashboard'
@@ -25,10 +32,6 @@ angular.module 'clublootApp'
   $scope.CurrentUser =  Auth.getCurrentUser()
   $rootScope.currentUser = Auth.getCurrentUser()
 
-  console.log "================="
-  console.log $scope.getCurrentUser()
-
-
   $scope.logout = ->
     Auth.logout()
     $location.path '/login'
@@ -43,9 +46,9 @@ angular.module 'clublootApp'
       ).success((data, status, headers, config) ->
         $rootScope.freeLootToday = data.freeCoins
         $rootScope.showDailyLoot = true
-
         $scope.CurrentUser = data.user
         $rootScope.currentUser = data.user
+        Auth.user = $rootScope.currentUser
 
       ).error((data, status, headers, config) ->
 

@@ -11,5 +11,7 @@ router.post '/', controller.create
 router.post '/set', controller.set
 router.put '/:id', controller.update
 router.delete '/:id', controller.destroy
+router.put '/:user/addcoin', controller.addcoin
+
 
 module.exports = router
