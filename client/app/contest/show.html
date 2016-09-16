@@ -10,10 +10,47 @@
   <div class="list-box">
     <div class="col-lg-12" style="margin: 0px;padding: 0px;">
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="program in programs" ng-class="{menuactive: menu=='program.name'}" ng-click="menu='program.name'">
+        {{menu}}
+        <li class="list-group-item" ng-repeat="program in programs" ng-class="{menuactive: menu=='program._id'}" ui-sref="contestshow({contest: program._id})">
           <span class="pull-left">{{program.program}}</span>
           <span class="pull-right" style="color:red;">12:39</span>
         </li>
+        <!-- <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
+          <span class="pull-left">Academy Awards</span>
+          <span class="pull-right" style="color:red;">12:39</span>
+        </li>
+        <li class="list-group-item" ng-class="{menuactive: menu=='Amazing Race'}" ng-click="menu='Amazing Race'">
+          <span class="pull-left">Amazing Race</span>
+          <span class="pull-right">Jun 24</span>
+        </li>
+        <li class="list-group-item" ng-class="{menuactive: menu=='Bechelor'}" ng-click="menu='Bechelor'">
+          <span class="pull-left">Bechelor</span>
+          <span class="pull-right">Jan 3 2017</span>
+        </li>
+        <li class="list-group-item" ng-class="{menuactive: menu=='Bechelorette'}" ng-click="menu='Bechelorette'">
+          <span class="pull-left">Bechelorette</span>
+          <span class="pull-right">Jun 8</span>
+        </li>
+        <li class="list-group-item" ng-class="{menuactive: menu=='Big Brother'}" ng-click="menu='Big Brother'">
+          <span class="pull-left">Big Brother</span>
+          <span class="pull-right" style="color: red;">0:16</span>
+        </li>
+        <li class="list-group-item" ng-class="{menuactive: menu=='Emmy Awards'}" ng-click="menu='Emmy Awards'">
+          <span class="pull-left">Emmy Awards</span>
+          <span class="pull-right">Nov 8</span>
+        </li>
+        <li class="list-group-item" ng-class="{menuactive: menu=='Golden Globes'}" ng-click="menu='Golden Globes'">
+          <span class="pull-left">Golden Globes</span>
+          <span class="pull-right">Sep 10</span>
+        </li>
+        <li class="list-group-item" ng-class="{menuactive: menu=='Grammy Awards'}" ng-click="menu='Grammy Awards'">
+          <span class="pull-left">Grammy Awards</span>
+          <span class="pull-right">Oct 15</span>
+        </li>
+        <li class="list-group-item" ng-class="{menuactive: menu=='Survivor'}" ng-click="menu='Survivor'">
+          <span class="pull-left">Survivor</span>
+          <span class="pull-right">Jun 10</span>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -41,23 +78,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-click="showContestDetail='Amazing Chicks of Long Beach'">
-              <td class="text-blue">500
+            <tr ng-repeat="contest in allContest" ng-click="showContestDetail(contest)">
+              <td class="text-blue">{{contest.fee}}
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
-              <td class="loot gem-red">06
+              <td class="loot gem-red">{{contest.prize}}
                 <i class="fa fa-diamond" aria-hidden="true"></i>
               </td>
               <td>
                 <div class="circle blue">P</div>
-                <span class="text-contest text-blue">Amazing Chicks of Long Beach</span>
+                <span class="text-contest text-blue">{{contest.name}}</span>
               </td>
               <td>
                 <div class="full-circle blue">M</div>
               </td>
-              <td class="text-blue text-right">18/20 &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
+              <td class="text-blue text-right">{{contest.player.length}}/{{max_player}} &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
             </tr>
-            <tr ng-click="showContestDetail='Bored Frat Boys of Sigma Tau'">
+            <!-- <tr ng-click="showContestDetail='Bored Frat Boys of Sigma Tau'">
               <td class="text-blue">1,000
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
@@ -119,7 +156,7 @@
               </td>
               <td></td>
               <td class="text-grey text-right">02/02 &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -134,7 +171,6 @@
     <div style="text-indent: 19px">Hosted by <span class="text-blue">mamachick</span></div>
     <div style="padding: 20px">
       <table class="table" style="border-radius: 0px;">
-
         <tbody>
           <tr>
             <td class="text-grey" style="color:#999;width:100px;text-align:left;">
@@ -204,6 +240,7 @@
               26 Questions
             </td>
           </tr>
+
         </tbody>
       </table>
       <div class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;">JOIN CONTEST</div>
@@ -224,7 +261,7 @@
                 mamachick
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td class="text-blue" style="text-align:left;">
                 alluringchick
               </td>
@@ -313,18 +350,32 @@
               <td class="text-blue" style="text-align:left;">
                 utterfly
               </td>
-            </tr>
-
+            </tr> -->
           </tbody>
         </table>
       </div>
-
     </div>
-
-
   </div>
-
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <section class="contest-show phone">
@@ -483,7 +534,7 @@
               Challenge
               <i class="fa fa-chevron-right" style="position: absolute; right: 10px;margin-top: 2px;color:#50ACC4;" aria-hidden="true"></i>
             </td>
-            <td class="loot text-blue" style="text-align:left;"">
+            <td class="loot text-blue" style="text-align:left;">
               26 Questions
             </td>
           </tr>

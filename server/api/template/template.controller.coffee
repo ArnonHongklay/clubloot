@@ -69,7 +69,7 @@ exports.findProgramActive = (req, res) ->
       template = Template.findOne({program: program.name})
       template.exec (err, temp) ->
         if temp
-          bucket.push({name: program.name})
+          bucket.push(temp)
 
     setTimeout (->
       render(res, bucket)

@@ -10,13 +10,15 @@ angular.module 'clublootApp'
   $scope.stepBack = () ->
     window.location.href = '/contest'
 
-  console.log $scope.contests
-  # $http.get("/api/by_program",
-  #     # $stateParams.contest
-  #     null
-  #   ).success((ok) ->
-  #     console.log "ok"
-  #     console.log ok
-  #   ).error((data, status, headers, config) ->
-  #     swal("Not Active")
-  #   )
+  $http.get("/api/contest/program/#{$scope.contest.program}/all",
+      null
+    ).success((ok) ->
+      $scope.allContest = ok
+      console.log ok
+    ).error((data, status, headers, config) ->
+      swal("Not Active")
+    )
+
+  $scope.showContestDetail = (contest) ->
+    $scope.contestSelection = contest
+    $scope.showContestDetail = true

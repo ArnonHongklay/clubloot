@@ -12,10 +12,11 @@ angular.module 'clublootApp'
     $http.post("/api/contest",
         $scope.contests
       ).success((data, status, headers, config) ->
-        console.log $scope.programList
-        console.log $scope.templates
-        console.log $scope.questions
+        # console.log $scope.programList
+        # console.log $scope.templates
+        # console.log $scope.questions
 
+        console.log data
         $scope.template_id = []
         for template in $scope.templates
           if template.program == data.program #&& template.active == true

@@ -24,6 +24,19 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
     res.status(201).json contest
 
+exports.findAllProgram = (req, res) ->
+  Contest.find (err, contests) ->
+    bucket = []
+    for contest in contests
+      # console.log contest.program
+      if contest.program == req.params.name
+        bucket.push(contest)
+
+    setTimeout (->
+      console.log bucket
+      render(res, bucket)
+    ), 100
+
 exports.findProgramActive = (req, res) ->
   bucket = []
   program = Program.find({}).select('name -_id')
