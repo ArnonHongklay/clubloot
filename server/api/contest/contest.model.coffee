@@ -19,6 +19,7 @@ ContestSchema = new Schema
   player: [
     {
       uid: String
+      name: String
       score: Number
     }
   ]

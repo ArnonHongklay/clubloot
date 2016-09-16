@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'NewContestCtrl', ($scope, $http, socket, $timeout, User, programs, templates, questions) ->
+.controller 'NewContestCtrl', ($scope, $http, socket, $timeout, Auth, programs, templates, questions) ->
   $scope.programList = programs.data
   $scope.templates = templates.data
   $scope.questions = questions.data
@@ -9,10 +9,10 @@ angular.module 'clublootApp'
   $scope.qaSelection = []
 
   $scope.landingContest = ->
-    $scope.contests.owner = User.email
-    $scope.contests.loot.category = "red"
+    $scope.contests.owner = Auth.getCurrentUser().email
+    $scope.contests.loot.category = "gem-red"
     $scope.contests.participant = []
-    $scope.contests.participant.push(User)
+    $scope.contests.participant.push(Auth.getCurrentUser())
     $http.post("/api/contest",
         $scope.contests
       ).success((data, status, headers, config) ->
@@ -100,7 +100,7 @@ angular.module 'clublootApp'
 
     $timeout ->
       console.log counter
-      $scope.contest.player = [{ uid: User._id, score: counter }]
+      $scope.contest.player = [{ uid: Auth.getCurrentUser()._id, name: Auth.getCurrentUser().email, score: counter }]
       $http.put("/api/contest/#{$scope.contest.id}", $scope.contest).success (data) ->
         console.log data
       $scope.createNewStep = '3'

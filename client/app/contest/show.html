@@ -91,7 +91,7 @@
               <td>
                 <div class="full-circle blue">M</div>
               </td>
-              <td class="text-blue text-right">{{contest.player.length}}/{{max_player}} &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
+              <td class="text-blue text-right">{{contest.player.length}} / {{contest.max_player}} &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
             </tr>
             <!-- <tr ng-click="showContestDetail='Bored Frat Boys of Sigma Tau'">
               <td class="text-blue">1,000
@@ -209,7 +209,7 @@
               Players
             </td>
             <td class="loot" style="text-align:left;color:#999">
-              {{contestSelection.player.length}}/{{contestSelection.max_player}}
+              {{contestSelection.player.length}} / {{contestSelection.max_player}}
             </td>
           </tr>
 
@@ -250,13 +250,13 @@
       <div style="padding: 20px">
         <h4 style="color: #999">
           <i class="fa fa-users" aria-hidden="true"></i>
-          {{contet.player}}
+          {{contestSelection.player.length}} Players
         </h4>
         <table class="table" style="border-radius: 0px;">
           <tbody>
             <tr>
-              <td class="text-blue" style="text-align:left;">
-                mamachick
+              <td ng-repeat="player in contestSelection.player" class="text-blue" style="text-align:left;">
+                {{player.name}}
               </td>
             </tr>
             <!-- <tr>
