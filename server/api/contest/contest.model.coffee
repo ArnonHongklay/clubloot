@@ -13,6 +13,8 @@ ContestSchema = new Schema
     prize: Number
     category: String
   }
+  status: String
+  challenge: Number
   max_player: Number
   payer: [
     {
@@ -20,6 +22,7 @@ ContestSchema = new Schema
       score: Number
     }
   ]
+
 
   fee: Number
   public: Boolean

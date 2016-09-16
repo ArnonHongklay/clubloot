@@ -4,7 +4,7 @@ angular.module 'clublootApp'
 .controller 'ContestShowCtrl', ($scope, $http, socket, $stateParams, contest, program) ->
   $scope.programs = program.data
   $scope.contest = contest.data
-  $scope.menu = $scope.contest.program
+  $scope.menu = $stateParams.contest
   $scope.$apend
 
   $scope.stepBack = () ->
