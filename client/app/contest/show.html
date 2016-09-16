@@ -78,7 +78,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="contest in allContest" ng-click="showContestDetail(contest)">
+            <tr ng-repeat="contest in allContest" ng-click="showContestDetails(contest)">
               <td class="text-blue">{{contest.fee}}
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
@@ -177,7 +177,7 @@
               Entry fee
             </td>
             <td class="loot gem-red" style="text-align:left;color:#999;width:230px;">
-              500
+              {{contestSelection}}
               <img class="money-bag" src="assets/images/money-bag-grey.png">
             </td>
           </tr>
@@ -187,12 +187,12 @@
               Loot
             </td>
             <td class="loot gem-red" style="text-align:left;color:#999">
+              <i class="fa fa-diamond gem-red"  aria-hidden="true" ng-repeat="i in getNumber(contestSelection.prize) track by $index"></i>
+              <!-- <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
               <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
               <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
               <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
-              <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
-              <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
-              <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
+              <i class="fa fa-diamond gem-red"  aria-hidden="true"></i> -->
             </td>
           </tr>
 
@@ -210,7 +210,7 @@
               Players
             </td>
             <td class="loot" style="text-align:left;color:#999">
-              18/20
+              {{contestSelection.player.length}}/{{contestSelection.max_player}}
             </td>
           </tr>
 
@@ -219,7 +219,7 @@
               Program
             </td>
             <td class="loot" style="text-align:left;color:#999">
-              Academy Awards
+              {{contestSelection.program}}
             </td>
           </tr>
 
@@ -229,6 +229,7 @@
             </td>
             <td class="loot" style="text-align:left;color:#999">
               Starts in 12 hr 39 min
+              <!-- {{contestSelection}} -->
             </td>
           </tr>
 
@@ -252,7 +253,7 @@
       <div style="padding: 20px">
         <h4 style="color: #999">
           <i class="fa fa-users" aria-hidden="true"></i>
-          18 Players
+          {{contet.player}}
         </h4>
         <table class="table" style="border-radius: 0px;">
           <tbody>
