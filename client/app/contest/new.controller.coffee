@@ -74,8 +74,6 @@ angular.module 'clublootApp'
 
   $scope.doneProcessing =  ->
     console.log $scope.newContestQuestion
-    # $http.post("")
-
 
   $scope.unlessEmpty = () ->
     return false if $scope.qaSelection == undefined
@@ -111,12 +109,3 @@ angular.module 'clublootApp'
   $scope.openAns = (index) ->
     console.log index
     $scope.qaShowAns[index] = true
-    # if $scope.newContestQuestion[index].showAns == true
-    #   $scope.newContestQuestion[index].showAns = false
-    #   return
-    # for q in $scope.newContestQuestion
-    #   q.showAns = false
-
-
-
-    # $scope.newContestQuestion[index].showAns = true

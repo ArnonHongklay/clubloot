@@ -254,8 +254,8 @@
         </h4>
         <table class="table" style="border-radius: 0px;">
           <tbody>
-            <tr>
-              <td ng-repeat="player in contestSelection.player" class="text-blue" style="text-align:left;">
+            <tr ng-repeat="player in contestSelection.player">
+              <td class="text-blue" style="text-align:left;">
                 {{player.name}}
               </td>
             </tr>

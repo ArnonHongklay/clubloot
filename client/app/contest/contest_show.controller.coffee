@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'ContestShowCtrl', ($scope, $http, socket, Auth, $stateParams, contest, program) ->
+.controller 'ContestShowCtrl', ($scope, $http, socket, $state, Auth, $stateParams, contest, program) ->
   $scope.programs = program.data
   $scope.contest = contest.data
   $scope.menu = $stateParams.contest
@@ -32,6 +32,10 @@ angular.module 'clublootApp'
     new Array(num);
 
   $scope.joinContest = (con) ->
+    if con.player.length >= con.max_player
+      swal("Full contest")
+      return false
+
     for p in con.participant
       if p.uid == Auth.getCurrentUser()._id
         return false
@@ -39,7 +43,8 @@ angular.module 'clublootApp'
     $http.put("/api/contest/#{con._id}/join",
         Auth.getCurrentUser()
       ).success((ok) ->
-        console.log ok
+        $scope.contestSelection = ok
+        # $state.go("question", { contest: con._id })
       ).error((data, status, headers, config) ->
         swal("Not Active")
       )

@@ -33,7 +33,14 @@ exports.joinContest = (req, res) ->
     console.log "======================================="
     console.log req.body
 
-    render(res, "ok")
+    contest.participant.push(req.body)
+    contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
+
+    console.log "======================================="
+    console.log contest
+    contest.save (err) ->
+      return handleError(res, err)  if err
+      res.status(200).json contest
 
 exports.updateQuestion = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->
