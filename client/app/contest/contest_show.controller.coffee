@@ -19,10 +19,6 @@ angular.module 'clublootApp'
       swal("Not Active")
     )
 
-  # $('#getting-started').countdown '2017/01/01', (event) ->
-  #   $(this).text event.strftime('%D days %H:%M:%S')
-  #   return
-
   $scope.showContestDetail = false
   $scope.showContestDetails = (contest) ->
     $scope.contestSelection = contest
