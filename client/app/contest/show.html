@@ -10,7 +10,11 @@
   <div class="list-box">
     <div class="col-lg-12" style="margin: 0px;padding: 0px;">
       <ul class="list-group">
-        <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
+        <li class="list-group-item" ng-repeat="program in programs" ng-class="{menuactive: menu=='program._id'}" ui-sref="contestshow({contest: program._id})">
+          <span class="pull-left">{{program.program}}</span>
+          <span class="pull-right" style="color:red;">12:39</span>
+        </li>
+        <!-- <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
           <span class="pull-left">Academy Awards</span>
           <span class="pull-right" style="color:red;">12:39</span>
         </li>
@@ -45,7 +49,7 @@
         <li class="list-group-item" ng-class="{menuactive: menu=='Survivor'}" ng-click="menu='Survivor'">
           <span class="pull-left">Survivor</span>
           <span class="pull-right">Jun 10</span>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -53,7 +57,7 @@
   <div class="chanel-detail" ng-hide="showContestDetail">
     <div class="row">
     <h3 style="font-weight: 300;">
-      <span class="pull-left" style="color:rgb(128,102,160)">{{menu}}</span>
+      <span class="pull-left" style="color:rgb(128,102,160)">{{contest.program}}</span>
       <span class="pull-right btn" style="background:rgb(128,102,160);color:#fff;">26 Q</span>
     </h3>
     </div>
@@ -73,23 +77,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-click="showContestDetail='Amazing Chicks of Long Beach'">
-              <td class="text-blue">500
+            <tr ng-repeat="contest in allContest" ng-click="showContestDetails(contest)">
+              <td class="text-blue">{{contest.fee}}
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
-              <td class="loot gem-red">06
+              <td class="loot gem-red">{{contest.prize}}
                 <i class="fa fa-diamond" aria-hidden="true"></i>
               </td>
               <td>
                 <div class="circle blue">P</div>
-                <span class="text-contest text-blue">Amazing Chicks of Long Beach</span>
+                <span class="text-contest text-blue">{{contest.name}}</span>
               </td>
               <td>
                 <div class="full-circle blue">M</div>
               </td>
-              <td class="text-blue text-right">18/20 &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
+              <td class="text-blue text-right">{{contest.player.length}} / {{contest.max_player}} &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
             </tr>
-            <tr ng-click="showContestDetail='Bored Frat Boys of Sigma Tau'">
+            <!-- <tr ng-click="showContestDetail='Bored Frat Boys of Sigma Tau'">
               <td class="text-blue">1,000
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
@@ -151,7 +155,7 @@
               </td>
               <td></td>
               <td class="text-grey text-right">02/02 &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -162,18 +166,17 @@
 
   <div class="contest-detail" ng-show="showContestDetail">
     <h4 style="color:rgb(128,102,160);font-weight:300;cursor:pointer;" ng-click="showContestDetail=false">
-      <i class="fa fa-chevron-left" aria-hidden="true"></i> {{showContestDetail}}</h4>
-    <div style="text-indent: 19px">Hosted by <span class="text-blue">mamachick</span></div>
+      <i class="fa fa-chevron-left" aria-hidden="true"></i> {{contestSelection.name}}</h4>
+    <div style="text-indent: 19px">Hosted by <span class="text-blue">{{contestSelection.owner}}</span></div>
     <div style="padding: 20px">
       <table class="table" style="border-radius: 0px;">
-
         <tbody>
           <tr>
             <td class="text-grey" style="color:#999;width:100px;text-align:left;">
               Entry fee
             </td>
             <td class="loot gem-red" style="text-align:left;color:#999;width:230px;">
-              500
+              {{contestSelection.fee}}
               <img class="money-bag" src="assets/images/money-bag-grey.png">
             </td>
           </tr>
@@ -183,12 +186,12 @@
               Loot
             </td>
             <td class="loot gem-red" style="text-align:left;color:#999">
+              <i class="fa fa-diamond gem-red"  aria-hidden="true" ng-repeat="i in getNumber(contestSelection.loot.prize) track by $index"></i>
+              <!-- <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
               <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
               <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
               <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
-              <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
-              <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
-              <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
+              <i class="fa fa-diamond gem-red"  aria-hidden="true"></i> -->
             </td>
           </tr>
 
@@ -206,7 +209,7 @@
               Players
             </td>
             <td class="loot" style="text-align:left;color:#999">
-              18/20
+              {{contestSelection.player.length}} / {{contestSelection.max_player}}
             </td>
           </tr>
 
@@ -215,7 +218,7 @@
               Program
             </td>
             <td class="loot" style="text-align:left;color:#999">
-              Academy Awards
+              {{contestSelection.program}}
             </td>
           </tr>
 
@@ -225,6 +228,7 @@
             </td>
             <td class="loot" style="text-align:left;color:#999">
               Starts in 12 hr 39 min
+              <!-- {{contestSelection}} -->
             </td>
           </tr>
 
@@ -232,32 +236,30 @@
             <td class="text-grey" style="color:#999;width:200px;text-align:left;">
               Challenge
             </td>
-            <td class="loot text-blue" style="text-align:left;"">
-              26 Questions
+            <td class="loot text-blue" style="text-align:left;">
+              {{contestSelection.challenge}} Questions
             </td>
           </tr>
-
         </tbody>
       </table>
       <div class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;">JOIN CONTEST</div>
     </div>
-
   </div>
 
     <div class="room-detail" ng-show="showContestDetail">
       <div style="padding: 20px">
         <h4 style="color: #999">
           <i class="fa fa-users" aria-hidden="true"></i>
-          18 Players
+          {{contestSelection.player.length}} Players
         </h4>
         <table class="table" style="border-radius: 0px;">
           <tbody>
             <tr>
-              <td class="text-blue" style="text-align:left;">
-                mamachick
+              <td ng-repeat="player in contestSelection.player" class="text-blue" style="text-align:left;">
+                {{player.name}}
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td class="text-blue" style="text-align:left;">
                 alluringchick
               </td>
@@ -346,18 +348,32 @@
               <td class="text-blue" style="text-align:left;">
                 utterfly
               </td>
-            </tr>
-
+            </tr> -->
           </tbody>
         </table>
       </div>
-
     </div>
-
-
   </div>
-
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <section class="contest-show phone">
@@ -516,7 +532,7 @@
               Challenge
               <i class="fa fa-chevron-right" style="position: absolute; right: 10px;margin-top: 2px;color:#50ACC4;" aria-hidden="true"></i>
             </td>
-            <td class="loot text-blue" style="text-align:left;"">
+            <td class="loot text-blue" style="text-align:left;">
               26 Questions
             </td>
           </tr>
@@ -634,28 +650,8 @@
               utterfly
             </td>
           </tr>
-
         </tbody>
       </table>
-
-
-
     </div>
   </div>
-
-
-
-
-
 </section>
-
-
-
-
-
-
-
-
-
-
-

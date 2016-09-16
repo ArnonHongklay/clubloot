@@ -6,14 +6,24 @@ Schema = mongoose.Schema
 ContestSchema = new Schema
   name: String
   program: String
-  max_player: Number
   owner: String
-  participant: []
   prize: Number
   loot: {
     prize: Number
     category: String
   }
+  status: String
+  challenge: Number
+  max_player: Number
+  participant: []
+  player: [
+    {
+      uid: String
+      name: String
+      score: Number
+    }
+  ]
+
 
   fee: Number
   public: Boolean
