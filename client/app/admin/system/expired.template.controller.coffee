@@ -13,4 +13,10 @@ angular.module 'clublootApp'
         swal("Not found!!")
       )
 
+  $scope.checkActive = (time) ->
+    t2 = new Date(time).getTime()
+    t1 = new Date().getTime()
+    a = parseFloat (t2 - t1) / (24 * 3600 * 1000)
+    return a < 0
+
   $scope.loadList()
