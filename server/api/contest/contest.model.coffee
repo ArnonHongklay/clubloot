@@ -21,10 +21,10 @@ ContestSchema = new Schema
       uid: String
       name: String
       score: Number
+      q_id: String
       answers: []
     }
   ]
-
   fee: Number
   public: Boolean
 
