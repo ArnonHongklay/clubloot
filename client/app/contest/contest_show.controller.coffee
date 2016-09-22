@@ -55,11 +55,13 @@ angular.module 'clublootApp'
 
 
   $scope.checkAns = (ans, index) ->
+    return "fa-check" if $scope.questions[index].answers[ans].is_correct == true
 
-    if $scope.questions[index].answers[ans].is_correct == true
-      return "fa-check"
-    else
-      return "fa-times"
+    for i, k in $scope.questions[index].answers
+      if i.is_correct == false && k >= $scope.questions[index].answers.length
+        return ""
+
+    return "fa-times"
 
 
   socket.syncUpdates 'question', $scope.questions, (event, item, object) ->
