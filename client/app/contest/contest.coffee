@@ -33,6 +33,8 @@ angular.module 'clublootApp'
         $http.get "/api/contest/program"
       contest: ($http, $stateParams) ->
         $http.get "/api/contest/program/#{$stateParams.contest}"
+      templates: ($http, $stateParams) ->
+        $http.get "/api/templates"
 
   .state 'question',
     url: '/question/:contest/'

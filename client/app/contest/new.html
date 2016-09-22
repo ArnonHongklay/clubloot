@@ -33,6 +33,18 @@
 
               <tr>
                 <td class="g-text" style="padding: 5px 5px">
+                  <div class="box-left pull-left">choose your template {{template.program}}</div>
+                  <div class="box-right pull-right">
+                    <select class="form-control" ng-model="contests.template_id">
+                      <option value="">Template</option>
+                      <option ng-repeat="template in templates" name="{{template}}" value="{{template._id}}" ng-show="template.program == contests.program">{{template.name}}</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">How many players?</div>
                   <div class="box-right pull-right">
                     <select class="form-control" ng-model="contests.max_player">
@@ -108,7 +120,7 @@
                 <div class="q-box" ng-click="openAns(i)">Question {{q.title}}</div>
 
                 <div class="q-box ans" ng-repeat="(x,a) in q.answers track by x" ng-show="qaShowAns[i]">
-                  <input type=radio ng-model="qaSelection[i]" value="{{a.title}}"> {{a.title}}
+                  <input type=radio ng-model="qaSelection[i]" value="{{x}}"> {{a.title}}
                 </div>
 
               </div>

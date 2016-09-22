@@ -14,7 +14,7 @@
               <i class="fa fa-check-circle checked-icon" aria-hidden="true" ng-show="qaSelection[i]"></i>
               <div class="q-box" ng-click="openAns(i)">Question {{q.title}}</div>
               <div class="q-box ans" ng-repeat="(x,a) in q.answers track by x" ng-show="qaShowAns[i]">
-                <input type=radio ng-model="qaSelection[i]" value="{{a.title}}"> {{a.title}}
+                <input type=radio ng-model="qaSelection[i]" value="{{x}}"> {{a.title}}
               </div>
             </div>
           </div>

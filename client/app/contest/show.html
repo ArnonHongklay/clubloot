@@ -155,10 +155,13 @@
         </h4>
         <table class="table" style="border-radius: 0px;">
           <tbody>
-            <tr ng-repeat="player in contestSelection.player">
+            <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)"
+            ng-if="player.answers.length > 0">
               <td class="text-blue" style="text-align:left;">
                 {{player.name}}
-                <span class="pull-right">{{player}}</span>
+                <span class="pull-right">
+                  {{checkScore(player, $index)}}
+                </span>
               </td>
             </tr>
             <!-- <tr>
@@ -462,98 +465,64 @@
               mamachick
             </td>
           </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              alluringchick
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              cattychick
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              chickmagnet
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              fiestychick
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              fridatata
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              glamourchic
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              luxtina
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              luxurious
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              mostchic
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              nostalgia
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              openminded
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              Status
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              superchic
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              superfine
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              superwomen
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              talentedamy
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              trainwreck
-            </td>
-          </tr>
-          <tr>
-            <td class="text-blue" style="text-align:left;">
-              utterfly
-            </td>
-          </tr>
+
         </tbody>
       </table>
     </div>
   </div>
+
 </section>
+
+<div class="compair-modal" ng-show="selectedCompair">
+
+  <div class="bg"></div>
+  <div class="content-box">
+    <i class="fa fa-times close-btn" ng-click="selectedCompair = false"></i>
+    <h3>Me VS {{selectedCompair.name}}</h3>
+      <div class="row">
+      <table class="table" style="border-radius: 0px;">
+        <tbody>
+          <tr>
+            <td class="text-blue" style="text-align:left;width: 50%">
+            </td>
+            <td class="text-blue" style="text-align:left;width: 25%">
+              <div style="width: 90%;background:#999;color:#fff;height:100%;text-align: center;line-height: 30px;">
+                {{selectedCompair.me.score}}
+              </div>
+            </td>
+            <td class="text-blue" style="text-align:left;width: 25%">
+              <div style="width: 90%;background:#50ACC4;color:#fff;height:100%;text-align: center;line-height: 30px;">
+                {{selectedCompair.player.score}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-blue" style="text-align:left;width: 50%">
+              question
+            </td>
+            <td class="text-blue" style="text-align:left;width: 25%">
+              Me
+            </td>
+            <td class="text-blue" style="text-align:left;width: 25%">
+              {{selectedCompair.name}}
+            </td>
+          </tr>
+          <tr ng-repeat="ans in selectedCompair.vs track by $index">
+            <td class="text-blue" style="text-align:left;width: 50%">
+              Q{{$index}}
+            </td>
+            <td class="text-blue" style="text-align:left;width: 25%">
+              {{ans.ans}} <i class="check-ans fa {{checkAns(ans.p, $index)}}" ></i>
+            </td>
+            <td class="text-blue" style="text-align:left;width: 25%">
+              {{selectedCompair.vs[$index].ans}} <i class="check-ans fa {{checkAns(ans.p, $index)}}" ></i>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+  </div>
+
+
+</div>

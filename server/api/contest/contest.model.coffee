@@ -27,5 +27,6 @@ ContestSchema = new Schema
   ]
   fee: Number
   public: Boolean
+  template_id : String
 
 module.exports = mongoose.model 'Contest', ContestSchema

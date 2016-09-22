@@ -6,6 +6,8 @@ angular.module 'clublootApp'
   $scope.templates = templates.data
   $scope.questions = questions.data
 
+  console.log $scope.templates
+
   $scope.qaSelection = []
 
   $scope.landingContest = ->
