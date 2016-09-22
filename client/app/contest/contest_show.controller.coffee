@@ -72,8 +72,8 @@ angular.module 'clublootApp'
   $scope.showContestDetail = false
   $scope.showContestDetails = (contest) ->
     $scope.contestSelection = contest
-
-
+    console.log "showContestDetails"
+    console.log contest
     $http.get("/api/templates/#{contest.template_id}/questions",
       null
     ).success((ques) ->
