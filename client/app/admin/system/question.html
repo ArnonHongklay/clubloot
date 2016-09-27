@@ -19,7 +19,7 @@
         <ul>
           <li ng-repeat="answer in question.answers">
             <!-- {{question._id}}-{{answer._id}} -->
-            <input type="radio" class="check-{{answer.is_correct}}" name="qa-{{question._id}}" ng-click="setAns(question._id, answer._id)">&nbsp;&nbsp;&nbsp;{{answer.title}}
+            <input type="radio" class="check-{{answer.is_correct}}" name="qa-{{question._id}}" ng-click="setAns(question._id, answer._id)" ng-checked="answer.is_correct">&nbsp;&nbsp;&nbsp;{{answer.title}}
             &nbsp;( {{answer.is_correct}} )
           </li>
         </ul>

@@ -3,6 +3,7 @@
 
 _ = require 'lodash'
 Coinp = require './coinp.model'
+User  = require '../user/user.model'
 
 # Get list of contests
 exports.index = (req, res) ->
@@ -40,16 +41,30 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
     res.status(201).json contest
 
+exports.addcoin = (req, res) ->
+  Coinp.findById req.body._id, (err, coinp) ->
+    addedCoin = coinp.coins + coinp.bonus
+    User.findById req.params.user, (err, user) ->
+      user.coins = user.coins + addedCoin
+      user.save (err) ->
+        res.json user
+
+    # return handleError(res, err)  if err
+    # return res.status(404).end()  unless user
+    # updated = _.merge(user, req.body)
+    # updated.save (err) ->
+    #   return handleError(res, err)  if err
+
 # Updates an existing contest in the DB.
 exports.update = (req, res) ->
   delete req.body._id  if req.body._id
-  Coinp.findById req.params.id, (err, contest) ->
+  Coinp.findById req.params.id, (err, coinp) ->
     return handleError(res, err)  if err
-    return res.status(404).end()  unless contest
+    return res.status(404).end()  unless coinp
     updated = _.merge(contest, req.body)
     updated.save (err) ->
       return handleError(res, err)  if err
-      res.status(200).json contest
+      res.status(200).json coinp
 
 # Deletes a contest from the DB.
 exports.destroy = (req, res) ->

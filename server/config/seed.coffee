@@ -5,40 +5,119 @@ to disable, edit config/environment/index.js, and set `seedDB: false`
 
 'use strict'
 
-Thing = require '../api/thing/thing.model'
-User = require '../api/user/user.model'
+Thing   = require '../api/thing/thing.model'
+User    = require '../api/user/user.model'
+Program = require '../api/program/program.model'
+Contest = require '../api/contest/contest.model'
 
-Thing.find({}).remove ->
-  Thing.create
-    name: 'Development Tools'
-    info: 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-  ,
-    name: 'Server and Client integration'
-    info: 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-  ,
-    name: 'Smart Build System'
-    info: 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  ,
-    name: 'Modular Structure'
-    info: 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  ,
-    name: 'Optimized Build'
-    info: 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  ,
-    name: 'Deployment Ready'
-    info: 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
+userId = ''
 
-User.find({}).remove ->
-  User.create
-    provider: 'local'
-    name: 'Test User'
-    email: 'test@test.com'
-    password: 'test'
-  ,
-    provider: 'local'
-    role: 'admin'
-    name: 'Admin'
-    email: 'admin@admin.com'
-    password: 'admin'
-  , ->
-    console.log 'finished populating users'
+User.remove().exec()
+Contest.remove().exec()
+Program.remove().exec()
+
+User.create
+  provider: 'local'
+  name: 'non'
+  email: 'non@non.com'
+  password: 'non'
+,
+  provider: 'local'
+  name: 'steven'
+  email: 'steven@steven.com'
+  password: 'steven'
+,
+  provider: 'local'
+  name: 'pump'
+  email: 'pump@pump.com'
+  password: 'pump'
+,
+  provider: 'local'
+  name: 'angerson'
+  email: 'angerson@angerson.com'
+  password: 'angerson'
+,
+  provider: 'local'
+  name: 'godfather'
+  email: 'godfather@godfather.com'
+  password: 'godfather'
+,
+  provider: 'local'
+  name: 'ronaldo'
+  email: 'ronaldo@ronaldo.com'
+  password: 'ronaldo'
+,
+  provider: 'local'
+  name: 'panda'
+  email: 'panda@panda.com'
+  password: 'panda'
+,
+  provider: 'local'
+  name: 'obama'
+  email: 'obama@obama.com'
+  password: 'obama'
+,
+  provider: 'local'
+  name: 'assasin'
+  email: 'assasin@assasin.com'
+  password: 'assasin'
+,
+  provider: 'local'
+  name: 'marse'
+  email: 'marse@marse.com'
+  password: 'marse'
+,
+  provider: 'local'
+  name: 'machete'
+  email: 'machete@gmail.com'
+  password: 'machete'
+  coins: 300000
+  diamonds: 20
+  rubies: 50
+  emerald: 50
+  saphires: 30
+,
+  provider: 'local'
+  name: 'momotaro'
+  email: 'momotaro@momotaro.com'
+  password: 'momotaro'
+
+userId = ''
+User.find { 'name': 'machete' }, (err, user) ->
+  console.log "==========================================="
+  user.save
+  userId = user._id
+  return
+
+allUser = []
+User.find {}, (err, users) ->
+  allUser = users
+
+Program.find({}).remove ->
+  Program.create
+    name: 'Big-Brother'
+    category: '1'
+    image: 'https://upload.wikimedia.org/wikipedia/sl/8/89/Big_Brother-logo.png'
+    active: true
+  , (err, program) ->
+    console.log "program created"
+    Contest.create
+      name: 'Big-Brother-01'
+      program: program._id
+      max_player: 20
+      owner: userId
+      participant: allUser
+      prize: 200
+      loot: { prize: 6, category: 'ruby' }
+      fee: 1000
+      public: true
+    , (err, contest) ->
+      console.log "contest created"
+
+  Program.create
+    name: 'The Voice'
+    category: '1'
+    image: 'https://upload.wikimedia.org/wikipedia/en/4/44/The_Voice_NBC_logo_blackwhite.png'
+    active: true
+  , (err, program) ->
+    console.log program

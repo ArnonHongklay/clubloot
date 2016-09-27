@@ -1,8 +1,14 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope) ->
-  console.log Auth.getCurrentUser()
+.controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope, $timeout) ->
+  console.log "NavbarCtrl"
+
+
+  $scope.reAfterLoot = () ->
+    console.log "wpoepwoepwoepowpeowpeowpoewoepwofosfospfosp"
+    location.reload()
+
   $scope.menu = [
     {
       title: 'Dashboard'
@@ -23,11 +29,8 @@ angular.module 'clublootApp'
   $scope.isAdmin = Auth.isAdmin
   $scope.getCurrentUser = Auth.getCurrentUser
 
-
-
   $scope.CurrentUser =  Auth.getCurrentUser()
   $rootScope.currentUser = Auth.getCurrentUser()
-
 
   $scope.logout = ->
     Auth.logout()
@@ -41,21 +44,19 @@ angular.module 'clublootApp'
     $http.put("/api/daily_loot/#{id}/getfreeloot",
         id: id
       ).success((data, status, headers, config) ->
-        console.log "---------------"
-        console.log data
         $rootScope.freeLootToday = data.freeCoins
         $rootScope.showDailyLoot = true
         $scope.CurrentUser = data.user
         $rootScope.currentUser = data.user
+        Auth.user = $rootScope.currentUser
 
       ).error((data, status, headers, config) ->
 
       )
-
-  if Auth.getCurrentUser()
-    console.log "8888888888888888"
-    console.log Auth.getCurrentUser()
-    $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) =>
-      console.log data
-      $scope.getFreeLoot() if data.free_loot
+  $timeout ->
+    if Auth.getCurrentUser()
+      $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) =>
+        console.log data
+        $scope.getFreeLoot() if data.free_loot
+  , 300
 

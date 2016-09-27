@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'QuestionCtrl', ($scope, $stateParams, $http, $timeout, $window, Auth, User, id) ->
+.controller 'QuestionCtrl', ($scope, $stateParams, $http, $timeout, $window, Auth, User, id, socket) ->
   # $scope.data      = id.data
   $scope.questions = id.data
 
@@ -19,6 +19,12 @@ angular.module 'clublootApp'
           else
             ans.is_correct = false
           console.log ans
+
+  console.log socket
+  console.log socket.syncUpdates
+
+
+  socket.syncUpdates 'question', $scope.questions
 
 
   $scope.chooseQuestion = (q_id) ->

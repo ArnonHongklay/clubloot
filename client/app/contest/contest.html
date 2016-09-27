@@ -11,109 +11,20 @@
   </div>
   <div class="row">
     <div class="col-lg-12">
-      <div class="flex-container">
-        <div class="flex-item upcomming show-1" ng-mouseover="hoverIn(1)" ng-mouseleave="hoverOut(1)" ng-click="selectContest('Academy Awards')">
-          <div class="item-show">
-            <p>Academy Awards</p>
-            <p>6,543</p>
-            <p>Starts in</p>
-            <p>12 hr 39 min</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/academy-awards.png">
-          </div>
+      <div class="row">
+        <div class="col-sm-2" ng-repeat="contest in contests" ng-mouseover="hoverIn($index)" ng-mouseleave="hoverOut($index)" ui-sref="contestshow({contest: contest._id})">
+           <div class="flex-container upcomming show-{{$index}}">
+             <div class="item-show">
+               <p>{{contest.program}}</p>
+               <p>{{contest.prize}}</p>
+               <p>Starts in</p>
+               <p>12 hr 39 min</p>
+             </div>
+             <div class="item-hover">
+               <img src="assets/images/contest/academy-awards.png">
+             </div>
+           </div>
         </div>
-        <div class="flex-item future show-2" ng-mouseover="hoverIn(2)" ng-mouseleave="hoverOut(2)" ng-click="selectContest('Amazing Race')">
-          <div class="item-show">
-            <p>Amazing Race</p>
-            <p>235</p>
-            <p>Starts On</p>
-            <p>Jun 24, 2016</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/amazing-race.png">
-          </div>
-        </div>
-        <div class="flex-item future show-3" ng-mouseover="hoverIn(3)" ng-mouseleave="hoverOut(3)" ng-click="selectContest('The Bachelor')">
-          <div class="item-show">
-            <p>The Bachelor</p>
-            <p>89</p>
-            <p>Starts On</p>
-            <p>Jan 3, 2017</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/the-bachelor.png">
-          </div>
-        </div>
-        <div class="flex-item soon show-4" ng-mouseover="hoverIn(4)" ng-mouseleave="hoverOut(4)" ng-click="selectContest('The Bachelorette')">
-          <div class="item-show">
-            <p>The Bachelorette</p>
-            <p>501</p>
-            <p>Starts On</p>
-            <p>Jun 8, 2016</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/the-bachelorette.png">
-          </div>
-        </div>
-        <div class="flex-item upcomming show-5" ng-mouseover="hoverIn(5)" ng-mouseleave="hoverOut(5)" ng-click="selectContest('Big Brother')">
-          <div class="item-show">
-            <p>Big Brother</p>
-            <p>6,543</p>
-            <p>Starts in</p>
-            <p>0 hr 16 min</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/big-brother.png">
-          </div>
-        </div>
-      </div>
-      <div class="flex-container">
-        <div class="flex-item future show-6" ng-mouseover="hoverIn(6)" ng-mouseleave="hoverOut(6)" ng-click="selectContest('Emmy Awards')">
-          <div class="item-show">
-            <p>Emmy Awards</p>
-            <p>2,199</p>
-            <p>Starts On</p>
-            <p>Nov 8, 2016</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/emmy-awards.png">
-          </div>
-        </div>
-        <div class="flex-item future show-7" ng-mouseover="hoverIn(7)" ng-mouseleave="hoverOut(7)" ng-click="selectContest('Golden Globes')">
-          <div class="item-show">
-            <p>Golden Globes</p>
-            <p>2,445</p>
-            <p>Starts On</p>
-            <p>Sep 10, 2016</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/golden-globes.png">
-          </div>
-        </div>
-        <div class="flex-item future show-8" ng-mouseover="hoverIn(8)" ng-mouseleave="hoverOut(8)" ng-click="selectContest('Grammy Award')">
-          <div class="item-show">
-            <p>Grammy Awards</p>
-            <p>2,278</p>
-            <p>Starts On</p>
-            <p>Oct 15, 2016</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/grammy-awards.png">
-          </div>
-        </div>
-        <div class="flex-item soon show-9" ng-mouseover="hoverIn(9)" ng-mouseleave="hoverOut(9)" ng-click="selectContest('Survivor')">
-          <div class="item-show">
-            <p>Survivor</p>
-            <p>995</p>
-            <p>Starts On</p>
-            <p>12 hr 39 min</p>
-          </div>
-          <div class="item-hover">
-            <img src="assets/images/contest/survivor.png">
-          </div>
-        </div>
-        <div class="flex-item"></div>
       </div>
     </div>
   </div>

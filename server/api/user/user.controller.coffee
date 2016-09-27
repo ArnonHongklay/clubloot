@@ -102,12 +102,16 @@ exports.me = (req, res, next) ->
   userId = req.user._id
   console.log "----------------------------------++++++++++++++++++++++++++++++++"
   console.log req.user
+  console.log userId
   User.findOne
     _id: userId
   , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
     return next(err)  if err
     return res.status(401).end()  unless user
-    res.json user
+    console.log "000000000000000000000000000000000000000"
+    console.log user
+    console.log "000000000000000000000000000000000000000"
+    return res.json user
 
 ###*
 Authentication callback

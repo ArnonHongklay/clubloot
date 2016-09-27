@@ -1,0 +1,25 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<section class="contest-new" ng-init="createNewStep='1'">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <h3 style="margin-top: 0px;" class="pp-text">
+          <img class="money-bag" style="margin-top:-4px;width: 25px;" src="assets/images/icon-trophy.png">
+          Join Contest
+        </h3>
+        <h5 class="g-text" style="text-indent: 10px;">Answer [ xx ] questions for your [ program ] contest.</h5>
+          <div class="main-q-box">
+            <div ng-repeat="(i,q) in contest.ques track by i" class="g-text">
+              <i class="fa fa-check-circle checked-icon" aria-hidden="true" ng-show="qaSelection[i]"></i>
+              <div class="q-box" ng-click="openAns(i)">Question {{q.title}}</div>
+              <div class="q-box ans" ng-repeat="(x,a) in q.answers track by x" ng-show="qaShowAns[i]">
+                <input type=radio ng-model="qaSelection[i]" value="{{x}}"> {{a.title}}
+              </div>
+            </div>
+          </div>
+          <div class="btn get-prize" style="margin-top: 20px;" ng-click="addScore()">CONTINUE</div>
+      </div>
+    </div>
+  </div>
+</section>

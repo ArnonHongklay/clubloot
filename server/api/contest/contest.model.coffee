@@ -6,9 +6,27 @@ Schema = mongoose.Schema
 ContestSchema = new Schema
   name: String
   program: String
-  player: Number
-  prize: String
+  owner: String
+  prize: Number
+  loot: {
+    prize: Number
+    category: String
+  }
+  status: String
+  challenge: Number
+  max_player: Number
+  participant: []
+  player: [
+    {
+      uid: String
+      name: String
+      score: Number
+      q_id: String
+      answers: []
+    }
+  ]
   fee: Number
   public: Boolean
+  template_id : String
 
 module.exports = mongoose.model 'Contest', ContestSchema

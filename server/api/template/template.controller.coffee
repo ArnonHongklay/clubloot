@@ -4,6 +4,7 @@
 _ = require 'lodash'
 Template = require './template.model'
 Question = require '../question/question.model'
+Program = require '../program/program.model'
 
 # Get list of templates
 exports.index = (req, res) ->
@@ -11,20 +12,17 @@ exports.index = (req, res) ->
     return handleError(res, err)  if err
     res.status(200).json templates
 
-# Get a single template
+exports.create = (req, res) ->
+  Template.create req.body, (err, template) ->
+    return handleError(res, err)  if err
+    res.status(201).json template
+
 exports.show = (req, res) ->
   Template.findById req.params.id, (err, template) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless template
     res.json template
 
-# Creates a new template in the DB.
-exports.create = (req, res) ->
-  Template.create req.body, (err, template) ->
-    return handleError(res, err)  if err
-    res.status(201).json template
-
-# Updates an existing template in the DB.
 exports.update = (req, res) ->
   delete req.body._id  if req.body._id
   Template.findById req.params.id, (err, template) ->
@@ -35,17 +33,7 @@ exports.update = (req, res) ->
       return handleError(res, err)  if err
       res.status(200).json template
 
-# Deletes a template from the DB.
-exports.destroy = (req, res) ->
-  Template.findById req.params.id, (err, template) ->
-    return handleError(res, err)  if err
-    return res.status(404).end()  unless template
-    template.remove (err) ->
-      return handleError(res, err)  if err
-      res.status(204).end()
-
-
-exports.create_question = (req, res) ->
+exports.createQuestion = (req, res) ->
   Template.findById req.params.id, (err, template) ->
     Question.create req.body, (err, questions) ->
       console.log questions
@@ -55,7 +43,7 @@ exports.create_question = (req, res) ->
       return handleError(res, err)  if err
       res.status(201).json template
 
-exports.update_question = (req, res) ->
+exports.updateQuestion = (req, res) ->
   Question.findById req.params.q, (err, question) ->
     # console.log question.answers
     # console.log req.body.answers
@@ -66,14 +54,37 @@ exports.update_question = (req, res) ->
     # console.log question
       # question.answers.save()
     question.save()
+    exports.register = (socket) ->
+      socket.emit 'question:update', doc
 
     res.status(200).json question
 
-exports.find_question_by_templates = (req, res) ->
+exports.findQuestionByTemplate = (req, res) ->
   query = Question.find({'templates': req.params.id})
   query.exec (err, templates) ->
     return handleError(res, err)  if err
     res.status(200).json templates
 
+exports.findProgramActive = (req, res) ->
+  bucket = []
+  program = Program.find({}).select('name -_id')
+  program.exec (err, programs) ->
+    if err
+      return next(err)
+
+    for program in programs
+      console.log program
+      template = Template.findOne({program: program.name})
+      template.exec (err, temp) ->
+        if temp
+          bucket.push(temp)
+
+    setTimeout (->
+      render(res, bucket)
+    ), 100
+
 handleError = (res, err) ->
   res.status(500).json err
+
+render = (res, data) ->
+  res.status(200).json data
