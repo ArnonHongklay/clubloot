@@ -120,25 +120,26 @@
     <div ng-click="setFilter('live')" ng-class="{'active-filter': live}" class="col-lg-6" style="font-size: 20px;border: 1px solid #ccc; line-height: 50px; color: #42A3BE; background: #F0F0F0; cursor: pointer;">Live Contests</div>
     <div ng-click="setFilter('upcoming')" ng-class="{'active-filter': upcoming}" class="col-lg-6" style="font-size: 20px;border: 1px solid #ccc; line-height: 50px; color: #42A3BE; background: #F0F0F0; cursor: pointer;">Upcoming Contests</div>
 
-    <div ng-if="live" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
+
+    <div ng-repeat="contest in contests" ng-if="live" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
-        1,000 <img src="assets/images/money-bag-blue.png" width="24">
+        {{contest.fee}} <img src="assets/images/money-bag-blue.png" width="24">
       </div>
       <div style="width: 10%; display: inline-block; float:left; color: #912927">
-        02 <i class="fa fa-diamond" aria-hidden="true"></i>
+        {{contest.coins}} <i class="fa fa-diamond" aria-hidden="true"></i>
       </div>
       <div style="width: 45%; display: inline-block; float:left;">
-        <div style="display: inline-block; width: 30px; height: 30px; border-radius: 15px; font-size: 16px; line-height: 30px; text-align: center; border: 1px solid">H</div>
-        Anthony’s Academy Awards Group
+        <div ng-if="contest.owner == currentUser.email" style="display: inline-block; width: 30px; height: 30px; border-radius: 15px; font-size: 16px; line-height: 30px; text-align: center; border: 1px solid">H</div>
+        {{contest.name}}
       </div>
-      <div style="width: 20%; display: inline-block; float:left;">Academy Awards</div>
-      <div style="width: 7%; display: inline-block; float:left;">40 Q</div>
+      <div style="width: 20%; display: inline-block; float:left;">{{contest.program}}</div>
+      <div style="width: 7%; display: inline-block; float:left;">{{contest.player.length}} Q</div>
       <div style="width: 8%; display: inline-block; float:left; text-align: center;">
         <div style="color: #fff; background: #02A647;">Live</div>
       </div>
     </div>
 
-    <div ng-if="live" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
+    <!-- <div ng-if="live" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
       <div style="width: 10%; display: inline-block; float:left;">
         60,000 <img src="assets/images/money-bag-blue.png" width="24">
       </div>
@@ -190,7 +191,7 @@
       <div style="width: 8%; display: inline-block; float:left; text-align: center;">
         <div style="color: #fff; background: #B7B7B7;">End</div>
       </div>
-    </div>
+    </div> -->
 
 
 
