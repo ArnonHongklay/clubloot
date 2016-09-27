@@ -7,7 +7,8 @@ angular.module 'clublootApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'ngFileUpload'
+  'ngFileUpload',
+  'angularMoment'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider
@@ -31,6 +32,10 @@ angular.module 'clublootApp', [
       $cookieStore.remove 'token'
 
     $q.reject response
+
+.run (amMoment) ->
+  amMoment.changeLocale 'en'
+  return
 
 .run ($rootScope, $location, Auth) ->
   # Redirect to login if route requires auth and you're not logged in
