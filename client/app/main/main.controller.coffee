@@ -1,13 +1,19 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth) ->
+.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
+  $scope.contests = contests.data
+  # $scope.currentUser = Auth.getCurrentUser()
   $('body').css({background: '#fff'})
 
   $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) =>
     $rootScope.currentUser = data
 
   $scope.awesomeThings = []
+
+  # $http.get('/api/templates').success (awesomeThings) ->
+  #   $scope.awesomeTemplates = awesomeTemplates
+  #   # socket.syncUpdates 'thing', $scope.awesomeThings
 
   $http.get('/api/things').success (awesomeThings) ->
     $scope.awesomeThings = awesomeThings
