@@ -14,7 +14,8 @@ angular.module 'clublootApp'
   $scope.currentTemplate = ''
   $scope.selectedContestStatus = ''
 
-
+  console.log "templates"
+  console.log $scope.templates
   console.log socket
   console.log "Userid"
   console.log Auth.getCurrentUser()._id
@@ -38,10 +39,6 @@ angular.module 'clublootApp'
       swal("Not Active")
     )
 
-
-
-
-
   # socket.syncUpdates 'question', $scope.questions
 
   $scope.checkScore = (player, index) ->
@@ -58,9 +55,10 @@ angular.module 'clublootApp'
 
   $scope.compairPlayer = (player) ->
     console.log "88888888888888888888888888"
-    console.log player.answers
     $scope.selectedCompair = {user: [], vs: [], player: player, me: $scope.currentPlayer}
     $scope.selectedCompair.name = player.name || "enemy"
+    console.log $scope.currentPlayer
+    return unless $scope.currentPlayer.answers
     for ans, i in $scope.currentPlayer.answers
       console.log ans
       console.log i
@@ -90,17 +88,27 @@ angular.module 'clublootApp'
         $scope.$apply()
 
 
-
   socket.syncUpdates 'contest', [], (event, item, object) ->
     console.log "socket contest"
     console.log event
     console.log item
-    console.log $scope.contest
     console.log "-------------------"
+    if $scope.contestSelection._id == item._id
+      $scope.contestSelection = item
+    for contest in $scope.allContest
+      if contest._id == item._id
+        contest = item
+    $scope.$apply()
+
 
   $scope.showContestDetail = false
   $scope.showContestDetails = (contest) ->
+    $scope.alreadyJoin = false
     $scope.contestSelection = contest
+    for p in $scope.contestSelection.player
+      if Auth.getCurrentUser()._id == p.uid
+        console.log "alreadyJoin"
+        $scope.alreadyJoin = true
     console.log "showContestDetails"
     console.log contest
     cd_time = ''
@@ -123,24 +131,17 @@ angular.module 'clublootApp'
       console.log cc
       cd_time = cc
 
-      $('#selectedStatus').countdown cc, (event) ->
-        $scope.selectedContestStatus = "Started" if event.type == 'stoped'
-        return if $scope.selectedContestStatus == 'Started'
-        $scope.selectedContestStatus = event.strftime('%D days %H:%M:%S')
-
+      # $('#selectedStatus').countdown cc, (event) ->
+      #   $scope.selectedContestStatus = "Started" if event.type == 'stoped'
+      #   return if $scope.selectedContestStatus == 'Started'
+      #   $scope.selectedContestStatus = event.strftime('%D days %H:%M:%S')
     )
-
-
-
-
-
+    console.log "00000000000000000000999999999999999999999999999999"
     for i in contest.player
-      if i.uid == Auth.getCurrentUser()._id && i.answers.length > 0
+      if i.uid == Auth.getCurrentUser()._id
+        console.log "same"
         $scope.currentPlayer = i
-        console.log "currentPlayer:"
-        console.log $scope.currentPlayer
-        return
-
+    console.log $scope.currentPlayer
 
   $scope.getNumber = (num) ->
     new Array(num);
@@ -148,6 +149,10 @@ angular.module 'clublootApp'
   $scope.joinContest = (con) ->
     if con.player.length >= con.max_player
       swal("Full contest")
+      return false
+
+    if Auth.getCurrentUser().coins < con.fee
+      swal("you need more coin to join")
       return false
 
     for p in con.participant

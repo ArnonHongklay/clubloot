@@ -10,6 +10,15 @@ angular.module 'clublootApp'
 
   $scope.qaSelection = []
 
+  $scope.checkActive = (start, end) ->
+    now = new Date().getTime()
+    start = new Date(start).getTime()
+    end = new Date(end).getTime()
+    # console.log moment(now).format('LLL')
+    # console.log moment(end).format('LLL')
+    # console.log "=============="
+    return now < end
+
   $scope.landingContest = ->
     $scope.contests.owner = Auth.getCurrentUser().email
     $scope.contests.loot.category = "gem-red"
@@ -55,7 +64,30 @@ angular.module 'clublootApp'
     { title: 2 },
     { title: 3 },
     { title: 4 },
-    { title: 5 }
+    { title: 5 },
+    { title: 6 },
+    { title: 7 },
+    { title: 8 },
+    { title: 9 },
+    { title: 10 },
+    { title: 11 },
+    { title: 12 },
+    { title: 13 },
+    { title: 14 },
+    { title: 15 },
+    { title: 16 },
+    { title: 17 },
+    { title: 18 },
+    { title: 19 },
+    { title: 20 }
+  ]
+
+  $scope.prizes = [
+    { title: 1, fee: 5000  },
+    { title: 2, fee: 10000 },
+    { title: 3, fee: 15000},
+    { title: 4, fee: 20000 },
+    { title: 5, fee: 30000 }
   ]
 
   $scope.newContestQuestion = [
@@ -70,6 +102,9 @@ angular.module 'clublootApp'
     {ans: '', showAns: false},
     {ans: '', showAns: false}
   ]
+
+  $scope.calFee = () ->
+    $scope.contests.fee = parseInt(parseInt($scope.contests.loot.prize) / parseInt($scope.contests.max_player))
 
   $scope.finishNewContest = () ->
     window.location.href = '/dashboard'

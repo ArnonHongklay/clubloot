@@ -27,29 +27,28 @@ myContest =
       console.log e_time
 
       n_date = schedule.scheduleJob(e_time, ->
-        console.log "contest end"
         Contest.findById contest._id, (err, contest) ->
           contest.status = "finish"
-          contest.save
-        return
+          contest.save()
+          console.log "contest Finish"
+          return
       )
 
       s_date = schedule.scheduleJob(s_time, ->
-        console.log "contest start"
-        console.log contest
-        console.log "parti:"+contest.participant.length
-        console.log "max:"+contest.max_player
-        if contest.participant.length < contest.max_player
-          for user in contest.participant
-            User.findById user._id, (err, user) ->
-              user.coins = user.coins + contest.fee
-              user.save()
-              console.log user
-              console.log "45454545454"
-          n_date.cancel()
-
-        console.log "end contest-detail"
         Contest.findById contest._id, (err, contest) ->
+          if contest.participant.length < contest.max_player
+            for user in contest.participant
+              User.findById user._id, (err, user) ->
+                user.coins = user.coins + contest.fee
+                user.save()
+                console.log user
+            n_date.cancel()
+            contest.status = "cancel"
+            contest.save()
+          else
+            contest.status = "runing"
+            contest.save()
+
           console.log contest
         return
       )

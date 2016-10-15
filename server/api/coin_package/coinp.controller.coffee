@@ -55,18 +55,16 @@ exports.addcoin = (req, res) ->
     # updated.save (err) ->
     #   return handleError(res, err)  if err
 
-# Updates an existing contest in the DB.
 exports.update = (req, res) ->
   delete req.body._id  if req.body._id
   Coinp.findById req.params.id, (err, coinp) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless coinp
-    updated = _.merge(contest, req.body)
+    updated = _.merge(coinp, req.body)
     updated.save (err) ->
       return handleError(res, err)  if err
       res.status(200).json coinp
 
-# Deletes a contest from the DB.
 exports.destroy = (req, res) ->
   Coinp.findById req.params.id, (err, contest) ->
     return handleError(res, err)  if err
