@@ -1,9 +1,8 @@
 
 angular.module 'clublootApp'
-.controller 'AdminUserProfileCtrl', ($scope, $http, socket, Auth) ->
-  console.log "AdminUserProfileCtrl"
-
-  $scope.user = Auth.getCurrentUser()
+.controller 'AdminUserProfileCtrl', ($scope, $http, socket, user) ->
+  $scope.user = user.data
+  $scope.$parent.user = $scope.user
 
   $scope.update = ->
     console.log $scope.user
