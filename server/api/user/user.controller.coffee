@@ -1,5 +1,7 @@
 'use strict'
 
+_ = require 'lodash'
+
 User = require './user.model'
 passport = require 'passport'
 config = require '../../config/environment'
@@ -68,6 +70,26 @@ exports.show = (req, res, next) ->
     return next(err)  if err
     return res.status(401).end()  unless user
     res.json user
+
+###*
+Get a single user
+###
+
+exports.update = (req, res) ->
+  User.findById req.params.id, (err, user) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless user
+
+    console.log "xxxxx"
+    console.log user
+    console.log req.body
+    updated = _.merge(user, req.body)
+    user.save (err) ->
+      return handleError(res, err)  if err
+      res.status(200).json user
+
+handleError = (res, err) ->
+  res.status(500).json err
 
 ###*
 Deletes a user
