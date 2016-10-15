@@ -9,9 +9,13 @@ angular.module 'clublootApp'
     controller: 'AdminUserCtrl'
 
   .state 'Adminuser.profile',
-    url: '/profile'
+    url: '/:user_id'
     templateUrl: 'app/admin/user/profile.html'
     controller: 'AdminUserProfileCtrl'
+    resolve:
+      user: ($http, $stateParams) ->
+        $http.get "/api/users/#{$stateParams.user_id}"
+
 
   .state 'Adminuser.contests',
     url: '/contests'

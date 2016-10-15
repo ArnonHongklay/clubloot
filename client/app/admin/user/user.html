@@ -1,12 +1,12 @@
 <div class="navbar navbar-clubloot navbar-static-top" ng-controller="NavbarCtrl">
   <div class="container">
-    <h3 style="font-size: 24px; color: #fff">@anthonygerson</h3>
+    <h3 style="font-size: 24px; color: #fff">@{{user.username}}</h3>
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <b>Gerson, Anthony</b> <a href="gerson@clubloot.com">gerson@clubloot.com</a>
+      <b>{{user.first_name}}, {{user.last_name}}</b> <a href="mailto:{{user.email}}">{{user.email}}</a>
     </div>
   </div>
   <br>
