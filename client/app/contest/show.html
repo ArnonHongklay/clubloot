@@ -12,7 +12,7 @@
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="program in programs" ng-class="{menuactive: menu=='program._id'}" ui-sref="contestshow({contest: program._id})">
           <span class="pull-left">{{program.program}}</span>
-          <!-- <span class="pull-right" style="color:red;" count-down="{{program.status}}" id="getting-started"></span> -->
+          <span class="pull-right" style="color:red;" count-down="{{program.status}}" id="getting-started"></span>
         </li>
       </ul>
     </div>
@@ -127,9 +127,8 @@
             <td class="text-grey" style="color:#999;width:200px;text-align:left;">
               Status
             </td>
-            <td class="loot" style="text-align:left;color:#999">
-              Starts in 12 hr 39 min
-              <!-- {{contestSelection}} -->
+            <td class="loot" style="text-align:left;color:#999" id="selectedStatus" ng-hide="eventStarted">
+              {{selectedContestStatus}}
             </td>
           </tr>
 
@@ -143,7 +142,8 @@
           </tr>
         </tbody>
       </table>
-      <div class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)">JOIN CONTEST</div>
+      <div ng-hide="selectedContestStatus=='Started'" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)">JOIN CONTEST</div>
+      <div ng-show="selectedContestStatus=='Started'" class="btn btn-primary disabled" style="background: #50ACC4;width: 100%;border: 0px;">CONTEST STARTED</div>
     </div>
   </div>
 
@@ -164,122 +164,12 @@
                 </span>
               </td>
             </tr>
-            <!-- <tr>
-              <td class="text-blue" style="text-align:left;">
-                alluringchick
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                cattychick
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                chickmagnet
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                fiestychick
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                fridatata
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                glamourchic
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                luxtina
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                luxurious
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                mostchic
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                nostalgia
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                openminded
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                Status
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                superchic
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                superfine
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                superwomen
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                talentedamy
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                trainwreck
-              </td>
-            </tr>
-            <tr>
-              <td class="text-blue" style="text-align:left;">
-                utterfly
-              </td>
-            </tr> -->
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <section class="contest-show phone">
   <div class="contest-detail" ng-hide="showPlayerDetail">

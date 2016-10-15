@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'ContestShowCtrl', ($scope, $http, socket, $state, Auth, $stateParams, contest, program, templates) ->
+.controller 'ContestShowCtrl', ($scope, $http, socket, $state, Auth, $stateParams, contest, program, templates, $timeout) ->
   $scope.programs = program.data
   $scope.contest = contest.data
   $scope.menu = $stateParams.contest
@@ -11,7 +11,11 @@ angular.module 'clublootApp'
   $scope.template_ids = []
   $scope.ansChoice = ["A", "B", "C", "D", "E", "F", "G"]
   $scope.currentPlayer
+  $scope.currentTemplate = ''
+  $scope.selectedContestStatus = ''
 
+
+  console.log socket
   console.log "Userid"
   console.log Auth.getCurrentUser()._id
 
@@ -22,10 +26,21 @@ angular.module 'clublootApp'
       null
     ).success((ok) ->
       $scope.allContest = ok
-      console.log ok
+      for contest in $scope.allContest
+        $http.get("/api/templates/#{contest.template_id}",
+          null
+        ).success((template) ->
+
+          console.log "-0-0-0-0-"
+        )
+
     ).error((data, status, headers, config) ->
       swal("Not Active")
     )
+
+
+
+
 
   # socket.syncUpdates 'question', $scope.questions
 
@@ -36,6 +51,9 @@ angular.module 'clublootApp'
         score = score + 1
     player.score = score
     score
+
+  $scope.checkstatus = (status) ->
+    return status
 
 
   $scope.compairPlayer = (player) ->
@@ -71,11 +89,21 @@ angular.module 'clublootApp'
         question.answers = item.answers
         $scope.$apply()
 
+
+
+  socket.syncUpdates 'contest', [], (event, item, object) ->
+    console.log "socket contest"
+    console.log event
+    console.log item
+    console.log $scope.contest
+    console.log "-------------------"
+
   $scope.showContestDetail = false
   $scope.showContestDetails = (contest) ->
     $scope.contestSelection = contest
     console.log "showContestDetails"
     console.log contest
+    cd_time = ''
     $http.get("/api/templates/#{contest.template_id}/questions",
       null
     ).success((ques) ->
@@ -84,6 +112,27 @@ angular.module 'clublootApp'
       swal("Not Active")
     )
     $scope.showContestDetail = true
+
+    $http.get("/api/templates/#{contest.template_id}",
+      null
+    ).success((template) ->
+      console.log template
+      date = new Date(template.start_time)
+      console.log date
+      cc = date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+      console.log cc
+      cd_time = cc
+
+      $('#selectedStatus').countdown cc, (event) ->
+        $scope.selectedContestStatus = "Started" if event.type == 'stoped'
+        return if $scope.selectedContestStatus == 'Started'
+        $scope.selectedContestStatus = event.strftime('%D days %H:%M:%S')
+
+    )
+
+
+
+
 
     for i in contest.player
       if i.uid == Auth.getCurrentUser()._id && i.answers.length > 0

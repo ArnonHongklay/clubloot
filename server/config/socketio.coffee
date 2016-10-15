@@ -18,6 +18,7 @@ onConnect = (socket) ->
   # Insert sockets below
   (require '../api/thing/thing.socket').register socket
   (require '../api/question/question.socket').register socket
+  (require '../api/contest/contest.socket').register socket
 
 module.exports = (socketio) ->
   # socket.io (v1.x.x) is powered by debug.
