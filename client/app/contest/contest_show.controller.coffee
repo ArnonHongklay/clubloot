@@ -41,7 +41,7 @@ angular.module 'clublootApp'
   $scope.compairPlayer = (player) ->
     console.log "88888888888888888888888888"
     console.log player.answers
-    $scope.selectedCompair = {user: [], vs: [], player: player, me: $scope.currentPlayer}
+    $scope.selectedCompair = { user: [], vs: [], player: player, me: $scope.currentPlayer }
     $scope.selectedCompair.name = player.name || "enemy"
     for ans, i in $scope.currentPlayer.answers
       console.log ans
@@ -97,19 +97,21 @@ angular.module 'clublootApp'
     new Array(num);
 
   $scope.joinContest = (con) ->
-    if con.player.length >= con.max_player
+    if con.player.length <= con.max_player
+      for c, i in con.player
+        if c.uid == Auth.getCurrentUser()._id #&& c.answers.length > 0
+          swal("you joined")
+          return false
+
+        if i == con.player.length - 1
+          $http.put("/api/contest/#{con._id}/join",
+              Auth.getCurrentUser()
+            ).success((ok) ->
+              $scope.contestSelection = ok
+              $state.go("question", { contest: con._id })
+            ).error((data, status, headers, config) ->
+              swal("Not Active")
+            )
+    else
       swal("Full contest")
       return false
-
-    for p in con.participant
-      if p.uid == Auth.getCurrentUser()._id
-        return false
-
-    $http.put("/api/contest/#{con._id}/join",
-        Auth.getCurrentUser()
-      ).success((ok) ->
-        $scope.contestSelection = ok
-        $state.go("question", { contest: con._id })
-      ).error((data, status, headers, config) ->
-        swal("Not Active")
-      )
