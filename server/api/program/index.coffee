@@ -13,4 +13,6 @@ router.get '/:id', controller.show
 router.post '/', controller.create
 router.post '/uploads', multipartyMiddleware, controller.upload
 
+router.put '/:id', controller.update
+
 module.exports = router
