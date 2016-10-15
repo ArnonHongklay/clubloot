@@ -47,7 +47,7 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">How many players?</div>
                   <div class="box-right pull-right">
-                    <select class="form-control" ng-model="contests.max_player">
+                    <select class="form-control" ng-model="contests.max_player" ng-change="calPrize()">
                       <option value="">Player</option>
                       <option ng-repeat="number in numbers" name="{{number.title}}">{{number.title}}</option>
                     </select>
@@ -60,10 +60,7 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">How would the prize be structured?</div>
                   <div class="box-right pull-right">
-                    <select class="form-control" ng-model="contests.loot.prize">
-                      <option value="">Prize</option>
-                      <option ng-repeat="number in prizes" name="{{number.title}}" value="{{number.fee}}">{{number.title}}</option>
-                    </select>
+                    <input ng-model="contests.loot.prize" disabled="true">
                   </div>
                   </div>
                 </td>
@@ -73,7 +70,10 @@
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">What is the entry fee? (in coins)</div>
                   <div class="box-right pull-right">
-                    <input class="in-contest-name" disabled ng-model="calFee()">
+                  <select class="form-control" ng-model="contests.fee" ng-change="calPrize()">
+                      <option value="">Fee</option>
+                      <option ng-repeat="number in fees" name="{{number.title}}" value="{{number.title}}">{{number.title}}</option>
+                    </select>
                   </div>
                 </td>
               </tr>

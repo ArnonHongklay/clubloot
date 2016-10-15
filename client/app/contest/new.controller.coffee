@@ -5,7 +5,7 @@ angular.module 'clublootApp'
   $scope.programList = programs.data
   $scope.templates = templates.data
   $scope.questions = questions.data
-
+  $scope.contests = {loot:{prize:'',category:''}}
   console.log $scope.templates
 
   $scope.qaSelection = []
@@ -60,7 +60,6 @@ angular.module 'clublootApp'
       )
 
   $scope.numbers = [
-    { title: 1 },
     { title: 2 },
     { title: 3 },
     { title: 4 },
@@ -80,6 +79,17 @@ angular.module 'clublootApp'
     { title: 18 },
     { title: 19 },
     { title: 20 }
+  ]
+
+  $scope.fees = [
+    { title: 500 },
+    { title: 1000 },
+    { title: 1500 },
+    { title: 2000 },
+    { title: 2500 },
+    { title: 3000 },
+    { title: 3500 },
+    { title: 4000 }
   ]
 
   $scope.prizes = [
@@ -103,8 +113,10 @@ angular.module 'clublootApp'
     {ans: '', showAns: false}
   ]
 
-  $scope.calFee = () ->
-    $scope.contests.fee = parseInt(parseInt($scope.contests.loot.prize) / parseInt($scope.contests.max_player))
+  $scope.calPrize = () ->
+    console.log "sdsdsddsdsds"
+    console.log parseInt(parseInt($scope.contests.fee)*parseInt($scope.contests.max_player))
+    $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
 
   $scope.finishNewContest = () ->
     window.location.href = '/dashboard'
