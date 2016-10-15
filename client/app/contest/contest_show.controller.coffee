@@ -100,7 +100,7 @@ angular.module 'clublootApp'
     if con.player.length <= con.max_player
       for c, i in con.player
         if c.uid == Auth.getCurrentUser()._id #&& c.answers.length > 0
-          swal("you joined")
+          swal("You are joined!")
           return false
 
         if i == con.player.length - 1

@@ -4,6 +4,7 @@
 _ = require 'lodash'
 Contest = require './contest.model'
 Program = require '../program/program.model'
+User = require '../user/user.model'
 
 # Get list of contests
 exports.index = (req, res) ->
@@ -33,14 +34,18 @@ exports.joinContest = (req, res) ->
     console.log "======================================="
     console.log req.body
 
-    contest.participant.push(req.body)
-    contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
+    User.findById req.body._id, (err, user) ->
+      user.coins = user.coins - contest.fee
+      user.save()
 
-    console.log "======================================="
-    console.log contest
-    contest.save (err) ->
-      return handleError(res, err)  if err
-      res.status(200).json contest
+      contest.participant.push(req.body)
+      contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
+
+      console.log "======================================="
+      console.log contest
+      contest.save (err) ->
+        return handleError(res, err)  if err
+        res.status(200).json contest
 
 exports.updateQuestion = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->
