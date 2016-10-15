@@ -132,20 +132,14 @@ angular.module 'clublootApp'
 
   $scope.joinContest = (con) ->
     if con.player.length <= con.max_player
-      for c, i in con.player
-        if c.uid == Auth.getCurrentUser()._id #&& c.answers.length > 0
-          swal("You are joined!")
-          return false
-
-        if i == con.player.length - 1
-          $http.put("/api/contest/#{con._id}/join",
-              Auth.getCurrentUser()
-            ).success((ok) ->
-              $scope.contestSelection = ok
-              $state.go("question", { contest: con._id })
-            ).error((data, status, headers, config) ->
-              swal("Not Active")
-            )
+      $http.put("/api/contest/#{con._id}/join",
+          Auth.getCurrentUser()
+        ).success((ok) ->
+          $scope.contestSelection = ok
+          $state.go("question", { contest: con._id })
+        ).error((data, status, headers, config) ->
+          swal("Not Active")
+        )
     else
       swal("Full contest")
       return false
@@ -158,11 +152,3 @@ angular.module 'clublootApp'
       if p.uid == Auth.getCurrentUser()._id
         return false
 
-    $http.put("/api/contest/#{con._id}/join",
-        Auth.getCurrentUser()
-      ).success((ok) ->
-        $scope.contestSelection = ok
-        $state.go("question", { contest: con._id })
-      ).error((data, status, headers, config) ->
-        swal("Not Active")
-      )

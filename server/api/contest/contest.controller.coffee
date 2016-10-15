@@ -114,7 +114,7 @@ exports.joinPlayer = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
 
-    contest.player.push(req.body.player)
+    # contest.player.push(req.body.player)
 
     console.log req.body.player
     contest.save (err) ->
