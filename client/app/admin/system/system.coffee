@@ -85,7 +85,11 @@ angular.module 'clublootApp'
   .state 'AdminSystem.users',
     url: '/users'
     templateUrl: 'app/admin/system/users.html'
-    controller: 'AdminSystemCtrl'
+    controller: 'AdminSystemUserCtrl'
+    resolve:
+      user: ($http, $stateParams) ->
+        $http.get "/api/users/all"
+
 
   .state 'AdminSystem.freeloot',
     url: '/free_loot'
@@ -94,4 +98,3 @@ angular.module 'clublootApp'
     resolve:
       freeLoot: ($http, $stateParams) ->
         $http.get "/api/daily_loot"
-
