@@ -2,8 +2,56 @@
 'use strict'
 
 _ = require 'lodash'
-Contest = require './contest.model'
-Program = require '../program/program.model'
+Contest  = require './contest.model'
+Program  = require '../program/program.model'
+Template = require '../template/template.model'
+User     = require '../user/user.model'
+
+schedule = require('node-schedule')
+rule = new schedule.RecurrenceRule()
+
+myContest =
+  start: (contest) ->
+    console.log "ioemit"
+    console.log "ioemit"
+    console.log "emit"
+    console.log "start schedule"
+    s_time = ''
+    e_time = ''
+    Template.findById contest.template_id, (err, template) ->
+      console.log template
+      s_time = template.start_time
+      e_time = template.end_time
+
+      console.log s_time
+      console.log e_time
+
+      n_date = schedule.scheduleJob(e_time, ->
+        Contest.findById contest._id, (err, contest) ->
+          contest.status = "finish"
+          contest.save()
+          console.log "contest Finish"
+          return
+      )
+
+      s_date = schedule.scheduleJob(s_time, ->
+        Contest.findById contest._id, (err, contest) ->
+          if contest.participant.length < contest.max_player
+            for user in contest.participant
+              User.findById user._id, (err, user) ->
+                user.coins = user.coins + contest.fee
+                user.save()
+                console.log user
+            n_date.cancel()
+            contest.status = "cancel"
+            contest.save()
+          else
+            contest.status = "runing"
+            contest.save()
+
+          console.log contest
+        return
+      )
 
 # Get list of contests
 exports.index = (req, res) ->
@@ -22,6 +70,7 @@ exports.show = (req, res) ->
 exports.create = (req, res) ->
   Contest.create req.body, (err, contest) ->
     return handleError(res, err)  if err
+    myContest.start(contest)
     res.status(201).json contest
 
 exports.joinContest = (req, res) ->
@@ -33,14 +82,18 @@ exports.joinContest = (req, res) ->
     console.log "======================================="
     console.log req.body
 
-    contest.participant.push(req.body)
-    contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
+    User.findById req.body._id, (err, user) ->
+      user.coins = user.coins - contest.fee
+      user.save()
 
-    console.log "======================================="
-    console.log contest
-    contest.save (err) ->
-      return handleError(res, err)  if err
-      res.status(200).json contest
+      contest.participant.push(req.body)
+      contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
+
+      console.log "======================================="
+      console.log contest
+      contest.save (err) ->
+        return handleError(res, err)  if err
+        res.status(200).json contest
 
 exports.updateQuestion = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->
@@ -61,7 +114,7 @@ exports.joinPlayer = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
 
-    contest.player.push(req.body.player)
+    # contest.player.push(req.body.player)
 
     console.log req.body.player
     contest.save (err) ->

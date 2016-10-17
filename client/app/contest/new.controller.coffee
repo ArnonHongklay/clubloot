@@ -5,10 +5,19 @@ angular.module 'clublootApp'
   $scope.programList = programs.data
   $scope.templates = templates.data
   $scope.questions = questions.data
-
+  $scope.contests = {loot:{prize:'',category:''}}
   console.log $scope.templates
 
   $scope.qaSelection = []
+
+  $scope.checkActive = (start, end) ->
+    now = new Date().getTime()
+    start = new Date(start).getTime()
+    end = new Date(end).getTime()
+    # console.log moment(now).format('LLL')
+    # console.log moment(end).format('LLL')
+    # console.log "=============="
+    return now < end
 
   $scope.landingContest = ->
     $scope.contests.owner = Auth.getCurrentUser().email
@@ -51,11 +60,44 @@ angular.module 'clublootApp'
       )
 
   $scope.numbers = [
-    { title: 1 },
     { title: 2 },
     { title: 3 },
     { title: 4 },
-    { title: 5 }
+    { title: 5 },
+    { title: 6 },
+    { title: 7 },
+    { title: 8 },
+    { title: 9 },
+    { title: 10 },
+    { title: 11 },
+    { title: 12 },
+    { title: 13 },
+    { title: 14 },
+    { title: 15 },
+    { title: 16 },
+    { title: 17 },
+    { title: 18 },
+    { title: 19 },
+    { title: 20 }
+  ]
+
+  $scope.fees = [
+    { title: 500 },
+    { title: 1000 },
+    { title: 1500 },
+    { title: 2000 },
+    { title: 2500 },
+    { title: 3000 },
+    { title: 3500 },
+    { title: 4000 }
+  ]
+
+  $scope.prizes = [
+    { title: 1, fee: 5000  },
+    { title: 2, fee: 10000 },
+    { title: 3, fee: 15000},
+    { title: 4, fee: 20000 },
+    { title: 5, fee: 30000 }
   ]
 
   $scope.newContestQuestion = [
@@ -70,6 +112,11 @@ angular.module 'clublootApp'
     {ans: '', showAns: false},
     {ans: '', showAns: false}
   ]
+
+  $scope.calPrize = () ->
+    console.log "sdsdsddsdsds"
+    console.log parseInt(parseInt($scope.contests.fee)*parseInt($scope.contests.max_player))
+    $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
 
   $scope.finishNewContest = () ->
     window.location.href = '/dashboard'

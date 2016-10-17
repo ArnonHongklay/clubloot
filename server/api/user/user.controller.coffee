@@ -1,5 +1,7 @@
 'use strict'
 
+_ = require 'lodash'
+
 User = require './user.model'
 passport = require 'passport'
 config = require '../../config/environment'
@@ -70,6 +72,26 @@ exports.show = (req, res, next) ->
     res.json user
 
 ###*
+Get a single user
+###
+
+exports.update = (req, res) ->
+  User.findById req.params.id, (err, user) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless user
+
+    console.log "xxxxx"
+    console.log user
+    console.log req.body
+    updated = _.merge(user, req.body)
+    user.save (err) ->
+      return handleError(res, err)  if err
+      res.status(200).json user
+
+handleError = (res, err) ->
+  res.status(500).json err
+
+###*
 Deletes a user
 restriction: 'admin'
 ###
@@ -100,17 +122,11 @@ Get my info
 ###
 exports.me = (req, res, next) ->
   userId = req.user._id
-  console.log "----------------------------------++++++++++++++++++++++++++++++++"
-  console.log req.user
-  console.log userId
   User.findOne
     _id: userId
   , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
     return next(err)  if err
-    return res.status(401).end()  unless user
-    console.log "000000000000000000000000000000000000000"
-    console.log user
-    console.log "000000000000000000000000000000000000000"
+    return res.status(401).end() unless user
     return res.json user
 
 ###*
@@ -119,5 +135,3 @@ Authentication callback
 exports.authCallback = (req, res, next) ->
   res.redirect '/'
   return
-
-
