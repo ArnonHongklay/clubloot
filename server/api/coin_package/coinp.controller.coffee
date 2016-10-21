@@ -1,4 +1,3 @@
-
 'use strict'
 
 _ = require 'lodash'
@@ -21,13 +20,12 @@ exports.show = (req, res) ->
 exports.set = (req, res) ->
   Coinp.remove {}, (err) ->
     console.log 'collection removed'
-    return
-  gem = {
-          diamond:  { rate: 5},
-          emerald:  { rate: 5},
-          sapphire: { rate: 5},
-          ruby:     { rate: 100}
-        }
+    return gem = {
+      diamond:  { rate: 5},
+      emerald:  { rate: 5},
+      sapphire: { rate: 5},
+      ruby:     { rate: 100}
+    }
 
   Coinp.create gem, (err, gems) ->
     if err

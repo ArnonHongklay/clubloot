@@ -23,5 +23,5 @@ angular.module 'clublootApp'
         if value._id == list._id
           $scope.programList[key].active = data.active
     ).error((data, status, headers, config) ->
-        swal("Not found!!")
+      swal("Not found!!")
     )

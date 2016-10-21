@@ -16,7 +16,7 @@ angular.module 'clublootApp'
       ).success((data, status, headers, config) ->
         console.log data
       ).error((data, status, headers, config) ->
-
+        console.log status
       )
 
   $scope.addNewBucket = () ->
@@ -34,7 +34,7 @@ angular.module 'clublootApp'
     $http.put("/api/coin_package/#{bucket._id}",
         bucket
       ).success((data, status, headers, config) ->
-
+        console.log status
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )

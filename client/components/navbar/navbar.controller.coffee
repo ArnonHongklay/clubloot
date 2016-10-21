@@ -49,14 +49,12 @@ angular.module 'clublootApp'
         $scope.CurrentUser = data.user
         $rootScope.currentUser = data.user
         Auth.user = $rootScope.currentUser
-
       ).error((data, status, headers, config) ->
-
+        console.log status
       )
   $timeout ->
     if Auth.getCurrentUser()
-      $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) =>
+      $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) ->
         console.log data
         $scope.getFreeLoot() if data.free_loot
   , 300
-

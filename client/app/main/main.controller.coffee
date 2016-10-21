@@ -6,7 +6,7 @@ angular.module 'clublootApp'
   # $scope.currentUser = Auth.getCurrentUser()
   $('body').css({background: '#fff'})
 
-  $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) =>
+  $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) ->
     $rootScope.currentUser = data
 
   $scope.awesomeThings = []
