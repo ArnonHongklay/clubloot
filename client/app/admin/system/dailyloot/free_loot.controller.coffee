@@ -1,9 +1,7 @@
 angular.module 'clublootApp'
-.controller 'AdminSystemFreeLootCtrl', ($scope, $http, socket, $state, freeLoot) ->
-  console.log "AdminSystemFreeLootCtrl"
-  console.log "-----"
+.controller 'AdminSystemFreeLootCtrl', ($scope, $http, $state, freeLoot) ->
 
-  console.log freeLoot
+
   $scope.freeLoot = freeLoot.data[0]
 
   $scope.updateFreeLoot = () ->

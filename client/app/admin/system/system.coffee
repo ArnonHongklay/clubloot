@@ -11,12 +11,12 @@ angular.module 'clublootApp'
   .state 'AdminSystem.announcements',
     url: '/announcements'
     templateUrl: 'app/admin/system/announcements.html'
-    controller: 'AdminSystemCtrl'
+    controller: 'AdminSystemAnnouncementsCtrl'
 
   .state 'AdminSystem.dailyLoot',
     url: '/dailyLoot'
     templateUrl: 'app/admin/system/dailyLoot.html'
-    controller: 'AdminSystemCtrl'
+    controller: 'AdminSystemDailyLootCtrl'
 
   .state 'AdminSystem.programming',
     url: '/programming'
@@ -65,7 +65,7 @@ angular.module 'clublootApp'
   .state 'AdminSystem.prizes',
     url: '/prizes'
     templateUrl: 'app/admin/system/prizes.html'
-    controller: 'AdminSystemCtrl'
+    controller: 'AdminSystemPrizeCtrl'
 
   .state 'AdminSystem.taxes',
     url: '/taxes'

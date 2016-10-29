@@ -1,6 +1,6 @@
 angular.module 'clublootApp'
 .controller 'AdminSystemTaxCtrl', ($scope, $http, socket) ->
-  console.log "AdminSystemTaxCtrl"
+
   $scope.ladgers = [
     {id: 1, status: 'plus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
     {id: 2, status: 'minus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
@@ -21,8 +21,9 @@ angular.module 'clublootApp'
     {id: 17, status: 'minus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
     {id: 18, status: 'plus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
     {id: 19, status: 'plus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
-
   ]
+
   $('#ex2').bootstrapSlider()
+
   $scope.selectLadger = (lad) ->
     $scope.showLadgerModal = lad
