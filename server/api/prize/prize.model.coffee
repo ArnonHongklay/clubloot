@@ -5,7 +5,7 @@ Schema = mongoose.Schema
 
 PrizeSchema = new Schema
   name: String
-  info: String
+  price: Number
   active: Boolean
 
 module.exports = mongoose.model 'Prize', PrizeSchema
