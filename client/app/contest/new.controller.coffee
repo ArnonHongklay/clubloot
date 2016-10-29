@@ -114,8 +114,10 @@ angular.module 'clublootApp'
   ]
 
   $scope.calPrize = () ->
-    console.log "sdsdsddsdsds"
-    console.log parseInt(parseInt($scope.contests.fee)*parseInt($scope.contests.max_player))
+    # console.log "sdsdsddsdsds"
+    # console.log parseInt(
+    #   parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)
+    # )
     $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
 
   $scope.finishNewContest = () ->
@@ -148,8 +150,16 @@ angular.module 'clublootApp'
 
     $timeout ->
       console.log counter
-      $scope.contest.player = [{ uid: Auth.getCurrentUser()._id, name: Auth.getCurrentUser().email, score: counter, answers: $scope.qaSelection }]
-      $http.put("/api/contest/#{$scope.contest.id}", $scope.contest).success (data) ->
+      $scope.contest.player = [{
+        uid: Auth.getCurrentUser()._id,
+        name: Auth.getCurrentUser().email,
+        score: counter,
+        answers: $scope.qaSelection
+      }]
+
+      $http.put("/api/contest/#{$scope.contest.id}",
+        $scope.contest
+      ).success (data) ->
         console.log data
       $scope.createNewStep = '3'
     , 300
