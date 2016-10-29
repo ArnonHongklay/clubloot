@@ -10,71 +10,71 @@ angular.module 'clublootApp'
 
   .state 'AdminSystem.announcements',
     url: '/announcements'
-    templateUrl: 'app/admin/system/announcements.html'
+    templateUrl: 'app/admin/system/announcements/announcements.html'
     controller: 'AdminSystemAnnouncementsCtrl'
 
   .state 'AdminSystem.dailyLoot',
     url: '/dailyLoot'
-    templateUrl: 'app/admin/system/dailyLoot.html'
+    templateUrl: 'app/admin/system/dailyLoot/dailyLoot.html'
     controller: 'AdminSystemDailyLootCtrl'
 
   .state 'AdminSystem.programming',
     url: '/programming'
-    templateUrl: 'app/admin/system/programming.html'
+    templateUrl: 'app/admin/system/programming/programming.html'
     controller: 'ProgrammingCtrl'
 
   .state 'AdminSystem.programming.activeTemplate',
     url: '/activeTemplate'
-    templateUrl: 'app/admin/system/active.template.html'
+    templateUrl: 'app/admin/system/programming/active.template.html'
     controller: 'ActiveTemplateCtrl'
 
   .state 'AdminSystem.programming.expiredTemplate',
     url: '/expiredTemplate'
-    templateUrl: 'app/admin/system/expired.template.html'
+    templateUrl: 'app/admin/system/programming/expired.template.html'
     controller: 'ExpiredTemplateCtrl'
 
   .state 'AdminSystem.programming.programList',
     url: '/programList'
-    templateUrl: 'app/admin/system/program.list.html'
+    templateUrl: 'app/admin/system/programming/program.list.html'
     controller: 'ProgramListCtrl'
 
   .state 'AdminSystem.programming.AddNewProgram',
     url: '/AddNewProgram'
-    templateUrl: 'app/admin/system/add.new.program.html'
+    templateUrl: 'app/admin/system/programming/add.new.program.html'
     controller: 'AddNewProgramCtrl'
 
   .state 'AdminSystem.programming.AddNewTemplate',
     url: '/AddNewTemplate'
-    templateUrl: 'app/admin/system/add.new.template.html'
+    templateUrl: 'app/admin/system/programming/add.new.template.html'
     controller: 'AddNewTemplateCtrl'
 
   .state 'AdminSystem.programming.question',
     url: '/question/:id'
-    templateUrl: 'app/admin/system/question.html'
+    templateUrl: 'app/admin/system/programming/question.html'
     controller: 'QuestionCtrl'
     resolve:
       id: ($http, $state, $stateParams) ->
         console.log $stateParams.id
         $http.get "/api/templates/#{$stateParams.id}/questions"
 
-  .state 'AdminSystem.ladger',
-    url: '/ladger'
-    templateUrl: 'app/admin/system/ladger.html'
-    controller: 'AdminSystemLadgerCtrl'
+  .state 'AdminSystem.ledger',
+    url: '/ledger'
+    templateUrl: 'app/admin/system/ledger/ledger.html'
+    controller: 'AdminSystemLedgerCtrl'
 
   .state 'AdminSystem.prizes',
     url: '/prizes'
-    templateUrl: 'app/admin/system/prizes.html'
-    controller: 'AdminSystemPrizeCtrl'
+    templateUrl: 'app/admin/system/prizes/prizes.html'
+    controller: 'AdminSystemPrizesCtrl'
 
   .state 'AdminSystem.taxes',
     url: '/taxes'
-    templateUrl: 'app/admin/system/taxes.html'
+    templateUrl: 'app/admin/system/taxes/taxes.html'
     controller: 'AdminSystemTaxCtrl'
 
   .state 'AdminSystem.gems',
     url: '/gems'
-    templateUrl: 'app/admin/system/gems.html'
+    templateUrl: 'app/admin/system/gems/gems.html'
     controller: 'AdminSystemGemCtrl'
     resolve:
       gems: ($http, $stateParams) ->
@@ -84,16 +84,15 @@ angular.module 'clublootApp'
 
   .state 'AdminSystem.users',
     url: '/users'
-    templateUrl: 'app/admin/system/users.html'
+    templateUrl: 'app/admin/system/users/users.html'
     controller: 'AdminSystemUserCtrl'
     resolve:
       user: ($http, $stateParams) ->
         $http.get "/api/users/all"
 
-
   .state 'AdminSystem.freeloot',
     url: '/free_loot'
-    templateUrl: 'app/admin/system/free_loot.html'
+    templateUrl: 'app/admin/system/dailyloot/free_loot.html'
     controller: 'AdminSystemFreeLootCtrl'
     resolve:
       freeLoot: ($http, $stateParams) ->

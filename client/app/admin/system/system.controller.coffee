@@ -6,7 +6,7 @@ angular.module 'clublootApp'
     { name: "Announcements", state: 'announcements' , title: 'New Announcement'},
     { name: "Daily Loot",    state: 'dailyLoot' ,     title: '' }
     { name: "Programming",   state: 'programming' ,   title: '' },
-    { name: "Ladger",        state: 'ladger' ,        title: '' },
+    { name: "Ledger",        state: 'ledger' ,        title: '' },
     { name: "Prizes",        state: 'prizes' ,        title: '' },
     { name: "Taxes",         state: 'taxes' ,         title: '' },
     { name: "Gems",          state: 'gems' ,          title: '' },

@@ -1,7 +1,7 @@
 angular.module 'clublootApp'
-.controller 'AdminSystemLadgerCtrl', ($scope, $http, socket, $state) ->
-  console.log "AdminSystemLadgerCtrl"
-  $scope.ladgers = [
+.controller 'AdminSystemLedgerCtrl', ($scope, $http, socket, $state) ->
+  console.log "AdminSystemLedgerCtrl"
+  $scope.ledgers = [
     {id: 1, status: 'plus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
     {id: 2, status: 'minus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
     {id: 3, status: 'plus', screenName: 'screen_name', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
@@ -24,5 +24,5 @@ angular.module 'clublootApp'
 
   ]
   $('#ex2').bootstrapSlider()
-  $scope.selectLadger = (lad) ->
-    $scope.showLadgerModal = lad
+  $scope.selectLedger = (lad) ->
+    $scope.showLedgerModal = lad
