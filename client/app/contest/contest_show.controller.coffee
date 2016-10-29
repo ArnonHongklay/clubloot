@@ -54,7 +54,13 @@ angular.module 'clublootApp'
 
 
   $scope.compairPlayer = (player) ->
-    $scope.selectedCompair = { user: [], vs: [], player: player, me: $scope.currentPlayer }
+    $scope.selectedCompair = {
+      user: [],
+      vs: [],
+      player: player,
+      me: $scope.currentPlayer
+    }
+
     $scope.selectedCompair.name = player.name || "enemy"
     console.log $scope.currentPlayer
     return unless $scope.currentPlayer.answers
@@ -62,7 +68,10 @@ angular.module 'clublootApp'
       console.log ans
       console.log i
       $scope.selectedCompair.user.push { ans: $scope.ansChoice[ans], p: ans}
-      $scope.selectedCompair.vs.push { ans: $scope.ansChoice[player.answers[i]], p: player.answers[i]}
+      $scope.selectedCompair.vs.push {
+        ans: $scope.ansChoice[player.answers[i]],
+        p: player.answers[i]
+      }
 
   $scope.checkAns = (ans, index) ->
     return "fa-check" if $scope.questions[index].answers[ans].is_correct == true
@@ -117,7 +126,12 @@ angular.module 'clublootApp'
       console.log template
       date = new Date(template.start_time)
       console.log date
-      cc = date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+      cc = date.getFullYear() + '/' +
+           date.getMonth() + '/' +
+           date.getDate() + ' ' +
+           date.getHours() + ':' +
+           date.getMinutes() + ':' +
+           date.getSeconds()
       console.log cc
       cd_time = cc
     )
@@ -128,7 +142,7 @@ angular.module 'clublootApp'
     console.log $scope.currentPlayer
 
   $scope.getNumber = (num) ->
-    new Array(num);
+    new Array(num)
 
   $scope.joinContest = (con) ->
     if con.player.length <= con.max_player
@@ -151,4 +165,3 @@ angular.module 'clublootApp'
     for p in con.participant
       if p.uid == Auth.getCurrentUser()._id
         return false
-
