@@ -66,6 +66,9 @@ angular.module 'clublootApp'
     url: '/prizes'
     templateUrl: 'app/admin/system/prizes/prizes.html'
     controller: 'AdminSystemPrizesCtrl'
+    resolve:
+      prize: ($http, $state, $stateParams) ->
+        $http.get "/api/prize"
 
   .state 'AdminSystem.taxes',
     url: '/taxes'

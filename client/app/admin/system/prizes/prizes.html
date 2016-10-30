@@ -1,1 +1,33 @@
-Today's Loot
+
+<div class="col-sm-12">
+  <form class="form-inline">
+    <div class="form-group">
+      <label class="sr-only" for="name">Email address</label>
+      <input type="text" class="form-control" ng-model="prize.name" id="name" placeholder="Title">
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="price">Password</label>
+      <input type="text" class="form-control" ng-model="prize.price" id="price" placeholder="Price">
+    </div>
+    <button class="btn btn-default" ng-click="add()">Submit</button>
+  </form>
+</div>
+
+<div class="col-sm-12">
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Prize Name</th>
+      <th>Prize Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="prize in prizes">
+      <td>{{prize.name}}</td>
+      <td>{{prize.price}}</td>
+      <td><a href="#" ng-click="remove(prize._id)">Delete</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>
