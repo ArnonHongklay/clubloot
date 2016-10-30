@@ -17,8 +17,6 @@ exports.index = (req, res) ->
   Thing.find (err, things) ->
     return handleError(res, err)  if err
     res.status(200).json things
-  
-
 
 # Get a single thing
 exports.show = (req, res) ->
