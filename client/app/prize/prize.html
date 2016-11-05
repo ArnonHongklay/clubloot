@@ -18,91 +18,10 @@
       </div>
     </div>
     <div class="row catelog-item-box">
-      <div class="catelog-item" ng-class="{active: itemSelected=='1'}" ng-click="itemSelected = '1'">
+      <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.price" ng-class="{active: itemSelected=='1'}" ng-click="itemSelected = '1'">
         <div class="box">
-          <div class="name">Prize A</div>
-          <div class="gem-count">01</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='2'}" ng-click="itemSelected = '2'">
-        <div class="box">
-          <div class="name">Prize B</div>
-          <div class="gem-count">01</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='3'}" ng-click="itemSelected = '3'">
-        <div class="box">
-          <div class="name">Prize C</div>
-          <div class="gem-count">01</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='4'}" ng-click="itemSelected = '4'">
-        <div class="box">
-          <div class="name">Prize D</div>
-          <div class="gem-count">02</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='5'}" ng-click="itemSelected = '5'">
-        <div class="box">
-          <div class="name">Prize E</div>
-          <div class="gem-count">02</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='6'}" ng-click="itemSelected = '6'">
-        <div class="box">
-          <div class="name">Prize F</div>
-          <div class="gem-count">05</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='7'}" ng-click="itemSelected = '7'">
-        <div class="box">
-          <div class="name">Prize G</div>
-          <div class="gem-count">05</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='8'}" ng-click="itemSelected = '8'">
-        <div class="box">
-          <div class="name">Prize G</div>
-          <div class="gem-count">07</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='9'}" ng-click="itemSelected = '9'">
-        <div class="box">
-          <div class="name">Prize G</div>
-          <div class="gem-count">09</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="catelog-item" ng-class="{active: itemSelected=='10'}" ng-click="itemSelected = '10'">
-        <div class="box">
-          <div class="name">Prize G</div>
-          <div class="gem-count">10</div>
+          <div class="name">{{prize.name}}</div>
+          <div class="gem-count">{{prize.price}}</div>
           <div class="gem">
             <i class="fa fa-diamond" aria-hidden="true"></i>
           </div>
