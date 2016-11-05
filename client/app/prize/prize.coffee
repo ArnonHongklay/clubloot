@@ -7,3 +7,6 @@ angular.module 'clublootApp'
     url: '/prize'
     templateUrl: 'app/prize/prize.html'
     controller: 'PrizeCtrl'
+    resolve:
+      prizes: ($http, $stateParams) ->
+        $http.get "/api/prize"
