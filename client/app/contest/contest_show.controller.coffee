@@ -20,6 +20,21 @@ angular.module 'clublootApp'
   console.log "Userid"
   console.log Auth.getCurrentUser()._id
 
+
+
+
+  $scope.checkActive = (contest) ->
+    status = contest.status
+    if status == "runing" || status == "finish"
+      console.log status
+      return true
+    else if status =="cancel"
+      return false
+    else
+      now = new Date().getTime()
+      start = new Date(status).getTime()
+      return now < start
+
   $scope.stepBack = () ->
     window.location.href = '/contest'
 
@@ -32,7 +47,6 @@ angular.module 'clublootApp'
           null
         ).success((template) ->
 
-          console.log "-0-0-0-0-"
         )
 
     ).error((data, status, headers, config) ->
@@ -62,11 +76,8 @@ angular.module 'clublootApp'
     }
 
     $scope.selectedCompair.name = player.name || "enemy"
-    console.log $scope.currentPlayer
     return unless $scope.currentPlayer.answers
     for ans, i in $scope.currentPlayer.answers
-      console.log ans
-      console.log i
       $scope.selectedCompair.user.push { ans: $scope.ansChoice[ans], p: ans}
       $scope.selectedCompair.vs.push {
         ans: $scope.ansChoice[player.answers[i]],
@@ -108,8 +119,6 @@ angular.module 'clublootApp'
       if Auth.getCurrentUser()._id == p.uid
         console.log "alreadyJoin"
         $scope.alreadyJoin = true
-    console.log "showContestDetails"
-    console.log contest
     cd_time = ''
     $http.get("/api/templates/#{contest.template_id}/questions",
       null
@@ -123,28 +132,32 @@ angular.module 'clublootApp'
     $http.get("/api/templates/#{contest.template_id}",
       null
     ).success((template) ->
-      console.log template
       date = new Date(template.start_time)
-      console.log date
       cc = date.getFullYear() + '/' +
            date.getMonth() + '/' +
            date.getDate() + ' ' +
            date.getHours() + ':' +
            date.getMinutes() + ':' +
            date.getSeconds()
-      console.log cc
       cd_time = cc
     )
     for i in contest.player
       if i.uid == Auth.getCurrentUser()._id
-        console.log "same"
         $scope.currentPlayer = i
-    console.log $scope.currentPlayer
 
   $scope.getNumber = (num) ->
-    new Array(num)
+    if (typeof(num) != "undefined")
+      console.log "num:"+num
+      num = num/500
+      new Array(num)
+    else
+      new Array()
 
   $scope.joinContest = (con) ->
+    if Auth.getCurrentUser().coins < con.fee
+      swal("you need more coin to join")
+      return false
+
     if con.player.length <= con.max_player
       $http.put("/api/contest/#{con._id}/join",
           Auth.getCurrentUser()
@@ -156,10 +169,6 @@ angular.module 'clublootApp'
         )
     else
       swal("Full contest")
-      return false
-
-    if Auth.getCurrentUser().coins < con.fee
-      swal("you need more coin to join")
       return false
 
     for p in con.participant

@@ -41,7 +41,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="contest in allContest | orderBy:'-_id'" ng-click="showContestDetails(contest)">
+            <tr ng-repeat="contest in allContest | orderBy:'-_id'" ng-click="showContestDetails(contest)" ng-show="checkActive(contest)">
               <td class="text-blue">{{contest.fee}}
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
@@ -87,7 +87,7 @@
               Loot
             </td>
             <td class="loot gem-red" style="text-align:left;color:#999">
-              <i class="fa fa-diamond gem-red"  aria-hidden="true" ng-repeat="i in getNumber(contestSelection.loot.prize/500) track by $index"></i>
+              <i class="fa fa-diamond gem-red"  aria-hidden="true" ng-repeat="i in getNumber(contestSelection.loot.prize) track by $index"></i>
               <!-- <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
               <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
               <i class="fa fa-diamond gem-red"  aria-hidden="true"></i>
