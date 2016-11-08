@@ -80,6 +80,16 @@ angular.module 'clublootApp'
         # $scope.programList = data
         console.log "fuck"
         console.log data
+        $('#add_template').modal('hide')
+        swal {
+          title: 'template created'
+          type: 'success'
+          confirmButtonText: 'Ok'
+          closeOnConfirm: true
+        }, ->
+          window.location.href = "/admin/system/programming/activeTemplate"
+          return
+
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )
