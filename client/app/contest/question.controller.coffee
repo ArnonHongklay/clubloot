@@ -26,31 +26,32 @@ angular.module 'clublootApp'
     )
 
   $scope.addScore = ->
-    counter = 0
-    for q,i in $scope.contest.ques
-      for a in q.answers
-        console.log a
-        console.log a.is_correct
-        console.log $scope.qaSelection[i]
-        if a.title == $scope.qaSelection[i] && a.is_correct
-          console.log "=============================================fuck"
-          counter += 1
+    window.location.href = "/contest"
+    # counter = 0
+    # for q,i in $scope.contest.ques
+    #   for a in q.answers
+    #     console.log a
+    #     console.log a.is_correct
+    #     console.log $scope.qaSelection[i]
+    #     if a.title == $scope.qaSelection[i] && a.is_correct
+    #       console.log "=============================================fuck"
+    #       counter += 1
 
-    $timeout ->
-      console.log counter
-      $scope.contest.player = {
-        uid: Auth.getCurrentUser()._id,
-        name: Auth.getCurrentUser().email,
-        score: counter,
-        answers: $scope.qaSelection
-      }
+    # $timeout ->
+    #   console.log counter
+    #   $scope.contest.player = {
+    #     uid: Auth.getCurrentUser()._id,
+    #     name: Auth.getCurrentUser().email,
+    #     score: counter,
+    #     answers: $scope.qaSelection
+    #   }
 
-      $http.put("/api/contest/#{$scope.contest._id}/player",
-        $scope.contest
-      ).success (data) ->
-        console.log data
-      $scope.createNewStep = '3'
-    , 300
+    #   $http.put("/api/contest/#{$scope.contest._id}/player",
+    #     $scope.contest
+    #   ).success (data) ->
+    #     console.log data
+    #   $scope.createNewStep = '3'
+    # , 300
 
   $scope.unlessEmpty = () ->
     return false if $scope.qaSelection == undefined
