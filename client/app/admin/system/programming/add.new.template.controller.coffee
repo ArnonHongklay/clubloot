@@ -44,6 +44,9 @@ angular.module 'clublootApp'
     start_time = new Date($scope.template.start_time)
     end_time = new Date($scope.template.end_time)
 
+    console.log "fuck time #{start_time}"
+    console.log "fuck end time #{end_time}"
+
     $scope.template.active = start_time > currentdate
     $scope.template.active = end_time < currentdate
 
