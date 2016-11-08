@@ -8,5 +8,7 @@ angular.module 'clublootApp'
     templateUrl: 'app/main/main.html'
     controller: 'MainCtrl'
     resolve:
-      contests: ($http, $stateParams, $state) ->
+      live_contests: ($http, $stateParams, $state) ->
+        $http.get "/api/contest/program"
+      upcomming_contests: ($http, $stateParams, $state) ->
         $http.get "/api/contest/program"

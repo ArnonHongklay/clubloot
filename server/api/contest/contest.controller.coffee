@@ -59,6 +59,16 @@ exports.index = (req, res) ->
     return handleError(res, err)  if err
     res.status(200).json contests
 
+exports.live = (req, res) ->
+  Contest.find (err, contests) ->
+    return handleError(res, err)  if err
+    res.status(200).json contests
+
+exports.upcoming = (req, res) ->
+  Contest.find (err, contests) ->
+    return handleError(res, err)  if err
+    res.status(200).json contests
+
 # Get a single contest
 exports.show = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->

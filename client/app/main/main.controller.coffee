@@ -1,8 +1,10 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
-  $scope.contests = contests.data
+.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, live_contests, upcomming_contests) ->
+  $scope.live_contests = live_contests.data
+  $scope.upcomming_contests = upcomming_contests.data
+
   # $scope.currentUser = Auth.getCurrentUser()
   $('body').css({background: '#fff'})
 
