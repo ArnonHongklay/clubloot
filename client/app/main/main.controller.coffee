@@ -46,4 +46,4 @@ angular.module 'clublootApp'
   $scope.setFilter('live')
 
   $scope.goContest = (contest) ->
-    window.location.href = "/questions/#{contest}/"
+    window.location.href = "/question/#{contest._id}/"
