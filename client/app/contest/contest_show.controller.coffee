@@ -146,7 +146,7 @@ angular.module 'clublootApp'
   $scope.getNumber = (num) ->
     if (typeof(num) != "undefined")
       console.log "num:"+num
-      num = num/500
+      num = num / 500
       new Array(num)
     else
       new Array()
