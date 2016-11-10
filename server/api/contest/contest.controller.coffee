@@ -12,59 +12,49 @@ rule = new schedule.RecurrenceRule()
 
 myContest =
   start: (contest) ->
-    console.log "ioemit"
-    console.log "ioemit"
-    console.log "emit"
-    console.log "start schedule"
     s_time = ''
     e_time = ''
     Template.findById contest.template_id, (err, template) ->
-      console.log template
       s_time = template.start_time
       e_time = template.end_time
 
-      console.log s_time
-      console.log e_time
+      Contest.findById contest._id, (err, contest) ->
+        current_time = new Date().getTime()
+        if current_time > s_time.getTime()
+          contest.status = "runing"
+          contest.stage = "runing"
+          contest.max_player = 2222
+          contest.save()
+          console.log "contest Start #{contest.status} #{contest._id}"
+          return
 
       n_date = schedule.scheduleJob(e_time, ->
-        Contest.findById contest._id, (err, contest) ->
-          contest.status = "finish"
-          contest.save()
-          console.log "contest Finish"
-          return
-      )
-
-      s_date = schedule.scheduleJob(s_time, ->
         Contest.findById contest._id, (err, contest) ->
           if contest.participant.length < contest.max_player
             for user in contest.participant
               User.findById user._id, (err, user) ->
                 user.coins = user.coins + contest.fee
                 user.save()
-                console.log user
-            n_date.cancel()
             contest.status = "cancel"
+            contest.stage = "cancel"
             contest.save()
           else
-            contest.status = "runing"
+            contest.status = "finish"
+            contest.stage = "finish"
             contest.save()
+        return
+      )
 
-          console.log contest
+      s_date = schedule.scheduleJob(s_time, ->
+        Contest.findById contest._id, (err, contest) ->
+          contest.status = "runing"
+          contest.stage = "runing"
+          contest.save()
         return
       )
 
 # Get list of contests
 exports.index = (req, res) ->
-  Contest.find (err, contests) ->
-    return handleError(res, err)  if err
-    res.status(200).json contests
-
-exports.live = (req, res) ->
-  Contest.find (err, contests) ->
-    return handleError(res, err)  if err
-    res.status(200).json contests
-
-exports.upcoming = (req, res) ->
   Contest.find (err, contests) ->
     return handleError(res, err)  if err
     res.status(200).json contests
@@ -88,10 +78,6 @@ exports.joinContest = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
 
-    console.log contest.participant
-    console.log "======================================="
-    console.log req.body
-
     User.findById req.body._id, (err, user) ->
       user.coins = user.coins - contest.fee
       user.save()
@@ -99,8 +85,6 @@ exports.joinContest = (req, res) ->
       contest.participant.push(req.body)
       contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
 
-      console.log "======================================="
-      console.log contest
       contest.save (err) ->
         return handleError(res, err)  if err
         res.status(200).json contest
@@ -109,10 +93,6 @@ exports.updateQuestion = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
-
-    console.log "============================================"
-    console.log contest
-    console.log req.body
 
     updated = _.merge(contest, req.body)
     updated.save (err) ->
@@ -126,7 +106,6 @@ exports.joinPlayer = (req, res) ->
 
     # contest.player.push(req.body.player)
 
-    console.log req.body.player
     contest.save (err) ->
       return handleError(res, err)  if err
       res.status(200).json contest
@@ -135,12 +114,10 @@ exports.findAllProgram = (req, res) ->
   Contest.find (err, contests) ->
     bucket = []
     for contest in contests
-      # console.log contest.program
       if contest.program == req.params.name
         bucket.push(contest)
 
     setTimeout (->
-      console.log bucket
       render(res, bucket)
     ), 100
 
@@ -152,15 +129,12 @@ exports.findProgramActive = (req, res) ->
       return next(err)
 
     for program in programs
-      console.log program
       contest = Contest.findOne({program: program.name})
       contest.exec (err, temp) ->
-        console.log temp
         if temp
           bucket.push(temp)
 
     setTimeout (->
-      console.log bucket
       render(res, bucket)
     ), 100
 

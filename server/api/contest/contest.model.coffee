@@ -13,6 +13,7 @@ ContestSchema = new Schema
     category: String
   }
   status: String
+  stage: String
   challenge: Number
   max_player: Number
   participant: []
