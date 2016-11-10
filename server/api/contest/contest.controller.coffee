@@ -121,6 +121,12 @@ exports.findAllProgram = (req, res) ->
       render(res, bucket)
     ), 100
 
+exports.findByTemplates = (req, res) ->
+  console.log "test #{req.params.id}"
+  Contest.update { template_id: req.params.id }, { status: 'close', stage: 'close' }, { multi: true }, (err, num) ->
+    console.log num
+    return
+
 exports.findProgramActive = (req, res) ->
   bucket = []
   program = Program.find({}).select('name -_id')

@@ -16,4 +16,5 @@ QuestionSchema = new Schema
         default: false
     }
   ]
+  answered: Boolean
 module.exports = mongoose.model 'Question', QuestionSchema

@@ -45,14 +45,9 @@ exports.createQuestion = (req, res) ->
 
 exports.updateQuestion = (req, res) ->
   Question.findById req.params.q, (err, question) ->
-    # console.log question.answers
-    # console.log req.body.answers
     for ans, i in question.answers
-      # console.log ans
-      # console.log req.body.answers[i]
       question.answers[i].is_correct = req.body.answers[i].is_correct
-    # console.log question
-      # question.answers.save()
+    question.answered = true
     question.save()
     exports.register = (socket) ->
       socket.emit 'question:update', doc
