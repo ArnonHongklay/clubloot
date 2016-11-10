@@ -21,10 +21,8 @@ angular.module 'clublootApp'
   console.log Auth.getCurrentUser()._id
 
 
-
-
   $scope.checkActive = (contest) ->
-    status = contest.status
+    status = contest.stage
     if status == "runing" || status == "finish"
       console.log status
       return true

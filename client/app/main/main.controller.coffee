@@ -4,7 +4,7 @@ angular.module 'clublootApp'
 .controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
   $scope.contests = contests.data
 
-  socket.syncUpdates 'contests', $scope.contests
+  socket.syncUpdates 'contest', $scope.contests
 
   # $scope.currentUser = Auth.getCurrentUser()
   $('body').css({background: '#fff'})
