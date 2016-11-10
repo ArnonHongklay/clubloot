@@ -23,7 +23,6 @@ myContest =
         if current_time > s_time.getTime()
           contest.status = "runing"
           contest.stage = "runing"
-          contest.max_player = 2222
           contest.save()
           console.log "contest Start #{contest.status} #{contest._id}"
           return
