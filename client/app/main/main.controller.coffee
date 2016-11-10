@@ -44,3 +44,6 @@ angular.module 'clublootApp'
       $scope.upcoming = true
 
   $scope.setFilter('live')
+
+  $scope.goContest = (contest) ->
+    window.location.href = "/questions/#{contest}/"
