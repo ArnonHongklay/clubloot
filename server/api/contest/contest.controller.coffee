@@ -99,11 +99,16 @@ exports.updateQuestion = (req, res) ->
       res.status(200).json contest
 
 exports.joinPlayer = (req, res) ->
+  player = req.body.player
   Contest.findById req.params.id, (err, contest) ->
+    pre = contest
+    for p in pre.player
+      if p.uid == player.uid
+        p.answers = player.answers
+    contest = pre
+    contest.save()
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
-
-    # contest.player.push(req.body.player)
 
     contest.save (err) ->
       return handleError(res, err)  if err
