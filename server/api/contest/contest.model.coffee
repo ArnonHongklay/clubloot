@@ -12,6 +12,7 @@ ContestSchema = new Schema
     prize: Number
     category: String
   }
+  start_time: Date
   status: String
   stage: String
   challenge: Number
