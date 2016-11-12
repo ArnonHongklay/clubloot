@@ -22,6 +22,14 @@ angular.module 'clublootApp'
     $scope.awesomeThings = awesomeThings
     socket.syncUpdates 'thing', $scope.awesomeThings
 
+
+  $scope.checkJoin = (contest) ->
+    alreadyJoin = false
+    for p in contest.player
+      if Auth.getCurrentUser()._id == p.uid
+        alreadyJoin = true
+    alreadyJoin
+
   $scope.addThing = ->
     return if $scope.newThing is ''
     $http.post '/api/things',
