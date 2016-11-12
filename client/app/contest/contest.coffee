@@ -9,12 +9,11 @@ angular.module 'clublootApp'
     controller: 'ContestCtrl'
     resolve:
       contests: ($http, $stateParams, $state) ->
-        console.log $state
         $http.get "/api/contest/program"
 
   .state 'contestnew',
     url: '/contest/new'
-    templateUrl: 'app/contest/new.html'
+    templateUrl: 'app/contest/contest_new.html'
     controller: 'NewContestCtrl'
     resolve:
       templates: ($http, $stateParams) ->
@@ -26,19 +25,19 @@ angular.module 'clublootApp'
 
   .state 'contestshow',
     url: '/contest/:contest'
-    templateUrl: 'app/contest/show.html'
+    templateUrl: 'app/contest/contest_show.html'
     controller: 'ContestShowCtrl'
     resolve:
+      templates: ($http, $stateParams) ->
+        $http.get "/api/templates"
       program: ($http, $stateParams) ->
         $http.get "/api/contest/program"
       contest: ($http, $stateParams) ->
         $http.get "/api/contest/program/#{$stateParams.contest}"
-      templates: ($http, $stateParams) ->
-        $http.get "/api/templates"
 
   .state 'question',
     url: '/question/:contest/'
-    templateUrl: 'app/contest/question.html'
+    templateUrl: 'app/contest/contest_question.html'
     controller: 'ContestQuestionCtrl'
     resolve:
       templates: ($http, $stateParams) ->
