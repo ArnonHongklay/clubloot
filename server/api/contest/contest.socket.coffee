@@ -13,6 +13,5 @@ exports.register = (socket) ->
     console.log doc
     console.log "doc save====================----"
     onSave socket, doc
-
 onSave = (socket, doc, cb) ->
   socket.emit 'contest:save', doc

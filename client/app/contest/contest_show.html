@@ -40,7 +40,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="contest in allContest | orderBy:'-_id'" ng-click="showContestDetails(contest)" ng-show="checkActive(contest)">
+            <tr ng-repeat="contest in allContest | orderBy: '-max_player-player.length'" ng-click="showContestDetails(contest)" ng-show="checkActive(contest)">
               <td class="text-blue">{{contest.fee}}
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>

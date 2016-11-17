@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'ContestShowCtrl', ($scope, $http, socket, $state, Auth, $stateParams, contest, program, templates, $timeout) ->
+.controller 'ContestShowCtrl', ($scope, $filter, $http, socket, $state, Auth, $stateParams, contest, program, templates, $timeout) ->
   $scope.programs = program.data
   $scope.contest = contest.data
   $scope.menu = $stateParams.contest
@@ -20,18 +20,24 @@ angular.module 'clublootApp'
   console.log "Userid"
   console.log Auth.getCurrentUser()._id
 
+  console.log $scope.templates
+
 
   $scope.checkActive = (contest) ->
     status = contest.stage
-    if status == "runing" || status == "finish"
-      console.log status
+    if contest.stage != "close"
       return true
-    else if status =="cancel"
-      return false
     else
-      now = new Date().getTime()
-      start = new Date(status).getTime()
-      return now < start
+      return false
+    # if status == "runing" || status == "finish"
+    #   console.log status
+    #   return true
+    # else if status =="cancel"
+    #   return false
+    # else
+    #   now = new Date().getTime()
+    #   start = new Date(status).getTime()
+    #   return now < start
 
   $scope.stepBack = () ->
     window.location.href = '/contest'
@@ -52,6 +58,7 @@ angular.module 'clublootApp'
     )
 
   # socket.syncUpdates 'question', $scope.questions
+
 
   $scope.checkScore = (player, index) ->
     score = 0
@@ -101,13 +108,44 @@ angular.module 'clublootApp'
 
 
   socket.syncUpdates 'contest', [], (event, item, object) ->
+    console.log "socket"
+    console.log object
+    console.log event
+    console.log "--------------------"
+    console.log item
+    console.log $scope.allContest
+    if $scope.contest.program == item.program && event == "created"
+      $scope.allContest.unshift(item)
+
+    for contest in $scope.allContest
+      console.log contest._id == item._id
+      if contest._id == item._id
+        contest.stage = item.stage
+        contest.player = item.player
+        contest.status = item.status
+        console.log "update update"
+        $scope.$apply()
+        return
+
     if $scope.contestSelection._id == item._id
       $scope.contestSelection = item
-    for contest in $scope.allContest
-      if contest._id == item._id
-        contest = item
-    $scope.$apply()
 
+
+
+
+  socket.syncUpdates 'contest', $scope.templates
+
+  # $scope.orderContest = (contest) ->
+  #   console.log "contest"
+  #   console.log contest
+  #   console.log contest.max_player - contest.player.length
+  #   return contest.max_player - contest.player.length
+
+  $scope.orderContest = (contest) ->
+    $scope.students = $filter('orderBy')(contest, ->
+      console.log contest
+    )
+    return
 
   $scope.showContestDetail = false
   $scope.showContestDetails = (contest) ->
