@@ -14,11 +14,11 @@ angular.module 'clublootApp'
   $scope.currentTemplate = ''
   $scope.selectedContestStatus = ''
 
-  console.log "templates"
-  console.log $scope.templates
-  console.log socket
-  console.log "Userid"
-  console.log Auth.getCurrentUser()._id
+  # console.log "templates"
+  # console.log $scope.templates
+  # console.log socket
+  # console.log "Userid"
+  # console.log Auth.getCurrentUser()._id
 
   console.log $scope.templates
 

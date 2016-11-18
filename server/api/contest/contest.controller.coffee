@@ -50,6 +50,7 @@ myContest =
 
       s_date = schedule.scheduleJob(s_time, ->
         Contest.findById contest._id, (err, contest) ->
+          contest.start_time = s_time.getTime()
           contest.status = "runing"
           contest.stage = "runing"
           contest.save()
@@ -73,6 +74,7 @@ exports.show = (req, res) ->
 exports.create = (req, res) ->
   Contest.create req.body, (err, contest) ->
     return handleError(res, err)  if err
+    console.log contest
     myContest.start(contest)
     res.status(201).json contest
 
