@@ -108,14 +108,16 @@ angular.module 'clublootApp'
 
 
   socket.syncUpdates 'contest', [], (event, item, object) ->
-    console.log "socket"
-    console.log object
-    console.log event
-    console.log "--------------------"
-    console.log item
-    console.log $scope.allContest
     if $scope.contest.program == item.program && event == "created"
-      $scope.allContest.unshift(item)
+      i = 0
+      for c in $scope.allContest
+        if c._id != item._id
+          i = i + 1
+        else
+      if i == $scope.allContest.length
+        $scope.allContest.unshift(item)
+        $scope.$apply()
+        return
 
     for contest in $scope.allContest
       console.log contest._id == item._id
@@ -123,14 +125,10 @@ angular.module 'clublootApp'
         contest.stage = item.stage
         contest.player = item.player
         contest.status = item.status
-        console.log "update update"
         $scope.$apply()
         return
-
     if $scope.contestSelection._id == item._id
       $scope.contestSelection = item
-
-
 
 
   socket.syncUpdates 'contest', $scope.templates
