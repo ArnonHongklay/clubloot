@@ -5,11 +5,11 @@ angular.module 'clublootApp'
   $scope.$parent.user = $scope.user
 
   $scope.update = ->
-    console.log $scope.user
+    # console.log $scope.user
     $http.put("/api/users/#{$scope.user._id}",
         $scope.user
       ).success((data, status, headers, config) ->
-        console.log data
+        # console.log data
       ).error((data, status, headers, config) ->
         swal("Not found!!")
       )

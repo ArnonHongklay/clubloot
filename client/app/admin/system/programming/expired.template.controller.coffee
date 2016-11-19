@@ -2,7 +2,7 @@
 
 angular.module 'clublootApp'
 .controller 'ExpiredTemplateCtrl', ($scope, $http, Auth, User, moment) ->
-  console.log 'ExpiredTemplateCtrl'
+  # console.log 'ExpiredTemplateCtrl'
 
   $scope.loadList = ->
     $http.get("/api/templates",

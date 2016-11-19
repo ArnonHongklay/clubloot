@@ -26,7 +26,7 @@ myContest =
           contest.status = "runing"
           contest.stage = "runing"
           contest.save()
-          console.log "contest Start #{contest.status} #{contest._id}"
+          # console.log "contest Start #{contest.status} #{contest._id}"
           return
 
       n_date = schedule.scheduleJob(e_time, ->
@@ -74,7 +74,7 @@ exports.show = (req, res) ->
 exports.create = (req, res) ->
   Contest.create req.body, (err, contest) ->
     return handleError(res, err)  if err
-    console.log contest
+    # console.log contest
     myContest.start(contest)
     res.status(201).json contest
 
@@ -132,9 +132,9 @@ exports.findAllProgram = (req, res) ->
     ), 100
 
 exports.findByTemplates = (req, res) ->
-  console.log "test #{req.params.id}"
+  # console.log "test #{req.params.id}"
   Contest.update { template_id: req.params.id }, { status: 'close', stage: 'close' }, { multi: true }, (err, num) ->
-    console.log num
+    # console.log num
     return
 
 exports.findProgramActive = (req, res) ->

@@ -14,7 +14,7 @@ angular.module 'clublootApp'
   ]
 
   $scope.submit = ->
-    console.log $scope.image_program
+    # console.log $scope.image_program
     if $scope.adminProgram.file.$valid and $scope.image_program
       $scope.upload $scope.image_program
     else
@@ -30,16 +30,16 @@ angular.module 'clublootApp'
       )
 
   $scope.upload = (file) ->
-    console.log file
+    # console.log file
     Upload.upload(
       url: '/api/program/uploads'
       method: 'POST',
       data: $scope.program
       file: file
     ).then ((resp) ->
-      console.log 'Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data
+      # console.log 'Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data
       $scope.program.image = resp.data
-      console.log $scope.program
+      # console.log $scope.program
       $http.post("/api/program",
           $scope.program
         ).success((data, status, headers, config) ->
@@ -48,7 +48,7 @@ angular.module 'clublootApp'
           swal("Not found!!")
         )
     ), ((resp) ->
-      console.log 'Error status: ' + resp.status
+      # console.log 'Error status: ' + resp.status
     ), (evt) ->
       progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
-      console.log 'progress: ' + progressPercentage + '% ' + evt.config.data.file.name
+      # console.log 'progress: ' + progressPercentage + '% ' + evt.config.data.file.name

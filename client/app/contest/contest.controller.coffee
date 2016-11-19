@@ -3,7 +3,7 @@
 angular.module 'clublootApp'
 .controller 'ContestCtrl', ($scope, $http, socket, contests) ->
   $scope.contests = contests.data
-  console.log contests.data
+  # console.log contests.data
 
   $('.item-show').css 'display', 'none'
   $('.item-hover').css 'display', 'block'

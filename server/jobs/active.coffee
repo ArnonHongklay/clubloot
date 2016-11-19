@@ -10,7 +10,7 @@ return
 j = schedule.scheduleJob(rule, ->
   currentdate = new Date()
 
-  console.log "Can get more free coins"
+  # console.log "Can get more free coins"
   Tempalte.find (err, templates) ->
     templates.forEach (template) ->
       end_time = new Date(template.end_time)

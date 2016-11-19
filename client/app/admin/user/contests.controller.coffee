@@ -1,7 +1,7 @@
 
 angular.module 'clublootApp'
 .controller 'AdminUserContestsCtrl', ($scope, $http, socket) ->
-  console.log "AdminUserContestsCtrl"
+  # console.log "AdminUserContestsCtrl"
 
   $scope.programList = [
     {

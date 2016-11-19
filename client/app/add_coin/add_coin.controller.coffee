@@ -2,14 +2,14 @@
 
 angular.module 'clublootApp'
 .controller 'AddCoinCtrl', ($scope, $http, socket, buckets, $rootScope, Auth) ->
-  console.log "AddCoinCtrl"
-  console.log $rootScope
-  console.log "============="
-  console.log Auth.getCurrentUser()
+  # console.log "AddCoinCtrl"
+  # console.log $rootScope
+  # console.log "============="
+  # console.log Auth.getCurrentUser()
 
   $http.get('/api/users/me', null).success (data, status, headers, config) ->
-    console.log "999999999999999999999999999999999999"
-    console.log data
+    # console.log "999999999999999999999999999999999999"
+    # console.log data
 
   $scope.people = [
     { name: "John1"},

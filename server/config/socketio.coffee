@@ -13,7 +13,7 @@ onDisconnect = (socket) ->
 onConnect = (socket) ->
   # When the client emits 'info', this listens and executes
   socket.on 'info', (data) ->
-    console.info '[%s] %s', socket.address, JSON.stringify(data, null, 2)
+    # console.log.info '[%s] %s', socket.address, JSON.stringify(data, null, 2)
 
   # Insert sockets below
   (require '../api/thing/thing.socket').register socket
@@ -43,8 +43,8 @@ module.exports = (socketio) ->
     # Call onDisconnect.
     socket.on 'disconnect', ->
       onDisconnect socket
-      console.info '[%s] DISCONNECTED', socket.address
+      # console.log.info '[%s] DISCONNECTED', socket.address
 
     # Call onConnect.
     onConnect socket
-    console.info '[%s] CONNECTED', socket.address
+    # console.log.info '[%s] CONNECTED', socket.address

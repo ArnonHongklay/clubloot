@@ -1,7 +1,7 @@
 
 angular.module 'clublootApp'
 .controller 'AdminUserTransactionsCtrl', ($scope, $http, socket) ->
-  console.log "AdminUserTransactionsCtrl"
+  # console.log "AdminUserTransactionsCtrl"
   $scope.transactions = [
     {id: 1, status: 'plus', screenName: 'Date Time', transaction: 'Transaction#', description: 'Description', amount: 'amount'},
     {id: 2, status: 'minus', screenName: 'Date Time', transaction: 'Transaction#', description: 'Description', amount: 'amount'},

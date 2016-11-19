@@ -18,10 +18,10 @@ angular.module 'clublootApp'
             ans.is_correct = true
           else
             ans.is_correct = false
-          console.log ans
+          # console.log ans
 
-  console.log socket
-  console.log socket.syncUpdates
+  # console.log socket
+  # console.log socket.syncUpdates
 
 
   socket.syncUpdates 'question', $scope.questions
@@ -38,7 +38,7 @@ angular.module 'clublootApp'
       $http.put("/api/templates/#{$stateParams.id}/questions/#{que._id}",
           que
         ).success((data, status, headers, config) ->
-          console.log que = data
+          # console.log que = data
         ).error((data, status, headers, config) ->
           swal("Not found!!")
         )
@@ -59,10 +59,10 @@ angular.module 'clublootApp'
       }, (isConfirm) ->
         if isConfirm
           $http.get("/api/contest/template/#{$stateParams.id}").success((data, status, headers, config) ->
-            console.log data
+            # console.log data
             swal("Update successfully")
           ).error((data) ->
-            console.log data
+            # console.log data
           )
         else
           swal 'Cancelled', 'Your imaginary file is safe :)', 'error'

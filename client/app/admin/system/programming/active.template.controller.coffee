@@ -2,7 +2,7 @@
 
 angular.module 'clublootApp'
 .controller 'ActiveTemplateCtrl', ($scope, $http, Auth, User, moment) ->
-  console.log 'ActiveTemplateCtrl'
+  # console.log 'ActiveTemplateCtrl'
 
   $scope.loadList = ->
     $http.get("/api/templates",

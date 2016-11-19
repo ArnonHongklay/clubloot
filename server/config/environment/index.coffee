@@ -7,8 +7,8 @@ requiredProcessEnv = (name) ->
   throw new Error('You must set the ' + name + ' environment variable')  unless process.env[name]
   process.env[name]
 
-console.log process.env.DOMAIN
-console.log all
+# console.log process.env.DOMAIN
+# console.log all
 # All configurations will extend these options
 # ============================================
 all =

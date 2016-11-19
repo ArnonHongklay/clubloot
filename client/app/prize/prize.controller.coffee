@@ -3,7 +3,7 @@
 angular.module 'clublootApp'
 .controller 'PrizeCtrl', ($scope, $http, socket, prizes) ->
   $scope.prizes = prizes.data
-  console.log "xxxx"
+  # console.log "xxxx"
   for prize in $scope.prizes
     if prize.price > 0 && prize.price < 10
       prize.tier = 1

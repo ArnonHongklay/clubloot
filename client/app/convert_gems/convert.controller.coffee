@@ -2,7 +2,7 @@
 
 angular.module 'clublootApp'
 .controller 'ConvertGemsCtrl', ($scope, $http, socket, $timeout, gems, $rootScope, Auth) ->
-  console.log "ConvertGemsCtrl"
+  # console.log "ConvertGemsCtrl"
   $scope.showModal = false
   $scope.gems = gems.data[0]
   user = $rootScope.currentUser || Auth.getCurrentUser()
@@ -66,7 +66,7 @@ angular.module 'clublootApp'
     coinFee = 0
     gemMinus = 0
     subType = ''
-    console.log $scope.mirorCurrent = $scope.currentGem
+    # console.log $scope.mirorCurrent = $scope.currentGem
     if type == "diamond"
       subType = "emerald"
       coinFee = 30000
