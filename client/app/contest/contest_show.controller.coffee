@@ -20,7 +20,7 @@ angular.module 'clublootApp'
   # console.log "Userid"
   # console.log Auth.getCurrentUser()._id
 
-  console.log $scope.templates
+  # console.log $scope.templates
 
 
   $scope.checkActive = (contest) ->
@@ -30,7 +30,7 @@ angular.module 'clublootApp'
     else
       return false
     # if status == "runing" || status == "finish"
-    #   console.log status
+    #   # console.log status
     #   return true
     # else if status =="cancel"
     #   return false
@@ -120,7 +120,7 @@ angular.module 'clublootApp'
         return
 
     for contest in $scope.allContest
-      console.log contest._id == item._id
+      # console.log contest._id == item._id
       if contest._id == item._id
         contest.stage = item.stage
         contest.player = item.player
@@ -134,14 +134,14 @@ angular.module 'clublootApp'
   socket.syncUpdates 'contest', $scope.templates
 
   # $scope.orderContest = (contest) ->
-  #   console.log "contest"
-  #   console.log contest
-  #   console.log contest.max_player - contest.player.length
+  #   # console.log "contest"
+  #   # console.log contest
+  #   # console.log contest.max_player - contest.player.length
   #   return contest.max_player - contest.player.length
 
   $scope.orderContest = (contest) ->
     $scope.students = $filter('orderBy')(contest, ->
-      console.log contest
+      # console.log contest
     )
     return
 
@@ -151,7 +151,7 @@ angular.module 'clublootApp'
     $scope.contestSelection = contest
     for p in $scope.contestSelection.player
       if Auth.getCurrentUser()._id == p.uid
-        console.log "alreadyJoin"
+        # console.log "alreadyJoin"
         $scope.alreadyJoin = true
     cd_time = ''
     $http.get("/api/templates/#{contest.template_id}/questions",
@@ -181,7 +181,7 @@ angular.module 'clublootApp'
 
   $scope.getNumber = (num) ->
     if (typeof(num) != "undefined")
-      console.log "num:"+num
+      # console.log "num:"+num
       num = num / 500
       new Array(num)
     else

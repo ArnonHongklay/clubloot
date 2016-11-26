@@ -37,15 +37,15 @@ angular.module 'clublootApp'
     new Array(num)
 
   $scope.submit = ->
-    console.log $scope.template
+    # console.log $scope.template
     return if Object.keys($scope.template).length < 6
 
     currentdate = new Date()
     start_time = new Date($scope.template.start_time)
     end_time = new Date($scope.template.end_time)
 
-    console.log "fuck time #{start_time}"
-    console.log "fuck end time #{end_time}"
+    # console.log "fuck time #{start_time}"
+    # console.log "fuck end time #{end_time}"
 
     $scope.template.active = start_time > currentdate
     $scope.template.active = end_time < currentdate
@@ -75,14 +75,14 @@ angular.module 'clublootApp'
       for answer, a_index in $scope.data_question.questions[index].answers
         $scope.data_question.questions[index].answers[a_index].is_correct = false
 
-    console.log $scope.data_question.questions
+    # console.log $scope.data_question.questions
 
     $http.post("/api/templates/#{$scope.data_question._id}/questions",
         $scope.data_question.questions
       ).success((data, status, headers, config) ->
         # $scope.programList = data
-        console.log "fuck"
-        console.log data
+        # console.log "fuck"
+        # console.log data
         $('#add_template').modal('hide')
         swal {
           title: 'template created'

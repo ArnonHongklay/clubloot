@@ -14,7 +14,7 @@ config = require './config/environment'
 mongoose.connect config.mongo.uri, config.mongo.options
 
 mongoose.connection.on 'error', (err) ->
-  console.error "MongoDB connection error: #{err}"
+  # console.log.error "MongoDB connection error: #{err}"
   process.exit -1
 
 # Populate DB with sample data
@@ -34,7 +34,7 @@ require('./jobs/daily_loot')
 
 # Start server
 server.listen config.port, config.ip, ->
-  console.log 'Express server listening on %d, in %s mode', config.port, app.get('env')
+  # console.log 'Express server listening on %d, in %s mode', config.port, app.get('env')
 
 # Expose app
 exports = module.exports = app

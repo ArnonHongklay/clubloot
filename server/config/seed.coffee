@@ -84,7 +84,7 @@ User.create
 
 userId = ''
 User.find { 'name': 'machete' }, (err, user) ->
-  console.log "==========================================="
+  # console.log "==========================================="
   user.save
   userId = user._id
   return
@@ -100,7 +100,7 @@ Program.find({}).remove ->
     image: 'https://upload.wikimedia.org/wikipedia/sl/8/89/Big_Brother-logo.png'
     active: true
   , (err, program) ->
-    console.log "program created"
+    # console.log "program created"
     Contest.create
       name: 'Big-Brother-01'
       program: program._id
@@ -112,7 +112,7 @@ Program.find({}).remove ->
       fee: 1000
       public: true
     , (err, contest) ->
-      console.log "contest created"
+      # console.log "contest created"
 
   Program.create
     name: 'The Voice'
@@ -120,4 +120,4 @@ Program.find({}).remove ->
     image: 'https://upload.wikimedia.org/wikipedia/en/4/44/The_Voice_NBC_logo_blackwhite.png'
     active: true
   , (err, program) ->
-    console.log program
+    # console.log program

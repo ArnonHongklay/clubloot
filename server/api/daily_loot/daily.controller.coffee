@@ -24,8 +24,8 @@ DateDiff =
     d2.getFullYear() - d1.getFullYear()
 
 Daily.find (err, daily) ->
-  console.log "---------------"
-  console.log daily.length
+  # console.log "---------------"
+  # console.log daily.length
   if daily.length < 1
     Daily.create {
       base: 2000,
@@ -33,7 +33,7 @@ Daily.find (err, daily) ->
       maxConsecutive: 10,
       moreCoin: 100
     }, (err, daily) ->
-      console.log daily
+      # console.log daily
 
 
 exports.index = (req, res) ->
@@ -78,8 +78,8 @@ exports.getFreeLoot = (req, res, next) ->
     user.coins = user.coins + baseCoins + bonus
     user.save
 
-    console.log user.coins
-    console.log baseCoins + bonus
+    # console.log user.coins
+    # console.log baseCoins + bonus
 
     user.save (err) ->
       data = { user: user, freeCoins: baseCoins + bonus }

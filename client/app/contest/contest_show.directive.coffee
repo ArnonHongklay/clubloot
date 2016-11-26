@@ -2,7 +2,7 @@
 angular.module 'clublootApp'
 .directive 'countDown', ->
   link: (scope, element, attributes, ctrl) ->
-    console.log "directive ======"
+    # console.log "directive ======"
     current = new Date()
     date = new Date(attributes.countDown)
 

@@ -59,7 +59,7 @@ Get a single user
 exports.show = (req, res, next) ->
   userId = req.params.id
   User.findById userId, (err, user) ->
-    console.log user
+    # console.log user
     if user
       if user.free_loot_log.length > 0
         prevDay = user.free_loot_log[user.free_loot_log.length-1].date
@@ -80,9 +80,9 @@ exports.update = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
-    console.log "xxxxx"
-    console.log user
-    console.log req.body
+    # console.log "xxxxx"
+    # console.log user
+    # console.log req.body
     updated = _.merge(user, req.body)
     user.save (err) ->
       return handleError(res, err)  if err

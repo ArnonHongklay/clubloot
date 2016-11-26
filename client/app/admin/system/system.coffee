@@ -54,7 +54,7 @@ angular.module 'clublootApp'
     controller: 'QuestionCtrl'
     resolve:
       id: ($http, $state, $stateParams) ->
-        console.log $stateParams.id
+        # console.log $stateParams.id
         $http.get "/api/templates/#{$stateParams.id}/questions"
 
   .state 'AdminSystem.ledger',

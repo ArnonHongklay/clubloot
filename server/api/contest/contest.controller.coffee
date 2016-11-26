@@ -40,7 +40,7 @@ myContest =
           contest.status = "runing"
           contest.stage = "runing"
           contest.save()
-          console.log "contest Start #{contest.status} #{contest._id}"
+          # console.log "contest Start #{contest.status} #{contest._id}"
           return
 
       n_date = schedule.scheduleJob(e_time, ->
@@ -88,7 +88,7 @@ exports.show = (req, res) ->
 exports.create = (req, res) ->
   Contest.create req.body, (err, contest) ->
     return handleError(res, err)  if err
-    console.log contest
+    # console.log contest
     myContest.start(contest)
     res.status(201).json contest
 
@@ -146,6 +146,7 @@ exports.findAllProgram = (req, res) ->
     ), 100
 
 exports.findByTemplates = (req, res) ->
+<<<<<<< HEAD
   console.log "test #{req.params.id}"
 
   # Template.findById req.params.id, (err, template) ->

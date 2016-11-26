@@ -2,11 +2,11 @@
 
 angular.module 'clublootApp'
 .controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope, $timeout) ->
-  console.log "NavbarCtrl"
+  # console.log "NavbarCtrl"
 
 
   $scope.reAfterLoot = () ->
-    console.log "wpoepwoepwoepowpeowpeowpoewoepwofosfospfosp"
+    # console.log "wpoepwoepwoepowpeowpeowpoewoepwofosfospfosp"
     location.reload()
 
   $scope.menu = [
@@ -50,11 +50,11 @@ angular.module 'clublootApp'
         $rootScope.currentUser = data.user
         Auth.user = $rootScope.currentUser
       ).error((data, status, headers, config) ->
-        console.log status
+        # console.log status
       )
   $timeout ->
     if Auth.getCurrentUser()
       $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) ->
-        console.log data
+        # console.log data
         $scope.getFreeLoot() if data.free_loot
   , 300

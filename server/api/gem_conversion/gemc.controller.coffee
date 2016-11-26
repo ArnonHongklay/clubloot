@@ -19,7 +19,7 @@ exports.show = (req, res) ->
 
 exports.set = (req, res) ->
   Gemc.remove {}, (err) ->
-    console.log 'collection removed'
+    # console.log 'collection removed'
     return gem = {
       diamond:  { rate: 5},
       emerald:  { rate: 5},

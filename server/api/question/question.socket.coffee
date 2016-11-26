@@ -6,8 +6,8 @@ Broadcast updates to client when the model changes
 question = require './question.model'
 
 exports.register = (socket) ->
-  console.log "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
-  console.log question
+  # console.log "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+  # console.log question
   question.schema.post 'save', (doc) ->
     onSave socket, doc
 

@@ -6,7 +6,7 @@ Question = require './question.model'
 
 exports.index = (req, res) ->
   Question.find (err, que) ->
-    console.log que
+    # console.log que
     return handleError(res, err)  if err
     res.status(200).json que
 

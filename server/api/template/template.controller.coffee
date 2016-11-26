@@ -36,7 +36,7 @@ exports.update = (req, res) ->
 exports.createQuestion = (req, res) ->
   Template.findById req.params.id, (err, template) ->
     Question.create req.body, (err, questions) ->
-      console.log questions
+      # console.log questions
       for q in questions
         q.templates = template._id
         q.save()
@@ -68,7 +68,7 @@ exports.findProgramActive = (req, res) ->
       return next(err)
 
     for program in programs
-      console.log program
+      # console.log program
       template = Template.findOne({program: program.name})
       template.exec (err, temp) ->
         if temp

@@ -6,7 +6,7 @@ angular.module 'clublootApp'
   $scope.templates = templates.data
   $scope.questions = questions.data
   $scope.contests = {loot:{prize:'',category:''}}
-  console.log $scope.templates
+  # console.log $scope.templates
 
   $scope.qaSelection = []
 
@@ -32,12 +32,12 @@ angular.module 'clublootApp'
         # console.log $scope.templates
         # console.log $scope.questions
 
-        console.log data
+        # console.log data
         $scope.template_ids = []
         for template in $scope.templates
           if template.program == data.program #&& template.active == true
             $scope.template_ids.push(template._id)
-            console.log template._id
+            # console.log template._id
 
         $scope.template_id = $scope.template_ids[$scope.template_ids.length-1]
 
@@ -134,32 +134,32 @@ angular.module 'clublootApp'
     window.location.href = '/dashboard'
 
   $scope.doneProcessing =  ->
-    console.log $scope.newContestQuestion
+    # console.log $scope.newContestQuestion
 
   $scope.unlessEmpty = () ->
     return false if $scope.qaSelection == undefined
     return false if $scope.contest == undefined
     return false if $scope.contest.ques == undefined
 
-    console.log $scope.contest.ques
-    console.log $scope.qaSelection
+    # console.log $scope.contest.ques
+    # console.log $scope.qaSelection
     if $scope.contest.ques.length == $scope.qaSelection.length
-      console.log "xxxxx"
+      # console.log "xxxxx"
       return true
 
   $scope.addScore = ->
     counter = 0
     for q,i in $scope.contest.ques
       for a in q.answers
-        console.log a
-        console.log a.is_correct
-        console.log $scope.qaSelection[i]
+        # console.log a
+        # console.log a.is_correct
+        # console.log $scope.qaSelection[i]
         if a.title == $scope.qaSelection[i] && a.is_correct
-          console.log "=============================================fuck"
+          # console.log "=============================================fuck"
           counter += 1
 
     $timeout ->
-      console.log counter
+      # console.log counter
       $scope.contest.player = [{
         uid: Auth.getCurrentUser()._id,
         name: Auth.getCurrentUser().email,
@@ -170,11 +170,11 @@ angular.module 'clublootApp'
       $http.put("/api/contest/#{$scope.contest.id}",
         $scope.contest
       ).success (data) ->
-        console.log data
+        # console.log data
       $scope.createNewStep = '3'
     , 300
 
   $scope.qaShowAns = []
   $scope.openAns = (index) ->
-    console.log index
+    # console.log index
     $scope.qaShowAns[index] = true
