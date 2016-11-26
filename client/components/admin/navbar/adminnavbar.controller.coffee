@@ -15,7 +15,6 @@ angular.module 'clublootApp'
       title: 'System',
       link: '/admin/system'
     }
-
   ]
 
   # $scope.isCollapsed = true
