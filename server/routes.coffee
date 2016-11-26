@@ -20,6 +20,7 @@ module.exports = (app) ->
   app.use '/api/coin_package',    require './api/coin_package'
   app.use '/api/daily_loot',      require './api/daily_loot'
   app.use '/api/prize',           require './api/prize'
+  app.use '/api/winner_log',      require './api/winner_log'
   app.use '/auth',                require './auth'
 
   # All undefined asset or api routes should return a 404

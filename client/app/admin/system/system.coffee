@@ -85,6 +85,14 @@ angular.module 'clublootApp'
       buckets: ($http, $stateParams) ->
         $http.get "/api/coin_package"
 
+  .state 'AdminSystem.winners',
+    url: '/winners'
+    templateUrl: 'app/admin/system/winners/winners.html'
+    controller: 'AdminSystemWinnerCtrl'
+    resolve:
+      winners: ($http, $stateParams) ->
+        $http.get "/api/winner_log"
+
   .state 'AdminSystem.users',
     url: '/users'
     templateUrl: 'app/admin/system/users/users.html'

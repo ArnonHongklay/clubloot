@@ -24,6 +24,7 @@ angular.module 'clublootApp'
     $scope.contests.loot.category = "gem-red"
     $scope.contests.participant = []
     $scope.contests.participant.push(Auth.getCurrentUser())
+    $scope.contests.fee = $scope.addFeeTax($scope.contests.fee)
     $http.post("/api/contest",
         $scope.contests
       ).success((data, status, headers, config) ->
@@ -92,6 +93,10 @@ angular.module 'clublootApp'
     { title: 4000 }
   ]
 
+  # for fee in $scope.fees
+  #   tax = (fee.title * 10) / 100
+  #   fee.title = fee.title + tax
+
   $scope.prizes = [
     { title: 1, fee: 5000  },
     { title: 2, fee: 10000 },
@@ -113,11 +118,16 @@ angular.module 'clublootApp'
     {ans: '', showAns: false}
   ]
 
+  $scope.addFeeTax = (fee) ->
+    tax = (fee * 10) / 100
+    parseInt(fee) + parseInt(tax)
+
   $scope.calPrize = () ->
     # console.log "sdsdsddsdsds"
     # console.log parseInt(
     #   parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)
     # )
+    tax = parseInt($scope.contests.fee) * parseInt($scope.contests.max_player) * 10 / 100
     $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
 
   $scope.finishNewContest = () ->

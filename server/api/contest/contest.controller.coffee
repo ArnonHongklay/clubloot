@@ -5,10 +5,24 @@ _ = require 'lodash'
 Contest  = require './contest.model'
 Program  = require '../program/program.model'
 Template = require '../template/template.model'
+Question = require '../question/question.model'
+WinnerLog = require '../winner_log/winner_log.model'
 User     = require '../user/user.model'
 
 schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
+
+checkScore = (player, questions) ->
+  console.log player
+  console.log "0000000000000000=0=00=0=0="
+  console.log questions
+  score = 0
+  for uAnswer, i in player.answers
+    if questions[i].answers[uAnswer].is_correct == true
+      console.log score
+      score = score + 1
+  player.score = score
+  score
 
 myContest =
   start: (contest) ->
@@ -133,9 +147,42 @@ exports.findAllProgram = (req, res) ->
 
 exports.findByTemplates = (req, res) ->
   console.log "test #{req.params.id}"
+
+  # Template.findById req.params.id, (err, template) ->
+  # console.log template
   Contest.update { template_id: req.params.id }, { status: 'close', stage: 'close' }, { multi: true }, (err, num) ->
     console.log num
-    return
+  Contest.find { template_id: req.params.id }, (err, contests) ->
+
+    console.log "popopop=================="
+    for contest in contests
+      Contest.findById contest._id, (err, contest) ->
+        console.log contest.player
+        max_score = 0
+        winner = {}
+        for p, i in contest.player
+          Question.find { 'templates': req.params.id }, (err, questions) ->
+            score = checkScore(p, questions)
+            p.score = score
+            if score > max_score
+              winner = p
+            contest.save()
+          if i == contest.player.length-1
+            WinnerLog.create {
+              user_id: winner.uid,
+              contest_id: contest._id,
+              template_id: req.params.id,
+              score: winner.score,
+              prize:  contest.loot.prize
+              }, (err, winnerlog) ->
+                console.log err
+                console.log "sdsdsdsdsdsdsds"
+                console.log winnerlog
+
+
+
+
+    res.status(200).json {success: true}
 
 exports.findProgramActive = (req, res) ->
   bucket = []

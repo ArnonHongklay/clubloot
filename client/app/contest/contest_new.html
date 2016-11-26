@@ -72,7 +72,7 @@
                   <div class="box-right pull-right">
                   <select class="form-control" ng-model="contests.fee" ng-change="calPrize()">
                       <option value="">Fee</option>
-                      <option ng-repeat="number in fees" name="{{number.title}}" value="{{number.title}}">{{number.title}}</option>
+                      <option ng-repeat="number in fees" name="{{number.title}}" value="{{number.title}}">{{addFeeTax(number.title)}}</option>
                     </select>
                   </div>
                 </td>
