@@ -35,6 +35,7 @@ myContest =
       Contest.findById contest._id, (err, contest) ->
         current_time = new Date().getTime()
         contest.start_time = s_time.getTime()
+        contest.end_time   = e_time.getTime()
 
         if current_time > s_time.getTime()
           contest.status = "runing"
@@ -46,6 +47,7 @@ myContest =
       n_date = schedule.scheduleJob(e_time, ->
         Contest.findById contest._id, (err, contest) ->
           contest.start_time = s_time.getTime()
+          contest.end_time   = e_time.getTime()
 
           if contest.participant.length < contest.max_player
             for user in contest.participant
@@ -65,6 +67,7 @@ myContest =
       s_date = schedule.scheduleJob(s_time, ->
         Contest.findById contest._id, (err, contest) ->
           contest.start_time = s_time.getTime()
+          contest.end_time   = e_time.getTime()
           contest.status = "runing"
           contest.stage = "runing"
           contest.save()

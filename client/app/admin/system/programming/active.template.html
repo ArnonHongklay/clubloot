@@ -1,6 +1,6 @@
 <h2>Active Templates</h2>
 <table class="table">
-  <tr ng-repeat="active in activeTemplate" ng-if="active.active">
+  <tr ng-repeat="active in activeTemplate">
     <td><a ui-sref="AdminSystem.programming.question({id: active._id})">{{active.name}}</a></td>
     <td>{{active.program}}</td>
     <td>{{active.start_time | amDateFormat:'MM/DD/YYYY HH:mm:ss'}}</td>
