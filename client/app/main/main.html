@@ -133,7 +133,7 @@
           {{contest.name}}
         </div>
         <div style="width: 20%; display: inline-block; float:left;">{{contest.program}}</div>
-        <div style="width: 7%; display: inline-block; float:left;">{{contest.player.length}} Player</div>
+        <div style="width: 7%; display: inline-block; float:left;">{{contest.player.length}} / {{contest.max_player}} Player</div>
         <div style="width: 8%; display: inline-block; float:left; text-align: center;">
           <div style="color: #fff; #444">View</div>
         </div>
@@ -155,7 +155,7 @@
         <div style="width: 20%; display: inline-block; float:left;">{{contest.program}}</div>
         <div style="width: 10%; display: inline-block; float:left;">{{contest.player.length}} / {{contest.max_player}} Player</div>
         <div style="width: 5%; display: inline-block; float:left; text-align: center;">
-          <div style="color: #BB0E0E;" count-down="{{program.end_time || contest.status}}" ></div>
+          <div style="color: #BB0E0E;" count-down="{{contest.start_time}}"></div>
         </div>
       </div>
     </div>
