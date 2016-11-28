@@ -7,7 +7,7 @@ angular.module 'clublootApp'
   $scope.questions = questions.data
   $scope.contests = {loot:{prize:'',category:''}}
   # console.log $scope.templates
-
+  $scope.currentPrize = 0
   $scope.qaSelection = []
 
   $scope.checkActive = (start, end) ->
@@ -83,14 +83,17 @@ angular.module 'clublootApp'
   ]
 
   $scope.fees = [
+    { title: 100 },
+    { title: 200 },
+    { title: 300 },
     { title: 500 },
     { title: 1000 },
     { title: 1500 },
     { title: 2000 },
     { title: 2500 },
     { title: 3000 },
-    { title: 3500 },
-    { title: 4000 }
+    { title: 4000 },
+    { title: 5000 },
   ]
 
   # for fee in $scope.fees
@@ -128,7 +131,66 @@ angular.module 'clublootApp'
     #   parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)
     # )
     tax = parseInt($scope.contests.fee) * parseInt($scope.contests.max_player) * 10 / 100
+
     $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
+    $scope.calGem(parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)))
+
+  $scope.calGem = (val) ->
+    console.log val
+    $scope.gemPrize = []
+    prize = val
+    console.log "prize:"+prize
+    diamond = 12500
+    emerald = 2500
+    saphire = 500
+    ruby    = 100
+
+    diamondCount = 0
+    emeraldCount = 0
+    saphireCount = 0
+    rubyCount    = 0
+    $scope.currentPrize = val
+    $scope.gemList = []
+
+    if diamond <= $scope.currentPrize
+      diamondCount = parseInt($scope.currentPrize/diamond)
+      $scope.currentPrize = $scope.currentPrize - (diamondCount * diamond)
+      console.log "---------------"
+      console.log diamond <= $scope.currentPrize
+      console.log "diamond:"+diamond
+      console.log "prize:"+$scope.currentPrize
+      console.log "diamondCount:"+diamondCount
+      $scope.gemList.push {name: 'diamond', value: diamondCount}
+      console.log diamondCount * diamond
+      console.log "current:"+$scope.currentPrize
+      console.log $scope.gemList
+
+    if emerald <= $scope.currentPrize
+      emeraldCount = parseInt($scope.currentPrize/emerald)
+      $scope.currentPrize = $scope.currentPrize - (emeraldCount * emerald)
+      $scope.gemList.push {name: 'emerald', value: emeraldCount}
+      console.log "current:"+$scope.currentPrize
+      console.log $scope.gemList
+
+    if saphire <= $scope.currentPrize
+      saphireCount = parseInt($scope.currentPrize/saphire)
+      $scope.currentPrize = $scope.currentPrize - (saphireCount * saphire)
+      $scope.gemList.push {name: 'saphire', value: saphireCount}
+      console.log "current:"+$scope.currentPrize
+      console.log $scope.gemList
+
+    if ruby <= $scope.currentPrize
+      rubyCount = parseInt($scope.currentPrize/ruby)
+      $scope.currentPrize = $scope.currentPrize - (rubyCount * ruby)
+      $scope.gemList.push {name: 'ruby', value: rubyCount}
+      console.log "current:"+$scope.currentPrize
+      console.log $scope.gemList
+
+    fullDiamond = prize/diamond
+    fullEmerald = prize/emerald
+
+    console.log $scope.gemList
+
 
   $scope.finishNewContest = () ->
     window.location.href = '/dashboard'

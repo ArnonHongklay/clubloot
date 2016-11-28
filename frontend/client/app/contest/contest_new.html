@@ -58,22 +58,28 @@
 
               <tr>
                 <td class="g-text" style="padding: 5px 5px">
-                  <div class="box-left pull-left">How would the prize be structured?</div>
-                  <div class="box-right pull-right">
-                    <input ng-model="contests.loot.prize" disabled="true">
-                  </div>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">What is the entry fee? (in coins)</div>
                   <div class="box-right pull-right">
                   <select class="form-control" ng-model="contests.fee" ng-change="calPrize()">
                       <option value="">Fee</option>
                       <option ng-repeat="number in fees" name="{{number.title}}" value="{{number.title}}">{{addFeeTax(number.title)}}</option>
                     </select>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="g-text" style="padding: 5px 5px">
+                  <div class="box-left pull-left">How would the prize be structured?</div>
+                  <div class="box-right pull-right">
+                    <input ng-model="contests.loot.prize" disabled="true">
+                    <ul>
+                    <li ng-repeat="gem in gemList">
+                      {{gem.name}} x {{gem.value}}
+                    </li>
+                    </ul>
+
+                  </div>
                   </div>
                 </td>
               </tr>
