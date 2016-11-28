@@ -121,7 +121,7 @@
     <div ng-click="setFilter('upcoming')" ng-class="{'active-filter': upcoming}" class="col-lg-6" style="font-size: 20px;border: 1px solid #ccc; line-height: 50px; color: #42A3BE; background: #F0F0F0; cursor: pointer;">Upcoming Contests</div>
 
     <div ng-show="live == true">
-      <div ng-repeat="contest in contests" ng-if="contest.stage == 'finish'" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
+      <div ng-repeat="contest in contests" ng-click="goLive(contest)" ng-if="contest.stage == 'finish'" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE; cursor: pointer">
         <div style="width: 10%; display: inline-block; float:left;">
           {{contest.fee}} <img src="assets/images/money-bag-blue.png" width="24">
         </div>
@@ -133,15 +133,15 @@
           {{contest.name}}
         </div>
         <div style="width: 20%; display: inline-block; float:left;">{{contest.program}}</div>
-        <div style="width: 7%; display: inline-block; float:left;">{{contest.player.length}} Q</div>
+        <div style="width: 7%; display: inline-block; float:left;">{{contest.player.length}} / {{contest.max_player}} Player</div>
         <div style="width: 8%; display: inline-block; float:left; text-align: center;">
-          <div style="color: #fff; background: #02A647;">Live</div>
+          <div style="color: #fff; #444">View</div>
         </div>
       </div>
     </div>
 
     <div ng-show="upcoming == true">
-      <div ng-repeat="contest in contests" ng-if="contest.stage == 'runing' && checkJoin(contest)" ng-click="goContest(contest)" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE;">
+      <div ng-repeat="contest in contests" ng-if="contest.stage == 'runing' && checkJoin(contest)" ng-click="goContest(contest)" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE; cursor: pointer">
         <div style="width: 10%; display: inline-block; float:left;">
           {{contest.fee}} <img src="assets/images/money-bag-blue.png" width="24">
         </div>
@@ -153,9 +153,9 @@
           {{contest.name}}
         </div>
         <div style="width: 20%; display: inline-block; float:left;">{{contest.program}}</div>
-        <div style="width: 7%; display: inline-block; float:left;">{{contest.player.length}} Q</div>
-        <div style="width: 8%; display: inline-block; float:left; text-align: center;">
-          <div style="color: #BB0E0E;">Upcoming</div>
+        <div style="width: 10%; display: inline-block; float:left;">{{contest.player.length}} / {{contest.max_player}} Player</div>
+        <div style="width: 5%; display: inline-block; float:left; text-align: center;">
+          <div style="color: #BB0E0E;" count-down="{{contest.end_time}}"></div>
         </div>
       </div>
     </div>

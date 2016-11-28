@@ -1,6 +1,7 @@
 <h2>Expired Templates</h2>
 <table class="table">
-  <tr ng-repeat="expired in expiredTemplate" ng-if="expired.stage =='close' || expired.stage =='cancel'">
+  <tr ng-repeat="expired in expiredTemplate" ng-if="!expired.active'">
+  <!--<tr ng-repeat="expired in expiredTemplate" ng-if="!expired.active">-->
     <td><a ui-sref="AdminSystem.programming.question({id: expired._id})">{{expired.name}}</a></td>
     <td>{{expired.program}}</td>
     <td>{{expired.start_time | amDateFormat:'MM/DD/YYYY HH:mm:ss'}}</td>
