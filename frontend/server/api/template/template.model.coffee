@@ -10,6 +10,8 @@ TemplateSchema = new Schema
   program: String
   start_time: Date
   end_time: Date
-  active: Boolean
+  active:
+    type: Boolean
+    default: true
 
 module.exports = mongoose.model 'Template', TemplateSchema
