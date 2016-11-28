@@ -55,3 +55,6 @@ angular.module 'clublootApp'
 
   $scope.goContest = (contest) ->
     window.location.href = "/question/#{contest._id}/"
+
+  $scope.goLive = (contest) ->
+    window.location.href = "/contest/#{contest._id}/"
