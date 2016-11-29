@@ -121,7 +121,7 @@
     <div ng-click="setFilter('upcoming')" ng-class="{'active-filter': upcoming}" class="col-xs-6" style="font-size: 20px;border: 1px solid #ccc; line-height: 50px; color: #42A3BE; background: #F0F0F0; cursor: pointer;">Upcoming Contests</div>
 
     <div ng-show="live == true">
-      <div ng-repeat="contest in contests" ng-click="goLive(contest)" ng-if="contest.stage == 'finish'" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE; cursor: pointer">
+      <div ng-repeat="contest in contests" ui-sref="contestshow({contest: contest._id, liveDashboard: 'x'})" ng-if="contest.stage == 'finish'" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE; cursor: pointer">
         <div style="width: 10%; display: inline-block; float:left;">
           {{contest.fee}} <img src="assets/images/money-bag-blue.png" width="24">
         </div>

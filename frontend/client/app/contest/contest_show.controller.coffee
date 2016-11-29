@@ -147,6 +147,7 @@ angular.module 'clublootApp'
 
   $scope.showContestDetail = false
   $scope.showContestDetails = (contest) ->
+    # console.log contest
     $scope.alreadyJoin = false
     $scope.contestSelection = contest
     for p in $scope.contestSelection.player
@@ -208,3 +209,6 @@ angular.module 'clublootApp'
     for p in con.participant
       if p.uid == Auth.getCurrentUser()._id
         return false
+
+  if $stateParams.liveDashboard
+    $scope.showContestDetails($scope.contest)
