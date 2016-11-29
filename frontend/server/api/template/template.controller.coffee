@@ -35,6 +35,8 @@ exports.update = (req, res) ->
 
 exports.createQuestion = (req, res) ->
   Template.findById req.params.id, (err, template) ->
+    template.active = true
+    template.save()
     Question.create req.body, (err, questions) ->
       # console.log questions
       for q in questions

@@ -151,8 +151,11 @@ exports.findAllProgram = (req, res) ->
 exports.findByTemplates = (req, res) ->
   console.log "test #{req.params.id}"
 
-  # Template.findById req.params.id, (err, template) ->
-  # console.log template
+  Template.findById req.params.id, (err, template) ->
+    template.active = false
+    template.save()
+
+
   Contest.update { template_id: req.params.id }, { status: 'close', stage: 'close' }, { multi: true }, (err, num) ->
     console.log num
   Contest.find { template_id: req.params.id }, (err, contests) ->

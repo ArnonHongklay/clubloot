@@ -4,6 +4,7 @@ angular.module 'clublootApp'
 .controller 'ContestQuestionCtrl', ($timeout, $scope, $http, Auth, templates, contest) ->
   $scope.templates = templates.data
   $scope.contests = contest.data
+  $scope.current_user = Auth.getCurrentUser()
 
   $scope.qaSelection = []
 
