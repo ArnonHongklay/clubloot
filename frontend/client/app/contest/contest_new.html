@@ -37,7 +37,7 @@
                   <div class="box-right pull-right">
                     <select class="form-control" ng-model="contests.template_id">
                       <option value="">Template</option>
-                      <option ng-repeat="template in templates" ng-if="checkActive(template.start_time, template.end_time)" name="{{template}}" value="{{template._id}}" ng-show="template.program == contests.program">{{template.name}}</option>
+                      <option ng-repeat="template in templates" name="{{template}}" value="{{template._id}}" ng-show="template.program == contests.program">{{template.name}}</option>
                     </select>
                   </div>
                 </td>
@@ -71,8 +71,11 @@
               <tr>
                 <td class="g-text" style="padding: 5px 5px">
                   <div class="box-left pull-left">How would the prize be structured?</div>
-                  <div class="box-right pull-right">
-                    <span ng-hide="contests.fee==''">{{gemMatrix.gem[gemIndex].type}} x {{gemMatrix.gem[gemIndex].count}}</span>
+                  <div class="box-right pull-right" style="padding-top: 6px;">
+                    <span ng-hide="contests.fee==''">
+                    <i class="fa fa-diamond" style="{{gemColor}}"  ng-repeat="gem in gemCounts"></i>
+                    <!-- {{gemMatrix.gem[gemIndex].type}} x {{gemMatrix.gem[gemIndex].count}} -->
+                    </span>
                   </div>
                   </div>
                 </td>

@@ -126,7 +126,16 @@
           {{contest.fee}} <img src="assets/images/money-bag-blue.png" width="24">
         </div>
         <div style="width: 10%; display: inline-block; float:left; color: #912927">
-          {{contest.coins}} <i class="fa fa-diamond" aria-hidden="true"></i>
+
+        <div gem-repeat="" fee="{{contest.fee}}" player="{{contest.max_player}}" gemcount="{{calGem(contest.fee, contest.max_player).count}}">
+
+        </div>
+        <!-- {{calGem(contest.fee, contest.max_player)}} -->
+        <!--   <i class="fa fa-diamond" aria-hidden="true" ng-repeat="i in gemRepeat(contest.fee, contest.max_player, contest._id)"></i> -->
+
+
+
+
         </div>
         <div style="width: 40%; display: inline-block; float:left;">
           <div ng-if="contest.owner == currentUser.email" style="display: inline-block; width: 30px; height: 30px; border-radius: 15px; font-size: 16px; line-height: 30px; text-align: center; border: 1px solid">H</div>

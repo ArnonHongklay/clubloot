@@ -5,6 +5,8 @@ angular.module 'clublootApp'
   # $scope.data      = id.data
   $scope.questions = id.data
 
+  console.log $scope.questions
+  console.log $stateParams
   $scope.check = ->
     $(".check-true").checked = true
 
@@ -39,12 +41,10 @@ angular.module 'clublootApp'
           que
         ).success((data, status, headers, config) ->
           # console.log que = data
+          swal("updated")
         ).error((data, status, headers, config) ->
           swal("Not found!!")
         )
-
-    if count == $scope.questions.length
-      $scope.closeContest()
 
   $scope.closeContest = () ->
     swal {
