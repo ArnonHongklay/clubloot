@@ -180,9 +180,11 @@ angular.module 'clublootApp'
       if i.uid == Auth.getCurrentUser()._id
         $scope.currentPlayer = i
 
+    if $stateParams.viewPlayer
+      $scope.compairPlayer($scope.contestSelection.player[0])
+
   $scope.getNumber = (num) ->
     if (typeof(num) != "undefined")
-      # console.log "num:"+num
       num = num / 500
       new Array(num)
     else
