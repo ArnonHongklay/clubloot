@@ -27,6 +27,9 @@ angular.module 'clublootApp'
     url: '/contest/:contest'
     templateUrl: 'app/contest/contest_show.html'
     controller: 'ContestShowCtrl'
+    params:
+      liveDashboard: false,
+      viewPlayer: false
     resolve:
       templates: ($http, $stateParams) ->
         $http.get "/api/templates"

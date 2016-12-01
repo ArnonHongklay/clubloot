@@ -147,6 +147,7 @@ angular.module 'clublootApp'
 
   $scope.showContestDetail = false
   $scope.showContestDetails = (contest) ->
+    # console.log contest
     $scope.alreadyJoin = false
     $scope.contestSelection = contest
     for p in $scope.contestSelection.player
@@ -181,7 +182,6 @@ angular.module 'clublootApp'
 
   $scope.getNumber = (num) ->
     if (typeof(num) != "undefined")
-      # console.log "num:"+num
       num = num / 500
       new Array(num)
     else
@@ -208,3 +208,15 @@ angular.module 'clublootApp'
     for p in con.participant
       if p.uid == Auth.getCurrentUser()._id
         return false
+
+  if $stateParams.liveDashboard
+    $scope.showContestDetails($scope.contest)
+
+    if $stateParams.viewPlayer
+      console.log $stateParams.viewPlayer
+      console.log $('#tablePlayers tr:first-child')
+      setTimeout (->
+        #your code to be executed after 1 second
+        $('#tablePlayers tr:first-child').click()
+        return
+      ), 1000

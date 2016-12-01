@@ -155,7 +155,7 @@
           <i class="fa fa-users" aria-hidden="true"></i>
           {{contestSelection.player.length}} Players
         </h4>
-        <table class="table" style="border-radius: 0px;">
+        <table id="tablePlayers" class="table" style="border-radius: 0px;">
           <tbody>
             <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)">
               <td class="text-blue" style="text-align:left;">

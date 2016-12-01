@@ -138,4 +138,3 @@ angular.module 'clublootApp'
     for i in [1..theGem.count]
       tmp += gem
     element.html tmp
-
