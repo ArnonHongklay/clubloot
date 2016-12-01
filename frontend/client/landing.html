@@ -124,7 +124,7 @@
     <div class="form-group">
       <div class="col-xs-8">
         <div class="clear">
-          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" data-toggle="modal" data-target="#myModal" class="button btn btn-info btn-submit">
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button btn btn-info btn-submit">
         </div>
       </div>
     </div>
@@ -144,9 +144,11 @@
 
     var $mcj = jQuery.noConflict(true);
 
-    // $('#mc-embedded-subscribe').on('submit', function(){
-    //   $('#myModal').modal();
-    // });
+    $('#mc-embedded-subscribe-form').on('submit', function(){
+      if($('#mce-FNAME').val() != '' && $('#mce-EMAIL').val() != '') {
+        $('#myModal').modal();
+      }
+    });
   </script>
 <!--End mc_embed_signup-->
 
