@@ -180,6 +180,7 @@ angular.module 'clublootApp'
       if i.uid == Auth.getCurrentUser()._id
         $scope.currentPlayer = i
 
+    # console.log $stateParams.viewPlayer
     if $stateParams.viewPlayer
       $scope.compairPlayer($scope.contestSelection.player[0])
 
