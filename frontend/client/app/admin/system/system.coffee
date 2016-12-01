@@ -49,7 +49,7 @@ angular.module 'clublootApp'
     controller: 'AddNewTemplateCtrl'
 
   .state 'AdminSystem.programming.question',
-    url: '/question/:id'
+    url: '/question/:id?'
     templateUrl: 'app/admin/system/programming/question.html'
     controller: 'QuestionCtrl'
     resolve:

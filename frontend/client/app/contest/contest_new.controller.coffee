@@ -182,13 +182,25 @@ angular.module 'clublootApp'
     v = parseInt($('#contestFee').val())
 
     $scope.gemIndex = $scope.gemMatrix.list[$scope.contests.max_player-2].fee.indexOf(v)
-    # for list in $scope.gemMatrix.list
-    #   console.log list.fee
-    #   console.log v
-    #   if list.fee.indexOf(v) >= 0
-    #     console.log "-----=-=-=-=-=:"+list.fee.indexOf(v)
-    #     $scope.gemIndex = list.fee.indexOf(v)
 
+
+    gemType = $scope.gemMatrix.gem[$scope.gemIndex].type
+
+    if gemType == "DIAMOND"
+      $scope.gemColor = "color: #dedede;"
+    if gemType == "RUBY"
+      $scope.gemColor = "color: red;"
+    if gemType == "SAPPHIRE"
+      $scope.gemColor = "color: blue;"
+    if gemType == "EMERALD"
+      $scope.gemColor = "color: green;"
+
+    console.log parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
+    $scope.gemCounts = []
+    console.log "GRM:"+parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
+    console.log gemType
+    for num in [1..parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)]
+      $scope.gemCounts.push {}
 
     # console.log parseInt(
     #   parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)
@@ -253,7 +265,6 @@ angular.module 'clublootApp'
     fullEmerald = prize/emerald
 
     console.log $scope.gemList
-
 
   $scope.finishNewContest = () ->
     window.location.href = '/dashboard'

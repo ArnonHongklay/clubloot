@@ -20,6 +20,9 @@ angular.module 'clublootApp'
     # console.log moment(now).format('LLL')
     # console.log moment(end).format('LLL')
     # console.log "=============="
-    return now > end
+    return now < end
+
+  $scope.canNotclick = () ->
+    return swal("You can not edit now")
 
   $scope.loadList()

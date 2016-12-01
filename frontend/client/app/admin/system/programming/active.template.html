@@ -1,7 +1,10 @@
 <h2>Active Templates</h2>
 <table class="table">
   <tr ng-repeat="active in activeTemplate" ng-if="active.active">
-    <td><a ui-sref="AdminSystem.programming.question({id: active._id})">{{active.name}}</a></td>
+    <td>
+      <a ng-if="checkActive(active.start_time, active.end_time)" ng-click="canNotclick()">{{active.name}}</a>
+      <a ng-if="!checkActive(active.start_time, active.end_time)" ui-sref="AdminSystem.programming.question({id: active._id, status: active})">{{active.name}}</a>
+    </td>
     <td>{{active.program}}</td>
     <td>{{active.start_time | amDateFormat:'MM/DD/YYYY HH:mm:ss'}}</td>
     <td>{{active.end_time | amDateFormat:'MM/DD/YYYY HH:mm:ss'}}</td>
