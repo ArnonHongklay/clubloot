@@ -13,9 +13,9 @@ schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
 
 checkScore = (player, questions) ->
-  console.log player
-  console.log "0000000000000000=0=00=0=0="
-  console.log questions
+  # console.log player
+  # console.log "0000000000000000=0=00=0=0="
+  # console.log questions
   score = 0
   for uAnswer, i in player.answers
     if questions[i].answers[uAnswer].is_correct == true
@@ -149,7 +149,7 @@ exports.findAllProgram = (req, res) ->
     ), 100
 
 exports.findByTemplates = (req, res) ->
-  console.log "test #{req.params.id}"
+  # console.log "test #{req.params.id}"
 
   Template.findById req.params.id, (err, template) ->
     template.active = false
@@ -157,13 +157,12 @@ exports.findByTemplates = (req, res) ->
 
 
   Contest.update { template_id: req.params.id }, { status: 'close', stage: 'close' }, { multi: true }, (err, num) ->
-    console.log num
+    # console.log num
   Contest.find { template_id: req.params.id }, (err, contests) ->
-
-    console.log "popopop=================="
+    # console.log "popopop=================="
     for contest in contests
       Contest.findById contest._id, (err, contest) ->
-        console.log contest.player
+        # console.log contest.player
         max_score = 0
         winner = {}
         for p, i in contest.player
@@ -173,7 +172,8 @@ exports.findByTemplates = (req, res) ->
             if score > max_score
               winner = p
             contest.save()
-          if i == contest.player.length-1
+
+          if i == contest.player.length - 1
             WinnerLog.create {
               user_id: winner.uid,
               contest_id: contest._id,
@@ -181,10 +181,9 @@ exports.findByTemplates = (req, res) ->
               score: winner.score,
               prize:  contest.loot.prize
               }, (err, winnerlog) ->
-                console.log err
+                # console.log err
                 console.log "sdsdsdsdsdsdsds"
-                console.log winnerlog
-
+                console.log winner
 
 
 
