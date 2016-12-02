@@ -398,12 +398,14 @@
               {{selectedCompair.name}}
             </td>
           </tr>
-          <tr ng-repeat="ans in selectedCompair.vs track by $index">
+          <tr ng-repeat="ans in selectedCompair.vs">
             <td class="text-blue" style="text-align:left;width: 50%">
               Q{{$index}}
             </td>
             <td class="text-blue" style="text-align:left;width: 25%">
-              {{ans.ans}} <i class="check-ans fa {{checkAns(ans.p, $index)}}" ></i>
+
+              {{selectedCompair.user[$index].ans}} <i class="check-ans fa {{checkAns(selectedCompair.user[$index].p, $index)}}" ></i>
+
             </td>
             <td class="text-blue" style="text-align:left;width: 25%">
               {{selectedCompair.vs[$index].ans}} <i class="check-ans fa {{checkAns(ans.p, $index)}}" ></i>
