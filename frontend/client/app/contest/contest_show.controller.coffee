@@ -79,17 +79,31 @@ angular.module 'clublootApp'
       player: player,
       me: $scope.currentPlayer
     }
+    console.log $scope.currentPlayer
+
+    console.log $scope.selectedCompair.me.answers
+    console.log "==================="
 
     $scope.selectedCompair.name = player.name || "enemy"
     return unless $scope.currentPlayer.answers
     for ans, i in $scope.currentPlayer.answers
-      $scope.selectedCompair.user.push { ans: $scope.ansChoice[ans], p: ans}
+      console.log ans
+      $scope.selectedCompair.user.push {
+        ans: $scope.ansChoice[$scope.currentPlayer.answers[i]],
+        p: $scope.currentPlayer.answers[i]
+      }
       $scope.selectedCompair.vs.push {
         ans: $scope.ansChoice[player.answers[i]],
         p: player.answers[i]
       }
+    console.log $scope.selectedCompair
+
 
   $scope.checkAns = (ans, index) ->
+    console.log $scope.questions
+    console.log ans
+    console.log index
+
     return "fa-check" if $scope.questions[index].answers[ans].is_correct == true
 
     for i, k in $scope.questions[index].answers
