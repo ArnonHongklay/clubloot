@@ -3,7 +3,6 @@
 angular.module 'clublootApp'
 .controller 'WonCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
   $scope.contests = contests.data
-  console.log $scope.contests
   $scope.id_logs = []
 
   $scope.gemMatrix = {
@@ -121,20 +120,8 @@ angular.module 'clublootApp'
     gemIndex = $scope.gemMatrix.list[parseInt(player)-2].fee.indexOf(parseInt(fee))
     $scope.gemMatrix.gem[gemIndex]
 
-
   $scope.goContest = (contest) ->
     window.location.href = "/question/#{contest._id}/"
 
   $scope.goLive = (contest) ->
     window.location.href = "/contest/#{contest.template_id}/"
-
-angular.module 'clublootApp'
-.directive 'gemRepeat', ($timeout, $state, $stateParams) ->
-  link: (scope, element, attrs, state) ->
-    theGem = scope.gemRepeat(attrs.fee, attrs.player)
-    color = scope.gemColor(theGem.type)
-    gem = "<i class='fa fa-diamond' style='"+color+"'></i>"
-    tmp = ""
-    for i in [1..theGem.count]
-      tmp += gem
-    element.html tmp

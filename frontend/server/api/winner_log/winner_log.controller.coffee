@@ -20,10 +20,10 @@ exports.set = (req, res) ->
   WinnerLog.remove {}, (err) ->
     console.log 'collection removed'
     return gem = {
-      diamond:  { rate: 5},
-      emerald:  { rate: 5},
-      sapphire: { rate: 5},
-      ruby:     { rate: 100}
+      diamond:  { rate: 5 },
+      emerald:  { rate: 5 },
+      sapphire: { rate: 5 },
+      ruby:     { rate: 100 }
     }
 
   WinnerLog.create gem, (err, gems) ->

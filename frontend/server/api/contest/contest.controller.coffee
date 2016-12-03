@@ -155,7 +155,6 @@ exports.findByTemplates = (req, res) ->
     template.active = false
     template.save()
 
-
   Contest.update { template_id: req.params.id }, { status: 'close', stage: 'close' }, { multi: true }, (err, num) ->
     # console.log num
   Contest.find { template_id: req.params.id }, (err, contests) ->
@@ -165,6 +164,7 @@ exports.findByTemplates = (req, res) ->
         # console.log contest.player
         max_score = 0
         winner = {}
+
         for p, i in contest.player
           Question.find { 'templates': req.params.id }, (err, questions) ->
             score = checkScore(p, questions)

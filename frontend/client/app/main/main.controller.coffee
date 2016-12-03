@@ -3,7 +3,6 @@
 angular.module 'clublootApp'
 .controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
   $scope.contests = contests.data
-  console.log $scope.contests
   $scope.id_logs = []
 
   $scope.gemMatrix = {
