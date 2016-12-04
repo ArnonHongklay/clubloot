@@ -13,13 +13,10 @@ schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
 
 checkScore = (player, questions) ->
-  # console.log player
-  # console.log "0000000000000000=0=00=0=0="
-  # console.log questions
   score = 0
   for uAnswer, i in player.answers
     if questions[i].answers[uAnswer].is_correct == true
-      console.log score
+      # console.log score
       score = score + 1
   player.score = score
   score
@@ -156,12 +153,11 @@ exports.findByTemplates = (req, res) ->
     template.save()
 
   Contest.update { template_id: req.params.id }, { status: 'close', stage: 'close' }, { multi: true }, (err, num) ->
-    # console.log num
+    console.log num
+
   Contest.find { template_id: req.params.id }, (err, contests) ->
-    # console.log "popopop=================="
     for contest in contests
       Contest.findById contest._id, (err, contest) ->
-        # console.log contest.player
         max_score = 0
         winner = {}
 
@@ -169,21 +165,24 @@ exports.findByTemplates = (req, res) ->
           Question.find { 'templates': req.params.id }, (err, questions) ->
             score = checkScore(p, questions)
             p.score = score
+
             if score > max_score
               winner = p
+              max_score = score
+
+              console.log winner
             contest.save()
 
-          if i == contest.player.length - 1
-            WinnerLog.create {
-              user_id: winner.uid,
-              contest_id: contest._id,
-              template_id: req.params.id,
-              score: winner.score,
-              prize:  contest.loot.prize
-              }, (err, winnerlog) ->
-                # console.log err
-                console.log "sdsdsdsdsdsdsds"
-                console.log winner
+
+            if i == contest.player.length - 1
+              WinnerLog.create {
+                user_id: winner.uid,
+                contest_id: contest._id,
+                template_id: req.params.id,
+                score: winner.score,
+                prize:  contest.loot.prize
+                }, (err, winnerlog) ->
+                  console.log winnerlog
 
 
 
