@@ -3,10 +3,9 @@
 <div class="container desktop" style="color: #93898A">
   <div ng-include="'components/dashboard/score.html'"></div>
   <div class="row">
-    <div ng-click="setFilter('live')" ng-class="{'active-filter': live}" class="col-xs-6" style="font-size: 20px;border: 1px solid #ccc; line-height: 50px; color: #42A3BE; background: #F0F0F0; cursor: pointer;">Live Contests</div>
-    <div ng-click="setFilter('upcoming')" ng-class="{'active-filter': upcoming}" class="col-xs-6" style="font-size: 20px;border: 1px solid #ccc; line-height: 50px; color: #42A3BE; background: #F0F0F0; cursor: pointer;">Upcoming Contests</div>
+    <div class="col-xs-12 active-filter" style="font-size: 20px;border: 1px solid #ccc; line-height: 50px; color: #42A3BE; background: #F0F0F0; cursor: pointer;">Wins Contests</div>
 
-    <div ng-show="live == true">
+    <div>
       <div ng-repeat="contest in contests" ng-if="contest.stage == 'finish'" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE; cursor: pointer">
         <div style="width: 10%; display: inline-block; float:left;">
           {{contest.fee}} <img src="assets/images/money-bag-blue.png" width="24">
@@ -26,7 +25,7 @@
         </div>
       </div>
     </div>
-
+<!--
     <div ng-show="upcoming == true">
       <div ng-repeat="contest in contests" ng-if="contest.stage == 'runing' && checkJoin(contest)" ng-click="goContest(contest)" class="col-lg-12" style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE; cursor: pointer">
         <div style="width: 10%; display: inline-block; float:left;">
@@ -45,7 +44,7 @@
           <div style="color: #BB0E0E;" count-down="{{contest.end_time}}"></div>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div>
 </div>
