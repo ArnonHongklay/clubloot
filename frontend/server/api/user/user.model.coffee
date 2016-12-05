@@ -41,6 +41,16 @@ UserSchema = new Schema(
   rubies: { type: Number, default: 0 }
   coins: { type: Number, default: 0 }
   prizes: Number
+  won: [
+    {
+      contests: []
+    }
+  ]
+  joinedContest: [
+    {
+      contests: []
+    }
+  ]
   free_loot: { type: Boolean, default: true }
   free_loot_log: [
     {
