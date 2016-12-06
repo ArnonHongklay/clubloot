@@ -195,9 +195,10 @@ angular.module 'clublootApp'
         $scope.currentPlayer = i
 
   $scope.getNumber = (num) ->
+    console.log num
     if (typeof(num) != "undefined")
       num = num / 500
-      new Array(num)
+      new Array(parseInt(num))
     else
       new Array()
 
@@ -206,22 +207,28 @@ angular.module 'clublootApp'
       swal("you need more coin to join")
       return false
 
-    if con.player.length <= con.max_player
-      $http.put("/api/contest/#{con._id}/join",
-          Auth.getCurrentUser()
-        ).success((ok) ->
-          $scope.contestSelection = ok
-          $state.go("question", { contest: con._id })
-        ).error((data, status, headers, config) ->
-          swal("Not Active")
-        )
-    else
-      swal("Full contest")
-      return false
-
-    for p in con.participant
-      if p.uid == Auth.getCurrentUser()._id
+    for play, i in con.player
+      # console.log con.player
+      if Auth.getCurrentUser()._id == play.uid
         return false
+
+      if i == con.player.length - 1
+        if con.player.length <= con.max_player
+          $http.put("/api/contest/#{con._id}/join",
+              Auth.getCurrentUser()
+            ).success((ok) ->
+              $scope.contestSelection = ok
+              $state.go("question", { contest: con._id })
+            ).error((data, status, headers, config) ->
+              swal("Not Active")
+            )
+        else
+          swal("Full contest")
+          return false
+
+    # for p in con.participant
+    #   if p.uid == Auth.getCurrentUser()._id
+    #     return false
 
   if $stateParams.liveDashboard
     $scope.showContestDetails($scope.contest)
