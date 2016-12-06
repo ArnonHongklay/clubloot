@@ -8,8 +8,11 @@ angular.module 'clublootApp'
   $scope.newPlayer = false
 
   for player, i in $scope.contests.player
+
+    if player.name == $scope.current_user.email
+      break
     if i == $scope.contests.player.length-1
-      if player._id != $scope.current_user._id
+      if player.name != $scope.current_user.name
         $scope.newPlayer = true
 
   $scope.qaSelection = []
