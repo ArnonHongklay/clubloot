@@ -34,6 +34,7 @@ exports.set = (req, res) ->
 
 # Creates a new contest in the DB.
 exports.create = (req, res) ->
+  # console.log req.body
   WinnerLog.create req.body, (err, contest) ->
     return handleError(res, err)  if err
     res.status(201).json contest

@@ -92,31 +92,32 @@ handleError = (res, err) ->
   res.status(500).json err
 
 
-exports.updateWinner = (req, res) ->
-  User.findById req.params.id, (err, user) ->
-    return handleError(res, err) if err
-    return res.status(404).end() unless user
-
-    updated = _.merge(user, req.body)
-    user.save (err) ->
-      return handleError(res, err)  if err
-      res.status(200).json user
-
-handleError = (res, err) ->
-  res.status(500).json err
-
-exports.updateJoined = (req, res) ->
-  User.findById req.params.id, (err, user) ->
-    return handleError(res, err) if err
-    return res.status(404).end() unless user
-
-    updated = _.merge(user, req.body)
-    user.save (err) ->
-      return handleError(res, err)  if err
-      res.status(200).json user
-
-handleError = (res, err) ->
-  res.status(500).json err
+# exports.updateWinner = (req, res) ->
+#   User.findById req.params.id, (err, user) ->
+#     return handleError(res, err) if err
+#     return res.status(404).end() unless user
+#
+#     updated = _.merge(user, req.body)
+#     user.save (err) ->
+#       return handleError(res, err)  if err
+#       res.status(200).json user
+#
+# handleError = (res, err) ->
+#   res.status(500).json err
+#
+# exports.updateJoined = (req, res) ->
+#   console.log req.params
+#   User.findById req.params.id, (err, user) ->
+#     return handleError(res, err) if err
+#     return res.status(404).end() unless user
+#
+#     updated = _.merge(user, req.body)
+#     user.save (err) ->
+#       return handleError(res, err)  if err
+#       res.status(200).json user
+#
+# handleError = (res, err) ->
+#   res.status(500).json err
 
 ###*
 Deletes a user

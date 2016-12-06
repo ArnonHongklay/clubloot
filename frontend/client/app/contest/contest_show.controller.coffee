@@ -227,8 +227,8 @@ angular.module 'clublootApp'
     $scope.showContestDetails($scope.contest)
 
     if $stateParams.viewPlayer
-      console.log $stateParams.viewPlayer
-      console.log $('#tablePlayers tr:first-child')
+      # console.log $stateParams.viewPlayer
+      # console.log $('#tablePlayers tr:first-child')
       setTimeout (->
         #your code to be executed after 1 second
         $('#tablePlayers tr:first-child').click()

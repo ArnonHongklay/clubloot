@@ -307,6 +307,12 @@ angular.module 'clublootApp'
         $scope.contest
       ).success (data) ->
         # console.log data
+
+        $http.put("/api/contest/#{$scope.contest.id}/join_created",
+            Auth.getCurrentUser()
+          ).success((ok) ->
+            console.log ok
+          )
       $scope.createNewStep = '3'
     , 300
 
