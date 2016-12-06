@@ -99,7 +99,7 @@ exports.joinContest = (req, res) ->
 
     User.findById req.body._id, (err, user) ->
       user.coins = user.coins - contest.fee
-      user.joinedContest = [ contest ]
+      # user.joinedContest = [ contest ]
 
       user.save()
 
@@ -115,9 +115,9 @@ exports.joinContestCreated = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
 
-    User.findById req.body._id, (err, user) ->
-      user.joinedContest = [ contest ]
-      user.save()
+    # User.findById req.body._id, (err, user) ->
+    #   # user.joinedContest = [ contest ]
+    #   user.save()
 
       contest.save (err) ->
         return handleError(res, err)  if err
@@ -184,6 +184,10 @@ exports.findByTemplates = (req, res) ->
             score = checkScore(p, questions)
             p.score = score
 
+            User.update { _id: p.uid }, { joinedContest: [ p ] }, { multi: true }, (err, data) ->
+              console.log "Joined"
+              console.log data
+
             if score > max_score
               winner = p
               max_score = score
@@ -192,6 +196,7 @@ exports.findByTemplates = (req, res) ->
         # console.log "xxx 4"
         setTimeout (->
           User.update { _id: winner.uid }, { wonContest: [ winner ] }, { multi: true }, (err, data) ->
+            console.log "Winner"
             console.log data
 
           # if i == contest.player.length - 1
