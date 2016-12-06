@@ -202,7 +202,14 @@ angular.module 'clublootApp'
     else
       new Array()
 
+  $scope.joinedDisabled = false
   $scope.joinContest = (con) ->
+    if $scope.joinedDisabled
+      return false
+
+    $scope.joinedDisabled = true
+
+    console.log "1"
     if Auth.getCurrentUser().coins < con.fee
       swal("you need more coin to join")
       return false
@@ -226,9 +233,9 @@ angular.module 'clublootApp'
           swal("Full contest")
           return false
 
-    # for p in con.participant
-    #   if p.uid == Auth.getCurrentUser()._id
-    #     return false
+    for p in con.participant
+      if p.uid == Auth.getCurrentUser()._id
+        return false
 
   if $stateParams.liveDashboard
     $scope.showContestDetails($scope.contest)

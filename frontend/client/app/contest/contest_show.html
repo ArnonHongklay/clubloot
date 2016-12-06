@@ -141,7 +141,7 @@
           </tr>
         </tbody>
       </table>
-      <div ng-show="contestSelection.stage =='runing' && !alreadyJoin" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)">JOIN CONTEST</div>
+      <div ng-show="contestSelection.stage =='runing' && !alreadyJoin" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)" ng-disabled="joinedDisabled">JOIN CONTEST</div>
       <div ng-show="alreadyJoin && contestSelection.stage =='runing' && contestSelection.stage !='cancel'&& contestSelection.stage !='finish'" class="btn btn-primary disabled" style="background: #50ACC4; width: 100%; border: 0px;">WAITING</div>
       <div ng-show="contestSelection.stage=='cancel'" class="btn btn-danger" style="width: 100%;border: 0px;">CANCELED</div>
       <div ng-show="contestSelection.stage=='finish'" class="btn btn-success" style="width: 100%;border: 0px;">LIVE</div>
