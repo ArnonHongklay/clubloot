@@ -200,19 +200,19 @@ exports.findByTemplates = (req, res) ->
             c.save()
 
         setTimeout (->
-          # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
-          #   # console.log "Winner"
-          #   console.log data
-          User.findById winner.uid, (err, user) ->
-            # console.log user
-            if user.wonContest.length == 0
-              user.wonContest.push contest
-              user.save()
-            else
-              for won, i in user.wonContest
-                if i == user.wonContest.length - 1 && won._id != contest._id
-                  user.wonContest.push contest
-                  user.save()
+          User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
+            # console.log "Winner"
+            console.log data
+          # User.findById winner.uid, (err, user) ->
+          #   # console.log user
+          #   if user.wonContest.length == 0
+          #     user.wonContest.push contest
+          #     user.save()
+          #   else
+          #     for won, i in user.wonContest
+          #       if i == user.wonContest.length - 1 && won._id != contest._id
+          #         user.wonContest.push contest
+          #         user.save()
 
           WinnerLog.create {
             user_id: winner.uid,
