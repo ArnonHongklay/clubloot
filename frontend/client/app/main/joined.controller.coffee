@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'WonCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
-  $scope.contests = Auth.getCurrentUser().wonContest
+.controller 'JoinedCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
+  $scope.contests = Auth.getCurrentUser().joinedContest
   $scope.id_logs = []
 
   $scope.gemMatrix = {

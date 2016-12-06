@@ -18,3 +18,11 @@ angular.module 'clublootApp'
     resolve:
       contests: ($http, $stateParams, $state) ->
         $http.get '/api/contest'
+
+  .state 'joined',
+    url: '/joined'
+    templateUrl: 'app/main/joined.html'
+    controller: 'JoinedCtrl'
+    resolve:
+      contests: ($http, $stateParams, $state) ->
+        $http.get '/api/contest'
