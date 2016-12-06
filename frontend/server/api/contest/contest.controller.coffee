@@ -180,15 +180,14 @@ exports.findByTemplates = (req, res) ->
         winner = {}
         for p in c.player
           User.findById p.uid, (err, user) ->
-            for jc, i in user.joinedContest
-              if i == user.joinedContest.length - 1 && jc._id == contest._id
-                user.joinedContest.push contest
-                user.save()
-
             if user.joinedContest.length == 0
               user.joinedContest.push contest
               user.save()
-
+            else
+              for jc, i in user.joinedContest
+                if i == user.joinedContest.length - 1 && jc._id == contest._id
+                  user.joinedContest.push contest
+                  user.save()
 
           Question.find { 'templates': req.params.id }, (err, questions) ->
             score = checkScore(p, questions)
