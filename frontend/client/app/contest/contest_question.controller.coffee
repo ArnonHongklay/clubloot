@@ -5,6 +5,15 @@ angular.module 'clublootApp'
   $scope.templates = templates.data
   $scope.contests = contest.data
   $scope.current_user = Auth.getCurrentUser()
+  $scope.newPlayer = false
+
+  for player, i in $scope.contests.player
+
+    if player.name == $scope.current_user.email
+      break
+    if i == $scope.contests.player.length-1
+      if player.name != $scope.current_user.name
+        $scope.newPlayer = true
 
   $scope.qaSelection = []
 
@@ -25,6 +34,16 @@ angular.module 'clublootApp'
     ).error((data, status, headers, config) ->
       swal("Not Active")
     )
+
+  $scope.joinNewContest = () ->
+    $http.put("/api/contest/#{$scope.contest._id}/join",
+              Auth.getCurrentUser()
+            ).success((ok) ->
+              $scope.addScore()
+
+            ).error((data, status, headers, config) ->
+              swal("Not Active")
+            )
 
   $scope.addScore = ->
     # window.location.href = "/contest"
