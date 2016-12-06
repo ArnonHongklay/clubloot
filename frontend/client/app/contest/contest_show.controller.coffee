@@ -209,7 +209,7 @@ angular.module 'clublootApp'
 
     $scope.joinedDisabled = true
 
-    console.log "1"
+    # console.log "1"
     if Auth.getCurrentUser().coins < con.fee
       swal("you need more coin to join")
       return false

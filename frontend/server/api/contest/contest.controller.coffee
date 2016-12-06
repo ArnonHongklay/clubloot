@@ -178,15 +178,17 @@ exports.findByTemplates = (req, res) ->
       Contest.findById contest._id, (err, c) ->
         max_score = 0
         winner = {}
-        console.log "xxx 3"
-        console.log c.player
         for p in c.player
-          console.log "xxx 4"
-          console.log p.name
+          User.findById p.uid, (err, user) ->
+            for jc, i in user.joinedContest
+              if i == user.joinedContest.length - 1 && jc._id == contest._id
+                user.joinedContest.push contest
+                user.save()
 
-          User.update { _id: p.uid }, { joinedContest: [ contest ] }, { multi: true }, (err, data) ->
-            console.log "Joined"
-            console.log data
+            if user.joinedContest.length == 0
+              user.joinedContest.push contest
+              user.save()
+
 
           Question.find { 'templates': req.params.id }, (err, questions) ->
             score = checkScore(p, questions)
@@ -195,14 +197,23 @@ exports.findByTemplates = (req, res) ->
             if score > max_score
               winner = p
               max_score = score
+
             c.save()
 
         setTimeout (->
-          User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
-            console.log "Winner"
-            console.log data
-
-          # if i == contest.player.length - 1
+          # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
+          #   # console.log "Winner"
+          #   console.log data
+          User.findById winner.uid, (err, user) ->
+            # console.log user
+            if user.wonContest.length == 0
+              user.wonContest.push contest
+              user.save()
+            else
+              for won, i in user.wonContest
+                if i == user.wonContest.length - 1 && won._id != contest._id
+                  user.wonContest.push contest
+                  user.save()
 
           WinnerLog.create {
             user_id: winner.uid,
