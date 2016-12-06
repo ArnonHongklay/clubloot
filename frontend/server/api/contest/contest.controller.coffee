@@ -99,10 +99,25 @@ exports.joinContest = (req, res) ->
 
     User.findById req.body._id, (err, user) ->
       user.coins = user.coins - contest.fee
+      user.joinedContest = [ contest ]
+
       user.save()
 
       contest.participant.push(req.body)
       contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
+
+      contest.save (err) ->
+        return handleError(res, err)  if err
+        res.status(200).json contest
+
+exports.joinContestCreated = (req, res) ->
+  Contest.findById req.params.id, (err, contest) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless contest
+
+    User.findById req.body._id, (err, user) ->
+      user.joinedContest = [ contest ]
+      user.save()
 
       contest.save (err) ->
         return handleError(res, err)  if err
@@ -155,12 +170,15 @@ exports.findByTemplates = (req, res) ->
   Contest.update { template_id: req.params.id }, { status: 'close', stage: 'close' }, { multi: true }, (err, num) ->
     console.log num
 
+  # console.log "xxx 1"
   Contest.find { template_id: req.params.id }, (err, contests) ->
+    # console.log "xxx 2"
     for contest in contests
+      # console.log "xxx 3"
       Contest.findById contest._id, (err, contest) ->
         max_score = 0
         winner = {}
-
+        # console.log "xxx 3"
         for p, i in contest.player
           Question.find { 'templates': req.params.id }, (err, questions) ->
             score = checkScore(p, questions)
@@ -169,21 +187,26 @@ exports.findByTemplates = (req, res) ->
             if score > max_score
               winner = p
               max_score = score
-
-              console.log winner
             contest.save()
 
+        # console.log "xxx 4"
+        setTimeout (->
+          User.update { _id: winner.uid }, { wonContest: [ winner ] }, { multi: true }, (err, data) ->
+            console.log data
 
-            if i == contest.player.length - 1
-              WinnerLog.create {
-                user_id: winner.uid,
-                contest_id: contest._id,
-                template_id: req.params.id,
-                score: winner.score,
-                prize:  contest.loot.prize
-                }, (err, winnerlog) ->
-                  console.log winnerlog
+          # if i == contest.player.length - 1
 
+          WinnerLog.create {
+            user_id: winner.uid,
+            contest_id: contest._id,
+            template_id: req.params.id,
+            score: winner.score,
+            prize:  contest.loot.prize
+            }, (err, winnerlog) ->
+              console.log "callback"
+              # console.log winnerlog
+          # return
+        ), 5000
 
 
     res.status(200).json {success: true}

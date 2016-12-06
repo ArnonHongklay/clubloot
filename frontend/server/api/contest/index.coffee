@@ -15,6 +15,7 @@ router.get '/:id', 							controller.show
 router.post '/', controller.create
 router.put  '/:id', controller.updateQuestion
 router.put '/:id/join', controller.joinContest
+router.put '/:id/join_created', controller.joinContestCreated
 router.put '/:id/player', controller.joinPlayer
 
 module.exports = router
