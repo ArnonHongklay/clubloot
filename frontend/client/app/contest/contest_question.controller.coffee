@@ -36,7 +36,26 @@ angular.module 'clublootApp'
     )
 
   $scope.joinNewContest = () ->
-    $http.put("/api/contest/#{$scope.contest._id}/join",
+    console.log $scope.contest.ques
+    console.log $scope.qaSelection
+    if $scope.qaSelection.length == 0
+      swal 'You must answer at less 1 question'
+      return
+
+    if $scope.qaSelection.length < $scope.contest.ques.length
+      swal {
+        title: 'Are you sure?'
+        text: 'You are not answer all questions yet'
+        type: 'warning'
+        showCancelButton: true
+        confirmButtonColor: '#DD6B55'
+        confirmButtonText: 'Continue anyway'
+        cancelButtonText: 'No'
+        closeOnConfirm: false
+        closeOnCancel: true
+      }, (isConfirm) ->
+        if isConfirm
+          $http.put("/api/contest/#{$scope.contest._id}/join",
               Auth.getCurrentUser()
             ).success((ok) ->
               $scope.addScore()
@@ -44,6 +63,17 @@ angular.module 'clublootApp'
             ).error((data, status, headers, config) ->
               swal("Not Active")
             )
+        else
+    else
+      $http.put("/api/contest/#{$scope.contest._id}/join",
+        Auth.getCurrentUser()
+      ).success((ok) ->
+        $scope.addScore()
+
+      ).error((data, status, headers, config) ->
+        swal("Not Active")
+      )
+
 
   $scope.addScore = ->
     # window.location.href = "/contest"

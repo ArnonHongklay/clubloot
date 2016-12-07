@@ -57,11 +57,22 @@ gemMatrix = {
 
 checkScore = (player, questions) ->
   score = 0
-  for uAnswer, i in player.answers
-    if questions[i].answers[uAnswer].is_correct == true
+  num = 0
+  console.log player
+  console.log "questions----------------------------"
+  for uAnswer in player.answers
+    console.log "ans"
+    console.log "num:"+num
+    console.log questions[num]
+    console.log "player"
+    console.log uAnswer
+    if questions[num].answers[uAnswer].is_correct
       # console.log score
       score = score + 1
+    num = num + 1
   player.score = score
+  console.log score
+  console.log "score================================================================="
   score
 
 myContest =
@@ -219,10 +230,6 @@ exports.findByTemplates = (req, res) ->
     for contest in contests
       # console.log "xxx 3"
       Contest.findById contest._id, (err, c) ->
-        console.log "contest---------------------------------------------------"
-        console.log c
-        console.log c.max_player
-        console.log c.loot.prize
         playerSet = {}
         for m, i in gemMatrix.list
           if m.player == c.max_player
@@ -230,12 +237,21 @@ exports.findByTemplates = (req, res) ->
             break
         gemIndex = playerSet.fee.indexOf(c.fee)
         gemPrize = gemMatrix.gem[gemIndex]
-        console.log "====================================================="
         console.log gemPrize
 
         max_score = 0
         winner = {}
         for p in c.player
+          Question.find { 'templates': req.params.id }, (err, questions) ->
+            score = checkScore(p, questions)
+            p.score = score
+
+            if score >= max_score
+              winner = p
+              max_score = score
+
+            c.save()
+
           User.findById p.uid, (err, user) ->
             for jc, i in user.joinedContest
               if i == user.joinedContest.length - 1 && jc._id == contest._id
@@ -247,15 +263,7 @@ exports.findByTemplates = (req, res) ->
               user.save()
 
 
-          Question.find { 'templates': req.params.id }, (err, questions) ->
-            score = checkScore(p, questions)
-            p.score = score
 
-            if score > max_score
-              winner = p
-              max_score = score
-
-            c.save()
 
         setTimeout (->
           # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
