@@ -5,8 +5,8 @@ angular.module 'clublootApp'
   # $scope.data      = id.data
   $scope.questions = id.data
 
-  console.log $scope.questions
-  console.log $stateParams
+  # console.log $scope.questions
+  # console.log $stateParams
   $scope.check = ->
     $(".check-true").checked = true
 

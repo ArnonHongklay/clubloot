@@ -98,9 +98,9 @@ angular.module 'clublootApp'
   $scope.setFilter('live')
 
   $scope.calGem = (fee, player) ->
-    console.log player
+    # console.log player
     prize = parseInt(fee) * parseInt(player)
-    console.log prize
+    # console.log prize
     gemIndex = $scope.gemMatrix.list[parseInt(player)-2].fee.indexOf(fee)
     return $scope.gemMatrix.gem[gemIndex] || $scope.gemMatrix.gem[0]
 

@@ -36,8 +36,8 @@ angular.module 'clublootApp'
     )
 
   $scope.joinNewContest = () ->
-    console.log $scope.contest.ques
-    console.log $scope.qaSelection
+    # console.log $scope.contest.ques
+    # console.log $scope.qaSelection
     if $scope.qaSelection.length == 0
       swal 'You must answer at less 1 question'
       return
