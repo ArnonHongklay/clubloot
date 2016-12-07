@@ -1,0 +1,102 @@
+<div class="row ledger">
+  <div class="col-md-12">
+    <h5>Ledger
+      <div class="ledger-value-box pull-right">
+        <span class="pull-left">$</span>
+        <span class="pull-right">234,432.21</span>
+      </div>
+    </h5>
+    <div class="col-md-12" style="margin-top: 30px;">
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">Today</div>
+      <input id="ex2" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="0">
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">5/11/55</div>
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">YTD</div>
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">2015</div>
+      <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">2014</div>
+    </div>
+    <div class="col-md-12" style="margin-top: 20px;">
+      <table class="table" style="border-radius: 0px;">
+          <tbody>
+            <tr ng-repeat="lad in ledgers" ng-click="selectLedger(lad)">
+              <td>
+                <i class="fa" ng-class="{'fa-plus': lad.status=='plus','fa-minus': lad.status=='minus'}" aria-hidden="true"></i>
+              </td>
+              <td class="b-text">
+                [{{lad.screenName}}]
+              </td>
+              <td>
+                {{lad.time}}
+              </td>
+              <td>
+                {{lad.transaction}}{{$index}}
+              </td>
+              <td>
+                {{lad.description}}
+              </td>
+              <td>
+                {{lad.amount}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div class="system-modal" ng-show="showLedgerModal">
+    <div class="modal-bg" ng-click="showLedgerModal=false;refund=false;confirmRefund=false;"></div>
+    <div class="context-box" style="height: 340px;width:350px;top: 15%;" ng-hide="refund || confirmRefund">
+      <a class="close-btn" ng-click="showLedgerModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title b-text" style="text-align: left;">transaction_{{showLedgerModal.id}}</div>
+      <div style="padding: 0px 10px;">
+        <div class="ledger-detail-box">
+          [amount]
+        </div>
+        <div class="ledger-detail-box">
+          [payment_type]
+        </div>
+        <div class="ledger-detail-box">
+          [description]
+        </div>
+        <div class="ledger-detail-box">
+          [screen_name]
+        </div>
+        <div class="ledger-detail-box">
+          [transaction_date]
+        </div>
+        <div class="ledger-detail-box">
+          [transaction_time]
+        </div>
+      </div>
+      <br>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;" ng-click="showLedgerModal=false">CANCEL</div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;background:rgb(190,81,80);" ng-click="refund=true;">REFUND</div>
+
+    </div>
+    <div class="context-box" style="border-color: rgb(190,81,80);height: 280px; " ng-show="refund">
+      <a class="close-btn" ng-click="showLedgerModal=false;refund=false;"><i style="color:rgb(190,81,80);" class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title" style="color:rgb(190,81,80);">Refund [transacttion_{{showLedgerModal.id}}]</div>
+      <div class="desc g-text">Are you sure?<br>Please provide detailed description.
+      <br>
+        <div style="padding: 10px">
+          <textarea style="width: 100%;height: 80px;"></textarea>
+        </div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;background:rgb(190,81,80);" ng-click="confirmRefund=true;refund=false;">YES, DISCARD</div>
+      <div class="btn submit-btn pull-right" style="margin-right: 10px;" ng-click="showLedgerModal=false;refund=false;">NO, CANCEL</div>
+
+      </div>
+
+    </div>
+
+    <div class="context-box" style="border-color: rgb(190,81,80);height: 250px; " ng-show="confirmRefund">
+      <a class="close-btn" ng-click="showLedgerModal=false;refund=false;confirmRefund=false;"><i style="color:rgb(190,81,80);" class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title" style="color:rgb(190,81,80);">Confirm Refund</div>
+      <div class="desc g-text">Authorized user, enter your pin to confirm entry.<br><br>
+        <input>
+      </div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="showLedgerModal=false;refund=false;confirmRefund=false;">VERIFY</div>
+
+    </div>
+  </div>
+
+
+</div>
