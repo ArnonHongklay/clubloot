@@ -253,15 +253,14 @@ exports.findByTemplates = (req, res) ->
             c.save()
 
           User.findById p.uid, (err, user) ->
-            for jc, i in user.joinedContest
-              if i == user.joinedContest.length - 1 && jc._id == contest._id
-                user.joinedContest.push contest
-                user.save()
-
             if user.joinedContest.length == 0
               user.joinedContest.push contest
               user.save()
-
+            else
+              for jc, i in user.joinedContest
+                if i == user.joinedContest.length - 1 && jc._id == contest._id
+                  user.joinedContest.push contest
+                  user.save()
 
 
 
@@ -288,6 +287,19 @@ exports.findByTemplates = (req, res) ->
                 if i == user.wonContest.length - 1 && won._id != contest._id
                   user.wonContest.push contest
                   user.save()
+          User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
+            # console.log "Winner"
+            console.log data
+          # User.findById winner.uid, (err, user) ->
+          #   # console.log user
+          #   if user.wonContest.length == 0
+          #     user.wonContest.push contest
+          #     user.save()
+          #   else
+          #     for won, i in user.wonContest
+          #       if i == user.wonContest.length - 1 && won._id != contest._id
+          #         user.wonContest.push contest
+          #         user.save()
 
 
           WinnerLog.create {
