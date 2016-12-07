@@ -55,6 +55,14 @@ gemMatrix = {
 
 }
 
+
+getQuestions = (tem_id) ->
+  query = Question.find({'templates': tem_id})
+  query.exec (err, templates) ->
+    console.log templates
+    console.log "99999999999999999999999999999999999999999"
+    return templates
+
 checkScore = (player, questions) ->
   score = 0
   num = 0
@@ -241,33 +249,34 @@ exports.findByTemplates = (req, res) ->
 
         max_score = 0
         winner = {}
-        for p in c.player
-          Question.find { 'templates': req.params.id }, (err, questions) ->
-            score = checkScore(p, questions)
-            p.score = score
+        # q = Question.find({})
+        # qq = q.where('templates', req.params.id )
+        query = Question.find({'templates': req.params.id})
+        query.exec (err, templates) ->
 
+          for p in c.player
+            score = checkScore(p, templates)
+            p.score = score
             if score >= max_score
               winner = p
               max_score = score
 
             c.save()
 
-          User.findById p.uid, (err, user) ->
-            if user.joinedContest.length == 0
-              user.joinedContest.push contest
-              user.save()
-            else
-              for jc, i in user.joinedContest
-                if i == user.joinedContest.length - 1 && jc._id == contest._id
-                  user.joinedContest.push contest
-                  user.save()
+            User.findById p.uid, (err, user) ->
+              if user.joinedContest.length == 0
+                user.joinedContest.push contest
+                user.save()
+              else
+                for jc, i in user.joinedContest
+                  if i == user.joinedContest.length - 1 && jc._id == contest._id
+                    user.joinedContest.push contest
+                    user.save()
+          console.log "win==================="
+          console.log winner
+          console.log "win==================="
 
 
-
-        setTimeout (->
-          # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
-          #   # console.log "Winner"
-          #   console.log data
           User.findById winner.uid, (err, user) ->
             if gemPrize.type == "RUBY"
               user.rubies = user.rubies + gemPrize.count
@@ -277,19 +286,24 @@ exports.findByTemplates = (req, res) ->
               user.emeralds = user.emeralds + gemPrize.count
             else if  gemPrize.type == "DIAMOND"
               user.diamonds = user.diamonds + gemPrize.count
+            user.save()
 
-            # console.log user
-            if user.wonContest.length == 0
-              user.wonContest.push contest
-              user.save()
-            else
-              for won, i in user.wonContest
-                if i == user.wonContest.length - 1 && won._id != contest._id
-                  user.wonContest.push contest
-                  user.save()
           User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
-            # console.log "Winner"
             console.log data
+
+          WinnerLog.create {
+            user_id: winner.uid,
+            contest_id: c._id,
+            template_id: req.params.id,
+            score: winner.score,
+            prize:  c.loot.prize
+            }, (err, winnerlog) ->
+              console.log "callback"
+
+        # setTimeout (->
+          # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
+            # console.log "Winner"
+            # console.log data
           # User.findById winner.uid, (err, user) ->
           #   # console.log user
           #   if user.wonContest.length == 0
@@ -302,17 +316,17 @@ exports.findByTemplates = (req, res) ->
           #         user.save()
 
 
-          WinnerLog.create {
-            user_id: winner.uid,
-            contest_id: c._id,
-            template_id: req.params.id,
-            score: winner.score,
-            prize:  c.loot.prize
-            }, (err, winnerlog) ->
-              console.log "callback"
+          # WinnerLog.create {
+          #   user_id: winner.uid,
+          #   contest_id: c._id,
+          #   template_id: req.params.id,
+          #   score: winner.score,
+          #   prize:  c.loot.prize
+          #   }, (err, winnerlog) ->
+          #     console.log "callback"
               # console.log winnerlog
           # return
-        ), 5000
+        # ), 5000
 
 
     res.status(200).json {success: true}
