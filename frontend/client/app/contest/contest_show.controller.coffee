@@ -123,15 +123,15 @@ angular.module 'clublootApp'
       player: player,
       me: $scope.currentPlayer
     }
-    console.log $scope.currentPlayer
+    # console.log $scope.currentPlayer
 
-    console.log $scope.selectedCompair.me.answers
-    console.log "==================="
+    # console.log $scope.selectedCompair.me.answers
+    # console.log "==================="
 
     $scope.selectedCompair.name = player.name || "enemy"
     return unless $scope.currentPlayer.answers
     for ans, i in $scope.currentPlayer.answers
-      console.log ans
+      # console.log ans
       $scope.selectedCompair.user.push {
         ans: $scope.ansChoice[$scope.currentPlayer.answers[i]],
         p: $scope.currentPlayer.answers[i]
@@ -140,13 +140,13 @@ angular.module 'clublootApp'
         ans: $scope.ansChoice[player.answers[i]],
         p: player.answers[i]
       }
-    console.log $scope.selectedCompair
+    # console.log $scope.selectedCompair
 
 
   $scope.checkAns = (ans, index) ->
-    console.log $scope.questions
-    console.log ans
-    console.log index
+    # console.log $scope.questions
+    # console.log ans
+    # console.log index
 
     return "fa-check" if $scope.questions[index].answers[ans].is_correct == true
 
@@ -239,7 +239,7 @@ angular.module 'clublootApp'
         $scope.currentPlayer = i
 
   $scope.getNumber = (num) ->
-    console.log num
+    # console.log num
     if (typeof(num) != "undefined")
       num = num / 500
       new Array(parseInt(num))
@@ -247,9 +247,9 @@ angular.module 'clublootApp'
       new Array()
 
   $scope.calGem = (fee, player) ->
-    console.log player
+    # console.log player
     prize = parseInt(fee) * parseInt(player)
-    console.log prize
+    # console.log prize
     gemIndex = $scope.gemMatrix.list[parseInt(player)-2].fee.indexOf(fee)
     return $scope.gemMatrix.gem[gemIndex] || $scope.gemMatrix.gem[0]
 
@@ -299,7 +299,7 @@ angular.module 'clublootApp'
 
       if i == con.player.length - 1
         if con.player.length <= con.max_player
-          console.log con._id
+          # console.log con._id
           $state.go("question", { contest: con._id })
           # $http.put("/api/contest/#{con._id}/join",
           #     Auth.getCurrentUser()
@@ -338,6 +338,6 @@ angular.module 'clublootApp'
     tmp = ""
     for i in [1..theGem.count]
       tmp += gem
-    console.log "-------------------------"
-    console.log tmp
+    # console.log "-------------------------"
+    # console.log tmp
     element.html tmp

@@ -55,7 +55,7 @@ angular.module 'clublootApp'
   }
 
 
-  console.log $scope.gemMatrix
+  # console.log $scope.gemMatrix
 
   $scope.checkActive = (start, end) ->
     now = new Date().getTime()
@@ -176,9 +176,9 @@ angular.module 'clublootApp'
     parseInt(fee) + parseInt(tax)
 
   $scope.calPrize = (index) ->
-    console.log index
-    console.log $('#contestFee').val()
-    console.log "================="
+    # console.log index
+    # console.log $('#contestFee').val()
+    # console.log "================="
     v = parseInt($('#contestFee').val())
 
     $scope.gemIndex = $scope.gemMatrix.list[$scope.contests.max_player-2].fee.indexOf(v)
@@ -195,10 +195,10 @@ angular.module 'clublootApp'
     if gemType == "EMERALD"
       $scope.gemColor = "color: green;"
 
-    console.log parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
+    # console.log parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
     $scope.gemCounts = []
-    console.log "GRM:"+parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
-    console.log gemType
+    # console.log "GRM:"+parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
+    # console.log gemType
     for num in [1..parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)]
       $scope.gemCounts.push {}
 
@@ -211,10 +211,10 @@ angular.module 'clublootApp'
     # $scope.calGem(parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)))
 
   $scope.calGem = (val) ->
-    console.log val
+    # console.log val
     $scope.gemPrize = []
     prize = val
-    console.log "prize:"+prize
+    # console.log "prize:"+prize
     diamond = 12500
     emerald = 2500
     saphire = 500
@@ -230,41 +230,41 @@ angular.module 'clublootApp'
     if diamond <= $scope.currentPrize
       diamondCount = parseInt($scope.currentPrize/diamond)
       $scope.currentPrize = $scope.currentPrize - (diamondCount * diamond)
-      console.log "---------------"
-      console.log diamond <= $scope.currentPrize
-      console.log "diamond:"+diamond
-      console.log "prize:"+$scope.currentPrize
-      console.log "diamondCount:"+diamondCount
+      # console.log "---------------"
+      # console.log diamond <= $scope.currentPrize
+      # console.log "diamond:"+diamond
+      # console.log "prize:"+$scope.currentPrize
+      # console.log "diamondCount:"+diamondCount
       $scope.gemList.push {name: 'diamond', value: diamondCount}
-      console.log diamondCount * diamond
-      console.log "current:"+$scope.currentPrize
-      console.log $scope.gemList
+      # console.log diamondCount * diamond
+      # console.log "current:"+$scope.currentPrize
+      # console.log $scope.gemList
 
     if emerald <= $scope.currentPrize
       emeraldCount = parseInt($scope.currentPrize/emerald)
       $scope.currentPrize = $scope.currentPrize - (emeraldCount * emerald)
       $scope.gemList.push {name: 'emerald', value: emeraldCount}
-      console.log "current:"+$scope.currentPrize
-      console.log $scope.gemList
+      # console.log "current:"+$scope.currentPrize
+      # console.log $scope.gemList
 
     if saphire <= $scope.currentPrize
       saphireCount = parseInt($scope.currentPrize/saphire)
       $scope.currentPrize = $scope.currentPrize - (saphireCount * saphire)
       $scope.gemList.push {name: 'saphire', value: saphireCount}
-      console.log "current:"+$scope.currentPrize
-      console.log $scope.gemList
+      # console.log "current:"+$scope.currentPrize
+      # console.log $scope.gemList
 
     if ruby <= $scope.currentPrize
       rubyCount = parseInt($scope.currentPrize/ruby)
       $scope.currentPrize = $scope.currentPrize - (rubyCount * ruby)
       $scope.gemList.push {name: 'ruby', value: rubyCount}
-      console.log "current:"+$scope.currentPrize
-      console.log $scope.gemList
+      # console.log "current:"+$scope.currentPrize
+      # console.log $scope.gemList
 
     fullDiamond = prize/diamond
     fullEmerald = prize/emerald
 
-    console.log $scope.gemList
+    # console.log $scope.gemList
 
   $scope.finishNewContest = () ->
     window.location.href = '/dashboard'
@@ -311,7 +311,7 @@ angular.module 'clublootApp'
         $http.put("/api/contest/#{$scope.contest.id}/join_created",
             Auth.getCurrentUser()
           ).success((ok) ->
-            console.log ok
+            # console.log ok
           )
       $scope.createNewStep = '3'
     , 300

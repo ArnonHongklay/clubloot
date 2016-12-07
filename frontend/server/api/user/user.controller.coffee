@@ -106,7 +106,7 @@ handleError = (res, err) ->
 #   res.status(500).json err
 #
 # exports.updateJoined = (req, res) ->
-#   console.log req.params
+#   # console.log req.params
 #   User.findById req.params.id, (err, user) ->
 #     return handleError(res, err) if err
 #     return res.status(404).end() unless user
