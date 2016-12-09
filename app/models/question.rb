@@ -1,7 +1,8 @@
 class Question
   include Mongoid::Document
 
-  field :title, type: String
-  field :templates, type: BSON::ObjectId
-  field :answers, type: Array
+  field :_id,         type: BSON::ObjectId
+  field :template_id, type: BSON::ObjectId
+  field :title,       type: String
+  field :answers,     type: Array
 end
