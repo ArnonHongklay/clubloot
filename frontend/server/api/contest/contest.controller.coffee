@@ -12,6 +12,187 @@ User     = require '../user/user.model'
 schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
 
+
+# 1 (110c)
+# 2 (220c)
+# 3 (330c)
+# 4 (440c)
+# SAPPHIRE
+# 1 (550c)
+# 2 (1100c)
+# 3 (1650c)
+# 4 (2200c)
+# EMERALD
+# 1 (2750c)
+# 2 (5500c)
+# 3 (8250c)
+# 4 (11000c)
+# DIAMOND
+# 1 (13750c)
+
+prizeList = [110, 220, 330, 440, 550, 1100, 1650, 2200, 2750, 5500, 8250, 11000]
+
+#50C 34C 25C 20C 17C 15C 13C 12C 10C
+
+refundList = [
+  [
+    [{type: 'coin', value: 50}],
+    [{type: 'coin', value: 34}],
+    [{type: 'coin', value: 25}],
+    [{type: 'coin', value: 20}],
+    [{type: 'coin', value: 17}],
+    [{type: 'coin', value: 15}],
+    [{type: 'coin', value: 13}],
+    [{type: 'coin', value: 12}],
+    [{type: 'coin', value: 10}]
+  ],
+  #1R 67C 50C 40C 34C 29C 25C 23C 20C
+  [
+    [{type: 'ruby', value: 1}],
+    [{type: 'coin', value: 67}],
+    [{type: 'coin', value: 50}],
+    [{type: 'coin', value: 40}],
+    [{type: 'coin', value: 34}],
+    [{type: 'coin', value: 29}],
+    [{type: 'coin', value: 25}],
+    [{type: 'coin', value: 23}],
+    [{type: 'coin', value: 20}]
+  ],
+  #1R 50C 1R  75C 60C 50C 43C 38C 34C 30C
+  [
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 50}],
+    [{type: 'ruby', value: 1}],
+    [{type: 'coin', value: 75}],
+    [{type: 'coin', value: 60}],
+    [{type: 'coin', value: 50}],
+    [{type: 'coin', value: 43}],
+    [{type: 'coin', value: 38}],
+    [{type: 'coin', value: 34}],
+    [{type: 'coin', value: 30}]
+  ],
+  #2R 1R 34C  1R  80C 67C 58C 50C 45C 40C
+  [
+    [{type: 'ruby', value: 2}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 34}],
+    [{type: 'ruby', value: 1}],
+    [{type: 'coin', value: 80}],
+    [{type: 'coin', value: 67}],
+    [{type: 'coin', value: 58}],
+    [{type: 'coin', value: 50}],
+    [{type: 'coin', value: 45}],
+    [{type: 'coin', value: 40}]
+  ],
+  #2R 50C 1R 67C  1R 25C  1R  84C 72C 63C 56C 50C
+  [
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 67}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 25}],
+    [{type: 'ruby', value: 1}],
+    [{type: 'coin', value: 84}],
+    [{type: 'coin', value: 72}],
+    [{type: 'coin', value: 63}],
+    [{type: 'coin', value: 56}],
+    [{type: 'coin', value: 50}]
+  ],
+  #1S 3R 34C  2R 50C  2R  1R 67C  1R 43C  1R 25C  1R 12C  1R
+  [
+    [{type: 'sapphire', value: 1}],
+    [{type: 'ruby', value: 3}, {type: 'coin', value: 34}],
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'ruby', value: 2}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 67}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 43}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 25}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 12}],
+    [{type: 'ruby', value: 1}]
+  ],
+  #1S 2R 50C  1S  3R 75C  3R  2R 50C  2R 15C  1R 88C  1R 67C  1R 50C
+  [
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'sapphire', value: 1}],
+    [{type: 'ruby', value: 3}, {type: 'coin', value: 75}],
+    [{type: 'ruby', value: 3}],
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 15}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 88}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 67}],
+    [{type: 'ruby', value: 1}, {type: 'coin', value: 50}]
+  ],
+  #2S 1S 1R 67C 1S  4R  3R 34C  2R 86C  2R 50C  2R 23C  2R
+  [
+    [{type: 'sapphire', value: 2}],
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 67}],
+    [{type: 'sapphire', value: 1}],
+    [{type: 'ruby', value: 4}],
+    [{type: 'ruby', value: 3}, {type: 'coin', value: 34}],
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 86}],
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 23}],
+    [{type: 'ruby', value: 2}]
+  ],
+  #2S 2R 50C  1S 3R 34C 1S 1R 25C 1S  4R 17C  3R 58C  3R 13C  2R 78C  2R 50C
+  [
+    [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34}],
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 25}],
+    [{type: 'sapphire', value: 1}],
+    [{type: 'ruby', value: 4}, {type: 'coin', value: 17}],
+    [{type: 'ruby', value: 3}, {type: 'coin', value: 58}],
+    [{type: 'ruby', value: 3}, {type: 'coin', value: 13}],
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 78}],
+    [{type: 'ruby', value: 2}, {type: 'coin', value: 50}]
+  ],
+  # 1E  3S 1R 67C 2S 2R 50C 2S  1S 3R 34C 1S 2R 15C 1S 25C  1S 56C  1S
+  [
+    [{type: 'emerald', value: 1}],
+    [{type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67}],
+    [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'sapphire', value: 2}],
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34}],
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 15}],
+    [{type: 'sapphire', value: 1}, {type: 'coin', value: 56}],
+    [{type: 'sapphire', value: 1}, {type: 'coin', value: 25}],
+    [{type: 'sapphire', value: 1}]
+  ],
+  # 1E 2S 2R 50C  1E  3S 3R 75C 3S  2S 2R 50C 2S 72C  1S 4R 38C 1S 3R 34C 1S 2R 50C
+  [
+    [{type: 'emerald', value: 1}, {type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'emerald', value: 1}],
+    [{type: 'sapphire', value: 3}, {type: 'ruby', value: 3}, {type: 'coin', value: 75}],
+    [{type: 'sapphire', value: 3}],
+    [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'sapphire', value: 2}, {type: 'coin', value: 72}],
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 4}, {type: 'coin', value: 38}],
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34}],
+    [{type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}]
+  ],
+  #2E 1E 1S 3R 34C  1E  4S  3S 1R 67C 2S 4R 29C 2S 2R 50C 2S 1R 12C 2S
+  [
+    [{type: 'emerald', value: 2}],
+    [{type: 'emerald', value: 1}, {type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34}],
+    [{type: 'emerald', value: 1}],
+    [{type: 'sapphire', value: 4}],
+    [{type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67}],
+    [{type: 'sapphire', value: 2}, {type: 'ruby', value: 4}, {type: 'coin', value: 29}],
+    [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'sapphire', value: 2}, {type: 'ruby', value: 1}, {type: 'coin', value: 12}],
+    [{type: 'sapphire', value: 2}]
+  ],
+  #2E 2S 2R 50C 1E 3S 1R 67C  1E 1S 1R 25C  1E  4S 84C  3S 2R 86C 3S 63C  2S 3R 89C 2S 2R 50C
+  [
+    [{type: 'emerald', value: 2}, {type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
+    [{type: 'emerald', value: 1}, {type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67}],
+    [{type: 'emerald', value: 1}, {type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 25}],
+    [{type: 'emerald', value: 1}],
+    [{type: 'sapphire', value: 4}, {type: 'coin', value: 84}],
+    [{type: 'sapphire', value: 3}, {type: 'ruby', value: 2}, {type: 'coin', value: 86}],
+    [{type: 'sapphire', value: 3}, {type: 'coin', value: 63}],
+    [{type: 'sapphire', value: 2}, {type: 'ruby', value: 3}, {type: 'coin', value: 89}],
+    [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}]
+  ]
+
+]
+
 gemMatrix = {
   list:[
     { player: 2  , fee: [55, 110, 165, 220, 275, 550, 825, 1100, 1375, 2750, 4125, 5500, 6875] },
@@ -54,6 +235,28 @@ gemMatrix = {
   ]
 
 }
+
+getFefund = (user_id, refund) ->
+  console.log "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+  console.log refund
+  console.log user_id
+  User.findById user_id, (err, user) ->
+    for i in refund
+      if i.type == 'coin'
+        user.coins = user.coins + i.value
+      if i.type == 'ruby'
+        user.rubies = user.rubies + i.value
+      if i.type == 'sapphire'
+        user.sapphires = user.sapphires + i.value
+      if i.type == 'emerald'
+        user.emeralds = user.emeralds + i.value
+      if i.type == 'diamond'
+        user.diamonds = user.diamonds + i.value
+    console.log "ddddd"
+    console.log refund
+    user.save()
+
+
 
 
 getQuestions = (tem_id) ->
@@ -255,17 +458,21 @@ exports.findByTemplates = (req, res) ->
         # console.log gemPrize
 
         max_score = 0
-        winner = {}
+        winner = []
         # q = Question.find({})
         # qq = q.where('templates', req.params.id )
         query = Question.find({'templates': req.params.id})
+
         query.exec (err, templates) ->
 
           for p in c.player
             score = checkScore(p, templates)
             p.score = score
-            if score >= max_score
-              winner = p
+            if score == max_score
+              winner.push {uid: p.uid}
+            if score > max_score
+              winner = []
+              winner.push {uid: p.uid}
               max_score = score
 
             c.save()
@@ -279,33 +486,139 @@ exports.findByTemplates = (req, res) ->
                   if i == user.joinedContest.length - 1 && jc._id == contest._id
                     user.joinedContest.push contest
                     user.save()
-          # console.log "win==================="
-          # console.log winner
-          # console.log "win==================="
+          console.log "win==================="
+          console.log winner
+          console.log "win==================="
+          console.log "winnerlength"+winner.length
+          console.log winner.length > 1
+          console.log c.max_player
+          console.log winner.length == c.max_player
+          console.log parseInt(winner.lenght) > 1
+          console.log "okokokokokokoo"
+          if winner.length == c.max_player
+            console.log "sssssssssssssssssssssssssssssssssssssssssssss"
+            for s_winner in winner
+              console.log "---------"
+              console.log s_winner
+              User.findById s_winner.uid, (err, user) ->
+                user.coins = user.coins + c.fee
+                console.log "----------------------------------------======================="
+                console.log user.coins
+                user.save()
+          else if winner.length > 1
+            console.log ">1"
+            console.log c.loot.prize
+            console.log gemMatrix.list[c.max_player-2].fee
+
+            refund_index = c.loot.prize
+            matchList = gemMatrix.list[0].fee
+            console.log matchList
+            refund = refundList[prizeList.indexOf(c.loot.prize)][winner.length-2]
+
+            for w in winner
+              getFefund(w.uid, refund)
 
 
-          User.findById winner.uid, (err, user) ->
-            if gemPrize.type == "RUBY"
-              user.rubies = user.rubies + gemPrize.count
-            else if  gemPrize.type == "SAPPHIRE"
-              user.sapphires = user.sapphires + gemPrize.count
-            else if  gemPrize.type == "EMERALD"
-              user.emeralds = user.emeralds + gemPrize.count
-            else if  gemPrize.type == "DIAMOND"
-              user.diamonds = user.diamonds + gemPrize.count
-            user.save()
+            # if c.loot.prize == 110
+            #   console.log "110"
+            #   # 50C 34C 25C 20C 17C 15C 13C 12C 10C
+            #   if winner.length == 2
+            #     console.log "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+            #     refund = [{type: 'coin', value: 50}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
 
-          User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
-            # console.log data
+            #   if winner.length == 3
+            #     refund = [{type: coin, value: 34}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
 
-          WinnerLog.create {
-            user_id: winner.uid,
-            contest_id: c._id,
-            template_id: req.params.id,
-            score: winner.score,
-            prize:  c.loot.prize
-            }, (err, winnerlog) ->
-              # console.log "callback"
+            #   if winner.length == 4
+            #     refund = [{type: coin, value: 25}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
+
+            #   if winner.length == 5
+            #     refund = [{type: coin, value: 20}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
+
+            #   if winner.length == 6
+            #     refund = [{type: coin, value: 17}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
+
+            #   if winner.length == 7
+            #     refund = [{type: coin, value: 15}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
+
+            #   if winner.length == 8
+            #     refund = [{type: coin, value: 13}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
+
+            #   if winner.length == 9
+            #     refund = [{type: coin, value: 12}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
+
+            #   if winner.length == 10
+            #     refund = [{type: coin, value: 10}]
+            #     for w in winner
+            #       getFefund(w.uid, refund)
+
+
+            # if c.loot.prize == 220
+
+            # if c.loot.prize == 330
+
+            # if c.loot.prize == 440
+
+            # if c.loot.prize == 550
+
+            # if c.loot.prize == 1100
+
+            # if c.loot.prize == 1650
+
+            # if c.loot.prize == 2200
+
+            # if c.loot.prize == 2750
+
+            # if c.loot.prize == 5500
+
+            # if c.loot.prize == 8250
+
+            # if c.loot.prize == 11000
+
+
+          else if winner.length == 1
+            console.log "sssssssssssssssssssssssss"
+            User.findById winner[0].uid, (err, user) ->
+              console.log user
+              console.log "oyoyerrerrerere"
+              console.log gemPrize.type
+              if gemPrize.type == "RUBY"
+                user.rubies = user.rubies + gemPrize.count
+              else if  gemPrize.type == "SAPPHIRE"
+                user.sapphires = user.sapphires + gemPrize.count
+              else if  gemPrize.type == "EMERALD"
+                user.emeralds = user.emeralds + gemPrize.count
+              else if  gemPrize.type == "DIAMOND"
+                user.diamonds = user.diamonds + gemPrize.count
+              user.save()
+
+            User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
+              # console.log data
+
+            WinnerLog.create {
+              user_id: winner.uid,
+              contest_id: c._id,
+              template_id: req.params.id,
+              score: winner.score,
+              prize:  c.loot.prize
+              }, (err, winnerlog) ->
+                # console.log "callback"
 
         # setTimeout (->
           # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->

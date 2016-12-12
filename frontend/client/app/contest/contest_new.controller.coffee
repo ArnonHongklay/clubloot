@@ -11,6 +11,8 @@ angular.module 'clublootApp'
   $scope.currentPrize = 0
   $scope.qaSelection = []
 
+  $scope.allPrize = [110, 220, 330, 440, 550, 1100, 1650, 2200, 2750, 5500, 8250, 11000]
+
   $scope.gemMatrix = {
     list:[
       { player: 2  , fee: [55, 110, 165, 220, 275, 550, 825, 1100, 1375, 2750, 4125, 5500, 6875] },
@@ -210,7 +212,9 @@ angular.module 'clublootApp'
     # )
     tax = parseInt($scope.contests.fee) * parseInt($scope.contests.max_player) * 10 / 100
 
-    $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
+    # $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
+
+    $scope.contests.loot.prize = $scope.allPrize[$scope.gemIndex]
     # $scope.calGem(parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)))
 
   $scope.calGem = (val) ->
