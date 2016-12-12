@@ -157,7 +157,7 @@
               </div>
               {{player.name}}
               <span class="pull-right">
-                {{ player.score || 0 }}
+                {{ checkScore(player, $index) || 0 }}
               </span>
             </td>
           </tr>
