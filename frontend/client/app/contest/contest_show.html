@@ -27,7 +27,6 @@
     <div class="row" style="padding-top: 20px">
       <div class="panel panel-default">
         <!-- Default panel contents -->
-
         <!-- Table -->
         <table class="table" style="border-radius: 0px;">
           <thead style="background:#dedede;">
@@ -45,7 +44,7 @@
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
               <td class="loot gem-red">{{contest.prize}}
-                <i class="fa fa-diamond" aria-hidden="true"></i>
+                <div gem-repeat="" fee="{{contest.fee}}" player="{{contest.max_player}}" gemcount="{{calGem(contest.fee, contest.max_player).count}}"></div>
               </td>
               <td>
                 <div class="circle blue">P</div>
