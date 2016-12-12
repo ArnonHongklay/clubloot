@@ -16,7 +16,6 @@
       </ul>
     </div>
   </div>
-
   <div class="chanel-detail" ng-hide="showContestDetail">
     <div class="row">
     <h3 style="font-weight: 300;">
@@ -59,9 +58,7 @@
         </table>
       </div>
     </div>
-
   </div>
-
 
   <div class="contest-detail" ng-show="showContestDetail">
     <h4 style="color:rgb(128,102,160);font-weight:300;cursor:pointer;" ng-click="showContestDetail=false">
@@ -145,29 +142,29 @@
       <div ng-show="contestSelection.stage=='close'" class="btn btn-default" style="background: #999;color:#fff;width: 100%;border: 0px;">ENDED</div>
     </div>
   </div>
-
-    <div class="room-detail" ng-show="showContestDetail">
-      <div style="padding: 20px">
-        <h4 style="color: #999">
-          <i class="fa fa-users" aria-hidden="true"></i>
-          {{contestSelection.player.length}} Players
-        </h4>
-        <table id="tablePlayers" class="table" style="border-radius: 0px;">
-          <tbody>
-            <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)">
-              <td class="text-blue" style="text-align:left;">
-                <div class="place-no"><span ng-show="$index<10">0</span>{{$index+1}}</div>{{player.name}}
-                <span class="pull-right">
-                  {{checkScore(player, $index) || ""}}
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="room-detail" ng-show="showContestDetail">
+    <div style="padding: 20px">
+      <h4 style="color: #999">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        {{contestSelection.player.length}} Players
+      </h4>
+      <table id="tablePlayers" class="table" style="border-radius: 0px;">
+        <tbody>
+          <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)">
+            <td class="text-blue" style="text-align:left;">
+              <div class="place-no"><span ng-show="$index < 10">0</span>{{$index+1}}</div>{{player.name}}
+              <span class="pull-right">
+                {{checkScore(player, $index) || 0}}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+  <!-- </div> -->
 </section>
+
 <!--
 <section class="contest-show phone">
   <div class="contest-detail" ng-hide="showPlayerDetail">
@@ -345,7 +342,6 @@
     <div style="text-indent: 29px">{{showContestDetail}}</div>
     <br>
     <div style="padding: 0px">
-
       <table class="table" style="border-radius: 0px;">
         <tbody>
           <tr>
@@ -358,7 +354,6 @@
       </table>
     </div>
   </div>
-
 </section> -->
 
 <div class="compair-modal" ng-show="selectedCompair">
