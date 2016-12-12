@@ -16,7 +16,6 @@
       </ul>
     </div>
   </div>
-
   <div class="chanel-detail" ng-hide="showContestDetail">
     <div class="row">
     <h3 style="font-weight: 300;">
@@ -27,7 +26,6 @@
     <div class="row" style="padding-top: 20px">
       <div class="panel panel-default">
         <!-- Default panel contents -->
-
         <!-- Table -->
         <table class="table" style="border-radius: 0px;">
           <thead style="background:#dedede;">
@@ -45,7 +43,7 @@
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
               <td class="loot gem-red">{{contest.prize}}
-                <i class="fa fa-diamond" aria-hidden="true"></i>
+                <div gem-repeat="" fee="{{contest.fee}}" player="{{contest.max_player}}" gemcount="{{calGem(contest.fee, contest.max_player).count}}"></div>
               </td>
               <td>
                 <div class="circle blue">P</div>
@@ -60,9 +58,7 @@
         </table>
       </div>
     </div>
-
   </div>
-
 
   <div class="contest-detail" ng-show="showContestDetail">
     <h4 style="color:rgb(128,102,160);font-weight:300;cursor:pointer;" ng-click="showContestDetail=false">
@@ -139,37 +135,43 @@
           </tr>
         </tbody>
       </table>
-      <div ng-show="contestSelection.stage =='runing' && !alreadyJoin" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)" ng-disabled="joinedDisabled">JOIN CONTEST</div>
-      <div ng-show="alreadyJoin && contestSelection.stage =='runing' && contestSelection.stage !='cancel'&& contestSelection.stage !='finish'" class="btn btn-primary disabled" style="background: #50ACC4; width: 100%; border: 0px;">WAITING</div>
+      <div ng-show="contestSelection.stage =='upcoming' && !alreadyJoin" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)" ng-disabled="joinedDisabled">JOIN CONTEST</div>
+      <div ng-show="alreadyJoin && contestSelection.stage =='upcoming' && contestSelection.stage !='cancel'&& contestSelection.stage !='live'" class="btn btn-primary disabled" style="background: #50ACC4; width: 100%; border: 0px;">WAITING</div>
       <div ng-show="contestSelection.stage=='cancel'" class="btn btn-danger" style="width: 100%;border: 0px;">CANCELED</div>
-      <div ng-show="contestSelection.stage=='finish'" class="btn btn-success" style="width: 100%;border: 0px;">LIVE</div>
+      <div ng-show="contestSelection.stage=='live'" class="btn btn-success" style="width: 100%;border: 0px;">LIVE</div>
       <div ng-show="contestSelection.stage=='close'" class="btn btn-default" style="background: #999;color:#fff;width: 100%;border: 0px;">ENDED</div>
     </div>
   </div>
-
-    <div class="room-detail" ng-show="showContestDetail">
-      <div style="padding: 20px">
-        <h4 style="color: #999">
-          <i class="fa fa-users" aria-hidden="true"></i>
-          {{contestSelection.player.length}} Players
-        </h4>
-        <table id="tablePlayers" class="table" style="border-radius: 0px;">
-          <tbody>
-            <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)">
-              <td class="text-blue" style="text-align:left;">
-                <div class="place-no"><span ng-show="$index<10">0</span>{{$index+1}}</div>{{player.name}}
-                <span class="pull-right">
-                  {{checkScore(player, $index) || ""}}
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="room-detail" ng-show="showContestDetail">
+    <div style="padding: 20px">
+      <h4 style="color: #999">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        {{contestSelection.player.length}} Players
+      </h4>
+      <table id="tablePlayers" class="table" style="border-radius: 0px;">
+        <tbody>
+          <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)">
+            <td class="text-blue" style="text-align:left;">
+              <div class="place-no" ng-if="contestSelection.player[$index].score != contestSelection.player[$index-1].score">
+                <span class="score-{{$index}}" ng-if="$index < 10">0</span>{{ $index + 1 }}
+              </div>
+              <div class="place-no" ng-if="contestSelection.player[$index].score == contestSelection.player[$index-1].score">
+                <span></span>
+              </div>
+              {{player.name}}
+              <span class="pull-right">
+                {{ checkScore(player, $index) || 0 }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+  <!-- </div> -->
 </section>
 
+<!--
 <section class="contest-show phone">
   <div class="contest-detail" ng-hide="showPlayerDetail">
     <h4 style="color:rgb(128,102,160);font-weight:300;cursor:pointer;padding: 10px;" ng-click="stepBack()">
@@ -346,7 +348,6 @@
     <div style="text-indent: 29px">{{showContestDetail}}</div>
     <br>
     <div style="padding: 0px">
-
       <table class="table" style="border-radius: 0px;">
         <tbody>
           <tr>
@@ -359,16 +360,14 @@
       </table>
     </div>
   </div>
-
-</section>
+</section> -->
 
 <div class="compair-modal" ng-show="selectedCompair">
-
   <div class="bg"></div>
   <div class="content-box">
     <i class="fa fa-times close-btn" ng-click="selectedCompair = false"></i>
     <h3>Me VS {{selectedCompair.name}}</h3>
-      <div class="row">
+    <div class="row">
       <table class="table" style="border-radius: 0px;">
         <tbody>
           <tr>
@@ -409,11 +408,8 @@
               {{selectedCompair.vs[$index].ans}} <i class="check-ans fa {{checkAns(ans.p, $index)}}" ></i>
             </td>
           </tr>
-
         </tbody>
       </table>
-      </div>
+    </div>
   </div>
-
-
 </div>
