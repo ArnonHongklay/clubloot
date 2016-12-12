@@ -153,7 +153,10 @@
           <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)">
             <td class="text-blue" style="text-align:left;">
               <div class="place-no" ng-if="contestSelection.player[$index].score != contestSelection.player[$index-1].score">
-                <span ng-if="$index < 10">0</span>{{ $index + 1 }}
+                <span class="score-{{$index}}" ng-if="$index < 10">0</span>{{ $index + 1 }}
+              </div>
+              <div class="place-no" ng-if="contestSelection.player[$index].score == contestSelection.player[$index-1].score">
+                <span></span>
               </div>
               {{player.name}}
               <span class="pull-right">
