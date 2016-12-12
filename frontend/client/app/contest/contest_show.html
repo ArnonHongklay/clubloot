@@ -168,7 +168,7 @@
     </div>
   </div>
 </section>
-
+<!--
 <section class="contest-show phone">
   <div class="contest-detail" ng-hide="showPlayerDetail">
     <h4 style="color:rgb(128,102,160);font-weight:300;cursor:pointer;padding: 10px;" ng-click="stepBack()">
@@ -359,15 +359,14 @@
     </div>
   </div>
 
-</section>
+</section> -->
 
 <div class="compair-modal" ng-show="selectedCompair">
-
   <div class="bg"></div>
   <div class="content-box">
     <i class="fa fa-times close-btn" ng-click="selectedCompair = false"></i>
     <h3>Me VS {{selectedCompair.name}}</h3>
-      <div class="row">
+    <div class="row">
       <table class="table" style="border-radius: 0px;">
         <tbody>
           <tr>
@@ -408,11 +407,8 @@
               {{selectedCompair.vs[$index].ans}} <i class="check-ans fa {{checkAns(ans.p, $index)}}" ></i>
             </td>
           </tr>
-
         </tbody>
       </table>
-      </div>
+    </div>
   </div>
-
-
 </div>
