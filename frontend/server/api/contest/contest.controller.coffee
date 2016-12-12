@@ -152,6 +152,13 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
     # console.log contest
     myContest.start(contest)
+
+    # console.log req.body
+    User.findById req.body.user_id, (err, user) ->
+      user.coins = user.coins - contest.fee
+      # user.joinedContest = [ contest ]
+      user.save()
+
     res.status(201).json contest
 
 exports.joinContest = (req, res) ->

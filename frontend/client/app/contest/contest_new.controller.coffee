@@ -72,6 +72,9 @@ angular.module 'clublootApp'
     $scope.contests.participant = []
     $scope.contests.participant.push(Auth.getCurrentUser())
     # $scope.contests.fee = $scope.addFeeTax($scope.contests.fee)
+
+    $scope.contests.user_id = Auth.getCurrentUser()._id
+
     $http.post("/api/contest",
         $scope.contests
       ).success((data, status, headers, config) ->
