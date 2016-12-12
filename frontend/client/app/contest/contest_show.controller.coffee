@@ -73,7 +73,7 @@ angular.module 'clublootApp'
       return true
     else
       return false
-    # if status == "runing" || status == "finish"
+    # if status == "upcoming" || status == "finish"
     #   # console.log status
     #   return true
     # else if status =="cancel"

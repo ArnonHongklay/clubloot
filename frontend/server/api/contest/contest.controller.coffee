@@ -97,8 +97,8 @@ myContest =
         contest.end_time   = e_time.getTime()
 
         if current_time > s_time.getTime()
-          contest.status = "runing"
-          contest.stage = "runing"
+          contest.status = "upcoming"
+          contest.stage = "upcoming"
           contest.save()
           # console.log "contest Start #{contest.status} #{contest._id}"
           return
@@ -117,8 +117,8 @@ myContest =
             contest.stage = "cancel"
             contest.save()
           else
-            contest.status = "finish"
-            contest.stage = "finish"
+            contest.status = "live"
+            contest.stage = "live"
             contest.save()
         return
       )
@@ -127,8 +127,8 @@ myContest =
         Contest.findById contest._id, (err, contest) ->
           contest.start_time = s_time.getTime()
           contest.end_time   = e_time.getTime()
-          contest.status = "runing"
-          contest.stage = "runing"
+          contest.status = "upcoming"
+          contest.stage = "upcoming"
           contest.save()
         return
       )

@@ -135,10 +135,10 @@
           </tr>
         </tbody>
       </table>
-      <div ng-show="contestSelection.stage =='runing' && !alreadyJoin" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)" ng-disabled="joinedDisabled">JOIN CONTEST</div>
-      <div ng-show="alreadyJoin && contestSelection.stage =='runing' && contestSelection.stage !='cancel'&& contestSelection.stage !='finish'" class="btn btn-primary disabled" style="background: #50ACC4; width: 100%; border: 0px;">WAITING</div>
+      <div ng-show="contestSelection.stage =='upcoming' && !alreadyJoin" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)" ng-disabled="joinedDisabled">JOIN CONTEST</div>
+      <div ng-show="alreadyJoin && contestSelection.stage =='upcoming' && contestSelection.stage !='cancel'&& contestSelection.stage !='live'" class="btn btn-primary disabled" style="background: #50ACC4; width: 100%; border: 0px;">WAITING</div>
       <div ng-show="contestSelection.stage=='cancel'" class="btn btn-danger" style="width: 100%;border: 0px;">CANCELED</div>
-      <div ng-show="contestSelection.stage=='finish'" class="btn btn-success" style="width: 100%;border: 0px;">LIVE</div>
+      <div ng-show="contestSelection.stage=='live'" class="btn btn-success" style="width: 100%;border: 0px;">LIVE</div>
       <div ng-show="contestSelection.stage=='close'" class="btn btn-default" style="background: #999;color:#fff;width: 100%;border: 0px;">ENDED</div>
     </div>
   </div>
@@ -152,8 +152,8 @@
         <tbody>
           <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)">
             <td class="text-blue" style="text-align:left;">
-              <div class="place-no">
-                <span ng-if="$index < 10">0</span>{{ contestSelection.player[$index].score == contestSelection.player[$index-1].score ? 1 : $index + 1 }}
+              <div class="place-no" ng-if="contestSelection.player[$index].score != contestSelection.player[$index-1].score">
+                <span ng-if="$index < 10">0</span>{{ $index + 1 }}
               </div>
               {{player.name}}
               <span class="pull-right">
