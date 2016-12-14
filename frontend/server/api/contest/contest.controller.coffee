@@ -479,30 +479,17 @@ exports.findByTemplates = (req, res) ->
                   if i == user.joinedContest.length - 1 && jc._id == contest._id
                     user.joinedContest.push contest
                     user.save()
-          console.log "win==================="
-          console.log winner
-          console.log "win==================="
-          console.log "winnerlength"+winner.length
-          console.log winner.length > 1
-          console.log c.max_player
-          console.log winner.length == c.max_player
-          console.log parseInt(winner.lenght) > 1
-          console.log "okokokokokokoo"
+
           if winner.length == c.max_player
-            console.log "sssssssssssssssssssssssssssssssssssssssssssss"
+            for py, k in contest.player
+              contest.player[k].isWin = false
+              contest.player[k].winPrize = []
+            contest.save()
             for s_winner in winner
-              console.log "---------"
-              console.log s_winner
               User.findById s_winner.uid, (err, user) ->
                 user.coins = user.coins + c.fee
-                console.log "----------------------------------------======================="
-                console.log user.coins
                 user.save()
           else if winner.length > 1
-            console.log ">1"
-            console.log c.loot.prize
-            console.log gemMatrix.list[c.max_player-2].fee
-
             refund_index = c.loot.prize
             matchList = gemMatrix.list[0].fee
             console.log matchList
@@ -510,87 +497,39 @@ exports.findByTemplates = (req, res) ->
 
             for w in winner
               getFefund(w.uid, refund)
+              for py, k in contest.player
+                if py.uid == w.uid
+                  contest.player[k].isWin = true
+                  contest.player[k].winPrize = refund
+              contest.save()
+              User.findById w.uid, (err, user) ->
+                console.log "create won"
+                if user.wonContest.length == 0
+                  user.wonContest.push contest
+                  user.save()
+                else
+                  console.log "create won 2"
+                  for won, i in user.wonContest
+                    if i == user.wonContest.length - 1 && won._id != contest._id
+                      user.wonContest.push contest
+                      user.save()
 
-
-            # if c.loot.prize == 110
-            #   console.log "110"
-            #   # 50C 34C 25C 20C 17C 15C 13C 12C 10C
-            #   if winner.length == 2
-            #     console.log "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-            #     refund = [{type: 'coin', value: 50}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-            #   if winner.length == 3
-            #     refund = [{type: coin, value: 34}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-            #   if winner.length == 4
-            #     refund = [{type: coin, value: 25}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-            #   if winner.length == 5
-            #     refund = [{type: coin, value: 20}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-            #   if winner.length == 6
-            #     refund = [{type: coin, value: 17}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-            #   if winner.length == 7
-            #     refund = [{type: coin, value: 15}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-            #   if winner.length == 8
-            #     refund = [{type: coin, value: 13}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-            #   if winner.length == 9
-            #     refund = [{type: coin, value: 12}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-            #   if winner.length == 10
-            #     refund = [{type: coin, value: 10}]
-            #     for w in winner
-            #       getFefund(w.uid, refund)
-
-
-            # if c.loot.prize == 220
-
-            # if c.loot.prize == 330
-
-            # if c.loot.prize == 440
-
-            # if c.loot.prize == 550
-
-            # if c.loot.prize == 1100
-
-            # if c.loot.prize == 1650
-
-            # if c.loot.prize == 2200
-
-            # if c.loot.prize == 2750
-
-            # if c.loot.prize == 5500
-
-            # if c.loot.prize == 8250
-
-            # if c.loot.prize == 11000
-
+#---------------------------------------------------------------------------------
 
           else if winner.length == 1
-            console.log "sssssssssssssssssssssssss"
             User.findById winner[0].uid, (err, user) ->
-              console.log user
-              console.log "oyoyerrerrerere"
-              console.log gemPrize.type
+              for py, k in contest.player
+                contest.player[k].isWin = false
+                contest.player[k].winPrize = []
+                console.log "000000=0=0=0=00=0=0="
+                console.log py.uid
+                console.log winner[0].uid
+                console.log "00000000000000000000"
+                if py.uid == winner[0].uid
+                  console.log "wow winner"
+                  contest.player[k].isWin = true
+                  contest.player[k].winPrize = [{type: gemPrize.type.toLowerCase(), value: gemPrize.count }]
+                  contest.save()
               if gemPrize.type == "RUBY"
                 user.rubies = user.rubies + gemPrize.count
               else if  gemPrize.type == "SAPPHIRE"
@@ -599,6 +538,16 @@ exports.findByTemplates = (req, res) ->
                 user.emeralds = user.emeralds + gemPrize.count
               else if  gemPrize.type == "DIAMOND"
                 user.diamonds = user.diamonds + gemPrize.count
+
+              if user.wonContest.length == 0
+                user.wonContest.push contest
+                user.save()
+              else
+                for won, i in user.wonContest
+                  if i == user.wonContest.length - 1 && won._id != contest._id
+                    user.wonContest.push contest
+                    user.save()
+
               user.save()
 
             User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->

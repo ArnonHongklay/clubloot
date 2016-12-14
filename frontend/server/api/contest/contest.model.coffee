@@ -26,6 +26,8 @@ ContestSchema = new Schema
       score: Number
       q_id: String
       answers: []
+      isWin: Boolean
+      winPrize: []
     }
   ]
   fee: Number

@@ -104,6 +104,14 @@ angular.module 'clublootApp'
   # socket.syncUpdates 'question', $scope.questions
 
 
+  $scope.checkGemColor = (type) ->
+
+    console.log type
+    return "color:red;!important"     if type == "ruby"
+    return "color:blue;!important"    if type == "sapphire"
+    return "color:green;!important"   if type == "emerald"
+    return "color:grey;!important" if type == "diamond"
+
   $scope.checkScore = (player, index) ->
     score = 0
     for uAnswer, i in player.answers
@@ -166,6 +174,16 @@ angular.module 'clublootApp'
 
 
   socket.syncUpdates 'contest', [], (event, item, object) ->
+    console.log "contest syncUpdates"
+    console.log object
+    console.log item
+    console.log $scope.contestSelection._id
+    if item._id == $scope.contestSelection._id
+      $scope.contestSelection = item
+      $scope.$apply()
+
+    console.log "------------------"
+
     if $scope.contest.program == item.program && event == "created"
       i = 0
       for c in $scope.allContest

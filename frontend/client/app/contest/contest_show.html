@@ -160,7 +160,15 @@
               </div>
               {{player.name}}
               <span class="pull-right">
-                {{ checkScore(player, $index) || 0 }}
+                <span ng-hide="player.isWin">{{ checkScore(player, $index) || 0 }}</span>
+                <span ng-show="player.isWin">
+                  <span ng-repeat="prize in player.winPrize">
+                    <i ng-show="prize.type!='coin'" class="fa fa-diamond" style="{{checkGemColor(prize.type)}}" aria-hidden="true"></i>
+                    <i ng-if="prize.type!='coin' && prize.value>1" class="fa fa-diamond" style="{{checkGemColor(prize.type)}}" aria-hidden="true"></i>
+                    <i ng-if="prize.type!='coin' && prize.value>1" class="fa fa-diamond" style="{{checkGemColor(prize.type)}}" aria-hidden="true"></i>
+                    <span ng-show="prize.type == 'coin'" style="color:#999;">{{prize.value}} coins</span>
+                  </span>
+                </span>
               </span>
             </td>
           </tr>
