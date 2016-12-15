@@ -656,7 +656,7 @@ exports.findProgramActive = (req, res) ->
   program = Program.find({}).select('name -_id')
   current_time = new Date().getTime()
 
-  temp = current_time
+  temp = 0
   program.exec (err, programs) ->
     if err
       return next(err)
@@ -666,18 +666,21 @@ exports.findProgramActive = (req, res) ->
       contest = Contest.find program: program.name, (err, contests) ->
         if contests
           for contest, i in contests
-            continue if contest.start_time == undefined
-            s_time = contest.start_time.getTime()
+            continue if contest.end_time == undefined
+            e_time = contest.end_time.getTime()
 
-            # console.log contest.start_time
-            # console.log s_time
-            # console.log new Date()
+            console.log contest.end_time
+            console.log e_time
 
-            if current_time > s_time
-              if s_time < temp
-                temp = s_time
-                if i == contests.length - 1
-                  bucket.push(contest)
+            console.log current_time < e_time
+            if current_time < e_time
+              if i == 0
+                temp = e_time
+              else if temp > e_time
+                temp = e_time
+
+              if i == contests.length - 1
+                bucket.push(contest)
 
     setTimeout (->
       console.log bucket
