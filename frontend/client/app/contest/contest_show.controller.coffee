@@ -329,6 +329,10 @@ angular.module 'clublootApp'
         return
       ), 1000
 
+
+  $scope.goContest = (contest) ->
+    window.location.href = "/question/#{contest._id}/"
+
 angular.module 'clublootApp'
 .directive 'gemRepeat', ($timeout, $state, $stateParams) ->
   link: (scope, element, attrs, state) ->
