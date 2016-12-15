@@ -654,19 +654,35 @@ exports.findByTemplates = (req, res) ->
 exports.findProgramActive = (req, res) ->
   bucket = []
   program = Program.find({}).select('name -_id')
+  current_time = new Date().getTime()
+
+  temp = current_time
   program.exec (err, programs) ->
     if err
       return next(err)
 
     for program in programs
-      contest = Contest.findOne({program: program.name})
-      contest.exec (err, temp) ->
-        if temp
-          bucket.push(temp)
+      # contest = Contest.findOne({program: program.name})
+      contest = Contest.find program: program.name, (err, contests) ->
+        if contests
+          for contest, i in contests
+            continue if contest.start_time == undefined
+            s_time = contest.start_time.getTime()
+
+            # console.log contest.start_time
+            # console.log s_time
+            # console.log new Date()
+
+            if current_time > s_time
+              if s_time < temp
+                temp = s_time
+                if i == contests.length - 1
+                  bucket.push(contest)
 
     setTimeout (->
+      console.log bucket
       render(res, bucket)
-    ), 100
+    ), 1000
 
 handleError = (res, err) ->
   res.status(500).json err
