@@ -50,6 +50,35 @@ angular.module 'clublootApp'
 
   socket.syncUpdates 'contest', $scope.contests
 
+  $scope.ordinal_suffix_of = (i) ->
+    j = i % 10
+    k = i % 100
+    if j == 1 and k != 11
+      return i + 'st'
+    if j == 2 and k != 12
+      return i + 'nd'
+    if j == 3 and k != 13
+      return i + 'rd'
+    i + 'th'
+
+  $scope.checkPosition = (contest) ->
+    score = []
+    cur_user = 0
+    for p, k in contest.player
+      if p.uid == $rootScope.currentUser._id
+        cur_user = k
+      score.push p.score
+    index_score = score.sort().reverse()
+    user_score = contest.player[cur_user].score
+    rank = index_score.indexOf(user_score) + 1
+    console.log index_score
+    console.log "user_score:"+user_score
+    console.log rank + 1
+    return $scope.ordinal_suffix_of(rank)
+
+
+
+
   # $scope.currentUser = Auth.getCurrentUser()
   $('body').css({background: '#fff'})
 

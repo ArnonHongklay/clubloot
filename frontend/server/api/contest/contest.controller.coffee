@@ -543,14 +543,17 @@ exports.findByTemplates = (req, res) ->
                 user.wonContest.push contest
                 user.save()
               else
+                wonList = []
                 for won, i in user.wonContest
-                  if i == user.wonContest.length - 1 && won._id != contest._id
-                    user.wonContest.push contest
-                    user.save()
-
+                  wonList.push String(won._id)
+                unless wonList.indexOf(String(contest._id)) >=0
+                  console.log wonList.indexOf(String(contest._id))
+                  console.log wonList
+                  console.log contest._id
+                  user.wonContest.push contest
               user.save()
 
-            User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
+            # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
               # console.log data
 
             WinnerLog.create {
@@ -615,3 +618,37 @@ handleError = (res, err) ->
 
 render = (res, data) ->
   res.status(200).json data
+
+
+
+
+
+
+
+
+
+
+
+exports.updateScore = (req, res) ->
+  console.log "update score"
+  Template.findById req.params.id, (err, template) ->
+
+  Contest.find { template_id: req.params.id }, (err, contests) ->
+    for contest in contests
+      Contest.findById contest._id, (err, c) ->
+        query = Question.find({'templates': req.params.id})
+        query.exec (err, templates) ->
+          for p, k in c.player
+            score = checkScore(p, templates)
+            console.log score
+            console.log "score-------"
+            c.player[k].score = score
+            c.save()
+
+    res.status(200).json {success: true}
+
+
+
+
+
+
