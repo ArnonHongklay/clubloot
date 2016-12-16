@@ -1,7 +1,12 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
+.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests, $window) ->
+
+  if $window.location.host == 'clubloot.com'
+    $window.location.replace('http://clubloot.com/landing.html')
+
+
   $scope.contests = contests.data
   $scope.id_logs = []
 
