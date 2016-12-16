@@ -23,6 +23,8 @@ module.exports = (app) ->
   app.use '/api/winner_log',      require './api/winner_log'
   app.use '/auth',                require './auth'
 
+  app.use '/subscribe',           require './subscribe'
+
   # All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*').get errors[404]
 
