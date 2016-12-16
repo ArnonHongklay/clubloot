@@ -5,6 +5,7 @@
   "dependencies": {
     "body-parser": "~1.14.1",
     "bower": "^1.7.9",
+    "coffee": "^3.3.0",
     "composable-middleware": "~0.3.0",
     "compression": "~1.6.0",
     "connect-mongo": "~0.8.1",
@@ -28,6 +29,7 @@
     "mongoose": "^4.6.6",
     "morgan": "~1.6.1",
     "node-schedule": "^1.1.1",
+    "nodemailer": "^2.7.0",
     "npm": "^4.0.2",
     "passport": "~0.3.2",
     "passport-facebook": "~2.0.0",

@@ -3,6 +3,7 @@
 angular.module 'clublootApp'
 .controller 'ContestShowCtrl', ($scope, $filter, $http, socket, $state, Auth, $stateParams, contest, program, templates, $timeout) ->
   $scope.programs = program.data
+  console.log $scope.programs
   $scope.contest = contest.data
   $scope.menu = $stateParams.contest
   $scope.$apend
@@ -346,6 +347,10 @@ angular.module 'clublootApp'
         $('#tablePlayers tr:first-child').click()
         return
       ), 1000
+
+
+  $scope.goContest = (contest) ->
+    window.location.href = "/question/#{contest._id}/"
 
 angular.module 'clublootApp'
 .directive 'gemRepeat', ($timeout, $state, $stateParams) ->

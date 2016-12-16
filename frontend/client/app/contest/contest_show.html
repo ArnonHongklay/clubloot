@@ -11,7 +11,7 @@
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="program in programs" ng-class="{menuactive: menu=='program._id'}" ui-sref="contestshow({contest: program._id})">
           <span class="pull-left">{{ program.program }}</span>
-          <span class="pull-right" style="color:red;" count-down="{{program.start_time || contest.status}}" id="getting-started"></span>
+          <span class="pull-right" style="color:red;" count-down="{{program.end_time || contest.status}}" id="getting-started"></span>
         </li>
       </ul>
     </div>
@@ -34,25 +34,31 @@
               <td class="loot" style="width:90px;">Loot</td>
               <td>Contest Name</td>
               <td style="width:100px;"></td>
+              <td style="width: 50px;"></td>
               <td style="width: 120px;padding-right:20px;text-align:center;">Players</td>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="contest in allContest | orderBy: '-max_player-player.length'" ng-click="showContestDetails(contest)" ng-show="checkActive(contest)" ng-class="{'max-room': contest.max_player<=contest.player.length}">
-              <td class="text-blue">{{contest.fee}}
+            <tr ng-repeat="contest in allContest | orderBy: '-max_player-player.length'" ng-show="checkActive(contest)" ng-class="{'max-room': contest.max_player<=contest.player.length}">
+              <td ng-click="showContestDetails(contest)" class="text-blue">{{contest.fee}}
                 <img class="money-bag" src="assets/images/money-bag-blue.png">
               </td>
-              <td class="loot gem-red">{{contest.prize}}
+              <td ng-click="showContestDetails(contest)" class="loot gem-red">{{contest.prize}}
                 <div gem-repeat="" fee="{{contest.fee}}" player="{{contest.max_player}}" gemcount="{{calGem(contest.fee, contest.max_player).count}}"></div>
               </td>
-              <td>
+              <td ng-click="showContestDetails(contest)">
                 <div class="circle blue">P</div>
                 <span class="text-contest text-blue">{{contest.name}}</span>
               </td>
-              <td>
+              <td ng-click="showContestDetails(contest)">
                 <div class="full-circle blue">M</div>
               </td>
-              <td class="text-blue text-right">{{contest.player.length}} / {{contest.max_player}} &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
+              <td ng-click="goContest(contest)">
+                <div class="btn btn-default" style="color: #fff; background: #26AE58;">
+                  Edit
+                </div>
+              </td>
+              <td ng-click="showContestDetails(contest)" class="text-blue text-right">{{contest.player.length}} / {{contest.max_player}} &nbsp<i class="fa fa-users" aria-hidden="true"></i></td>
             </tr>
           </tbody>
         </table>

@@ -355,6 +355,13 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
     # console.log contest
     myContest.start(contest)
+
+    # console.log req.body
+    User.findById req.body.user_id, (err, user) ->
+      user.coins = user.coins - contest.fee
+      # user.joinedContest = [ contest ]
+      user.save()
+
     res.status(201).json contest
 
 exports.joinContest = (req, res) ->
@@ -599,19 +606,38 @@ exports.findByTemplates = (req, res) ->
 exports.findProgramActive = (req, res) ->
   bucket = []
   program = Program.find({}).select('name -_id')
+  current_time = new Date().getTime()
+
+  temp = 0
   program.exec (err, programs) ->
     if err
       return next(err)
 
     for program in programs
-      contest = Contest.findOne({program: program.name})
-      contest.exec (err, temp) ->
-        if temp
-          bucket.push(temp)
+      # contest = Contest.findOne({program: program.name})
+      contest = Contest.find program: program.name, (err, contests) ->
+        if contests
+          for contest, i in contests
+            continue if contest.end_time == undefined
+            e_time = contest.end_time.getTime()
+
+            console.log contest.end_time
+            console.log e_time
+
+            console.log current_time < e_time
+            if current_time < e_time
+              if i == 0
+                temp = e_time
+              else if temp > e_time
+                temp = e_time
+
+              if i == contests.length - 1
+                bucket.push(contest)
 
     setTimeout (->
+      console.log bucket
       render(res, bucket)
-    ), 100
+    ), 1000
 
 handleError = (res, err) ->
   res.status(500).json err

@@ -33,13 +33,13 @@
         <div style="width: 10%; display: inline-block; float:left; color: #912927">
           <div gem-repeat="" fee="{{contest.fee}}" player="{{contest.max_player}}" gemcount="{{calGem(contest.fee, contest.max_player).count}}"></div>
         </div>
-        <div style="width: 35%; display: inline-block; float:left;" ui-sref="contestshow({contest: contest._id, liveDashboard: true})">
+        <div style="width: 35%; display: inline-block; float:left;" ng-click="goContest(contest)">
           <div style="display: inline-block; width: 30px; height: 30px; border-radius: 15px; font-size: 16px; line-height: 30px; text-align: center; border: 1px solid">H</div>
           {{contest.name}}
         </div>
-        <div style="width: 20%; display: inline-block; float:left;" ui-sref="contestshow({contest: contest._id, liveDashboard: true})">{{contest.program}}</div>
-        <div style="width: 15%; display: inline-block; float:left;">{{contest.player.length}} / {{contest.max_player}} Player
-        </div>
+
+        <div style="width: 20%; display: inline-block; float:left;" ng-click="goContest(contest)">{{contest.program}}</div>
+        <div style="width: 15%; display: inline-block; float:left;">{{contest.player.length}} / {{contest.max_player}} Player</div>
         <div style="width: 5%; display: inline-block; float:left; text-align: center;">
           <div style="color: #BB0E0E;" count-down="{{contest.end_time}}"></div>
         </div>
