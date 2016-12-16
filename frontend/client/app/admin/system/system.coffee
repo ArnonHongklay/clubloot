@@ -108,3 +108,11 @@ angular.module 'clublootApp'
     resolve:
       freeLoot: ($http, $stateParams) ->
         $http.get "/api/daily_loot"
+
+  .state 'AdminSystem.subscribe',
+    url: '/subscribe'
+    templateUrl: 'app/admin/system/subscribe/subscribe.html'
+    controller: 'AdminSystemSubscribeCtrl'
+    resolve:
+      subscribe: ($http, $stateParams) ->
+        $http.get "/subscribe"
