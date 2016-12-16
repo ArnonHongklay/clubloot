@@ -15,6 +15,15 @@ angular.module 'clublootApp'
   $scope.currentTemplate = ''
   $scope.selectedContestStatus = ''
 
+
+
+  $scope.checkJoin = (contest) ->
+    alreadyJoin = false
+    for p in contest.player
+      if Auth.getCurrentUser()._id == p.uid
+        alreadyJoin = true
+    alreadyJoin
+
   $scope.gemMatrix = {
     list:[
       { player: 2  , fee: [55, 110, 165, 220, 275, 550, 825, 1100, 1375, 2750, 4125, 5500, 6875] },
@@ -350,7 +359,8 @@ angular.module 'clublootApp'
 
 
   $scope.goContest = (contest) ->
-    window.location.href = "/question/#{contest._id}/"
+    if checkJoin(contest) == true
+      window.location.href = "/question/#{contest._id}/"
 
 angular.module 'clublootApp'
 .directive 'gemRepeat', ($timeout, $state, $stateParams) ->
