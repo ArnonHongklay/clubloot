@@ -32,6 +32,16 @@ exports.set = (req, res) ->
     # saved!
     res.json gems
 
+exports.today = (req, res) ->
+  start = new Date()
+  s = start.setHours(0,0,0,0)
+  end = new Date();
+  e = end.setHours(23,59,59,999)
+
+  WinnerLog.find { created_at: {$gte: s, $lt: e} }, (err, winner_logs) ->
+    return handleError(res, err)  if err
+    res.status(200).json winner_logs
+
 # Creates a new contest in the DB.
 exports.create = (req, res) ->
   # console.log req.body

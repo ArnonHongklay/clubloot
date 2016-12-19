@@ -8,6 +8,7 @@ angular.module 'clublootApp', [
   'ui.router',
   'ui.bootstrap',
   'ngFileUpload',
+  'nvd3',
   'angularMoment'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->

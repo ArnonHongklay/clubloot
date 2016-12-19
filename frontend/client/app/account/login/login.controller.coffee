@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'LoginCtrl', ($scope, Auth, $location, $window) ->
+.controller 'LoginCtrl', ($scope, Auth, $location, $window, $http) ->
   $('body').css({background: '#50ACC4'})
   $scope.user = {}
   $scope.errors = {}
@@ -20,6 +20,7 @@ angular.module 'clublootApp'
       .catch (err) ->
         $scope.errors.other = err.message
     #location.reload()
+
 
   $scope.loginOauth = (provider) ->
     $window.location.href = '/auth/' + provider
