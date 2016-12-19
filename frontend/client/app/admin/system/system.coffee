@@ -15,19 +15,7 @@ angular.module 'clublootApp'
 
   .state 'AdminSystem.dailyLoot',
     url: '/dailyLoot'
-    templateUrl: 'app/admin/system/dailyLoot/daily_loot.html'
-    controller: 'AdminSystemDailyLootCtrl'
-    resolve:
-      signinCounts: ($http, $stateParams) ->
-        $http.get "/api/signin_log/today"
-      winnerLogs: ($http, $stateParams) ->
-        $http.get "/api/winner_log/today"
-      allWinnerLogs: ($http, $stateParams) ->
-        $http.get "/api/winner_log"
-
-  .state 'AdminSystem.dailyLoots',
-    url: '/daily_loot'
-    templateUrl: 'app/admin/system/dailyLoot/daily_loot.html'
+    templateUrl: 'app/admin/system/dailyloot/daily_loot.html'
     controller: 'AdminSystemDailyLootCtrl'
     resolve:
       signinCounts: ($http, $stateParams) ->
