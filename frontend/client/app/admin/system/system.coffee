@@ -15,7 +15,7 @@ angular.module 'clublootApp'
 
   .state 'AdminSystem.dailyLoot',
     url: '/dailyLoot'
-    templateUrl: 'app/admin/system/dailyLoot/dailyLoot.html'
+    templateUrl: 'app/admin/system/dailyLoot/daily_loot.html'
     controller: 'AdminSystemDailyLootCtrl'
     resolve:
       signinCounts: ($http, $stateParams) ->
