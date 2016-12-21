@@ -39,11 +39,13 @@ exports.upcoming_contest = (req, res) ->
 
   temp = 0
   program.exec (err, programs) ->
-    if err
-      return next(err)
+    return next(err) if err
 
     for program in programs
       # contest = Contest.findOne({program: program.name})
+      total_contest = 0
+      total_coin = 0
+
       contest = Contest.find program: program.name, (err, contests) ->
         if contests
           for contest, i in contests
@@ -56,10 +58,22 @@ exports.upcoming_contest = (req, res) ->
               else if temp > e_time
                 temp = e_time
 
-              if i == contests.length - 1
-                console.log contests.length
-                bucket.push(contest)
+              total_contest += 1
+              total_coin += contest.loot.prize
 
+              if i == contests.length - 1
+                console.log total_contest
+                console.log total_coin
+                # console.log contests.length
+                c = {
+                  contest
+                  total: {
+                    total_contest: total_contest
+                    total_coin: total_coin
+                  }
+                }
+
+                bucket.push(c)
 
     setTimeout (->
       console.log bucket

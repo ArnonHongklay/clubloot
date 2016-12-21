@@ -9,10 +9,10 @@ angular.module 'clublootApp'
     controller: 'AdminDashboardCtrl'
     resolve:
       player: ($http, $stateParams, $state) ->
-        $http.get "/dashboard/player"
+        $http.get "/api/v2/dashboard/player"
       tournament: ($http, $stateParams, $state) ->
-        $http.get "/dashboard/tournament"
+        $http.get "/api/v2/dashboard/tournament"
       contests: ($http, $stateParams, $state) ->
-        $http.get "/dashboard/contests"
+        $http.get "/api/v2/dashboard/contests"
       rich: ($http, $stateParams, $state) ->
-        $http.get "/dashboard/rich"
+        $http.get "/api/v2/dashboard/rich"

@@ -66,74 +66,16 @@
                   Coins
                 </td>
               </tr>
-              <tr>
+              <tr ng-repeat="program in programs">
                 <td class="b-text">
-                  Big Brother
+                  {{program.contest.program}}
                 </td>
-                <td class="r-text">
-                  00:16
+                <td class="r-text" count-down="{{program.contest.end_time || program.contest.status}}"></td>
+                <td>
+                  {{program.total.total_contest}}
                 </td>
                 <td>
-                  10,778
-                </td>
-                <td>
-                  44,556,778
-                </td>
-              </tr>
-              <tr>
-                <td class="b-text">
-                  Academy Awards
-                </td>
-                <td class="r-text">
-                  12:39
-                </td>
-                <td>
-                  21,125
-                </td>
-                <td>
-                  90,123,456
-                </td>
-              </tr>
-              <tr>
-                <td class="b-text">
-                  Bachelorette
-                </td>
-                <td>
-                  Jun 08
-                </td>
-                <td>
-                  592
-                </td>
-                <td>
-                  1,223,544
-                </td>
-              </tr>
-              <tr>
-                <td class="b-text">
-                  Survivor
-                </td>
-                <td>
-                  Jun 10
-                </td>
-                <td>
-                  81
-                </td>
-                <td>
-                  999,009
-                </td>
-              </tr>
-              <tr>
-                <td class="b-text">
-                  Amazing Race
-                </td>
-                <td>
-                  Jun 24
-                </td>
-                <td>
-                  10
-                </td>
-                <td>
-                  299,112
+                  {{program.total.total_coin}}
                 </td>
               </tr>
             </tbody>
