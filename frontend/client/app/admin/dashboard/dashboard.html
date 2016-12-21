@@ -11,13 +11,13 @@
         <div class="row" style="margin-top: 30px;">
           <div class="a-value-box col-md-4">
             <div class="in-value-box">
-              <div class="num">123,456</div>
+              <div class="num">{{player}}</div>
               <div class="title">Players</div>
             </div>
           </div>
           <div class="a-value-box col-md-4">
             <div class="in-value-box">
-              <div class="num">234,567</div>
+              <div class="num">{{tournament}}</div>
               <div class="title">Tournaments</div>
             </div>
           </div>
@@ -144,55 +144,10 @@
       <div class="col-sm-12 col-md-6">
         <h5 style="font-weight: 600!important;font-size:16px;">The Rich List</h5>
         <ul class="list-group">
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
+          <li ng-repeat="rc in rich" class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
+            <span class="pull-left b-text">[{{ rc.email || rc.first_name }}]</span>
+            <span class="pull-right g-text">{{ rc.coins }}</span>
           </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-          <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-            <span class="pull-left b-text">[sereen_name]</span>
-            <span class="pull-right g-text">Coins</span>
-          </li>
-
         </ul>
       </div>
 
