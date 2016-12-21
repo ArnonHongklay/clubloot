@@ -4,13 +4,13 @@
     <div class="row" style="margin-top: 30px;">
       <div class="a-value-box col-md-4" ng-click="showSystemModal='100,243'">
         <div class="in-value-box" ng-class="{'blue-box': showSystemModal=='100,243'}">
-          <div class="num">100,243</div>
+          <div class="num">{{signinCounts}}</div>
           <div class="title">Sign Ins</div>
         </div>
       </div>
       <div class="a-value-box col-md-4" ng-click="showSystemModal='200,468,000'">
         <div class="in-value-box" ng-class="{'blue-box': showSystemModal=='200,468,000'}">
-          <div class="num">200,468,000</div>
+          <div class="num">{{lootClaimed | currency:"":0}}</div>
           <div class="title">Loot Claimed</div>
         </div>
       </div>
@@ -37,7 +37,7 @@
 
       </div>
       <div class="col-md-12" style="margin-top: 20px;">
-        <img  style="width: 100%;height:auto;" src="assets/images/bar.png">
+        <nvd3 options='options' data='data'></nvd3>
       </div>
     </div>
 
@@ -46,53 +46,12 @@
   <div class="col-md-6">
     <h5 style="font-weight: 600!important;font-size:16px;">Today's Loot Claimed</h5>
     <ul class="list-group">
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
-      </li>
-      <li class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
-        <span class="pull-left b-text">[sereen_name]</span>
-        <span class="pull-right g-text">Coins</span>
+
+
+
+      <li class="list-group-item" ng-repeat="c in todayClaimed" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
+        <span class="pull-left b-text">{{c.contest_name}}</span>
+        <span class="pull-right g-text">{{c.prize}} Coins</span>
       </li>
 
     </ul>

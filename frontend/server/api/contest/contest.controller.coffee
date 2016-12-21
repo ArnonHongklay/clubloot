@@ -567,8 +567,10 @@ exports.findByTemplates = (req, res) ->
               user_id: winner.uid,
               contest_id: c._id,
               template_id: req.params.id,
+              contest_name: c.name,
               score: winner.score,
               prize:  c.loot.prize
+              created_at: new Date()
               }, (err, winnerlog) ->
                 # console.log "callback"
 

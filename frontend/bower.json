@@ -25,7 +25,9 @@
     "datetimepicker": "^2.5.4",
     "ng-file-upload-shim": "^12.2.9",
     "jquery.countdown": "^2.2.0",
-    "angular-moment": "^0.10.3"
+    "angular-moment": "^0.10.3",
+    "d3": "^4.4.0",
+    "angular-nvd3": "^1.0.9"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.*",

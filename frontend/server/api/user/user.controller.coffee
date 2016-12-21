@@ -5,6 +5,7 @@ _ = require 'lodash'
 User = require './user.model'
 passport = require 'passport'
 config = require '../../config/environment'
+SigninLog = require '../signin_log/signin_log.model'
 jwt = require 'jsonwebtoken'
 
 DateDiff =
@@ -60,10 +61,24 @@ exports.show = (req, res, next) ->
   userId = req.params.id
   User.findById userId, (err, user) ->
     # console.log user
+    today = new Date()
+    unless user.last_seen
+      console.log "last_seen1"
+      SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
+        user.last_seen = new Date()
+        user.save()
+        console.log SigninLog
+    if user.last_seen
+      unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
+        console.log "last_seen2"
+        SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
+          console.log SigninLog
+          user.last_seen = new Date()
+          user.save()
     if user
       if user.free_loot_log.length > 0
         prevDay = user.free_loot_log[user.free_loot_log.length-1].date
-        today = new Date()
+
         freeStatus = DateDiff.inDays(prevDay, today)
         if freeStatus > 0
           user.free_loot = true
