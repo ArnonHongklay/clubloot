@@ -25,7 +25,7 @@ module.exports = (app) ->
   app.use '/auth',                require './auth'
 
   app.use '/subscribe',           require './subscribe'
-  app.use '/api/v2/dashboard',    require './dashboard'
+  app.use '/api/v2/dashboard',    require './api/v2/dashboard'
 
   # All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*').get errors[404]

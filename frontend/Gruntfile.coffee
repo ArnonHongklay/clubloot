@@ -223,7 +223,7 @@ module.exports = (grunt) ->
 
           callback: (nodemon) ->
             nodemon.on 'log', (event) ->
-              # console.log event.colour
+              console.log event.colour
 
             # opens browser on initial server start
             nodemon.on 'config:update', ->
@@ -319,7 +319,6 @@ module.exports = (grunt) ->
       options:
 
         # This should be the name of your apps angular module
-        module: 'clublootApp'
         htmlmin:
           collapseBooleanAttributes: true
           collapseWhitespace: true
@@ -588,7 +587,7 @@ module.exports = (grunt) ->
         'env:prod'
         'express:prod'
         'wait'
-        # 'open'
+        'open'
         'express-keepalive'
       ]
 
@@ -614,7 +613,7 @@ module.exports = (grunt) ->
       'autoprefixer'
       'express:dev'
       'wait'
-      # 'open'
+      'open'
       'watch'
     ]
 
@@ -686,3 +685,4 @@ module.exports = (grunt) ->
     'test'
     'build'
   ])
+

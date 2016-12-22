@@ -3,9 +3,9 @@
 
 _ = require 'lodash'
 nodemailer = require 'nodemailer'
-Player = require '../api/user/user.model'
-Contest = require '../api/contest/contest.model'
-Program = require '../api/program/program.model'
+Player = require '../../user/user.model'
+Contest = require '../../contest/contest.model'
+Program = require '../../program/program.model'
 
 exports.index = (req, res) ->
   Player.find (err, players) ->
