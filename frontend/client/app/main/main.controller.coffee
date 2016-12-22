@@ -1,12 +1,12 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests, $window) ->
-
+.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests, $window, broadcasts) ->
+  $scope.socket = socket.socket
   if $window.location.host == 'clubloot.com'
     $window.location.replace('http://clubloot.com/landing.html')
 
-
+  $scope.broadcasts = broadcasts.data
   $scope.contests = contests.data
   $scope.id_logs = []
 
@@ -54,6 +54,22 @@ angular.module 'clublootApp'
   }
 
   socket.syncUpdates 'contest', $scope.contests
+
+  $scope.socket.on 'message', (data) ->
+    $rootScope.currentUser.messages.unshift data
+    return
+
+  $scope.deleteMessage = (index) ->
+    console.log index
+    $rootScope.currentUser.messages.splice(index, 1)
+    console.log $rootScope.currentUser.messages
+    $http.put("/api/users/#{$rootScope.currentUser._id}/deletemessage",
+      $rootScope.currentUser.messages
+    ).success((ok) ->
+      console.log ok
+    ).error((data, status, headers, config) ->
+      swal("Not Active")
+    )
 
   $scope.ordinal_suffix_of = (i) ->
     j = i % 10

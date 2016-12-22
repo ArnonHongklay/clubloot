@@ -433,7 +433,6 @@ exports.findAllProgram = (req, res) ->
     ), 100
 
 exports.findByTemplates = (req, res) ->
-  # console.log "test #{req.params.id}"
 
   Template.findById req.params.id, (err, template) ->
     template.active = false

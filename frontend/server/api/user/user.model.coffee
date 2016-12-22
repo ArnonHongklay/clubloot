@@ -43,6 +43,7 @@ UserSchema = new Schema(
   prizes: Number
   wonContest: []
   joinedContest: []
+  messages: []
   last_seen: Date
   free_loot: { type: Boolean, default: true }
   free_loot_log: [

@@ -2,109 +2,35 @@
   <div class="col-md-6">
     <h5>New Announcement</h5>
     <div class="input-block">
-      <div class="title g-text">Publish Date</div>
-      <input type="date">
+      <div class="title g-text">Publish at</div>
+      <input class="datetimepicker form-control" type="text" ng-model="newMessage.publish_time" required>
     </div>
-    <div class="input-block">
-      <div class="title g-text">Publish Time</div>
-      <input>
-    </div>
+
     <div class="input-block">
       <div class="title g-text">Announcement
-        <span class="pull-right">0/400</span>
+        <span class="pull-right">{{newMessage.message.length || 0}}/400</span>
       </div>
 
-      <textarea></textarea>
+      <textarea ng-model="newMessage.message" ng-change="checkTextLenght()"></textarea>
       <div class="title r-text" style="font-size: 10px;">Please thoroughly check your spelling, grammar, and content before publishing this announcement.</div>
     </div>
-    <div class="btn submit-btn pull-left" ng-click="showSystemModal=true">SUBMIT</div>
+    <div class="btn submit-btn pull-left" ng-click="saveMessage()">SUBMIT</div>
   </div>
 
   <div class="col-md-6">
   <h5>Previous Announcement</h5>
-    <div class="p-message-block">
-      <div class="title">[Date][Time]<span class="pull-right">[User]</span></div>
+    <div class="p-message-block" ng-repeat="message in messages">
+      <div class="title">{{message.publish_time}}
+        <span class="pull-right">By {{message.postBy}}</span>
+      </div>
       <div class="message-box">
         <div class="message g-text">
-          Message
+        {{message.message}}
         </div>
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
+
       </div>
     </div>
 
-    <div class="p-message-block">
-      <div class="title">[Date][Time]<span class="pull-right">[User]</span></div>
-      <div class="message-box">
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
-      </div>
-    </div>
-
-    <div class="p-message-block">
-      <div class="title">[Date][Time]<span class="pull-right">[User]</span></div>
-      <div class="message-box">
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
-      </div>
-    </div>
-
-    <div class="p-message-block">
-      <div class="title">[Date][Time]<span class="pull-right">[User]</span></div>
-      <div class="message-box">
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
-      </div>
-    </div>
-
-    <div class="p-message-block">
-      <div class="title">[Date][Time]<span class="pull-right">[User]</span></div>
-      <div class="message-box">
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
-      </div>
-    </div>
-
-    <div class="p-message-block">
-      <div class="title">[Date][Time]<span class="pull-right">[User]</span></div>
-      <div class="message-box">
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
-        <div class="message g-text">
-          Message
-        </div>
-      </div>
-    </div>
 
   </div>
 

@@ -10,6 +10,8 @@ angular.module 'clublootApp'
     resolve:
       contests: ($http, $stateParams, $state) ->
         $http.get '/api/contest'
+      broadcasts: ($http, $stateParams, $state) ->
+        $http.get '/api/broadcast'
 
   .state 'won',
     url: '/won'

@@ -1,9 +1,14 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope, $timeout) ->
+.controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope, $timeout, socket) ->
   # console.log "NavbarCtrl"
 
+  $scope.socket = socket.socket
+
+  $scope.socket.on 'message', (data) ->
+    console.log data
+    return
 
   $scope.reAfterLoot = () ->
     # console.log "wpoepwoepwoepowpeowpeowpoewoepwofosfospfosp"

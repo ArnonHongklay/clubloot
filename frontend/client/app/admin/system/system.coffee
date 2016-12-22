@@ -12,6 +12,9 @@ angular.module 'clublootApp'
     url: '/announcements'
     templateUrl: 'app/admin/system/announcements/announcements.html'
     controller: 'AdminSystemAnnouncementsCtrl'
+    resolve:
+      messages: ($http, $stateParams) ->
+        $http.get "/api/broadcast"
 
   .state 'AdminSystem.dailyLoot',
     url: '/dailyLoot'

@@ -46,6 +46,8 @@ exports.create = (req, res, next) ->
   newUser.provider = 'local'
   newUser.role = 'user'
   newUser.save (err, user) ->
+    user.messages = []
+    user.save()
     return validationError(res, err)  if err
     token = jwt.sign(
       _id: user._id
@@ -60,7 +62,8 @@ Get a single user
 exports.show = (req, res, next) ->
   userId = req.params.id
   User.findById userId, (err, user) ->
-    # console.log user
+    console.log "-----------------------==============================="
+    console.log user
     today = new Date()
     unless user.last_seen
       console.log "last_seen1"
@@ -89,6 +92,12 @@ exports.show = (req, res, next) ->
 ###*
 Get a single user
 ###
+
+exports.deleteMessage = (req, res) ->
+  User.findById req.params.id, (err, user) ->
+    user.messages = req.body
+    user.save()
+    res.status(200).json user
 
 exports.update = (req, res) ->
   User.findById req.params.id, (err, user) ->
