@@ -5,11 +5,15 @@
 </div>
 <div class="row">
   <div class="col-lg-12">
-    <div class="alert alert-info" role="alert" ng-repeat="message in $root.currentUser.messages">
-      <div ng-click="deleteMessage($index)" style="position:absolute;right: 0px;cursor:pointer;color: red;font-size: 22px;margin-top:-18px;margin-right: 20px;"><i class="fa fa-times" aria-hidden="true" ></i></div>
-      <i style="font-size: 25px;color: #999;" class="fa fa-bullhorn" aria-hidden="true"></i>
+    <div class="alert alert-info" style="padding: 5px 10px 0px 10px;
+    line-height: 15px;
+    margin-bottom: 5px;" role="alert" ng-repeat="message in $root.currentUser.messages"
+    ng-click="openMessage($index)"
+    >
+      <div class="close-message" ng-click="deleteMessage($index)">{{openMessage}}<i class="fa fa-times" aria-hidden="true" ></i></div>
+      <i style="font-size: 25px;color: #999;margin-top:3;" class="fa fa-bullhorn" aria-hidden="true"></i>
       <span class="sr-only"></span>
-      <span style="margin-left:20px;text-indent:20px;">{{message.message}}</span>
+      <div class="message" ng-class="{'open':$root.openMessage==$index}">skfl;sdkf;lksd;lfksl;kf;sdkfl;dskfdsnewbinwbinreibnrienbribrbrnbnribnribnirnbirnbnrebrnbinrebneroibnrenbrinbirdskfdsnewbinwbinreibnrienbribrbrnbnribnribnirnbirnbnrebrnbinrebneroibnrenbrinbirdskfdsnewbinwbinreibnrienbribrbrnbnribnribnirnbirnbnrebrnbinrebneroibnrenbrinbirdskfdsnewbinwbinreibnrienbribrbrnbnribnribnirnbirnbnrebrnbinrebneroibnrenbrinbirdskfdsnewbinwbinreibnrienbribrbrnbnribnribnirnbirnbnrebrnbinrebneroibnrenbrinbirdskfdsnewbinwbinreibnrienbribrbrnbnribnribnirnbirnbnrebrnbinrebneroibnrenbrinbirdskfdsnewbinwbinreibnrienbribrbrnbnribnribnirnbirnbnrebrnbinrebneroibnrenbrinbirdskfdsnewbinwbinreibnrienbribrbrnbnribnribnirnbirnbnrebrnbinrebneroibnrenbrinbir{{message.message}}</div>
     </div>
   </div>
 </div>

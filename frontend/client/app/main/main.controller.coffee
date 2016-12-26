@@ -1,10 +1,16 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests, $window, broadcasts) ->
+.controller 'MainCtrl', ($scope, $http, socket, $rootScope, Auth, contests, $window, broadcasts, $timeout) ->
   $scope.socket = socket.socket
+  $rootScope.openMessage = "k"
   if $window.location.host == 'clubloot.com'
     $window.location.replace('http://clubloot.com/landing.html')
+
+  $timeout ->
+    $('#anoucebox').collapsible 'accordion-open', contentOpen: 1
+
+  , 200
 
   $scope.broadcasts = broadcasts.data
   $scope.contests = contests.data
@@ -70,6 +76,14 @@ angular.module 'clublootApp'
     ).error((data, status, headers, config) ->
       swal("Not Active")
     )
+
+  $('#anoucebox').collapsible 'accordion-open', contentOpen: 1
+
+
+  $scope.openMessage = (index) ->
+    console.log index
+    return $rootScope.openMessage = "k" if $rootScope.openMessage == index
+    $rootScope.openMessage = index
 
   $scope.ordinal_suffix_of = (i) ->
     j = i % 10

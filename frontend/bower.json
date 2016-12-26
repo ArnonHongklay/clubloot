@@ -27,7 +27,8 @@
     "jquery.countdown": "^2.2.0",
     "angular-moment": "^0.10.3",
     "d3": "^4.4.0",
-    "angular-nvd3": "^1.0.9"
+    "angular-nvd3": "^1.0.9",
+    "collapsible.js": "^1.1.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.*",

@@ -76,3 +76,46 @@
   color: #797A7C !important;
   background: #fff !important;
 }
+
+.collapse-container>:nth-child(even) {
+    display : none;
+}
+.alert-info {
+  .message {
+    cursor: pointer;
+    margin-left: 20px;
+    text-indent: 20px;
+    position: relative;
+    margin-top: -21px;
+    width: 100%;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    padding: 0px 40px 10px 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    &.open{
+      white-space: normal;
+    }
+  }
+
+  .close-message {
+    position: absolute;
+    z-index: 999;
+    display: none;
+    right: 0px;
+    cursor: pointer;
+    color: #999;
+    font-size: 22px;
+    margin-top: -4px;
+    margin-right: 20px;
+    &:hover {
+      color: red;
+    }
+  }
+}
+.alert-info:hover {
+  .close-message {
+    display: block;
+  }
+}
+

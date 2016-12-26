@@ -7,13 +7,18 @@ angular.module 'clublootApp'
 
   console.log $scope.messages
 
+  $scope.checkTime = (message) ->
+    new Date(message.publish_time) > new Date()
+
   $scope.saveMessage = () ->
+    return if $scope.newMessage.message == ''
+    return if $scope.newMessage.publish_time == ''
     $scope.newMessage.postBy = Auth.getCurrentUser().email
     $http.post("/api/broadcast",
       $scope.newMessage
     ).success((data, status, headers, config) ->
-
-      console.log data
+      $scope.messages.unshift(data)
+      $scope.newMessage = {message:'', publish_time:'', postBy:''}
       swal("Announcements created")
     ).error((data, status, headers, config) ->
       swal("Not found!!")

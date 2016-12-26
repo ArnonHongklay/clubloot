@@ -61,6 +61,7 @@ Get a single user
 ###
 exports.show = (req, res, next) ->
   userId = req.params.id
+  console.log req.params.id
   User.findById userId, (err, user) ->
     console.log "-----------------------==============================="
     console.log user
