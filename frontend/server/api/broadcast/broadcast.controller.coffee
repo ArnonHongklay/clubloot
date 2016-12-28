@@ -36,6 +36,8 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
 
     schedule.scheduleJob(broadcast.publish_time, ->
+      console.log "999999999999999999999990000000000000000000000000"
+      console.log broadcast
       User.update {}, { $push: {messages: broadcast} }, { upsert: true, multi: true }, (err) ->
         console.log "9999"
         console.log broadcast

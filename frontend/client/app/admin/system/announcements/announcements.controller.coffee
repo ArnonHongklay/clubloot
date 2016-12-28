@@ -13,6 +13,7 @@ angular.module 'clublootApp'
   $scope.saveMessage = () ->
     return if $scope.newMessage.message == ''
     return if $scope.newMessage.publish_time == ''
+    console.log $scope.newMessage
     $scope.newMessage.postBy = Auth.getCurrentUser().email
     $http.post("/api/broadcast",
       $scope.newMessage

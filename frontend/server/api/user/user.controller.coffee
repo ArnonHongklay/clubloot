@@ -63,6 +63,7 @@ exports.show = (req, res, next) ->
   userId = req.params.id
   console.log req.params.id
   User.findById userId, (err, user) ->
+    return res.status(401).end()  unless user
     console.log "-----------------------==============================="
     console.log user
     today = new Date()
