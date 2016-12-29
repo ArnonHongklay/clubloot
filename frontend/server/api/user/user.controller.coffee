@@ -3,6 +3,9 @@
 _ = require 'lodash'
 
 User = require './user.model'
+Contest = require '../contest/contest.model'
+WinnerLog = require './winner_log/winner_log.model'
+
 passport = require 'passport'
 config = require '../../config/environment'
 SigninLog = require '../signin_log/signin_log.model'
@@ -178,13 +181,36 @@ exports.me = (req, res, next) ->
     return res.json user
 
 exports.showContests = (req, res, next) ->
-  userId = req.user._id
+  console.log "show contest"
+  console.log req.params
+  # console.log req.body
+
+  userId = req.params.id
+  status = req.params.status
+
   User.findOne
     _id: userId
   , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
     return next(err)  if err
     return res.status(401).end() unless user
-    return res.json user
+    # console.log user
+    if status == 'active'
+      Contest.where('player.uid').equals(user._id).where('stage').in(['upcoming', 'live']).exec (err, contest) ->
+        return res.json contest
+    else if status == 'completed'
+      Contest.where('player.uid').equals(user._id).where('stage').equals('close').exec (err, contest) ->
+        return res.json contest
+    else if status == 'Won'
+      WinnerLog.where('user_id').equals(user._id).select('contest_id').exec (err, won) ->
+        # Contest.where('player.uid').equals(user._id).exec (err, contest) ->
+        return res.json won
+
+    else if status == 'hosting'
+      Contest.where('owner').equals(user.email).exec (err, contest) ->
+        return res.json contest
+    else if status == 'participating'
+      Contest.where('player.uid').equals(user._id).exec (err, contest) ->
+        return res.json contest
 
 exports.showTransactions = (req, res, next) ->
   userId = req.user._id

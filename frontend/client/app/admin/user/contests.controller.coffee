@@ -1,35 +1,11 @@
 
 angular.module 'clublootApp'
-.controller 'AdminUserContestsCtrl', ($scope, $http, socket) ->
-  # console.log "AdminUserContestsCtrl"
+.controller 'AdminUserContestsCtrl', ($scope, $http, socket, $state, $stateParams) ->
+  console.log $scope.user._id
+  console.log "/api/users/#{$scope.user._id}/contests"
 
-  $scope.programList = [
-    {
-      name: 'Academy Awards'
-      play: true
-    },{
-      name: 'Amazing Race'
-      play: true
-    },{
-      name: 'Bachelor'
-      play: true
-    },{
-      name: 'Bachelorette'
-      play: true
-    },{
-      name: 'Big Brother'
-      play: true
-    },{
-      name: 'Emmys'
-      play: false
-    },{
-      name: 'Golden Globes'
-      play: true
-    },{
-      name: 'Grammys'
-      play: true
-    },{
-      name: 'Survivor'
-      play: false
-    }
-  ]
+  $scope.menu = (status) ->
+    $scope.menuActiveContest = status
+    $scope.contests = []
+    $http.get("/api/users/#{$scope.user._id}/contests/#{status}").success (data) ->
+      console.log $scope.contests = data
