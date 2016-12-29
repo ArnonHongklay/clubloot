@@ -69,13 +69,6 @@ exports.show = (req, res, next) ->
     today = new Date()
 
     if user
-      # console.log "xxx "
-      # console.log today.getDate() - user.last_seen.getDate()
-      user.total_logins = user.total_logins + 1
-      if today.getDate() - user.last_seen.getDate() == 0
-        user.consecutive_logins = user.consecutive_logins + 1
-      user.save()
-
       unless user.last_seen
         console.log "last_seen1"
         SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
@@ -90,6 +83,13 @@ exports.show = (req, res, next) ->
             console.log SigninLog
             user.last_seen = new Date()
             user.save()
+
+        # console.log "xxx "
+        # console.log today.getDate() - user.last_seen.getDate()
+        user.total_logins = user.total_logins + 1
+        if today.getDate() - user.last_seen.getDate() == 0
+          user.consecutive_logins = user.consecutive_logins + 1
+        user.save()
 
     if user
       if user.free_loot_log.length > 0
