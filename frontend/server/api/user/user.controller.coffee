@@ -42,11 +42,13 @@ exports.index = (req, res) ->
 Creates a new user
 ###
 exports.create = (req, res, next) ->
+  console.log req.body
   newUser = new User(req.body)
   newUser.provider = 'local'
   newUser.role = 'user'
+  newUser.last_seen = ''
   newUser.save (err, user) ->
-    return validationError(res, err)  if err
+    return validationError(res, err) if err
     token = jwt.sign(
       _id: user._id
     , config.secrets.session,

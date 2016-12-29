@@ -62,10 +62,10 @@
             Birthday:
           </div>
           <div class="col-sm-8 record-table">
-            <input type="text" ng-model="user.birthday" placeholder="Birthday">
+            <input type="text" ng-model="user.birthday" placeholder="Birthday" dob-check>
           </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
           <div class="col-sm-4 record-table">
             Billing Address:
           </div>
@@ -96,7 +96,7 @@
           <div class="col-sm-8 record-table">
             <input type="text" ng-model="user.billing_zipcode" placeholder="Zip Code">
           </div>
-        </div>
+        </div>-->
         <div class="row">
           <div class="col-sm-4 record-table">
             Mailing Address:
@@ -137,26 +137,10 @@
       <div class="col-sm-6">
         <div class="row">
           <div class="col-sm-4 record-table">
-            Lifetime purchases:
-          </div>
-          <div class="col-sm-8 record-table">
-            <input type="text" ng-model="user.lifetime_puchases">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4 record-table">
-            Lastest purchase:
-          </div>
-          <div class="col-sm-8 record-table">
-            <input type="text" ng-model="user.lastest_purchase">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4 record-table">
             Total logins:
           </div>
           <div class="col-sm-8 record-table">
-            <input type="text" ng-model="user.total_logins">
+            {{user.total_logins}}
           </div>
         </div>
         <div class="row">
@@ -164,7 +148,7 @@
             Consecutive logins:
           </div>
           <div class="col-sm-8 record-table">
-            <input type="text" ng-model="user.consecutive_logins">
+            {{user.consecutive_logins}}
           </div>
         </div>
 

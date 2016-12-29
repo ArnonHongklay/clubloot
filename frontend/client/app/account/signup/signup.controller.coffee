@@ -15,7 +15,8 @@ angular.module 'clublootApp'
         name: $scope.user.name
         email: $scope.user.email
         password: $scope.user.password
-
+        birthday: $scope.user.dob
+        username: $scope.user.username
       .then ->
         $location.path '/'
 
