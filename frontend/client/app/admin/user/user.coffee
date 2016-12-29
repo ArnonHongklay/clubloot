@@ -18,26 +18,26 @@ angular.module 'clublootApp'
 
 
   .state 'Adminuser.contests',
-    url: '/contests'
+    url: '/:user_id/contests'
     templateUrl: 'app/admin/user/contests.html'
     controller: 'AdminUserContestsCtrl'
 
   .state 'Adminuser.transactions',
-    url: '/transactions'
+    url: '/:user_id/transactions'
     templateUrl: 'app/admin/user/transactions.html'
     controller: 'AdminUserTransactionsCtrl'
 
   .state 'Adminuser.prizes',
-    url: '/prizes'
+    url: '/:user_id/prizes'
     templateUrl: 'app/admin/user/prizes.html'
     controller: 'AdminUserPrizesCtrl'
 
   .state 'Adminuser.notes',
-    url: '/notes'
+    url: '/:user_id/notes'
     templateUrl: 'app/admin/user/notes.html'
     controller: 'AdminUserNotesCtrl'
 
   .state 'Adminuser.accounting',
-    url: '/accounting'
+    url: '/:user_id/accounting'
     templateUrl: 'app/admin/user/accounting.html'
     controller: 'AdminUserAccountingCtrl'

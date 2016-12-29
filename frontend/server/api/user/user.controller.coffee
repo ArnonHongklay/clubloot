@@ -63,27 +63,30 @@ exports.show = (req, res, next) ->
   userId = req.params.id
   User.findById userId, (err, user) ->
     # console.log user
-    today = new Date()
-    unless user.last_seen
-      console.log "last_seen1"
-      SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
-        user.last_seen = new Date()
-        user.save()
-        console.log SigninLog
-    if user.last_seen
-      unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
-        console.log "last_seen2"
+    if user
+      today = new Date()
+
+      unless user.last_seen
+        console.log "last_seen1"
         SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
-          console.log SigninLog
           user.last_seen = new Date()
           user.save()
-    if user
+          console.log SigninLog
+      if user.last_seen
+        unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
+          console.log "last_seen2"
+          SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
+            console.log SigninLog
+            user.last_seen = new Date()
+            user.save()
+
       if user.free_loot_log.length > 0
         prevDay = user.free_loot_log[user.free_loot_log.length-1].date
 
         freeStatus = DateDiff.inDays(prevDay, today)
         if freeStatus > 0
           user.free_loot = true
+
     return next(err)  if err
     return res.status(401).end()  unless user
     res.json user
@@ -166,6 +169,33 @@ exports.changePassword = (req, res, next) ->
 Get my info
 ###
 exports.me = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+    return next(err)  if err
+    return res.status(401).end() unless user
+    return res.json user
+
+exports.showContests = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+    return next(err)  if err
+    return res.status(401).end() unless user
+    return res.json user
+
+exports.showTransactions = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+    return next(err)  if err
+    return res.status(401).end() unless user
+    return res.json user
+
+exports.accounting = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId

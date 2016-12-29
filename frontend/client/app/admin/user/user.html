@@ -13,12 +13,12 @@
   <div class="row">
     <div class="col-sm-12">
       <ul class="nav nav-tabs">
-        <li><a ui-sref="Adminuser.profile">Profile</a></li>
-        <li><a ui-sref="Adminuser.contests">Contests</a></li>
-        <li><a ui-sref="Adminuser.transactions">Transactions</a></li>
-        <li><a ui-sref="Adminuser.prizes">Prizes</a></li>
-        <li><a ui-sref="Adminuser.notes">Notes</a></li>
-        <li><a ui-sref="Adminuser.accounting">Accounting</a></li>
+        <li><a ui-sref="Adminuser.profile({user_id: user._id})">Profile</a></li>
+        <li><a ui-sref="Adminuser.contests({user_id: user._id})">Contests</a></li>
+        <li><a ui-sref="Adminuser.transactions({user_id: user._id})">Transactions</a></li>
+        <li><a ui-sref="Adminuser.prizes({user_id: user._id})">Prizes</a></li>
+        <li><a ui-sref="Adminuser.notes({user_id: user._id})">Notes</a></li>
+        <li><a ui-sref="Adminuser.accounting({user_id: user._id})">Accounting</a></li>
       </ul>
     </div>
   </div>
