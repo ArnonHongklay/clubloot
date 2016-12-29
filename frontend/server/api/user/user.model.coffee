@@ -33,8 +33,8 @@ UserSchema = new Schema(
   mailing_zipcode: String
   lifetime_puchases: Number
   lastest_purchase: Date
-  total_logins: Number
-  consecutive_logins: Number
+  total_logins: { type: Number, default: 0 }
+  consecutive_logins: { type: Number, default: 0 }
   diamonds: { type: Number, default: 0 }
   emeralds: { type: Number, default: 0 }
   sapphires: { type: Number, default: 0 }

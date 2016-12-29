@@ -66,8 +66,15 @@ exports.show = (req, res, next) ->
   userId = req.params.id
   User.findById userId, (err, user) ->
     # console.log user
+    today = new Date()
+
     if user
-      today = new Date()
+      # console.log "xxx "
+      # console.log today.getDate() - user.last_seen.getDate()
+      user.total_logins = user.total_logins + 1
+      if today.getDate() - user.last_seen.getDate() == 0
+        user.consecutive_logins = user.consecutive_logins + 1
+      user.save()
 
       unless user.last_seen
         console.log "last_seen1"
@@ -75,6 +82,7 @@ exports.show = (req, res, next) ->
           user.last_seen = new Date()
           user.save()
           console.log SigninLog
+
       if user.last_seen
         unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
           console.log "last_seen2"
@@ -83,6 +91,7 @@ exports.show = (req, res, next) ->
             user.last_seen = new Date()
             user.save()
 
+    if user
       if user.free_loot_log.length > 0
         prevDay = user.free_loot_log[user.free_loot_log.length-1].date
 
@@ -200,10 +209,8 @@ exports.showContests = (req, res, next) ->
     else if status == 'completed'
       Contest.where('player.uid').equals(user._id).where('stage').equals('close').exec (err, contest) ->
         return res.json contest
-    else if status == 'Won'
-      WinnerLog.where('user_id').equals(user._id).select('contest_id').exec (err, won) ->
-        # Contest.where('player.uid').equals(user._id).exec (err, contest) ->
-        return res.json won
+    else if status == 'won'
+      return res.json user.wonContest
 
     else if status == 'hosting'
       Contest.where('owner').equals(user.email).exec (err, contest) ->
