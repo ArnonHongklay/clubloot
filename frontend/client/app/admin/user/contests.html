@@ -20,7 +20,7 @@
     <h2>Program List</h2>
     <div class="row" ng-repeat="pro in program" style="border-bottom: 1px solid #ccc">
       <div class="col-xs-10" style="font-size: 24pt; color: #65B6CE;">{{pro.name}}</div>
-      <div class="col-xs-2 text-right" style="line-height: 50px">{{contests.length}}</div>
+      <div class="col-xs-2 text-right" style="line-height: 50px">{{pro.contest_count}}</div>
       <div class="col-xs-12">
         <div class="row" ng-repeat="contest in contests" ng-if="pro.name == contest.program">
           <div class="col-xs-8" style="line-height: 50px">{{contest.name}}</div>
