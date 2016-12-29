@@ -4,7 +4,7 @@ _ = require 'lodash'
 
 User = require './user.model'
 Contest = require '../contest/contest.model'
-WinnerLog = require './winner_log/winner_log.model'
+WinnerLog = require '../winner_log/winner_log.model'
 
 passport = require 'passport'
 config = require '../../config/environment'

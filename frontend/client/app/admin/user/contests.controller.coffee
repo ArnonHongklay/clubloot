@@ -9,3 +9,5 @@ angular.module 'clublootApp'
     $scope.contests = []
     $http.get("/api/users/#{$scope.user._id}/contests/#{status}").success (data) ->
       console.log $scope.contests = data
+
+  $scope.menu('active')
