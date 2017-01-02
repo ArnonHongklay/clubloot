@@ -22,3 +22,5 @@ angular.module 'clublootApp'
         $http.get "/api/v2/dashboard/rich"
       tax: ($http, $stateParams, $state) ->
         $http.get "/api/tax"
+      winnerLogs: ($http, $stateParams) ->
+        $http.get "/api/winner_log/today"
