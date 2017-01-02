@@ -50,9 +50,8 @@ exports.create = (req, res, next) ->
   newUser.provider = 'local'
   newUser.role = 'user'
   newUser.last_seen = ''
+  newUser.messages = []
   newUser.save (err, user) ->
-    user.messages = []
-    user.save()
     return validationError(res, err)  if err
     token = jwt.sign(
       _id: user._id

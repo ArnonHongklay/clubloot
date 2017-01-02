@@ -7,6 +7,7 @@ Program  = require '../program/program.model'
 Template = require '../template/template.model'
 Question = require '../question/question.model'
 WinnerLog = require '../winner_log/winner_log.model'
+Tax       = require '../tax/tax.model'
 User     = require '../user/user.model'
 
 schedule = require('node-schedule')
@@ -368,12 +369,25 @@ exports.joinContest = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
-
+    console.log "joinContest==========================="
     User.findById req.body._id, (err, user) ->
+      console.log "user==========================="
       user.coins = user.coins - contest.fee
       # user.joinedContest = [ contest ]
-
       user.save()
+      tax = (contest.fee * 10) / 100
+      console.log "ssssssssssssssssssssssssss TAX"
+      Tax.create {
+              type: 'contestFee'
+              contest_id: contest._id,
+              coin: tax
+              user_id: user._id
+              created_at: new Date()
+              }, (err, tax) ->
+                console.log "sdsdsdsdsdsdsds"
+                console.log err
+                console.log tax
+                console.log "tax finish"
 
       contest.participant.push(req.body)
       contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })

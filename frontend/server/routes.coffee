@@ -15,6 +15,7 @@ module.exports = (app) ->
   app.use '/api/templates',       require './api/template'
   app.use '/api/questions',       require './api/question'
   app.use '/api/contest',         require './api/contest'
+  app.use '/api/tax',             require './api/tax'
   app.use '/api/users',           require './api/user'
   app.use '/api/gem_conversion',  require './api/gem_conversion'
   app.use '/api/coin_package',    require './api/coin_package'
