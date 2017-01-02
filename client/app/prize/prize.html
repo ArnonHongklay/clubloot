@@ -16,11 +16,17 @@
       <div class="catelog" ng-class="{active: cateFilter == '4'}" ng-click="cateFilter = 4">
         51 - 100 <i class="fa fa-diamond" aria-hidden="true"></i>
       </div>
+      <div class="catelog" ng-class="{active: cateFilter == 'all'}" ng-click="cateFilter = all">
+        All <i class="fa fa-diamond" aria-hidden="true"></i>
+      </div>
     </div>
     <div class="row catelog-item-box">
-      <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.tier" ng-class="{active: itemSelected=='1'}" ng-click="itemSelected = '1'">
+      <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.tier">
         <div class="box row">
-          <div class="name col-xs-12">{{prize.name}}</div>
+          <div class="name col-xs-12">
+            <input type="checkbox" name="prize">
+            {{prize.name}}
+          </div>
           <div class="col-xs-10">
             <img ng-src="{{prize.picture}}" class="col-xs-12" />
           </div>
