@@ -19,11 +19,16 @@
     </div>
     <div class="row catelog-item-box">
       <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.tier" ng-class="{active: itemSelected=='1'}" ng-click="itemSelected = '1'">
-        <div class="box">
-          <div class="name">{{prize.name}}</div>
-          <div class="gem-count">{{prize.price}}</div>
-          <div class="gem">
-            <i class="fa fa-diamond" aria-hidden="true"></i>
+        <div class="box row">
+          <div class="name col-xs-12">{{prize.name}}</div>
+          <div class="col-xs-10">
+            <img ng-src="{{prize.picture}}" class="col-xs-12" />
+          </div>
+          <div class="col-xs-2">
+            <div class="gem-count">{{prize.price}}</div>
+            <div class="gem">
+              <i class="fa fa-diamond" aria-hidden="true"></i>
+            </div>
           </div>
         </div>
       </div>

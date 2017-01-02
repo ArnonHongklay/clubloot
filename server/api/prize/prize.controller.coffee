@@ -2,6 +2,7 @@
 
 _ = require 'lodash'
 Prize = require './prize.model'
+config = require '../../config/environment'
 
 # Get list of prizes
 exports.index = (req, res) ->
@@ -18,7 +19,11 @@ exports.show = (req, res) ->
 
 # Creates a new prize in the DB.
 exports.create = (req, res) ->
-  Prize.create req.body, (err, prize) ->
+  file = req.files.file
+  body = req.body
+  body.prize.picture = file.path.replace(config.root + '/client', '')
+
+  Prize.create body.prize, (err, prize) ->
     return handleError(res, err)  if err
     res.status(201).json prize
 
