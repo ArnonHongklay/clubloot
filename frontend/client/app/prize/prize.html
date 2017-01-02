@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="row catelog-item-box">
-      <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.price" ng-class="{active: itemSelected=='1'}" ng-click="itemSelected = '1'">
+      <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.tier" ng-class="{active: itemSelected=='1'}" ng-click="itemSelected = '1'">
         <div class="box">
           <div class="name">{{prize.name}}</div>
           <div class="gem-count">{{prize.price}}</div>

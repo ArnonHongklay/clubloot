@@ -3,6 +3,9 @@
 _ = require 'lodash'
 
 User = require './user.model'
+Contest = require '../contest/contest.model'
+WinnerLog = require '../winner_log/winner_log.model'
+
 passport = require 'passport'
 config = require '../../config/environment'
 SigninLog = require '../signin_log/signin_log.model'
@@ -42,9 +45,11 @@ exports.index = (req, res) ->
 Creates a new user
 ###
 exports.create = (req, res, next) ->
+  console.log req.body
   newUser = new User(req.body)
   newUser.provider = 'local'
   newUser.role = 'user'
+  newUser.last_seen = ''
   newUser.save (err, user) ->
     user.messages = []
     user.save()
@@ -67,19 +72,30 @@ exports.show = (req, res, next) ->
     console.log "-----------------------==============================="
     console.log user
     today = new Date()
-    unless user.last_seen
-      console.log "last_seen1"
-      SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
-        user.last_seen = new Date()
-        user.save()
-        console.log SigninLog
-    if user.last_seen
-      unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
-        console.log "last_seen2"
+
+    if user
+      unless user.last_seen
+        console.log "last_seen1"
         SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
-          console.log SigninLog
           user.last_seen = new Date()
           user.save()
+          console.log SigninLog
+
+      if user.last_seen
+        unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
+          console.log "last_seen2"
+          SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
+            console.log SigninLog
+            user.last_seen = new Date()
+            user.save()
+
+        # console.log "xxx "
+        # console.log today.getDate() - user.last_seen.getDate()
+        user.total_logins = user.total_logins + 1
+        if today.getDate() - user.last_seen.getDate() == 0
+          user.consecutive_logins = user.consecutive_logins + 1
+        user.save()
+
     if user
       if user.free_loot_log.length > 0
         prevDay = user.free_loot_log[user.free_loot_log.length-1].date
@@ -87,6 +103,7 @@ exports.show = (req, res, next) ->
         freeStatus = DateDiff.inDays(prevDay, today)
         if freeStatus > 0
           user.free_loot = true
+
     return next(err)  if err
     return res.status(401).end()  unless user
     res.json user
@@ -175,6 +192,54 @@ exports.changePassword = (req, res, next) ->
 Get my info
 ###
 exports.me = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+    return next(err)  if err
+    return res.status(401).end() unless user
+    return res.json user
+
+exports.showContests = (req, res, next) ->
+  console.log "show contest"
+  console.log req.params
+  # console.log req.body
+
+  userId = req.params.id
+  status = req.params.status
+
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+    return next(err)  if err
+    return res.status(401).end() unless user
+    # console.log user
+    if status == 'active'
+      Contest.where('player.uid').equals(user._id).where('stage').in(['upcoming', 'live']).exec (err, contest) ->
+        return res.json contest
+    else if status == 'completed'
+      Contest.where('player.uid').equals(user._id).where('stage').equals('close').exec (err, contest) ->
+        return res.json contest
+    else if status == 'won'
+      return res.json user.wonContest
+
+    else if status == 'hosting'
+      Contest.where('owner').equals(user.email).exec (err, contest) ->
+        return res.json contest
+    else if status == 'participating'
+      Contest.where('player.uid').equals(user._id).exec (err, contest) ->
+        return res.json contest
+
+exports.showTransactions = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+    return next(err)  if err
+    return res.status(401).end() unless user
+    return res.json user
+
+exports.accounting = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId

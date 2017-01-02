@@ -4,18 +4,17 @@ angular.module 'clublootApp'
 .config ($stateProvider) ->
   $stateProvider
   .state 'Adminuser',
-    url: '/admin/user'
+    url: '/admin/user/:user_id'
     templateUrl: 'app/admin/user/user.html'
     controller: 'AdminUserCtrl'
-
-  .state 'Adminuser.profile',
-    url: '/:user_id'
-    templateUrl: 'app/admin/user/profile.html'
-    controller: 'AdminUserProfileCtrl'
     resolve:
       user: ($http, $stateParams) ->
         $http.get "/api/users/#{$stateParams.user_id}"
 
+  .state 'Adminuser.profile',
+    url: '/profile'
+    templateUrl: 'app/admin/user/profile.html'
+    controller: 'AdminUserProfileCtrl'
 
   .state 'Adminuser.contests',
     url: '/contests'

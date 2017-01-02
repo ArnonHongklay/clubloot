@@ -1,29 +1,32 @@
-<div class="row tax">
+<style>
+ a {
+   cursor: pointer
+ }
+</style>
+<div class="row contest">
   <div class="col-sm-2">
-    <div class="tag-menu-box">
-      <div class="tag-menu" ng-click="taxMenu='gem'" ng-class="{'active': taxMenu=='gem'}">Hosting</div>
-      <div class="tag-menu" ng-click="taxMenu='tax'" ng-class="{'active': taxMenu=='tax'}">Participating</div>
-    </div>
+    <ul class="nav nav-pills nav-stacked">
+      <li role="presentation" ng-class="({active: menuActiveContest == 'active'})">
+        <a ng-click="menu('active')">Active</a>
+      </li>
+      <li role="presentation" ng-class="({active: menuActiveContest == 'hosting' })"><a ng-click="menu('hosting')">Hosting</a></li>
+      <li role="presentation" ng-class="({active: menuActiveContest == 'participating' })"><a ng-click="menu('participating')">Participating</a></li>
+      <li role="presentation" ng-class="({active: menuActiveContest == 'completed' })"><a ng-click="menu('completed')">Completed</a></li>
+      <li role="presentation" ng-class="({active: menuActiveContest == 'won' })"><a ng-click="menu('won')">Won</a></li>
+    </ul>
   </div>
 
-  <div class="col-sm-6">
+  <div class="col-sm-8">
     <h2>Program List</h2>
-    <table class="table">
-      <tr ng-repeat="list in programList">
-        <td>
-          <i ng-if="list.play" class="fa fa-play" aria-hidden="true" style="border: 1px solid #94CE58;
-          padding: 7px 10px; color: #94CE58; border-radius: 5px"></i>
-          <i ng-if="!list.play" class="fa fa-pause" aria-hidden="true" style="border: 1px solid #BE5150;
-          padding: 7px 10px; color: #BE5150; border-radius: 5px"></i>
-          <span style="color: #57B1C9"> {{list.name}}</span>
-        </td>
-        <td class="text-right">
-          [Player]
-        </td>
-        <td class="text-right">
-          x
-        </td>
-      </tr>
-    </table>
+    <div class="row" ng-repeat="pro in program" style="border-bottom: 1px solid #ccc">
+      <div class="col-xs-10" style="font-size: 24pt; color: #65B6CE;">{{pro.name}}</div>
+      <div class="col-xs-2 text-right" style="line-height: 50px">{{pro.contest_count}}</div>
+      <div class="col-xs-12">
+        <div class="row" ng-repeat="contest in contests" ng-if="pro.name == contest.program">
+          <div class="col-xs-8" style="line-height: 50px">{{contest.name}}</div>
+          <!--<div class="col-xs-4 text-right" style="line-height: 50px">{{contest.player.length}}</div>-->
+        </div>
+      </div>
+    </div>
   </div>
 </div>

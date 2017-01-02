@@ -1,15 +1,22 @@
 
 <div class="col-sm-12">
-  <form class="form-inline">
-    <div class="form-group">
-      <label class="sr-only" for="name">Email address</label>
+  <form class="row form-inline">
+    <div class="form-group col-xs-2">
       <input type="text" class="form-control" ng-model="prize.name" id="name" placeholder="Title">
     </div>
-    <div class="form-group">
-      <label class="sr-only" for="price">Password</label>
-      <input type="text" class="form-control" ng-model="prize.price" id="price" placeholder="Price">
+    <div class="form-group col-xs-2">
+      <input type="number" class="form-control" ng-model="prize.price" id="price" placeholder="Price">
     </div>
-    <button class="btn btn-default" ng-click="add()">Submit</button>
+    <div class="form-group col-xs-2">
+      <input type="number" class="form-control" ng-model="prize.quantity" id="quantity" placeholder="Quantity">
+    </div>
+    <div class="form-group col-xs-3">
+      <a href="">+ Item Details</a> &nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="">+ Upload Image</a>
+    </div>
+    <div class="form-group col-xs-1">
+      <button class="btn btn-default" ng-click="add()">Submit</button>
+    </div>
   </form>
 </div>
 
@@ -19,6 +26,7 @@
     <tr>
       <th>Prize Name</th>
       <th>Prize Price</th>
+      <th>Quantity</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -26,8 +34,35 @@
     <tr ng-repeat="prize in prizes">
       <td>{{prize.name}}</td>
       <td>{{prize.price}}</td>
-      <td><a href="#" ng-click="remove(prize._id)">Delete</a></td>
+      <td>{{prize.quantity}}</td>
+      <td>
+        <a href="#" ng-click="edit(prize._id)" class="btn" style="background: limegreen; padding: 10px 30px; color: #fff;">Edit</a>
+        <a href="#" ng-click="remove(prize._id)"  class="btn" style="background: indianred; padding: 10px 30px; color: #fff;">Delete</a>
+      </td>
     </tr>
   </tbody>
 </table>
 </div>
+
+<script type="text/ng-template" id="myModal.html">
+  <div class="modal-header">
+      <h3 class="modal-title">Prize edit</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xs-12 form-group">
+        Title: <input type="text" ng-model="prizeEdit.name" class="form-control">
+      </div>
+      <div class="col-xs-12 form-group">
+        Price: <input type="text" ng-model="prizeEdit.price" class="form-control">
+      </div>
+      <div class="col-xs-12 form-group">
+        Quantity: <input type="text" ng-model="prizeEdit.quantity" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
