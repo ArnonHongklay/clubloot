@@ -23,10 +23,9 @@ exports.tournament = (req, res) ->
     res.status(200).json { tournament: tournaments }
 
 exports.rich = (req, res) ->
-  Player.find (err, players) ->
+  Player.find().sort(coins: -1).exec (err, players) ->
     return handleError(res, err) if err
     res.status(200).json players
-
 
 exports.upcoming_contest = (req, res) ->
   # Contest.find (err, contests) ->
