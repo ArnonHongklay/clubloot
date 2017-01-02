@@ -7,6 +7,10 @@ router = express.Router()
 
 router.get '/', controller.index
 router.get '/player', controller.player
+router.get '/allplayer', controller.allplayer
+router.get '/signincount', controller.signincount
+
+
 router.get '/tournament', controller.tournament
 # router.get '/lootconomy', controller.lootconomy
 # router.get '/logins', controller.logins

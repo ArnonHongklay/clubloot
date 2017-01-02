@@ -6,6 +6,7 @@ nodemailer = require 'nodemailer'
 Player = require '../../user/user.model'
 Contest = require '../../contest/contest.model'
 Program = require '../../program/program.model'
+SigninLog = require '../../signin_log/signin_log.model'
 
 exports.index = (req, res) ->
   Player.find (err, players) ->
@@ -16,6 +17,16 @@ exports.player = (req, res) ->
   Player.count (err, players) ->
     return handleError(res, err) if err
     res.status(200).json { player: players }
+
+exports.signincount = (req, res) ->
+  SigninLog.count (err, signin_logs) ->
+    return handleError(res, err) if err
+    res.status(200).json { signincount: signin_logs }
+
+exports.allplayer = (req, res) ->
+  Player.find (err, players) ->
+    return handleError(res, err)  if err
+    res.status(200).json players
 
 exports.tournament = (req, res) ->
   Contest.count (err, tournaments) ->

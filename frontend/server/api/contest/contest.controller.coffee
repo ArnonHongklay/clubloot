@@ -361,6 +361,15 @@ exports.create = (req, res) ->
     User.findById req.body.user_id, (err, user) ->
       user.coins = user.coins - contest.fee
       # user.joinedContest = [ contest ]
+      tax = (contest.fee * 10) / 100
+      Tax.create {
+              tax_type: 'contestFee'
+              contest_id: contest._id,
+              coin: tax
+              user_id: user._id
+              created_at: new Date()
+              }, (err, tax) ->
+
       user.save()
 
     res.status(201).json contest
@@ -378,7 +387,7 @@ exports.joinContest = (req, res) ->
       tax = (contest.fee * 10) / 100
       console.log "ssssssssssssssssssssssssss TAX"
       Tax.create {
-              type: 'contestFee'
+              tax_type: 'contestFee'
               contest_id: contest._id,
               coin: tax
               user_id: user._id

@@ -114,5 +114,19 @@ angular.module 'clublootApp'
       $(".value-box-added."+subType+" .num-noti").removeClass("minus show")
     , 2000
 
+    $http.post("/api/users/#{Auth.getCurrentUser()._id}/update_gem",
+      {
+        gem: $scope.currentGem
+        fee: coinFee
+      }
+    ).success((ok) ->
+      console.log ok
+
+    ).error((data, status, headers, config) ->
+      swal("Not Active")
+    )
+
+    console.log $scope.currentGem
+
   $scope.goDashboard = () ->
     window.location.href = "/dashboard"

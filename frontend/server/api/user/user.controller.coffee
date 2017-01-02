@@ -5,6 +5,7 @@ _ = require 'lodash'
 User = require './user.model'
 Contest = require '../contest/contest.model'
 WinnerLog = require '../winner_log/winner_log.model'
+Tax = require '../tax/tax.model'
 
 passport = require 'passport'
 config = require '../../config/environment'
@@ -116,6 +117,27 @@ exports.deleteMessage = (req, res) ->
     user.messages = req.body
     user.save()
     res.status(200).json user
+
+exports.updateGem = (req, res) ->
+  console.log "req"
+  User.findById req.params.id, (err, user) ->
+    console.log "===============-----user-----"
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless user
+
+    updated = _.merge(user, req.body.gem)
+    Tax.create {
+              tax_type: 'convertFee'
+              coin: req.body.fee
+              user_id: user._id
+              created_at: new Date()
+              }, (err, tax) ->
+                console.log "create tax=================="
+                console.log tax
+
+    user.save (err) ->
+      return handleError(res, err)  if err
+      res.status(200).json user
 
 exports.update = (req, res) ->
   User.findById req.params.id, (err, user) ->

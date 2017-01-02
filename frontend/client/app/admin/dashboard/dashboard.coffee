@@ -10,9 +10,15 @@ angular.module 'clublootApp'
     resolve:
       player: ($http, $stateParams, $state) ->
         $http.get "/api/v2/dashboard/player"
+      allplayer: ($http, $stateParams, $state) ->
+        $http.get "/api/v2/dashboard/allplayer"
+      signinCount: ($http, $stateParams, $state) ->
+        $http.get "/api/signin_log/today"
       tournament: ($http, $stateParams, $state) ->
         $http.get "/api/v2/dashboard/tournament"
       contests: ($http, $stateParams, $state) ->
         $http.get "/api/v2/dashboard/contests"
       rich: ($http, $stateParams, $state) ->
         $http.get "/api/v2/dashboard/rich"
+      tax: ($http, $stateParams, $state) ->
+        $http.get "/api/tax"

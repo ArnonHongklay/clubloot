@@ -15,6 +15,8 @@ router.put '/:id/deletemessage', auth.isAuthenticated(), controller.deleteMessag
 router.put '/:id/password', auth.isAuthenticated(), controller.changePassword
 router.get '/:id', auth.isAuthenticated(), controller.show
 
+
+router.post '/:id/update_gem', auth.isAuthenticated(), controller.updateGem
 router.get '/:id/contests/:status', auth.isAuthenticated(), controller.showContests
 router.get '/:id/transactions', auth.isAuthenticated(), controller.showTransactions
 # router.get '/:id/prizes', auth.isAuthenticated(), controller.prizes

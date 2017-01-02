@@ -28,19 +28,19 @@
           </div>
           <div class="a-value-box col-md-4">
             <div class="in-value-box">
-              <div class="num">12,345,678,901</div>
+              <div class="num">{{economy | currency:"":0}}</div>
               <div class="title">Lootconomy</div>
             </div>
           </div>
           <div class="a-value-box col-md-4">
             <div class="in-value-box">
-              <div class="num">1,098,765,432</div>
+              <div class="num">{{tax | currency:"":0}}</div>
               <div class="title">Taxes Collected</div>
             </div>
           </div>
           <div class="a-value-box col-md-4">
             <div class="in-value-box">
-              <div class="num">83.4%</div>
+              <div class="num">{{signinPercent | currency:"":2}}%</div>
               <div class="title">Log Ins</div>
             </div>
           </div>
