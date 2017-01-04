@@ -50,7 +50,7 @@ namespace :deploy do
   task :grunt_serve do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
-        execute :grunt, :serve, '--force'
+        execute :grunt, '--force'
       end
     end
   end
@@ -82,14 +82,14 @@ namespace :deploy do
     end
   end
 
-  before 'deploy:assets:precompile', :npm_install
-  before 'deploy:assets:precompile', :bower_install
+  # before 'deploy:assets:precompile', :npm_install
+  # before 'deploy:assets:precompile', :bower_install
+
+  before 'deploy:assets:precompile', :grunt
+  before 'deploy:assets:precompile', :grunt_restart
 
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
-
-  after :finishing, :grunt_serve
-  after :finishing, :grunt_restart
 end
 
 namespace :rails do
