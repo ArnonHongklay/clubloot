@@ -47,7 +47,7 @@ namespace :deploy do
   end
 
   desc 'grunt'
-  task :grunt_serve do
+  task :grunt do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
         execute :grunt, '--force'
