@@ -73,7 +73,7 @@ namespace :deploy do
     end
   end
 
-  desc 'grunt start'
+  desc 'grunt restart'
   task :grunt_restart do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
