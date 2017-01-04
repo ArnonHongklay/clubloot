@@ -3,8 +3,7 @@ set :repo_url,    'git@github.com:abovelab/clubloot.git'
 
 set :deploy_to,   '/home/deploy/clubloot'
 
-set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml node_modules client/bower_components}
-# set :linked_files, %w{config/application.yml}
+set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml}
 set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 
@@ -43,7 +42,7 @@ namespace :deploy do
   task :npm_install do
     on roles(:app), in: :sequence, wait: 10 do
       within release_path do
-        execute :npm, :install
+        execute :npm, :install, '-g'
       end
     end
   end
@@ -59,7 +58,7 @@ namespace :deploy do
     end
   end
 
-  before 'deploy:assets:precompile', 'npm:install'
+  before 'deploy:assets:precompile', :npm_install
   before 'deploy:assets:precompile', :bower_install
   after :publishing, :grunt
   after :publishing, 'deploy:restart'

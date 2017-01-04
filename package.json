@@ -107,7 +107,7 @@
     "requirejs": "~2.1.18",
     "should": "~8.0.0",
     "supertest": "~1.1.0",
-    "time-grunt": "~1.2.1"
+    "time-grunt": "^1.2.2"
   },
   "engines": {
     "node": ">=4"
