@@ -5,6 +5,7 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
+      # database: api_development
       database: clubloot-dev
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
@@ -12,16 +13,16 @@ development:
         - localhost:27017
       options:
         # Change the default write concern. (default = { w: 1 })
-        # write:
-        #   w: 1
+        write:
+          w: 1
 
         # Change the default read preference. Valid options for mode are: :secondary,
         # :secondary_preferred, :primary, :primary_preferred, :nearest
         # (default: primary)
-        # read:
-        #   mode: :secondary_preferred
-        #   tag_sets:
-        #     - use: web
+        read:
+          mode: :secondary_preferred
+          tag_sets:
+            - use: web
 
         # The name of the user for authentication.
         # user: 'user'

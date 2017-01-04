@@ -1,0 +1,35 @@
+<div class="navbar navbar-clubloot navbar-static-top" ng-controller="NavbarCtrl">
+  <div class="container">
+    <h3 style="font-size: 24px; color: #fff">@{{user.username}}</h3>
+  </div>
+</div>
+<div class="container">
+  <ul class="nav navbar-nav navbar-right">
+    <li>
+      <a class="" href="/admin/system/users">Back</a>
+    </li>
+  </ul>
+  <div class="row">
+    <div class="col-sm-12">
+      <b>{{ user.name }}</b> <a href="mailto:{{user.email}}">{{user.email}}</a>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <ul class="nav nav-tabs">
+        <li><a ui-sref="Adminuser.profile({user_id: user._id})">Profile</a></li>
+        <li><a ui-sref="Adminuser.contests({user_id: user._id})">Contests</a></li>
+        <li><a ui-sref="Adminuser.transactions({user_id: user._id})">Transactions</a></li>
+        <li><a ui-sref="Adminuser.prizes({user_id: user._id})">Prizes</a></li>
+        <li><a ui-sref="Adminuser.notes({user_id: user._id})">Notes</a></li>
+        <li><a ui-sref="Adminuser.accounting({user_id: user._id})">Accounting</a></li>
+      </ul>
+    </div>
+  </div>
+  <br>
+</div>
+
+<div class="container adminuser">
+  <ui-view></ui-view>
+</div>

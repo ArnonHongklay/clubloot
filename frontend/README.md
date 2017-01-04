@@ -1,2 +1,0 @@
-# Clubloot
-Prediction Game

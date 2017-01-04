@@ -1,0 +1,50 @@
+<div class="row announcement">
+  <div class="col-md-6">
+    <h5>New Announcement</h5>
+    <div class="input-block">
+      <div class="title g-text">Publish at</div>
+      <input class="datetimepicker form-control" type="text" ng-model="newMessage.publish_time" required>
+    </div>
+
+    <div class="input-block">
+      <div class="title g-text">Announcement
+        <span class="pull-right">{{newMessage.message.length || 0}}/400</span>
+      </div>
+
+      <textarea ng-model="newMessage.message" ng-change="checkTextLenght()"></textarea>
+      <div class="title r-text" style="font-size: 10px;">Please thoroughly check your spelling, grammar, and content before publishing this announcement.</div>
+    </div>
+    <div class="btn submit-btn pull-left" ng-click="saveMessage()">SUBMIT</div>
+  </div>
+
+  <div class="col-md-6">
+  <h5>Previous Announcement</h5>
+    <div class="p-message-block" ng-repeat="message in messages | orderBy:'publish_time'" ng-show="checkTime(message)">
+      <div class="title">{{message.publish_time}}
+        <span class="pull-right">By {{message.postBy}}</span>
+      </div>
+      <div class="message-box" style="word-wrap:break-word;">
+        <div class="message g-text">
+        {{message.message}}
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="system-modal" ng-show="showSystemModal">
+    <div class="modal-bg" ng-click="showSystemModal=false"></div>
+    <div class="context-box">
+      <a class="close-btn" ng-click="showSystemModal=false"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="title b-text">Pin</div>
+      <div class="desc g-text">Authorized user, enter your pin to confirm submission<br><br>
+        <input>
+      </div>
+      <div class="btn submit-btn" style="display:inherit;margin:auto;margin-top: 20px;" ng-click="showSystemModal=false">VERIFY</div>
+
+    </div>
+  </div>
+
+</div>

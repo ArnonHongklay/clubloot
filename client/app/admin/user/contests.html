@@ -1,0 +1,27 @@
+<div class="row contest">
+  <div class="col-sm-2">
+    <ul class="nav nav-pills nav-stacked">
+      <li role="presentation" ng-class="({active: menuActiveContest == 'active'})">
+        <a ng-click="menu('active')">Active</a>
+      </li>
+      <li role="presentation" ng-class="({active: menuActiveContest == 'hosting' })"><a ng-click="menu('hosting')">Hosting</a></li>
+      <li role="presentation" ng-class="({active: menuActiveContest == 'participating' })"><a ng-click="menu('participating')">Participating</a></li>
+      <li role="presentation" ng-class="({active: menuActiveContest == 'completed' })"><a ng-click="menu('completed')">Completed</a></li>
+      <li role="presentation" ng-class="({active: menuActiveContest == 'won' })"><a ng-click="menu('won')">Won</a></li>
+    </ul>
+  </div>
+
+  <div class="col-sm-8">
+    <h2>Program List</h2>
+    <div class="row" ng-repeat="pro in program" style="border-bottom: 1px solid #ccc">
+      <div class="col-xs-10" style="font-size: 24pt; color: #65B6CE;">{{pro.name}}</div>
+      <div class="col-xs-2 text-right" style="line-height: 50px">{{pro.contest_count}}</div>
+      <div class="col-xs-12">
+        <div class="row link-contest" ng-repeat="contest in contests" ng-if="pro.name == contest.program" ui-sref="contestshow({contest: contest._id})">
+          <div class="col-xs-8" style="line-height: 50px">{{contest.name}}</div>
+          <!--<div class="col-xs-4 text-right" style="line-height: 50px">{{contest.player.length}}</div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
