@@ -1,11 +1,12 @@
 set :application, 'clubloot'
 set :repo_url,    'git@github.com:abovelab/clubloot.git'
 
-set :deploy_to,   '/home/deploy/clubloot.com'
+set :deploy_to,   '/home/deploy/clubloot'
 
-set :linked_files, %w{config/mongoid.yml config/application.yml}
+set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml node_modules client/bower_components}
 # set :linked_files, %w{config/application.yml}
 set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
 
 def red(str)
   "\e[31m#{str}\e[0m"
@@ -38,7 +39,29 @@ namespace :deploy do
     end
   end
 
+  desc 'NPM Install'
+  task :npm_install do
+    on roles(:app), in: :sequence, wait: 10 do
+      within release_path do
+        execute :npm, :install
+      end
+    end
+  end
+
+  desc 'grunt'
+  task :grunt do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :grunt, 'forever:server:stop'
+        execute :grunt, :serve, '--force'
+        execute :grunt, 'forever:server:start'
+      end
+    end
+  end
+
+  before 'deploy:assets:precompile', 'npm:install'
   before 'deploy:assets:precompile', :bower_install
+  after :publishing, :grunt
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
 end

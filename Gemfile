@@ -36,6 +36,7 @@ group :development, :test do
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-npm'
   gem 'capistrano-rbenv', git: 'https://github.com/capistrano/rbenv.git'
   gem 'capistrano-rails-console'
 end
