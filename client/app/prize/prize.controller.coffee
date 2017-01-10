@@ -25,6 +25,7 @@ angular.module 'clublootApp'
     sum = 0
     for prize in selected
       sum += parseInt(prize.price)
+    sum
 
   $scope.getMyPrize = ->
     if $scope.c_prize.selected.length == 0 or $scope.c_prize.selected.length == undefined
@@ -34,7 +35,7 @@ angular.module 'clublootApp'
       swal('Please check agree')
       return
 
-    if Auth.getCurrentUser().diamonds < checkPrize($scope.c_prize.selected)
+    if Auth.getCurrentUser().diamonds < $scope.checkPrize($scope.c_prize.selected)
       swal('need more diamonds')
       return
     else
