@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   #   sessions: 'users/sessions',
   #   registrations: 'users/registrations'
   # }
+  devise_for :users
 
-  mount API, at: '/'
+  # resources :programs do
+  #   resources :templates do
+  #   end
+  # end
 end
