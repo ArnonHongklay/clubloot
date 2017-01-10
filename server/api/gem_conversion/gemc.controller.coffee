@@ -18,7 +18,7 @@ exports.show = (req, res) ->
     res.json contest
 
 exports.set = (req, res) ->
-  console.log "dsdsdsdssdsdsdsdsdsds"
+# console.log "dsdsdsdssdsdsdsdsdsds"
   Gemc.remove {}, (err) ->
     # console.log 'collection removed'
   gem = {

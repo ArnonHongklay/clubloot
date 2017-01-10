@@ -19,7 +19,7 @@ angular.module 'clublootApp'
       showCancelButton: true
     }, (isConfirm) ->
       if isConfirm
-        console.log file
+      # console.log file
         file.upload = Upload.upload(
           url: '/api/prize'
           data:
@@ -32,7 +32,7 @@ angular.module 'clublootApp'
           $http.get('/api/prize').success((data) ->
             swal("added!")
             $scope.prizes = data
-            console.log data
+          # console.log data
             $scope.prize = ""
           )
         ), ((response) ->

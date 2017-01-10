@@ -3,7 +3,7 @@
 angular.module 'clublootApp'
 .controller 'ContestShowCtrl', ($scope, $filter, $http, socket, $state, Auth, $stateParams, contest, program, templates, $timeout) ->
   $scope.programs = program.data
-  console.log $scope.programs
+# console.log $scope.programs
   $scope.contest = contest.data
   $scope.menu = $stateParams.contest
   $scope.$apend
@@ -116,7 +116,7 @@ angular.module 'clublootApp'
 
   $scope.checkGemColor = (type) ->
 
-    console.log type
+  # console.log type
     return "color:red;!important"     if type == "ruby"
     return "color:blue;!important"    if type == "sapphire"
     return "color:green;!important"   if type == "emerald"
@@ -184,15 +184,15 @@ angular.module 'clublootApp'
 
 
   socket.syncUpdates 'contest', [], (event, item, object) ->
-    console.log "contest syncUpdates"
-    console.log object
-    console.log item
-    console.log $scope.contestSelection._id
+  # console.log "contest syncUpdates"
+  # console.log object
+  # console.log item
+  # console.log $scope.contestSelection._id
     if item._id == $scope.contestSelection._id
       $scope.contestSelection = item
       $scope.$apply()
 
-    console.log "------------------"
+  # console.log "------------------"
 
     if $scope.contest.program == item.program && event == "created"
       i = 0

@@ -2,16 +2,11 @@
 
 angular.module 'clublootApp'
 .controller 'NavbarCtrl', ($scope, $location, Auth, $http, $rootScope, $timeout, socket) ->
-  # console.log "NavbarCtrl"
-
   $scope.socket = socket.socket
-
   $scope.socket.on 'message', (data) ->
-    console.log data
     return
 
   $scope.reAfterLoot = () ->
-    # console.log "wpoepwoepwoepowpeowpeowpoewoepwofosfospfosp"
     location.reload()
 
   $scope.menu = [
@@ -27,8 +22,8 @@ angular.module 'clublootApp'
       title: 'Prizes',
       link: '/prize'
     }
-
   ]
+
   $scope.isCollapsed = true
   $scope.isLoggedIn = Auth.isLoggedIn
   $scope.isAdmin = Auth.isAdmin

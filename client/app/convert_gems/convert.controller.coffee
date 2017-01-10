@@ -5,7 +5,7 @@ angular.module 'clublootApp'
   # console.log "ConvertGemsCtrl"
   $scope.showModal = false
   $scope.gems = gems.data[0]
-  console.log $scope.gems[0]
+# console.log $scope.gems[0]
   user = $rootScope.currentUser || Auth.getCurrentUser()
   return window.location.href = "/login" unless user
   $scope.currentGem = {
@@ -17,8 +17,8 @@ angular.module 'clublootApp'
 
   $scope.convertGem = (type)->
     $(".value-box-added").removeClass('changed')
-    console.log $scope.gems
-    console.log "=====GEM====="
+  # console.log $scope.gems
+  # console.log "=====GEM====="
     rate = 0
     if type == "diamond"
       rate = 30000
@@ -120,13 +120,13 @@ angular.module 'clublootApp'
         fee: coinFee
       }
     ).success((ok) ->
-      console.log ok
+    # console.log ok
 
     ).error((data, status, headers, config) ->
       swal("Not Active")
     )
 
-    console.log $scope.currentGem
+  # console.log $scope.currentGem
 
   $scope.goDashboard = () ->
     window.location.href = "/dashboard"

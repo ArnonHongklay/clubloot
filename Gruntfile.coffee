@@ -223,7 +223,7 @@ module.exports = (grunt) ->
 
           callback: (nodemon) ->
             nodemon.on 'log', (event) ->
-              console.log event.colour
+            # console.log event.colour
 
             # opens browser on initial server start
             nodemon.on 'config:update', ->

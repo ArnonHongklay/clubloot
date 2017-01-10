@@ -46,7 +46,7 @@ exports.index = (req, res) ->
 Creates a new user
 ###
 exports.create = (req, res, next) ->
-  console.log req.body
+# console.log req.body
   newUser = new User(req.body)
   newUser.provider = 'local'
   newUser.role = 'user'
@@ -66,26 +66,26 @@ Get a single user
 ###
 exports.show = (req, res, next) ->
   userId = req.params.id
-  console.log req.params.id
+# console.log req.params.id
   User.findById userId, (err, user) ->
     return res.status(401).end()  unless user
-    console.log "-----------------------==============================="
-    console.log user
+  # console.log "-----------------------==============================="
+  # console.log user
     today = new Date()
 
     if user
       unless user.last_seen
-        console.log "last_seen1"
+      # console.log "last_seen1"
         SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
           user.last_seen = new Date()
           user.save()
-          console.log SigninLog
+        # console.log SigninLog
 
       if user.last_seen
         unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
-          console.log "last_seen2"
+        # console.log "last_seen2"
           SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
-            console.log SigninLog
+          # console.log SigninLog
             user.last_seen = new Date()
             user.save()
 
@@ -119,9 +119,9 @@ exports.deleteMessage = (req, res) ->
     res.status(200).json user
 
 exports.updateGem = (req, res) ->
-  console.log "req"
+# console.log "req"
   User.findById req.params.id, (err, user) ->
-    console.log "===============-----user-----"
+  # console.log "===============-----user-----"
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
@@ -132,8 +132,8 @@ exports.updateGem = (req, res) ->
               user_id: user._id
               created_at: new Date()
               }, (err, tax) ->
-                console.log "create tax=================="
-                console.log tax
+              # console.log "create tax=================="
+              # console.log tax
 
     user.save (err) ->
       return handleError(res, err)  if err
@@ -222,8 +222,8 @@ exports.me = (req, res, next) ->
     return res.json user
 
 exports.showContests = (req, res, next) ->
-  console.log "show contest"
-  console.log req.params
+# console.log "show contest"
+# console.log req.params
   # console.log req.body
 
   userId = req.params.id

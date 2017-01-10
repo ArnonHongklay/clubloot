@@ -1,7 +1,7 @@
 angular.module 'clublootApp'
 .controller 'AdminSystemDailyLootCtrl', ($scope, $http, $state, signinCounts, winnerLogs, allWinnerLogs) ->
-  console.log signinCounts
-  console.log winnerLogs
+# console.log signinCounts
+# console.log winnerLogs
   $scope.signinCounts = signinCounts.data.length
   $scope.todayClaimed = winnerLogs.data
   $scope.allClaimed = allWinnerLogs.data
@@ -13,11 +13,11 @@ angular.module 'clublootApp'
     'values': [
     ]
   } ]
-  console.log $scope.data
+# console.log $scope.data
   $scope.data[0].values = []
   for claimed in $scope.allClaimed
     $scope.data[0].values.push [new Date(claimed.created_at).getTime(), claimed.prize]
-  console.log $scope.data
+# console.log $scope.data
   for winner in winnerLogs.data
     $scope.lootClaimed = $scope.lootClaimed + winner.prize
 

@@ -238,9 +238,9 @@ gemMatrix = {
 }
 
 getFefund = (user_id, refund) ->
-  console.log "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-  console.log refund
-  console.log user_id
+# console.log "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+# console.log refund
+# console.log user_id
   User.findById user_id, (err, user) ->
     for i in refund
       if i.type == 'coin'
@@ -253,8 +253,8 @@ getFefund = (user_id, refund) ->
         user.emeralds = user.emeralds + i.value
       if i.type == 'diamond'
         user.diamonds = user.diamonds + i.value
-    console.log "ddddd"
-    console.log refund
+  # console.log "ddddd"
+  # console.log refund
     user.save()
 
 
@@ -378,14 +378,14 @@ exports.joinContest = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
-    console.log "joinContest==========================="
+  # console.log "joinContest==========================="
     User.findById req.body._id, (err, user) ->
-      console.log "user==========================="
+    # console.log "user==========================="
       user.coins = user.coins - contest.fee
       # user.joinedContest = [ contest ]
       user.save()
       tax = (contest.fee * 10) / 100
-      console.log "ssssssssssssssssssssssssss TAX"
+    # console.log "ssssssssssssssssssssssssss TAX"
       Tax.create {
               tax_type: 'contestFee'
               contest_id: contest._id,
@@ -393,10 +393,10 @@ exports.joinContest = (req, res) ->
               user_id: user._id
               created_at: new Date()
               }, (err, tax) ->
-                console.log "sdsdsdsdsdsdsds"
-                console.log err
-                console.log tax
-                console.log "tax finish"
+              # console.log "sdsdsdsdsdsdsds"
+              # console.log err
+              # console.log tax
+              # console.log "tax finish"
 
       contest.participant.push(req.body)
       contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
@@ -521,7 +521,7 @@ exports.findByTemplates = (req, res) ->
           else if winner.length > 1
             refund_index = c.loot.prize
             matchList = gemMatrix.list[0].fee
-            console.log matchList
+          # console.log matchList
             refund = refundList[prizeList.indexOf(c.loot.prize)][winner.length-2]
 
             for w in winner
@@ -532,12 +532,12 @@ exports.findByTemplates = (req, res) ->
                   contest.player[k].winPrize = refund
               contest.save()
               User.findById w.uid, (err, user) ->
-                console.log "create won"
+              # console.log "create won"
                 if user.wonContest.length == 0
                   user.wonContest.push contest
                   user.save()
                 else
-                  console.log "create won 2"
+                # console.log "create won 2"
                   for won, i in user.wonContest
                     if i == user.wonContest.length - 1 && won._id != contest._id
                       user.wonContest.push contest
@@ -550,12 +550,12 @@ exports.findByTemplates = (req, res) ->
               for py, k in contest.player
                 contest.player[k].isWin = false
                 contest.player[k].winPrize = []
-                console.log "000000=0=0=0=00=0=0="
-                console.log py.uid
-                console.log winner[0].uid
-                console.log "00000000000000000000"
+              # console.log "000000=0=0=0=00=0=0="
+              # console.log py.uid
+              # console.log winner[0].uid
+              # console.log "00000000000000000000"
                 if py.uid == winner[0].uid
-                  console.log "wow winner"
+                # console.log "wow winner"
                   contest.player[k].isWin = true
                   contest.player[k].winPrize = [{type: gemPrize.type.toLowerCase(), value: gemPrize.count }]
                   contest.save()
@@ -576,9 +576,9 @@ exports.findByTemplates = (req, res) ->
                 for won, i in user.wonContest
                   wonList.push String(won._id)
                 unless wonList.indexOf(String(contest._id)) >=0
-                  console.log wonList.indexOf(String(contest._id))
-                  console.log wonList
-                  console.log contest._id
+                # console.log wonList.indexOf(String(contest._id))
+                # console.log wonList
+                # console.log contest._id
                   user.wonContest.push contest
               user.save()
 
@@ -645,10 +645,10 @@ exports.findProgramActive = (req, res) ->
             continue if contest.end_time == undefined
             e_time = contest.end_time.getTime()
 
-            console.log contest.end_time
-            console.log e_time
+          # console.log contest.end_time
+          # console.log e_time
 
-            console.log current_time < e_time
+          # console.log current_time < e_time
             if current_time < e_time
               if i == 0
                 temp = e_time
@@ -659,7 +659,7 @@ exports.findProgramActive = (req, res) ->
                 bucket.push(contest)
 
     setTimeout (->
-      console.log bucket
+    # console.log bucket
       render(res, bucket)
     ), 1000
 
@@ -680,7 +680,7 @@ render = (res, data) ->
 
 
 exports.updateScore = (req, res) ->
-  console.log "update score"
+# console.log "update score"
   Template.findById req.params.id, (err, template) ->
 
   Contest.find { template_id: req.params.id }, (err, contests) ->
@@ -690,8 +690,8 @@ exports.updateScore = (req, res) ->
         query.exec (err, templates) ->
           for p, k in c.player
             score = checkScore(p, templates)
-            console.log score
-            console.log "score-------"
+          # console.log score
+          # console.log "score-------"
             c.player[k].score = score
             c.save()
 

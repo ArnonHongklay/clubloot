@@ -11,8 +11,8 @@ exports.index = (req, res) ->
     res.status(200).json SigninLogs
 
 exports.create = (req, res) ->
-  console.log "-------------------"
-  console.log req.body
+# console.log "-------------------"
+# console.log req.body
   SigninLog.create req.body, (err, SigninLog) ->
     return handleError(res, err)  if err
     res.status(201).json SigninLog

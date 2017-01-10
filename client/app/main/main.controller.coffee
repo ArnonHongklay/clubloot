@@ -66,13 +66,13 @@ angular.module 'clublootApp'
     return
 
   $scope.deleteMessage = (index) ->
-    console.log index
+  # console.log index
     $rootScope.currentUser.messages.splice(index, 1)
-    console.log $rootScope.currentUser.messages
+  # console.log $rootScope.currentUser.messages
     $http.put("/api/users/#{$rootScope.currentUser._id}/deletemessage",
       $rootScope.currentUser.messages
     ).success((ok) ->
-      console.log ok
+    # console.log ok
     ).error((data, status, headers, config) ->
       swal("Not Active")
     )
@@ -81,7 +81,7 @@ angular.module 'clublootApp'
 
 
   $scope.openMessage = (index) ->
-    console.log index
+  # console.log index
     return $rootScope.openMessage = "k" if $rootScope.openMessage == index
     $rootScope.openMessage = index
 
@@ -106,9 +106,9 @@ angular.module 'clublootApp'
     index_score = score.sort().reverse()
     user_score = contest.player[cur_user].score
     rank = index_score.indexOf(user_score) + 1
-    console.log index_score
-    console.log "user_score:"+user_score
-    console.log rank + 1
+  # console.log index_score
+  # console.log "user_score:"+user_score
+  # console.log rank + 1
     return $scope.ordinal_suffix_of(rank)
 
 
