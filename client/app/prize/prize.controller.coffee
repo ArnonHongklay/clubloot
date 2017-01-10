@@ -16,8 +16,5 @@ angular.module 'clublootApp'
     else
       prize.tier = 5
 
-
-  # console.log $scope.prizes
-
   $scope.goDashboard = () ->
     window.location.href = "/dashboard"
