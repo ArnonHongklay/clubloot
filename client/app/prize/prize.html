@@ -1,55 +1,82 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <section class="prize" ng-hide="getPrice" ng-class="{hmb: itemSelected}">
+
   <div class="container">
-    <div class="row" ng-init="cateFilter = '1'">
-      <h3 style="margin-top: 0px;" class="pp-text">PRIZES</h3>
-      <h5 class="g-text">Trade in your diamonds for prizes.</h5>
-      <div class="catelog" ng-class="{active: cateFilter == '1'}" ng-click="cateFilter = 1">
-        1 - 10 <i class="fa fa-diamond" aria-hidden="true"></i>
-      </div>
-      <div class="catelog" ng-class="{active: cateFilter == '2'}" ng-click="cateFilter = 2">
-        11 - 25 <i class="fa fa-diamond" aria-hidden="true"></i>
-      </div>
-      <div class="catelog" ng-class="{active: cateFilter == '3'}" ng-click="cateFilter = 3">
-        26 - 50 <i class="fa fa-diamond" aria-hidden="true"></i>
-      </div>
-      <div class="catelog" ng-class="{active: cateFilter == '4'}" ng-click="cateFilter = 4">
-        51 - 100 <i class="fa fa-diamond" aria-hidden="true"></i>
-      </div>
-      <div class="catelog" ng-class="{active: cateFilter == 'all'}" ng-click="cateFilter = all">
-        All <i class="fa fa-diamond" aria-hidden="true"></i>
+    <div class="row">
+      <div class="col-xs-12" ng-init="cateFilter = '1'">
+        <h3 style="margin-top: 0px;" class="pp-text">PRIZES</h3>
+        <h5 class="g-text">Trade in your diamonds for prizes.</h5>
+        <div class="catelog" ng-class="{active: cateFilter == '1'}" ng-click="cateFilter = 1">
+          1 - 10 <i class="fa fa-diamond" aria-hidden="true"></i>
+        </div>
+        <div class="catelog" ng-class="{active: cateFilter == '2'}" ng-click="cateFilter = 2">
+          11 - 25 <i class="fa fa-diamond" aria-hidden="true"></i>
+        </div>
+        <div class="catelog" ng-class="{active: cateFilter == '3'}" ng-click="cateFilter = 3">
+          26 - 50 <i class="fa fa-diamond" aria-hidden="true"></i>
+        </div>
+        <div class="catelog" ng-class="{active: cateFilter == '4'}" ng-click="cateFilter = 4">
+          51 - 100 <i class="fa fa-diamond" aria-hidden="true"></i>
+        </div>
+        <div class="catelog" ng-class="{active: cateFilter == 'all'}" ng-click="cateFilter = all">
+          All <i class="fa fa-diamond" aria-hidden="true"></i>
+        </div>
       </div>
     </div>
-    <div class="row catelog-item-box">
-      <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.tier">
-        <div class="box row">
-          <div class="name col-xs-12">
-            <input type="checkbox" name="prize">
-            {{prize.name}}
-          </div>
-          <div class="col-xs-10">
-            <img ng-src="{{prize.picture}}" class="col-xs-12" />
-          </div>
-          <div class="col-xs-2">
-            <div class="gem-count">{{prize.price}}</div>
-            <div class="gem">
-              <i class="fa fa-diamond" aria-hidden="true"></i>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="catelog-item-box">
+          <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.tier">
+            <div class="box">
+              <div class="name col-xs-12">
+                <input type="checkbox" name="prize">
+                {{ prize.name }}
+              </div>
+              <div class="col-xs-10">
+                <img ng-src="{{prize.picture}}" class="col-xs-12" />
+              </div>
+              <div class="col-xs-2">
+                <div class="gem-count">{{prize.price}}</div>
+                <div class="gem">
+                  <i class="fa fa-diamond" aria-hidden="true"></i>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row terms hmb" style="margin-top: 20px">
-      <div class="term-text"><input type="checkbox"> I agree to the
-        <span class="b-text">terms of purchase</span>
-        and authorize ClubLoot to perform this transaction immediately.
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="terms hmb" style="margin-top: 20px">
+          <div class="term-text"><input type="checkbox"> I agree to the
+            <span class="b-text">terms of purchase</span>
+            and authorize ClubLoot to perform this transaction immediately.
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="row hmb" style="margin-top: 10px;">
       <div class="btn get-prize" ng-disabled="!itemSelected" ng-click="getPrice = true">GET MY PRIZE</div>
     </div>
   </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="prize-success" ng-show="getPrice">
   <div class="container">
     <div class="row" ng-init="cateFilter = '1'">
