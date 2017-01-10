@@ -28,17 +28,15 @@
       <div class="col-xs-12">
         <div class="catelog-item-box">
           <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.tier">
-            <div class="box">
-              <div class="name col-xs-12">
-                <input type="checkbox" name="prize">
+            <div class="box" ng-click="clickPrize(prize)">
+              <div class="col-xs-12 prize-name">
+                <input type="checkbox" name="prize" checklist-model="c_prize.selected" checklist-value="prize">
                 {{ prize.name }}
               </div>
-              <div class="col-xs-10">
-                <img ng-src="{{prize.picture}}" class="col-xs-12" />
-              </div>
-              <div class="col-xs-2">
-                <div class="gem-count">{{prize.price}}</div>
+              <div class="col-xs-12 prize-item">
+                <img ng-src="{{ prize.picture }}" class="col-xs-12" />
                 <div class="gem">
+                  {{ prize.price }}
                   <i class="fa fa-diamond" aria-hidden="true"></i>
                 </div>
               </div>
@@ -46,13 +44,14 @@
           </div>
         </div>
       </div>
+      {{c_prize.selected}}
     </div>
 
 
     <div class="row">
       <div class="col-xs-12">
         <div class="terms hmb" style="margin-top: 20px">
-          <div class="term-text"><input type="checkbox"> I agree to the
+          <div class="term-text"><input type="checkbox" ng-model="agree"> I agree to the
             <span class="b-text">terms of purchase</span>
             and authorize ClubLoot to perform this transaction immediately.
           </div>
@@ -61,7 +60,7 @@
     </div>
 
     <div class="row hmb" style="margin-top: 10px;">
-      <div class="btn get-prize" ng-disabled="!itemSelected" ng-click="getPrice = true">GET MY PRIZE</div>
+      <div class="btn get-prize" ng-disabled="!itemSelected" ng-click="getMyPrize()">GET MY PRIZE</div>
     </div>
   </div>
 </section>

@@ -54,9 +54,9 @@ module.exports = (grunt) ->
         options:
           script: 'dist/server/app.js'
 
-    open:
-      server:
-        url: 'http://localhost:<%= express.options.port %>'
+    # open:
+    #   server:
+    #     url: 'http://localhost:<%= express.options.port %>'
 
     watch:
       injectJS:
@@ -587,7 +587,7 @@ module.exports = (grunt) ->
         'env:prod'
         'express:prod'
         'wait'
-        'open'
+        # 'open'
         'express-keepalive'
       ]
 
@@ -613,7 +613,7 @@ module.exports = (grunt) ->
       'autoprefixer'
       'express:dev'
       'wait'
-      'open'
+      # 'open'
       'watch'
     ]
 
@@ -685,4 +685,3 @@ module.exports = (grunt) ->
     'test'
     'build'
   ])
-

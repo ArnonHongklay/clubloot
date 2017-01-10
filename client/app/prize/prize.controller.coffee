@@ -3,7 +3,7 @@
 angular.module 'clublootApp'
 .controller 'PrizeCtrl', ($scope, $http, socket, prizes) ->
   $scope.prizes = prizes.data
-  # console.log "xxxx"
+
   for prize in $scope.prizes
     if prize.price >= 0 && prize.price <= 10
       prize.tier = 1
@@ -15,6 +15,16 @@ angular.module 'clublootApp'
       prize.tier = 4
     else
       prize.tier = 5
+
+  $scope.c_prize = selected: {}
+
+  # $scope.clickPrize = (prize) ->
+  #   $scope.c_prize.selected[prize._id]
+
+  $scope.getMyPrize = ->
+    swal('Please selected some prize') if $scope.c_prize.selected.length <= 0
+    swal('Please check agree') unless $scope.agree
+
 
   $scope.goDashboard = () ->
     window.location.href = "/dashboard"
