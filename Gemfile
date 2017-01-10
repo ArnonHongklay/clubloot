@@ -38,7 +38,12 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 3.0'
 gem 'redis-rails'
-gem 'leaderboard'
+
+gem 'grape'
+gem 'hashie-forbidden_attributes'
+gem 'grape-swagger'
+gem 'grape-swagger-entity'
+gem 'grape-swagger-representable'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
