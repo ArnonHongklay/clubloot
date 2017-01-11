@@ -47,7 +47,6 @@ exports.index = (req, res) ->
 Creates a new user
 ###
 exports.create = (req, res, next) ->
-# console.log req.body
   newUser = new User(req.body)
   newUser.provider = 'local'
   newUser.role = 'user'
@@ -67,31 +66,23 @@ Get a single user
 ###
 exports.show = (req, res, next) ->
   userId = req.params.id
-# console.log req.params.id
   User.findById userId, (err, user) ->
     return res.status(401).end()  unless user
-  # console.log "-----------------------==============================="
-  # console.log user
+
     today = new Date()
 
     if user
       unless user.last_seen
-      # console.log "last_seen1"
         SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
           user.last_seen = new Date()
           user.save()
-        # console.log SigninLog
 
       if user.last_seen
         unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
-        # console.log "last_seen2"
           SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
-          # console.log SigninLog
             user.last_seen = new Date()
             user.save()
 
-        # console.log "xxx "
-        # console.log today.getDate() - user.last_seen.getDate()
         user.total_logins = user.total_logins + 1
         if today.getDate() - user.last_seen.getDate() == 0
           user.consecutive_logins = user.consecutive_logins + 1
@@ -112,7 +103,6 @@ exports.show = (req, res, next) ->
 ###*
 Get a single user
 ###
-
 exports.deleteMessage = (req, res) ->
   User.findById req.params.id, (err, user) ->
     user.messages = req.body
@@ -120,21 +110,18 @@ exports.deleteMessage = (req, res) ->
     res.status(200).json user
 
 exports.updateGem = (req, res) ->
-# console.log "req"
   User.findById req.params.id, (err, user) ->
-  # console.log "===============-----user-----"
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
     updated = _.merge(user, req.body.gem)
+
     Tax.create {
-              tax_type: 'convertFee'
-              coin: req.body.fee
-              user_id: user._id
-              created_at: new Date()
-              }, (err, tax) ->
-              # console.log "create tax=================="
-              # console.log tax
+      tax_type: 'convertFee'
+      coin: req.body.fee
+      user_id: user._id
+      created_at: new Date()
+    }, (err, tax) ->
 
     user.save (err) ->
       return handleError(res, err)  if err
@@ -145,9 +132,6 @@ exports.update = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
-    # console.log "xxxxx"
-    # console.log user
-    # console.log req.body
     updated = _.merge(user, req.body)
     user.save (err) ->
       return handleError(res, err)  if err
@@ -155,34 +139,6 @@ exports.update = (req, res) ->
 
 handleError = (res, err) ->
   res.status(500).json err
-
-
-# exports.updateWinner = (req, res) ->
-#   User.findById req.params.id, (err, user) ->
-#     return handleError(res, err) if err
-#     return res.status(404).end() unless user
-#
-#     updated = _.merge(user, req.body)
-#     user.save (err) ->
-#       return handleError(res, err)  if err
-#       res.status(200).json user
-#
-# handleError = (res, err) ->
-#   res.status(500).json err
-#
-# exports.updateJoined = (req, res) ->
-#   # console.log req.params
-#   User.findById req.params.id, (err, user) ->
-#     return handleError(res, err) if err
-#     return res.status(404).end() unless user
-#
-#     updated = _.merge(user, req.body)
-#     user.save (err) ->
-#       return handleError(res, err)  if err
-#       res.status(200).json user
-#
-# handleError = (res, err) ->
-#   res.status(500).json err
 
 ###*
 Deletes a user
@@ -231,7 +187,7 @@ exports.showContests = (req, res, next) ->
   , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
     return next(err)  if err
     return res.status(401).end() unless user
-    # console.log user
+
     if status == 'active'
       Contest.where('player.uid').equals(user._id).where('stage').in(['upcoming', 'live']).exec (err, contest) ->
         return res.json contest
@@ -255,7 +211,7 @@ exports.showTransactions = (req, res, next) ->
   , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
-    console.log user
+
     Ledger.where('user_id').equals(req.params.id).exec (err, ledgers) ->
       res.json ledgers
 
