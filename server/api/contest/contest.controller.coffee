@@ -362,13 +362,14 @@ exports.create = (req, res) ->
       user.coins = user.coins - contest.fee
       # user.joinedContest = [ contest ]
       tax = (contest.fee * 10) / 100
+
       Tax.create {
-              tax_type: 'contestFee'
-              contest_id: contest._id,
-              coin: tax
-              user_id: user._id
-              created_at: new Date()
-              }, (err, tax) ->
+        tax_type: 'contestFee'
+        contest_id: contest._id,
+        coin: tax
+        user_id: user._id
+        created_at: new Date()
+      }, (err, tax) ->
 
       user.save()
 
@@ -385,18 +386,15 @@ exports.joinContest = (req, res) ->
       # user.joinedContest = [ contest ]
       user.save()
       tax = (contest.fee * 10) / 100
-    # console.log "ssssssssssssssssssssssssss TAX"
+
       Tax.create {
-              tax_type: 'contestFee'
-              contest_id: contest._id,
-              coin: tax
-              user_id: user._id
-              created_at: new Date()
-              }, (err, tax) ->
-              # console.log "sdsdsdsdsdsdsds"
-              # console.log err
-              # console.log tax
-              # console.log "tax finish"
+        tax_type: 'contestFee'
+        contest_id: contest._id,
+        coin: tax
+        user_id: user._id
+        created_at: new Date()
+      }, (err, tax) ->
+        console.log tax
 
       contest.participant.push(req.body)
       contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
@@ -696,9 +694,3 @@ exports.updateScore = (req, res) ->
             c.save()
 
     res.status(200).json {success: true}
-
-
-
-
-
-

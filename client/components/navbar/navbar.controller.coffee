@@ -42,16 +42,16 @@ angular.module 'clublootApp'
   $scope.getFreeLoot = () ->
     id = $scope.CurrentUser._id
     $http.put("/api/daily_loot/#{id}/getfreeloot",
-        id: id
-      ).success((data, status, headers, config) ->
-        $rootScope.freeLootToday = data.freeCoins
-        $rootScope.showDailyLoot = true
-        $scope.CurrentUser = data.user
-        $rootScope.currentUser = data.user
-        Auth.user = $rootScope.currentUser
-      ).error((data, status, headers, config) ->
-        # console.log status
-      )
+      id: id
+    ).success((data, status, headers, config) ->
+      $rootScope.freeLootToday = data.freeCoins
+      $rootScope.showDailyLoot = true
+      $scope.CurrentUser = data.user
+      $rootScope.currentUser = data.user
+      Auth.user = $rootScope.currentUser
+    ).error((data, status, headers, config) ->
+      # console.log status
+    )
   $timeout ->
     if Auth.getCurrentUser()
       $http.get("/api/users/#{Auth.getCurrentUser()._id}").success (data) ->

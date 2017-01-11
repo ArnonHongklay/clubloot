@@ -26,7 +26,7 @@ exports.index = (req, res) ->
 exports.today = (req, res) ->
   start = new Date()
   s = start.setHours(0,0,0,0)
-  end = new Date();
+  end = new Date()
   e = end.setHours(23,59,59,999)
 
   SigninLog.find { created_at: {$gte: s, $lt: e} }, (err, SigninLogs) ->

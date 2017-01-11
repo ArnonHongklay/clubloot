@@ -53,7 +53,7 @@ angular.module 'clublootApp'
       resolve:
         prizes: ($http, $stateParams) ->
           return $scope.prizeEdit
-      ).result.then (->
+    ).result.then (->
       # alert 'OK'
       return
     ), ->
