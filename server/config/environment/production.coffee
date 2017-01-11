@@ -16,3 +16,9 @@ module.exports =
           process.env.MONGOHQ_URL or
           process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME or
           'mongodb://localhost/clubloot'
+
+  DOMAIN: 'http://clubloot.com'
+  SESSION_SECRET:   'clubloot-secret'
+
+  FACEBOOK_ID:      'app-id'
+  FACEBOOK_SECRET:  'secret'

@@ -7,8 +7,6 @@ requiredProcessEnv = (name) ->
   throw new Error('You must set the ' + name + ' environment variable')  unless process.env[name]
   process.env[name]
 
-# console.log process.env.DOMAIN
-# console.log all
 # All configurations will extend these options
 # ============================================
 all =
@@ -40,21 +38,14 @@ all =
       db:
         safe: true
 
+
   facebook:
     clientID: process.env.FACEBOOK_ID or '1725131707746453'
     clientSecret: process.env.FACEBOOK_SECRET or '2e57915f8ef7d2241267f00ac72b9ac2'
-    callbackURL: 'http://clubloot.com/auth/facebook/callback'
-    # callbackURL: (process.env.DOMAIN or '') + '/auth/facebook/callback'
+    callbackURL: (process.env.DOMAIN or '') + '/auth/facebook/callback'
 
-  twitter:
-    clientID: process.env.TWITTER_ID or 'id'
-    clientSecret: process.env.TWITTER_SECRET or 'secret'
-    callbackURL: (process.env.DOMAIN or '') + '/auth/twitter/callback'
 
-  google:
-    clientID: process.env.GOOGLE_ID or 'id'
-    clientSecret: process.env.GOOGLE_SECRET or 'secret'
-    callbackURL: (process.env.DOMAIN or '') + '/auth/google/callback'
+console.log all
 
 # Export the config object based on the NODE_ENV
 # ==============================================
