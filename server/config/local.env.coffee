@@ -5,18 +5,12 @@
 #
 # You will need to set these on the server you deploy to.
 
-module.exports =
-  DOMAIN: 'http://clubloot.com'
-  SESSION_SECRET: "clubloot-secret"
-
-  FACEBOOK_ID: '1725131707746453'
-  FACEBOOK_SECRET: '2e57915f8ef7d2241267f00ac72b9ac2'
-
-  TWITTER_ID: 'app-id'
-  TWITTER_SECRET: 'secret'
-
-  GOOGLE_ID: 'app-id'
-  GOOGLE_SECRET: 'secret'
-
-  # Control debug level for modules using visionmedia/debug
-  DEBUG: ''
+# module.exports =
+#   DOMAIN: 'http://clubloot.com'
+#   SESSION_SECRET: "clubloot-secret"
+#
+#   FACEBOOK_ID: '1725131707746453'
+#   FACEBOOK_SECRET: '2e57915f8ef7d2241267f00ac72b9ac2'
+#
+#   # Control debug level for modules using visionmedia/debug
+#   DEBUG: ''

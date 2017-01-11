@@ -72,9 +72,9 @@ exports.upcoming_contest = (req, res) ->
               total_coin += contest.loot.prize
 
               if i == contests.length - 1
-                console.log total_contest
-                console.log total_coin
-                # console.log contests.length
+                # console.log total_contest
+                # console.log total_coin
+                  # console.log contests.length
                 c = {
                   contest
                   total: {
@@ -86,7 +86,7 @@ exports.upcoming_contest = (req, res) ->
                 bucket.push(c)
 
     setTimeout (->
-      console.log bucket
+      # console.log bucket
       render(res, bucket)
     ), 1000
 

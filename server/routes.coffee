@@ -11,6 +11,7 @@ module.exports = (app) ->
 
   # Insert routes below
   app.use '/api/things',          require './api/thing'
+  app.use '/api/ledgers',         require './api/ledger'
   app.use '/api/program',         require './api/program'
   app.use '/api/templates',       require './api/template'
   app.use '/api/questions',       require './api/question'

@@ -5,6 +5,6 @@
 #   require: 'ngModel'
 #   link: (scope, element, attrs) ->
 #     $ ->
-# 		  console.log element
+# 		# console.log element
 #       element.bootstrapWizard
 #         tabClass: 'nav nav-tabs'

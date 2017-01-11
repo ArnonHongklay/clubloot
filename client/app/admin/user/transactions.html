@@ -1,24 +1,44 @@
 <div class="col-md-12" style="margin-top: 20px;">
   <table class="table" style="border-radius: 0px;">
     <tbody>
+      <tr>
+        <th>
+          Action
+        </th>
+        <th>
+          Created At
+        </th>
+        <th>
+          Format
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Amount
+        </th>
+        <th>
+          Balance
+        </th>
+      </tr>
       <tr ng-repeat="transaction in transactions">
         <td>
-          <i class="fa" ng-class="{'fa-plus': transaction.status=='plus','fa-minus': transaction.status=='minus'}" aria-hidden="true"></i>
+          <i class="fa" ng-class="{'fa-plus': transaction.action=='plus','fa-minus': transaction.action=='minus'}" aria-hidden="true"></i>
         </td>
         <td class="b-text">
-          [{{transaction.screenName}}]
+          {{transaction.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss'}}
         </td>
         <td>
-          {{transaction.time}}
+          {{transaction.transaction.format}}
         </td>
         <td>
-          {{transaction.transaction}}{{$index}}
+          {{transaction.transaction.from}} -> {{transaction.transaction.to}}
         </td>
         <td>
-          {{transaction.description}}
+          {{transaction.transaction.amount}}
         </td>
         <td>
-          {{transaction.amount}}
+          {{transaction.balance}}
         </td>
       </tr>
     </tbody>

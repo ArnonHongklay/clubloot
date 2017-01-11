@@ -46,7 +46,7 @@ angular.module 'clublootApp'
           swal("Not found!!")
         )
       $http.get("/api/contest/template/#{$stateParams.id}/score").success((data, status, headers, config) ->
-          console.log data
+        # console.log data
         )
 
   $scope.closeContest = () ->

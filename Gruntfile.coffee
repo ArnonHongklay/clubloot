@@ -29,6 +29,7 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON 'package.json'
     yeoman:
       # configurable paths
+
       client: require('./bower.json').appPath or 'client'
       dist: 'dist'
 
@@ -319,6 +320,7 @@ module.exports = (grunt) ->
       options:
 
         # This should be the name of your apps angular module
+        module: 'clublootApp'
         htmlmin:
           collapseBooleanAttributes: true
           collapseWhitespace: true
@@ -685,4 +687,3 @@ module.exports = (grunt) ->
     'test'
     'build'
   ])
-

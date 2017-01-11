@@ -25,11 +25,17 @@ angular.module 'clublootApp'
     url: '/transactions'
     templateUrl: 'app/admin/user/transactions.html'
     controller: 'AdminUserTransactionsCtrl'
+    resolve:
+      transactions: ($http, $stateParams) ->
+        $http.get "/api/users/#{$stateParams.user_id}/transactions"
 
   .state 'Adminuser.prizes',
     url: '/prizes'
     templateUrl: 'app/admin/user/prizes.html'
     controller: 'AdminUserPrizesCtrl'
+    resolve:
+      prizes: ($http, $stateParams) ->
+        $http.get "/api/users/#{$stateParams.user_id}/prizes"
 
   .state 'Adminuser.notes',
     url: '/notes'

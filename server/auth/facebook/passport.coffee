@@ -8,7 +8,6 @@ exports.setup = (User, config) ->
     callbackURL: config.facebook.callbackURL
     profileFields: ['id', 'displayName', 'photos', 'email']
   , (accessToken, refreshToken, profile, done) ->
-    # console.log profile
     User.findOne
       'facebook.id': profile.id
     , (err, user) ->

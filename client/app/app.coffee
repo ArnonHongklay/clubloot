@@ -9,6 +9,7 @@ angular.module 'clublootApp', [
   'ui.bootstrap',
   'ngFileUpload',
   'nvd3',
+  'checklist-model',
   'angularMoment'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
