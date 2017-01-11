@@ -18,7 +18,7 @@
         <div class="catelog" ng-class="{active: cateFilter == '4'}" ng-click="cateFilter = 4">
           51 - 100 <i class="fa fa-diamond" aria-hidden="true"></i>
         </div>
-        <div class="catelog" ng-class="{active: cateFilter == 'all'}" ng-click="cateFilter = all">
+        <div class="catelog" ng-class="{active: cateFilter == 'all'}" ng-click="cateFilter = 'all'">
           All <i class="fa fa-diamond" aria-hidden="true"></i>
         </div>
       </div>
@@ -27,10 +27,10 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="catelog-item-box">
-          <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == prize.tier">
-            <div class="box" ng-click="clickPrize(prize)">
+          <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == 'all' || cateFilter == prize.tier" ng-click="clickPrize(prize)">
+            <div class="box">
               <div class="col-xs-12 prize-name">
-                <input type="checkbox" name="prize" checklist-model="c_prize.selected" checklist-value="prize">
+                <input type="checkbox" id="{{prize._id}}" name="prize" checklist-model="prize_select.selected" checklist-value="prize">
                 {{ prize.name }}
               </div>
               <div class="col-xs-12 prize-item">
