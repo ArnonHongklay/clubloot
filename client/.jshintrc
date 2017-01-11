@@ -21,7 +21,7 @@
   "globals": {
     "jQuery": true,
     "angular": true,
-    "# console.log": true,
+    "console.log": true,
     "$": true,
     "_": true,
     "moment": true,
