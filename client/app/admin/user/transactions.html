@@ -9,7 +9,7 @@
           Created At
         </th>
         <th>
-          Format
+          Transaction#
         </th>
         <th>
           Description
@@ -29,7 +29,7 @@
           {{transaction.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss'}}
         </td>
         <td>
-          {{transaction.transaction.format}}
+          {{transaction._id}}
         </td>
         <td>
           {{transaction.transaction.from}} -> {{transaction.transaction.to}}

@@ -50,6 +50,8 @@ namespace :deploy do
   task :grunt do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
+        execute 'rm server/local.env.coffee'
+        execute 'cp server/local.env.sample.coffee server/local.env.coffee'
         execute :grunt, '--force'
       end
     end
