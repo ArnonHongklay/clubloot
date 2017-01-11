@@ -2,16 +2,16 @@
 
 _ = require 'lodash'
 
-User = require './user.model'
-Contest = require '../contest/contest.model'
+User      = require './user.model'
+Contest   = require '../contest/contest.model'
 WinnerLog = require '../winner_log/winner_log.model'
-Tax = require '../tax/tax.model'
-Ledger = require '../ledger/ledger.model'
+Tax       = require '../tax/tax.model'
+Ledger    = require '../ledger/ledger.model'
 
-passport = require 'passport'
-config = require '../../config/environment'
+passport  = require 'passport'
+config    = require '../../config/environment'
 SigninLog = require '../signin_log/signin_log.model'
-jwt = require 'jsonwebtoken'
+jwt       = require 'jsonwebtoken'
 
 DateDiff =
   inDays: (d1, d2) ->
@@ -73,13 +73,19 @@ exports.show = (req, res, next) ->
 
     if user
       unless user.last_seen
-        SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
+        SigninLog.create {
+          user_id: user._id,
+          created_at: today
+        }, (err, SigninLog) ->
           user.last_seen = new Date()
           user.save()
 
       if user.last_seen
         unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
-          SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
+          SigninLog.create {
+            user_id: user._id,
+            created_at: today
+          }, (err, SigninLog) ->
             user.last_seen = new Date()
             user.save()
 
@@ -173,7 +179,7 @@ exports.me = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId
-  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+  , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
     return res.json user
@@ -184,7 +190,7 @@ exports.showContests = (req, res, next) ->
 
   User.findOne
     _id: userId
-  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+  , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
 
@@ -226,11 +232,20 @@ exports.showPrizes = (req, res, next) ->
     Ledger.where('user_id').equals(req.params.id).where('transaction').equals('prize').exec (err, ledgers) ->
       res.json ledgers
 
+exports.notes = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) ->
+    return next(err)  if err
+    return res.status(401).end() unless user
+    return res.json user
+
 exports.accounting = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId
-  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+  , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
     return res.json user
