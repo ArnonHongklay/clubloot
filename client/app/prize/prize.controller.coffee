@@ -35,11 +35,20 @@ angular.module 'clublootApp'
       swal('Please check agree')
       return
 
-    if Auth.getCurrentUser().diamonds < $scope.checkPrize($scope.c_prize.selected)
+    sumOfPrize = $scope.checkPrize($scope.c_prize.selected)
+    if Auth.getCurrentUser().diamonds < sumOfPrize
       swal('need more diamonds')
       return
     else
-      alert('ok')
+      Auth.getCurrentUser().diamonds = Auth.getCurrentUser().diamonds - sumOfPrize
+      $http.put("/api/users/#{Auth.getCurrentUser()._id}", Auth.getCurrentUser()).success (data) ->
+        $http.post("/api/ledgers",
+          { user_id: Auth.getCurrentUser()._id, transaction: 'prize', amount: sumOfPrize, balance: Auth.getCurrentUser().diamonds }
+        ).success((data, status, headers, config) ->
+          console.log data
+        ).error((data, status, headers, config) ->
+          swal("Not found!!")
+        )
 
   $scope.goDashboard = () ->
     window.location.href = "/dashboard"

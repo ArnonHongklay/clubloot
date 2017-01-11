@@ -6,6 +6,7 @@ User = require './user.model'
 Contest = require '../contest/contest.model'
 WinnerLog = require '../winner_log/winner_log.model'
 Tax = require '../tax/tax.model'
+Ledger = require '../ledger/ledger.model'
 
 passport = require 'passport'
 config = require '../../config/environment'
@@ -222,10 +223,6 @@ exports.me = (req, res, next) ->
     return res.json user
 
 exports.showContests = (req, res, next) ->
-# console.log "show contest"
-# console.log req.params
-  # console.log req.body
-
   userId = req.params.id
   status = req.params.status
 
@@ -255,10 +252,23 @@ exports.showTransactions = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId
-  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+  , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
-    return res.json user
+    console.log user
+    Ledger.where('user_id').equals(req.params.id).exec (err, ledgers) ->
+      res.json ledgers
+
+exports.showPrizes = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) ->
+    return next(err)  if err
+    return res.status(401).end() unless user
+
+    Ledger.where('user_id').equals(req.params.id).where('transaction').equals('prize').exec (err, ledgers) ->
+      res.json ledgers
 
 exports.accounting = (req, res, next) ->
   userId = req.user._id
