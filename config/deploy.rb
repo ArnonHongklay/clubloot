@@ -46,17 +46,6 @@ namespace :deploy do
     end
   end
 
-  desc 'grunt'
-  task :grunt do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute 'rm server/local.env.coffee'
-        execute 'cp server/local.env.sample.coffee server/local.env.coffee'
-        execute :grunt, '--force'
-      end
-    end
-  end
-
   desc 'grunt stop'
   task :grunt_stop do
     on roles(:app), in: :sequence, wait: 5 do
@@ -84,14 +73,33 @@ namespace :deploy do
     end
   end
 
-  # before 'deploy:assets:precompile', :npm_install
-  # before 'deploy:assets:precompile', :bower_install
+  desc 'grunt deploy'
+  task :grunt_deploy do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute "cp #{current_path}/server/config/local.env.production.coffee #{current_path}/server/config/local.env.coffee"
+        execute :grunt, '--force'
+      end
+    end
+  end
 
-  before 'deploy:assets:precompile', :grunt
-  before 'deploy:assets:precompile', :grunt_restart
+  desc 'grunt'
+  task :grunt do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :grunt, '--force'
+      end
+    end
+  end
+
+  # before 'deploy:check:directories', :grunt_stop
+
+  after :publishing, :grunt_deploy
+  after 'deploy:publishing', :grunt_start
 
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
+
 end
 
 namespace :rails do
