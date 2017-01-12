@@ -10,7 +10,8 @@ exports.index = (req, res) ->
 
 exports.create = (req, res) ->
   params = req.body
-  add_ledger = {
+
+  Ledger.create {
     action: params['action']
     user: {
       id: params['user']._id,
@@ -25,9 +26,7 @@ exports.create = (req, res) ->
       rubies:     params['user'].rubies
       coins:      params['user'].coins
     }
-  }
-
-  Ledger.create add_ledger, (err, ledger) ->
+  }, (err, ledger) ->
     return handleError(res, err) if err
     res.status(201).json ledger
 

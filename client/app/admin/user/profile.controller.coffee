@@ -1,6 +1,8 @@
 
 angular.module 'clublootApp'
 .controller 'AdminUserProfileCtrl', ($scope, $http, socket, $filter) ->
+  $scope.menuActive = 'Profile'
+
   $scope.update = ->
     # console.log $scope.user
     $http.put("/api/users/#{$scope.user._id}",

@@ -1,8 +1,7 @@
 
 angular.module 'clublootApp'
 .controller 'AdminUserAccountingCtrl', ($scope, $http, socket) ->
-  # console.log "AdminUserAccountingCtrl"
-
+  $scope.menuActive = 'Accounting'
 
   $scope.history = [
     {id: 1, status: 'plus', gem: 'diamond', name: 'Sapphire', color: 'gem-blue', amount: 'amount'},

@@ -1,5 +1,5 @@
 <div class="col-md-12" style="margin-top: 20px;">
-  <table class="table" style="border-radius: 0px;">
+  <table class="table table-bordered" style="border-radius: 0px;">
     <tbody>
       <tr>
         <th>
@@ -9,7 +9,7 @@
           Created At
         </th>
         <th>
-          Transaction#
+          Transaction #
         </th>
         <th>
           Description
@@ -22,11 +22,11 @@
         </th>
       </tr>
       <tr ng-repeat="transaction in transactions">
-        <td>
+        <td class="text-center">
           <i class="fa" ng-class="{'fa-plus': transaction.action=='plus','fa-minus': transaction.action=='minus'}" aria-hidden="true"></i>
         </td>
         <td class="b-text">
-          {{transaction.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss'}}
+          {{transaction.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
         </td>
         <td>
           {{transaction._id}}

@@ -82,7 +82,36 @@ exports.getFreeLoot = (req, res, next) ->
     user.coins = user.coins + baseCoins + bonus
     user.save
 
-    Ledger.create { user_id: user._id }
+    # log ledger
+    params = {
+      action: 'plus'
+      user: user
+      transaction: {
+        format: 'loot'
+        status: 'completed'
+        from: 'zero'
+        to: 'coin'
+        amount: baseCoins + bonus
+        tax: null
+      }
+    }
+
+    Ledger.create {
+      action: params['action']
+      user: {
+        id: params['user']._id,
+        name: "#{params['user'].first_name} #{params['user'].last_name}",
+        email: params['user'].email
+      }
+      transaction: params['transaction']
+      balance: {
+        diamonds:   params['user'].diamonds
+        emeralds:   params['user'].emeralds
+        sapphires:  params['user'].sapphires
+        rubies:     params['user'].rubies
+        coins:      params['user'].coins
+      }
+    }
 
     user.save (err) ->
       data = { user: user, freeCoins: baseCoins + bonus }

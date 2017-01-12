@@ -4,14 +4,15 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
 ledgerSchema = new Schema
-  action: String # 'plus', 'minus'
+  action: { type: String, enum: ['plus', 'minus'] }
   user: {
     id: String
     name: String
     email: String
   }
   transaction: {
-    format: String # 'loot', 'play game', 'gem', 'prize'
+    format: { type: String, enum: ['loot', 'play game', 'gem', 'prize'] }
+    status: String
     from: String
     to: String
     amount: Number
