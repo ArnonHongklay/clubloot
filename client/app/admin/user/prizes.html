@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-sm-6">
     <h3>Pending</h3>
-    <table class="table">
+    <table class="table table-bordered">
       <tr>
         <th class="col-sm-5">
           Date Time
@@ -12,15 +12,15 @@
         </th>
         <th class="col-sm-2">&nbsp;</th>
       </tr>
-      <tr ng-repeat="prize in prizes">
+      <tr ng-repeat="prize in prizes" ng-if="prize.transaction.status == 'pending'">
         <td>
           {{ prize.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
         </td>
         <td>
           {{ prize._id }}
         </td>
-        <td class="text-right">
-          <a href="#" class="btn" style="background: green; border-radius: 0px; color: #fff">Edit</a>
+        <td class="text-center">
+          <a href="#" class="btn" style="background: green; border-radius: 0px; color: #fff">Complete</a>
         </td>
       </tr>
     </table>
@@ -28,7 +28,7 @@
 
   <div class="col-sm-6">
     <h3>Completed</h3>
-    <table class="table">
+    <table class="table table-bordered">
       <tr>
         <th class="col-sm-4">
           Ship Date Time
@@ -42,6 +42,20 @@
         <th class="col-sm-3">
           Status
         </th>
+      </tr>
+      <tr ng-repeat="prize in prizes" ng-if="prize.transaction.status == 'completed'">
+        <td>
+          {{ prize.updated_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
+        </td>
+        <td>
+          {{ prize.description }}
+        </td>
+        <td>
+          {{ prize._id }}
+        </td>
+        <td>
+          {{ prize.transaction.status }}
+        </td>
       </tr>
     </table>
   </div>

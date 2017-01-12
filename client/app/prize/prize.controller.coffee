@@ -49,6 +49,7 @@ angular.module 'clublootApp'
             user: Auth.getCurrentUser()
             transaction: {
               format: 'prize'
+              status: 'pending'
               from: 'diamond'
               to: 'prize'
               amount: sumOfPrize
