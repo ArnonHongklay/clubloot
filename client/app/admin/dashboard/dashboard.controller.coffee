@@ -27,7 +27,6 @@ angular.module 'clublootApp'
     f = $scope.filterDate.from
     t = $scope.filterDate.to
 
-
     $http.post("/api/v2/dashboard/tournament_by_date", {fr: f, to: t }).success (data, status, headers, config) ->
       $scope.tournament = data.length
 
@@ -40,6 +39,7 @@ angular.module 'clublootApp'
       end   = new Date(t)
       dayCount = Math.round((end-start)/oneday)
       dayCount +=1
+      console.log data.length
 
       $scope.signinPercent = data.length/($scope.allplayer.length*dayCount) * 100
 
