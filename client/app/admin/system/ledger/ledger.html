@@ -3,7 +3,7 @@
     <h5>Ledger
       <div class="ledger-value-box pull-right">
         <span class="pull-left">$</span>
-        <span class="pull-right">234,432.21</span>
+        <span class="pull-right">{{ getTotal() }}</span>
       </div>
     </h5>
     <div class="col-md-12" style="margin-top: 30px;">
@@ -15,26 +15,46 @@
       <div class="btn btn-primary" style="background:#50ACC4;border-color:#dedede;">2014</div>
     </div>
     <div class="col-md-12" style="margin-top: 20px;">
-      <table class="table" style="border-radius: 0px;">
+      <table class="table table-bordered">
           <tbody>
+            <tr>
+              <th>
+                Status
+              </th>
+              <th>
+                ScreenName
+              </th>
+              <th>
+                Date Time
+              </th>
+              <th>
+                Transaction #
+              </th>
+              <th>
+                Description
+              </th>
+              <th>
+                Amount
+              </th>
+            </tr>
             <tr ng-repeat="lad in ledgers" ng-click="selectLedger(lad)">
               <td>
-                <i class="fa" ng-class="{'fa-plus': lad.status=='plus','fa-minus': lad.status=='minus'}" aria-hidden="true"></i>
+                <i class="fa" ng-class="{'fa-plus': lad.action=='plus','fa-minus': lad.action=='minus'}" aria-hidden="true"></i>
               </td>
               <td class="b-text">
-                [{{lad.screenName}}]
+                [{{lad.user.name}}]
               </td>
               <td>
-                {{lad.time}}
+                {{lad.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
               </td>
               <td>
-                {{lad.transaction}}{{$index}}
+                {{lad._id}}
               </td>
               <td>
                 {{lad.description}}
               </td>
               <td>
-                {{lad.amount}}
+                {{lad.transaction.amount}}
               </td>
             </tr>
           </tbody>

@@ -3,10 +3,10 @@
     <tbody>
       <tr>
         <th>
-          Action
+          Code
         </th>
         <th>
-          Created At
+          Date Time
         </th>
         <th>
           Transaction #
@@ -32,13 +32,32 @@
           {{transaction._id}}
         </td>
         <td>
-          {{transaction.transaction.from}} -> {{transaction.transaction.to}}
+          <a href="#">{{transaction.Description}} {{ transaction.transaction.from }} -> {{transaction.transaction.to}}</a>
         </td>
         <td>
-          {{transaction.transaction.amount}}
+          {{transaction.transaction.amount}} {{ transaction.transaction.from }}
         </td>
         <td>
-          {{transaction.balance}}
+          <span>
+            {{transaction.balance.coins}}
+            <img src="assets/images/Piggy Bank Icon.png" width="40">
+          </span>
+          <span style="color: #951111">
+            {{transaction.balance.rubies}}
+            <i class="fa fa-diamond" aria-hidden="true"></i>
+          </span>
+          <span style="color: #2A4C7A">
+            {{transaction.balance.sapphires}}
+            <i class="fa fa-diamond" aria-hidden="true"></i>
+          </span>
+          <span style="color: #758F42">
+            {{transaction.balance.emeralds}}
+            <i class="fa fa-diamond" aria-hidden="true"></i>
+          </span>
+          <span style="color: #9F9B93">
+            {{transaction.balance.diamonds}}
+            <i class="fa fa-diamond" aria-hidden="true"></i>
+          </span>
         </td>
       </tr>
     </tbody>

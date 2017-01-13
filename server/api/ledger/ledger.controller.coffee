@@ -36,3 +36,12 @@ exports.show = (req, res) ->
     return handleError(res, err) if err
     return res.status(404).end() unless ledgers
     res.json ledgers
+
+exports.complete = (req, res) ->
+  Ledger.findById req.params.id, (err, prize) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless prize
+    prize.transaction.status = 'completed'
+    prize.save (err) ->
+      return handleError(res, err)  if err
+      res.status(200).json prize
