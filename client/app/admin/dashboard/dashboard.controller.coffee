@@ -7,14 +7,60 @@ angular.module 'clublootApp'
   $scope.allplayer  = allplayer.data
   $scope.winnerLogs = winnerLogs.data
   $scope.prize = 0
+  today = moment(new Date()).format("YYYY/M/D")
+  $scope.filterDate = {from: today, to: today}
 
   $scope.signinCount = signinCount.data.length
+  $('.datetimepicker').datetimepicker()
   $scope.signinPercent = 0
 
   $scope.economy = 0
 
   $scope.tax = 0
   $scope.signinPercent = $scope.signinCount/$scope.player * 100
+
+  $scope.filterToday = () ->
+    $scope.filterDate = {from: today, to: today}
+    $scope.getDataByDate()
+
+  $scope.getDataByDate = () ->
+    f = $scope.filterDate.from
+    t = $scope.filterDate.to
+
+
+    $http.post("/api/v2/dashboard/tournament_by_date", {fr: f, to: t }).success (data, status, headers, config) ->
+      $scope.tournament = data.length
+
+    $http.post("/api/v2/dashboard/allplayer_by_date", {fr: f, to: t }).success (data, status, headers, config) ->
+      $scope.player = data.length
+
+    $http.post("/api/signin_log/by_date", {fr: f, to: t }).success (data, status, headers, config) ->
+      console.log data.length
+      oneday = 1000 * 60 * 60 * 24
+      start = new Date(f)
+      end   = new Date(t)
+      dayCount = Math.round((end-start)/oneday)
+      dayCount +=1
+      console.log "0=0=0=0=0="
+      console.log t
+      console.log "#{t}-#{f}"
+      console.log dayCount
+
+      console.log data.length
+      $scope.signinPercent = data.length/($scope.allplayer.length*dayCount) * 100
+      console.log "sgn"
+
+    $http.post("/api/tax/by_date", {fr: f, to: t }).success (data, status, headers, config) ->
+      console.log data
+      $scope.tax = 0
+      for tax in data
+        $scope.tax += tax.coin
+      console.log $scope.tax
+    $http.post("/api/winner_log/by_date", {fr: f, to: t }).success (data, status, headers, config) ->
+      console.log data
+      $scope.prize = 0
+      for w in data
+        $scope.prize += w.prize
 
   for w in $scope.winnerLogs
     $scope.prize += w.prize
@@ -33,3 +79,5 @@ angular.module 'clublootApp'
 
   #
   # $('#ex2').bootstrapSlider()
+
+  $scope.filterToday()

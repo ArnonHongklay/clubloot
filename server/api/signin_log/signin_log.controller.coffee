@@ -17,6 +17,17 @@ exports.create = (req, res) ->
     return handleError(res, err)  if err
     res.status(201).json SigninLog
 
+exports.by_date = (req, res) ->
+  console.log req.body
+  start = new Date(req.body.fr)
+  s = start.setHours(0,0,0,0)
+  end = new Date(req.body.to)
+  e = end.setHours(23,59,59,999)
+
+  SigninLog.find { created_at: {$gte: s, $lt: e} }, (err, signinLogs) ->
+    return handleError(res, err)  if err
+    res.status(200).json signinLogs
+
 
 exports.index = (req, res) ->
   SigninLog.find (err, SigninLogs) ->
