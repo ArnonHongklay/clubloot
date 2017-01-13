@@ -1,6 +1,7 @@
 'use strict'
 
 _ = require 'lodash'
+Prize  = require '../prize/prize.model'
 Ledger = require './ledger.model'
 
 exports.index = (req, res) ->

@@ -61,7 +61,7 @@
     <tr ng-repeat="prize in prizes">
       <td>{{prize.name}}</td>
       <td>{{prize.price}}</td>
-      <td>{{prize.count}} / {{prize.quantity}} Remaining</td>
+      <td>{{prize.count || 0}} / {{prize.quantity}} Remaining</td>
       <td>
         <a href="#" ng-click="edit(prize._id)" class="btn" style="background: limegreen; padding: 10px 30px; color: #fff;">Edit</a>
         <a href="#" ng-click="remove(prize._id)"  class="btn" style="background: indianred; padding: 10px 30px; color: #fff;">Delete</a>

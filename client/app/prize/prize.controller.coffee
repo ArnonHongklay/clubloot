@@ -58,16 +58,16 @@ angular.module 'clublootApp'
       return
 
     sumOfPrize = $scope.checkPrize($scope.prize_select.selected)
-    ref = []
-    for prize, i in $scope.prize_select.selected
-      ref.push({format: 'prize', id: prize._id})
-
     if Auth.getCurrentUser().diamonds < sumOfPrize
       swal('Sorry, you do not have enough gems for the prize.')
       return
     else
       Auth.getCurrentUser().diamonds = Auth.getCurrentUser().diamonds - sumOfPrize
       $http.put("/api/users/#{Auth.getCurrentUser()._id}", Auth.getCurrentUser()).success (data) ->
+        ref = []
+        for prize, i in $scope.prize_select.selected
+          ref.push({format: 'prize', id: prize._id})
+
         $http.post("/api/ledgers",
           {
             action: 'plus'
@@ -83,7 +83,10 @@ angular.module 'clublootApp'
             }
           }
         ).success((data, status, headers, config) ->
-          # console.log data
+          for prize, i in $scope.prize_select.selected
+            $http.put("/api/prize/#{prize._id}/count").success (data) ->
+              console.log data
+
           $scope.getPrice = true
         ).error((data, status, headers, config) ->
           swal("Not found!!")
