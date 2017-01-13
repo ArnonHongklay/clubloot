@@ -359,7 +359,7 @@ angular.module 'clublootApp'
 
 
   $scope.goContest = (contest) ->
-    if checkJoin(contest) == true
+    if $scope.checkJoin(contest) == true
       window.location.href = "/question/#{contest._id}/"
 
 angular.module 'clublootApp'

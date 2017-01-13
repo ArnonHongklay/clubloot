@@ -53,7 +53,8 @@
               <td ng-click="showContestDetails(contest)">
                 <div class="full-circle blue">M</div>
               </td>
-              <td ng-click="goContest(contest)">
+              <td ng-if="!checkJoin(contest)">&nbsp;</td>
+              <td ng-click="goContest(contest)" ng-if="checkJoin(contest)">
                 <div class="btn btn-default" style="color: #fff; background: #26AE58;">
                   Edit
                 </div>
