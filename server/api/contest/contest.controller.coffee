@@ -381,8 +381,8 @@ exports.create = (req, res) ->
           status: 'completed'
           from: 'coins'
           to: 'create contest'
-          amount: (contest.fee * 10) / 100
-          tax: contest.fee
+          amount: contest.fee
+          tax: (contest.fee * 10) / 100
         }
       }
 
@@ -401,7 +401,9 @@ exports.create = (req, res) ->
           rubies:     params['user'].rubies
           coins:      params['user'].coins
         }
-      }
+      }, (err, ledger) ->
+        console.log err
+        console.log ledger
 
       user.save()
 
@@ -429,7 +431,7 @@ exports.joinContest = (req, res) ->
         console.log tax
 
       # log ledger
-      params = {
+      console.log params = {
         action: 'plus'
         user: user
         transaction: {
@@ -437,8 +439,8 @@ exports.joinContest = (req, res) ->
           status: 'completed'
           from: 'coins'
           to: 'join contest'
-          amount: (contest.fee * 10) / 100
-          tax: contest.fee
+          amount: contest.fee
+          tax: (contest.fee * 10) / 100
         }
       }
 
@@ -661,7 +663,7 @@ exports.findByTemplates = (req, res) ->
                   action: 'plus'
                   user: winner
                   transaction: {
-                    format: 'winner'
+                    format: 'won'
                     status: 'completed'
                     from: 'contest'
                     to: 'winner'
