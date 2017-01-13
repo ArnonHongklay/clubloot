@@ -42,7 +42,7 @@
                 <i class="fa" ng-class="{'fa-plus': lad.action=='plus','fa-minus': lad.action=='minus'}" aria-hidden="true"></i>
               </td>
               <td class="b-text">
-                [{{lad.user.name}}]
+                [{{lad.user.email}}]
               </td>
               <td>
                 {{lad.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
@@ -51,7 +51,7 @@
                 {{lad._id}}
               </td>
               <td>
-                {{lad.description}}
+                {{lad.description}} {{lad.transaction.amount}} {{ lad.transaction.from }}
               </td>
               <td>
                 {{lad.transaction.amount}}
