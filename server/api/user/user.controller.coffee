@@ -53,7 +53,10 @@ exports.create = (req, res, next) ->
   newUser.created_at = new Date()
   newUser.last_seen = new Date()
   newUser.messages = []
+  today = new Date()
   newUser.save (err, user) ->
+    SigninLog.create {user_id: newUser._id, created_at: today}, (err, SigninLog) ->
+      console.log SigninLog
     return validationError(res, err)  if err
     token = jwt.sign(
       _id: user._id
@@ -75,6 +78,7 @@ exports.show = (req, res, next) ->
     today = new Date()
 
     if user
+      console.log "22227777777777777777777777"
       unless user.last_seen
         console.log "last_seen1"
         SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
@@ -83,6 +87,7 @@ exports.show = (req, res, next) ->
           console.log SigninLog
 
       if user.last_seen
+        console.log "sssssssssssssssssssssssssssssssssssssssssss"
         unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
           console.log "last_seen2"
           SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
