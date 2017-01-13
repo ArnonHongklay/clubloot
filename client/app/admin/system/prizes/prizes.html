@@ -59,9 +59,9 @@
   </thead>
   <tbody>
     <tr ng-repeat="prize in prizes">
-      <td>{{prize.name}}</td>
+      <td>{{prize.name}} (<a href="#" ng-click="showDetail(prize)">details</a>)</td>
       <td>{{prize.price}}</td>
-      <td>0 / {{prize.quantity}} Remaining</td>
+      <td>{{prize.count || 0}} / {{prize.quantity}} Remaining</td>
       <td>
         <a href="#" ng-click="edit(prize._id)" class="btn" style="background: limegreen; padding: 10px 30px; color: #fff;">Edit</a>
         <a href="#" ng-click="remove(prize._id)"  class="btn" style="background: indianred; padding: 10px 30px; color: #fff;">Delete</a>
@@ -71,25 +71,58 @@
 </table>
 </div>
 
-<script type="text/ng-template" id="myModal.html">
+<script type="text/ng-template" id="test.html">
   <div class="modal-header">
-      <h3 class="modal-title">Prize edit</h3>
+    <h3 class="modal-title">Details</h3>
   </div>
   <div class="modal-body">
-    <div class="row">
-      <div class="col-xs-12 form-group">
-        Title: <input type="text" ng-model="prizeEdit.name" class="form-control">
+    <h1>{{przie.name}}</h1>
+    <p>Price: {{prize.price}}</p>
+    <p>Quantity: {{prize.count}} / {{prize.quantity}}</p>
+    <p>Description: {{prize.description || 'not thing'}}</p>
+  </div>
+</script>
+
+<script type="text/ng-template" id="myModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Prize edit</h3>
+  </div>
+  <div class="modal-body">
+    <form name="prizeEditForm">
+      <div class="row">
+        <div class="col-xs-12 form-group">
+          Title: <input type="text" ng-model="prizeEdit.name" class="form-control">
+        </div>
+        <div class="col-xs-12 form-group">
+          Price: <input type="text" ng-model="prizeEdit.price" class="form-control">
+        </div>
+        <div class="col-xs-12 form-group">
+          Quantity: <input type="text" ng-model="prizeEdit.quantity" class="form-control">
+        </div>
+        <div class="col-xs-12 form-group">
+          <textarea class="form-control col-xs-12" rows="4" ng-model="prizeEdit.description"></textarea>
+        </div>
+        <div class="col-xs-12 form-group">
+
+            <input type="file" ngf-select ng-model="prizeEditPicture" name="prizeEditPicture"
+                  accept="image/*" ngf-max-size="2MB" required
+                  ngf-model-invalid="errorFile">
+            <i ng-show="prizeEditForm.prizeEditPicture.$error.maxSize">File too large
+                {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+
+            <span class="progress" ng-show="prizeEditPicture.progress >= 0">
+              <div style="width:{{prizeEditPicture.progress}}%"
+                  ng-bind="prizeEditPicture.progress + '%'"></div>
+            </span>
+            <span ng-show="prizeEditPicture.result">Upload Successful</span>
+            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+        </div>
       </div>
-      <div class="col-xs-12 form-group">
-        Price: <input type="text" ng-model="prizeEdit.price" class="form-control">
-      </div>
-      <div class="col-xs-12 form-group">
-        Quantity: <input type="text" ng-model="prizeEdit.quantity" class="form-control">
-      </div>
-    </div>
+    </form>
   </div>
   <div class="modal-footer">
-      <button class="btn btn-primary" ng-click="ok()">OK</button>
-      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok(prizeEditPicture)">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
   </div>
 </script>

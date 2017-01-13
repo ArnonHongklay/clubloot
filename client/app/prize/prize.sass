@@ -56,28 +56,44 @@ h1, h2, h3, h4, h5, div
   height: 130px
   min-width: 100px
   cursor: pointer
+
   &.active
     .box
       background: rgb(242, 242, 242)
 
-  .prize-name
-    text-align: center
-    input
-      text-align: left
-  .prize-item
-    margin-top: 20px
-    img
-      width: 80%
-      display: inline-block
-    .gem
-      width: 20%
-      position: absolute
-      bottom: 10px
-      right: 5px
+  .defaultItem
+    .prize-name
+      text-align: center
+      margin-top: 20px
+    .prize-item
+      margin-top: 40px
+      text-align: center
+
+  .hoverItem
+    .prize-name
+      text-align: center
+      input
+        text-align: left
+    .prize-item
+      margin-top: 20px
+      img
+        width: 80%
+        display: inline-block
+      .gem
+        width: 20%
+        position: absolute
+        bottom: 10px
+        right: 5px
+
+  .show-display
+    display: block !important
+  .hide-display
+    display: none !important
+
   .box
     width: 100%
     height: 100%
-    border: 1px solid #dedede
+    border: 1px dotted #dedede
   .name, .gem-count, .gem
     width: 100%
     text-align: center

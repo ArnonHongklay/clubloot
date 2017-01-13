@@ -13,6 +13,12 @@ ledgerSchema = new Schema
   transaction: {
     format: { type: String, enum: ['loot', 'play game', 'gem', 'prize'] }
     status: String
+    ref: [
+      {
+        format: String
+        id: String
+      }
+    ]
     from: String
     to: String
     amount: Number
