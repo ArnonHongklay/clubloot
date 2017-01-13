@@ -6,7 +6,7 @@
 # You will need to set these on the server you deploy to.
 
 module.exports =
-  DOMAIN: 'http://clubloot.com'
+  DOMAIN: 'http://alpha.clubloot.com'
   SESSION_SECRET: "clubloot-secret"
 
   FACEBOOK_ID: '1725131707746453'
