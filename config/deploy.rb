@@ -47,60 +47,20 @@ namespace :deploy do
     end
   end
 
-  desc 'grunt stop'
-  task :grunt_stop do
+  desc 'grunt'
+  task :grunt do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
-        execute :grunt, 'forever:server:stop'
-      end
-    end
-  end
-
-  desc 'grunt start'
-  task :grunt_start do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
+        execute "ps -ef | grep app | grep -v grep | awk '{print $2}' | xargs kill"
+        execute :grunt, '--force'
         execute :grunt, 'forever:server:start'
       end
     end
   end
 
-  desc 'grunt restart'
-  task :grunt_restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute :grunt, 'forever:server:restart'
-      end
-    end
-  end
-
-  desc 'grunt deploy'
-  task :grunt_deploy do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute "cp #{current_path}/server/config/local.env.production.coffee #{current_path}/server/config/local.env.coffee"
-        execute :grunt, '--force'
-      end
-    end
-  end
-
-  desc 'grunt'
-  task :grunt do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute :grunt, '--force'
-      end
-    end
-  end
-
-  # before 'deploy:check:directories', :grunt_stop
-
-  after :publishing, :grunt_deploy
-  after 'deploy:publishing', :grunt_restart
-
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
-
+  after :finishing, :grunt
 end
 
 namespace :rails do
