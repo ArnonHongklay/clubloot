@@ -4,6 +4,8 @@ angular.module 'clublootApp'
 .controller 'PrizeCtrl', ($scope, $http, socket, prizes, Auth) ->
   $scope.prizes = prizes.data
 
+  $scope.alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
   for prize in $scope.prizes
     if prize.price >= 0 && prize.price <= 10
       prize.tier = 1
@@ -18,9 +20,28 @@ angular.module 'clublootApp'
 
     $scope.prize_select = selected: { prize_id: false }
 
+  $scope.$watch 'prize_select.selected.length', ->
+    # console.log $scope.prize_select.selected
+
+    $('[class*="defaultItem"]').removeClass('hide-display')
+    $('[class*="hoverItem"]').removeClass('show-display')
+    for s in $scope.prize_select.selected
+      $(".defaultItem-#{s._id}").addClass('hide-display')
+      $(".hoverItem-#{s._id}").addClass('show-display')
+
+
   $scope.clickPrize = (prize) ->
+    # this.selectedItem = !this.selectedItem
     # selected = $("##{prize._id}")
     # selected.prop('checked', !selected.prop('checked'))
+
+  $scope.defaultItem = true
+  $scope.hoverIn = () ->
+    this.hoverItem = true
+    this.defaultItem = false
+  $scope.hoverOut = () ->
+    this.hoverItem = false
+    this.defaultItem = true
 
   $scope.checkPrize = (selected) ->
     sum = 0

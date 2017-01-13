@@ -31,8 +31,24 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="catelog-item-box">
-          <div class="catelog-item" ng-repeat="prize in prizes" ng-if="cateFilter == 'all' || cateFilter == prize.tier" ng-click="clickPrize(prize)">
-            <div class="box">
+          <div class="catelog-item"
+               ng-repeat="prize in prizes"
+               ng-if="cateFilter == 'all' || cateFilter == prize.tier"
+               ng-click="clickPrize(prize)"
+               ng-mouseover="hoverIn()"
+               ng-mouseleave="hoverOut()">
+            <div class="box defaultItem defaultItem-{{ prize._id }}" ng-show="defaultItem">
+              <div class="col-xs-12 prize-name">
+                Prize {{ alphabets[$index] }}
+              </div>
+              <div class="col-xs-12 prize-item">
+                <div class="gem">
+                  {{ prize.price }}
+                  <i class="fa fa-diamond" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="box hoverItem hoverItem-{{ prize._id }}" ng-show="hoverItem">
               <div class="col-xs-12 prize-name">
                 <input type="checkbox" id="{{prize._id}}" name="prize" checklist-model="prize_select.selected" checklist-value="prize">
                 {{ prize.name }}
