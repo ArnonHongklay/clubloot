@@ -35,29 +35,19 @@ angular.module 'clublootApp'
       $scope.player = data.length
 
     $http.post("/api/signin_log/by_date", {fr: f, to: t }).success (data, status, headers, config) ->
-      console.log data.length
       oneday = 1000 * 60 * 60 * 24
       start = new Date(f)
       end   = new Date(t)
       dayCount = Math.round((end-start)/oneday)
       dayCount +=1
-      console.log "0=0=0=0=0="
-      console.log t
-      console.log "#{t}-#{f}"
-      console.log dayCount
 
-      console.log data.length
       $scope.signinPercent = data.length/($scope.allplayer.length*dayCount) * 100
-      console.log "sgn"
 
     $http.post("/api/tax/by_date", {fr: f, to: t }).success (data, status, headers, config) ->
-      console.log data
       $scope.tax = 0
       for tax in data
         $scope.tax += tax.coin
-      console.log $scope.tax
     $http.post("/api/winner_log/by_date", {fr: f, to: t }).success (data, status, headers, config) ->
-      console.log data
       $scope.prize = 0
       for w in data
         $scope.prize += w.prize
