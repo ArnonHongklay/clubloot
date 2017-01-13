@@ -1,6 +1,6 @@
 
 angular.module 'clublootApp'
-.controller 'AdminUserPrizesCtrl', ($scope, $http, socket, prizes) ->
+.controller 'AdminUserPrizesCtrl', ($scope, $http, socket, prizes, $modal) ->
   $scope.menuActive = 'Prizes'
   $scope.prizes = prizes.data
 
@@ -9,3 +9,16 @@ angular.module 'clublootApp'
       for prize in $scope.prizes
         if prize._id == data._id
           $.extend prize, data
+
+  $scope.showDetail = (prize)->
+    $modal.open(
+      templateUrl: 'ModalPrizesCtrl.html'
+      controller: 'ModalPrizesCtrl'
+      resolve:
+        prize: ($http, $stateParams) ->
+          return prize
+    )
+
+.controller 'ModalPrizesCtrl', ($scope, prize) ->
+  $scope.prize = prize
+  console.log prize

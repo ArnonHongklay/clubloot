@@ -17,7 +17,7 @@
           {{ prize.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
         </td>
         <td>
-          {{ prize._id }}
+          <a href="#" ng-click="showDetail(prize)">Prize</a>
         </td>
         <td class="text-center">
           <a ng-click="complete(prize._id)" href="#" class="btn" style="background: green; border-radius: 0px; color: #fff">Complete</a>
@@ -48,7 +48,7 @@
           {{ prize.updated_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
         </td>
         <td>
-          {{ prize.description }}
+          <a href="#" ng-click="showDetail(prize)">Prize</a>
         </td>
         <td>
           {{ prize._id }}
@@ -60,3 +60,38 @@
     </table>
   </div>
 </div>
+
+<script type="text/ng-template" id="ModalPrizesCtrl.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Details</h3>
+  </div>
+  <div class="modal-body">
+    <p>User: {{prize.user.name}}</p>
+    <p>User: {{prize.user.email}}</p>
+    <p>Prize #: {{prize._id}}</p>
+    <p>Convert: {{ prize.transaction.from }} -> {{prize.transaction.to}}</p>
+    <p>Amount: {{prize.transaction.amount}}</p>
+    <p>
+      <span>
+        {{prize.balance.coins}}
+        <img src="assets/images/Piggy Bank Icon.png" width="40">
+      </span>
+      <span style="color: #951111">
+        {{prize.balance.rubies}}
+        <i class="fa fa-diamond" aria-hidden="true"></i>
+      </span>
+      <span style="color: #2A4C7A">
+        {{prize.balance.sapphires}}
+        <i class="fa fa-diamond" aria-hidden="true"></i>
+      </span>
+      <span style="color: #758F42">
+        {{prize.balance.emeralds}}
+        <i class="fa fa-diamond" aria-hidden="true"></i>
+      </span>
+      <span style="color: #9F9B93">
+        {{prize.balance.diamonds}}
+        <i class="fa fa-diamond" aria-hidden="true"></i>
+        </span>
+    </p>
+  </div>
+</script>
