@@ -1,6 +1,8 @@
 'use strict'
 
 mongoose = require 'mongoose'
+Float = require('mongoose-float').loadType(mongoose)
+
 Schema = mongoose.Schema
 
 ledgerSchema = new Schema
@@ -11,7 +13,7 @@ ledgerSchema = new Schema
     email: String
   }
   transaction: {
-    format: { type: String, enum: ['loot', 'play game', 'gem', 'prize'] }
+    format: { type: String, enum: ['loot', 'contest', 'won', 'gem', 'prize'] }
     status: String
     ref: [
       {
@@ -21,8 +23,8 @@ ledgerSchema = new Schema
     ]
     from: String
     to: String
-    amount: Number
-    tax: Number
+    amount: Float
+    tax: Float
   }
   balance: {
     diamonds: { type: Number, default: 0 }

@@ -9,6 +9,7 @@ Question = require '../question/question.model'
 WinnerLog = require '../winner_log/winner_log.model'
 Tax       = require '../tax/tax.model'
 User     = require '../user/user.model'
+Ledger = require '../ledger/ledger.model'
 
 schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
@@ -371,6 +372,39 @@ exports.create = (req, res) ->
         created_at: new Date()
       }, (err, tax) ->
 
+      # log ledger
+      params = {
+        action: 'plus'
+        user: user
+        transaction: {
+          format: 'contest'
+          status: 'completed'
+          from: 'coins'
+          to: 'create contest'
+          amount: contest.fee
+          tax: (contest.fee * 10) / 100
+        }
+      }
+
+      Ledger.create {
+        action: params['action']
+        user: {
+          id: params['user']._id,
+          name: "#{params['user'].first_name} #{params['user'].last_name}",
+          email: params['user'].email
+        }
+        transaction: params['transaction']
+        balance: {
+          diamonds:   params['user'].diamonds
+          emeralds:   params['user'].emeralds
+          sapphires:  params['user'].sapphires
+          rubies:     params['user'].rubies
+          coins:      params['user'].coins
+        }
+      }, (err, ledger) ->
+        console.log err
+        console.log ledger
+
       user.save()
 
     res.status(201).json contest
@@ -395,6 +429,37 @@ exports.joinContest = (req, res) ->
         created_at: new Date()
       }, (err, tax) ->
         console.log tax
+
+      # log ledger
+      console.log params = {
+        action: 'plus'
+        user: user
+        transaction: {
+          format: 'contest'
+          status: 'completed'
+          from: 'coins'
+          to: 'join contest'
+          amount: contest.fee
+          tax: (contest.fee * 10) / 100
+        }
+      }
+
+      Ledger.create {
+        action: params['action']
+        user: {
+          id: params['user']._id,
+          name: "#{params['user'].first_name} #{params['user'].last_name}",
+          email: params['user'].email
+        }
+        transaction: params['transaction']
+        balance: {
+          diamonds:   params['user'].diamonds
+          emeralds:   params['user'].emeralds
+          sapphires:  params['user'].sapphires
+          rubies:     params['user'].rubies
+          coins:      params['user'].coins
+        }
+      }
 
       contest.participant.push(req.body)
       contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
@@ -593,7 +658,36 @@ exports.findByTemplates = (req, res) ->
               created_at: new Date()
               }, (err, winnerlog) ->
                   # console.log "callback"
+                  # log ledger
+                params = {
+                  action: 'plus'
+                  user: winner
+                  transaction: {
+                    format: 'won'
+                    status: 'completed'
+                    from: 'contest'
+                    to: 'winner'
+                    amount: c.loot.prize
+                    tax: null
+                  }
+                }
 
+                Ledger.create {
+                  action: params['action']
+                  user: {
+                    id: params['user']._id,
+                    name: "#{params['user'].first_name} #{params['user'].last_name}",
+                    email: params['user'].email
+                  }
+                  transaction: params['transaction']
+                  balance: {
+                    diamonds:   params['user'].diamonds
+                    emeralds:   params['user'].emeralds
+                    sapphires:  params['user'].sapphires
+                    rubies:     params['user'].rubies
+                    coins:      params['user'].coins
+                  }
+                }
         # setTimeout (->
           # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
               # console.log "Winner"
