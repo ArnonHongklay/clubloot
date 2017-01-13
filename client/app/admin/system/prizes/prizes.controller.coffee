@@ -2,16 +2,6 @@ angular.module 'clublootApp'
 .controller 'AdminSystemPrizesCtrl', ($scope, $http, $state, prize, $modal, Upload, $timeout) ->
   $scope.prizes = prize.data
 
-  # $scope.add = ->
-  #   # console.log $scope.prize
-  #   $http.post("/api/prize",
-  #     $scope.prize
-  #   ).success((data, status, headers, config) ->
-  #     $scope.reload()
-  #   ).error((data, status, headers, config) ->
-  #     swal("Not found!!")
-  #   )
-
   $scope.uploadPic = (file) ->
     swal {
       title: 'Are you sure?'

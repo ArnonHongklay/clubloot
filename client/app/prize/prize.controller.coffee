@@ -58,6 +58,10 @@ angular.module 'clublootApp'
       return
 
     sumOfPrize = $scope.checkPrize($scope.prize_select.selected)
+    ref = []
+    for prize, i in $scope.prize_select.selected
+      ref.push({format: 'prize', id: prize._id})
+
     if Auth.getCurrentUser().diamonds < sumOfPrize
       swal('Sorry, you do not have enough gems for the prize.')
       return
@@ -71,6 +75,7 @@ angular.module 'clublootApp'
             transaction: {
               format: 'prize'
               status: 'pending'
+              ref: ref
               from: 'diamond'
               to: 'prize'
               amount: sumOfPrize
