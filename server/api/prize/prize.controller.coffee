@@ -31,10 +31,16 @@ exports.create = (req, res) ->
 # Updates an existing prize in the DB.
 exports.update = (req, res) ->
   delete req.body._id  if req.body._id
+
   Prize.findById req.params.id, (err, prize) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless prize
-    updated = _.merge(prize, req.body)
+
+    file = req.files.file
+    body = req.body
+    body.prize.picture = file.path.replace(config.root + '/client', '')
+
+    updated = _.merge(prize, body.prize)
     updated.save (err) ->
       return handleError(res, err)  if err
       res.status(200).json prize
