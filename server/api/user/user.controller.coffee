@@ -129,6 +129,37 @@ exports.updateGem = (req, res) ->
       created_at: new Date()
     }, (err, tax) ->
 
+    # log ledger
+    params = {
+      action: 'plus'
+      user: user
+      transaction: {
+        format: 'gem'
+        status: 'completed'
+        from: 'zero'
+        to: 'gem'
+        amount: req.body.fee
+        tax: req.body.fee
+      }
+    }
+
+    Ledger.create {
+      action: params['action']
+      user: {
+        id: params['user']._id,
+        name: "#{params['user'].first_name} #{params['user'].last_name}",
+        email: params['user'].email
+      }
+      transaction: params['transaction']
+      balance: {
+        diamonds:   params['user'].diamonds
+        emeralds:   params['user'].emeralds
+        sapphires:  params['user'].sapphires
+        rubies:     params['user'].rubies
+        coins:      params['user'].coins
+      }
+    }
+
     user.save (err) ->
       return handleError(res, err)  if err
       res.status(200).json user
