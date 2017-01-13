@@ -9,6 +9,7 @@ Question = require '../question/question.model'
 WinnerLog = require '../winner_log/winner_log.model'
 Tax       = require '../tax/tax.model'
 User     = require '../user/user.model'
+Ledger = require '../ledger/ledger.model'
 
 schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
