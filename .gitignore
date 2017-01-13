@@ -30,4 +30,5 @@ npm-debug.log
 logs
 grunt.log
 
-uploads
+/client/assets/uploads/prizes/*
+!/client/assets/uploads/prizes/.keep

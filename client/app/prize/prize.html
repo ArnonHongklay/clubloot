@@ -1,11 +1,15 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <section class="prize" ng-hide="getPrice" ng-class="{hmb: itemSelected}">
-
   <div class="container">
     <div class="row">
       <div class="col-xs-12" ng-init="cateFilter = '1'">
         <h3 style="margin-top: 0px;" class="pp-text">PRIZES</h3>
-        <h5 class="g-text">Trade in your diamonds for prizes.</h5>
+        <h5 class="g-text" ng-if="!prize_select.selected.length">Trade in your diamonds for prizes.</h5>
+        <h5 class="g-text" ng-if="prize_select.selected.length > 0">You have selected Prize {{itemSelected}}. Please confirm</h5>
+        <!-- <div class="item-selected-mb">
+          <div class="name" style="display: inline-block" ng-repeat="s in prize_select.selected">{{s.name}}</div>
+        </div> -->
+
         <div class="catelog" ng-class="{active: cateFilter == '1'}" ng-click="cateFilter = 1">
           1 - 10 <i class="fa fa-diamond" aria-hidden="true"></i>
         </div>
@@ -46,7 +50,6 @@
       </div>
     </div>
 
-
     <div class="row">
       <div class="col-xs-12">
         <div class="terms hmb" style="margin-top: 20px">
@@ -59,28 +62,17 @@
     </div>
 
     <div class="row hmb" style="margin-top: 10px;">
-      <div class="btn get-prize" ng-disabled="!itemSelected" ng-click="getMyPrize()">GET MY PRIZE</div>
+      <div class="btn get-prize" ng-disabled="!agree" ng-click="getMyPrize()">GET MY PRIZE</div>
     </div>
   </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
 
 <section class="prize-success" ng-show="getPrice">
   <div class="container">
     <div class="row" ng-init="cateFilter = '1'">
       <h3 style="margin-top: 0px;" class="pp-text">PRIZES</h3>
       <h5 class="g-text">
-        We have recieved and are processing your order for Prize F.<br>
+        We have recieved and are processing your order for <span ng-repeat="s in prize_select.selected"> {{s.name}}</span><br>
         Updates will be available on your Dashboard.
         <br><br><br>
         Share your prize with your friends.
@@ -99,48 +91,5 @@
       </div>
       <div class="btn get-prize" ng-click="goDashboard()">GO TO DASHBOARD</div>
     </div>
-  </div>
-</section>
-<section class="prize-choose smb " ng-show="itemSelected && !confirmItem">
-  <div class="container">
-  <div class="row" ng-init="cateFilter = '1'">
-    <h3 style="margin-top: 0px;" class="pp-text">PRIZES</h3>
-    <h5 class="g-text" style="text-indent: 10px;">
-    You have selected Prize {{itemSelected}}. Please confirm
-    <br><br>
-    <div class="item-selected-mb">
-      <div class="name">Prize E</div>
-    </div>
-    <div class="gem-count">02<i class="fa fa-diamond" aria-hidden="true"></i></div>
-    <div class="row btn-mb">
-      <div class="btn get-prize" style="width: 100%;" ng-click="confirmItem= true">GET MY PRIZE</div>
-    </div>
-  </div>
-</section>
-<section class="prize-choose smb " ng-show="confirmItem">
-  <div class="container">
-    <div class="row" ng-init="cateFilter = '1'">
-      <h3 style="margin-top: 0px;" class="pp-text">PRIZES</h3>
-      <h5 class="g-text">
-        We have recieved and are processing your order for Prize F.<br>
-        Updates will be available on your Dashboard.
-        <br><br><br>
-        Share your prize with your friends.
-        <br>
-        <div style="font-size: 22px;margin-top: 5px;">
-          <i class="fa fa-facebook-official" aria-hidden="true"></i>
-          <i class="fa fa-twitter" aria-hidden="true"></i>
-        </div>
-      </h5>
-    </div>
-    <div class="row" style="padding-top: 10px;">
-      <div class="term-text" style="display: inline;line-height: 20px;">
-        Questions?<br>Email support 24/7 at
-        <span class="b-text">help@clubloot.com</span>
-      </div>
-    </div>
-  </div>
-  <div class="row btn-mb">
-    <div class="btn get-prize" style="width: 100%;"ng-click="goDashboard()">GO TO DASHBOARD</div>
   </div>
 </section>

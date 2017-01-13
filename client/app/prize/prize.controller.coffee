@@ -30,15 +30,15 @@ angular.module 'clublootApp'
 
   $scope.getMyPrize = ->
     if $scope.prize_select.selected.length == 0 or $scope.prize_select.selected.length == undefined
-      swal('Please selected some prize')
+      swal('Please select one')
       return
     unless $scope.agree
-      swal('Please check agree')
+      swal('Please confirm')
       return
 
     sumOfPrize = $scope.checkPrize($scope.prize_select.selected)
     if Auth.getCurrentUser().diamonds < sumOfPrize
-      swal('need more diamonds')
+      swal('Sorry, you do not have enough gems for the prize.')
       return
     else
       Auth.getCurrentUser().diamonds = Auth.getCurrentUser().diamonds - sumOfPrize
@@ -57,7 +57,8 @@ angular.module 'clublootApp'
             }
           }
         ).success((data, status, headers, config) ->
-          console.log data
+          # console.log data
+          $scope.getPrice = true
         ).error((data, status, headers, config) ->
           swal("Not found!!")
         )
