@@ -29,10 +29,6 @@ exports.allplayer = (req, res) ->
     res.status(200).json players
 
 exports.allplayer_by_date = (req, res) ->
-  Player.find {}, (err, players) ->
-    for p in players
-      p.created_at = p.last_seen
-      p.save()
   start = new Date(req.body.fr)
   s = start.setHours(0,0,0,0)
   end = new Date(req.body.to)
