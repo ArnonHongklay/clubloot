@@ -50,7 +50,8 @@ exports.create = (req, res, next) ->
   newUser = new User(req.body)
   newUser.provider = 'local'
   newUser.role = 'user'
-  newUser.last_seen = ''
+  newUser.created_at = new Date()
+  newUser.last_seen = new Date()
   newUser.messages = []
   newUser.save (err, user) ->
     return validationError(res, err)  if err
