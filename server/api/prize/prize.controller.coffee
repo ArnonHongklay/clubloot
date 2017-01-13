@@ -36,9 +36,10 @@ exports.update = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless prize
 
-    file = req.files.file
     body = req.body
-    body.prize.picture = file.path.replace(config.root + '/client', '')
+    if req.files
+      file = req.files.file
+      body.prize.picture = file.path.replace(config.root + '/client', '')
 
     updated = _.merge(prize, body.prize)
     updated.save (err) ->

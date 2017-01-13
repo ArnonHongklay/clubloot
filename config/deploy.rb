@@ -96,7 +96,7 @@ namespace :deploy do
   # before 'deploy:check:directories', :grunt_stop
 
   after :publishing, :grunt_deploy
-  after 'deploy:publishing', :grunt_start
+  after 'deploy:publishing', :grunt_restart
 
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
