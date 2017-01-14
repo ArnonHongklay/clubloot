@@ -4,11 +4,18 @@ angular.module 'clublootApp'
   $scope.menuActive = 'Prizes'
   $scope.prizes = prizes.data
 
-  $scope.complete = (id) ->
-    $http.put("/api/ledgers/#{id}/complete").success (data) ->
-      for prize in $scope.prizes
-        if prize._id == data._id
-          $.extend prize, data
+  $scope.editPrize = (prize)->
+    $modal.open(
+      templateUrl: 'ModalPrizesEdit.html'
+      controller: 'ModalPrizesEdit'
+      resolve:
+        prize: ($http, $stateParams) ->
+          return prize
+    ).result.then (->
+      $http.get("/api/ledgers").success (data) ->
+        $scope.prizes = data
+        console.log $scope.prizes
+    )
 
   $scope.showDetail = (prize)->
     $modal.open(
@@ -18,6 +25,27 @@ angular.module 'clublootApp'
         prize: ($http, $stateParams) ->
           return prize
     )
+
+.controller 'ModalPrizesEdit', ($scope, $http, prize, $modalInstance) ->
+  $scope.prizesEdit = prize
+  $scope.error = false
+
+  $scope.submit = ->
+    if !$scope.prizesEdit
+      $scope.error = true
+      return
+    else
+      if !$scope.prizesEdit.tracking_number || !$scope.prizesEdit.carrier
+        $scope.error = true
+        return
+      else
+        $scope.error = false
+        $http.put("/api/ledgers/#{$scope.prizesEdit._id}/complete",
+          $scope.prizesEdit
+        ).success (data) ->
+          console.log data
+
+    $modalInstance.close()
 
 .controller 'ModalPrizesCtrl', ($scope, prize) ->
   $scope.prize = prize

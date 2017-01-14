@@ -4,6 +4,10 @@ _ = require 'lodash'
 Prize  = require '../prize/prize.model'
 Ledger = require './ledger.model'
 
+
+handleError = (res, err) ->
+  res.status(500).json err
+
 exports.index = (req, res) ->
   Ledger.find (err, ledgers) ->
     return handleError(res, err) if err
@@ -41,7 +45,9 @@ exports.complete = (req, res) ->
   Ledger.findById req.params.id, (err, prize) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless prize
-    prize.transaction.status = 'completed'
+    prize.transaction.status          = 'completed'
+    prize.transaction.tracking_number = req.body.tracking_number
+    prize.transaction.carrier         = req.body.carrier
     prize.save (err) ->
       return handleError(res, err)  if err
       res.status(200).json prize

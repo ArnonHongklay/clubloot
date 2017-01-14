@@ -53,7 +53,7 @@
                 <input type="checkbox" id="{{prize._id}}" name="prize" checklist-model="prize_select.selected" checklist-value="prize">
                 {{ prize.name }}
               </div>
-              <div class="col-xs-12 prize-item">
+              <div class="col-xs-12 prize-item" ng-click="showPrize(prize)">
                 <img ng-src="{{ prize.picture }}" style="max-height: 75px" class="col-xs-12" />
                 <div class="gem">
                   {{ prize.price }}
@@ -111,3 +111,29 @@
     </div>
   </div>
 </section>
+
+<script type="text/ng-template" id="ModalUserPrizes.html">
+  <div class="modal-header" style="text-align: center">
+    <h3 class="modal-title">{{prize.name}}</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xs-5">
+        <img ng-src="{{prize.picture}}" width="100%">
+      </div>
+      <div class="col-xs-7">
+        <p class="text-center">Item Description</p>
+        <span style="display: block">
+        {{prize.description}}
+      </span>
+      </div>
+      <div class="col-xs-12">
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </div>
+      <div class="col-xs-12">
+        <p>Shipping /delivery information <a href="#">term and conditions</a></p>
+      </div>
+    </div>
+  </div>
+</script>
