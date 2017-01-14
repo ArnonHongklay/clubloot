@@ -51,7 +51,7 @@ namespace :deploy do
   task :grunt do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
-        execute "ps -ef | grep app | grep -v grep | awk '{print $2}' | xargs kill"
+        # execute "ps -ef | grep app | grep -v grep | awk '{print $2}' | xargs kill"
         execute :grunt, '--force'
         execute :grunt, 'forever:server:start'
       end
