@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'PrizeCtrl', ($scope, $http, socket, prizes, Auth) ->
+.controller 'PrizeCtrl', ($scope, $http, socket, prizes, Auth, $modal) ->
   $scope.prizes = prizes.data
 
   $scope.alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -94,3 +94,16 @@ angular.module 'clublootApp'
 
   $scope.goDashboard = () ->
     window.location.href = "/dashboard"
+
+  $scope.showPrize = (prize)->
+    $modal.open(
+      templateUrl: 'ModalUserPrizes.html'
+      controller: 'ModalUserPrizes'
+      resolve:
+        prize: ($http, $stateParams) ->
+          return prize
+    )
+
+.controller 'ModalUserPrizes', ($scope, prize) ->
+  $scope.prize = prize
+  console.log prize

@@ -20,7 +20,7 @@
           <a href="#" ng-click="showDetail(prize)">Prize</a>
         </td>
         <td class="text-center">
-          <a ng-click="complete(prize._id)" href="#" class="btn" style="background: green; border-radius: 0px; color: #fff">Complete</a>
+          <a ng-click="editPrize(prize)" href="#" class="btn" style="background: green; border-radius: 0px; color: #fff">Edit</a>
         </td>
       </tr>
     </table>
@@ -51,7 +51,7 @@
           <a href="#" ng-click="showDetail(prize)">Prize</a>
         </td>
         <td>
-          {{ prize._id }}
+          {{ prize.transaction.tracking_number }}
         </td>
         <td>
           {{ prize.transaction.status }}
@@ -60,6 +60,30 @@
     </table>
   </div>
 </div>
+
+<script type="text/ng-template" id="ModalPrizesEdit.html">
+  <form name="prizeEditForm">
+    <div class="modal-header">
+      Edit Tracking Code
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <span ng-show="error" style="color: red;">Please input data</span>
+        </div>
+        <div class="col-xs-6">
+          <input type="text" name="tracking" class="form-control" ng-model="prizesEdit.tracking_number" ng-required="required" placeholder="Tracking number" />
+        </div>
+        <div class="col-xs-6">
+          <input type="text" name="carrier" class="form-control" ng-model="prizesEdit.carrier" ng-required="required" placeholder="Carrier"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" style="text-align: center">
+      <a ng-click="submit()" class="btn" style="border-radius: 0px; background: green; color: #fff;">Mark as shipped</a>
+    </div>
+  </form>
+</script>
 
 <script type="text/ng-template" id="ModalPrizesCtrl.html">
   <div class="modal-header">

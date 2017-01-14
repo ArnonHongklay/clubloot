@@ -76,7 +76,7 @@ exports.show = (req, res, next) ->
     today = new Date()
 
     if user
-      console.log "22227777777777777777777777"
+      # console.log "22227777777777777777777777"
       unless user.last_seen
         SigninLog.create {
           user_id: user._id,
@@ -86,7 +86,7 @@ exports.show = (req, res, next) ->
           user.save()
 
       if user.last_seen
-        console.log "sssssssssssssssssssssssssssssssssssssssssss"
+        # console.log "sssssssssssssssssssssssssssssssssssssssssss"
         unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
           SigninLog.create {
             user_id: user._id,

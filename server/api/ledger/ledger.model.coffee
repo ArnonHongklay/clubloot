@@ -25,6 +25,8 @@ ledgerSchema = new Schema
     to: String
     amount: Float
     tax: Float
+    tracking_number: String
+    carrier: String
   }
   balance: {
     diamonds: { type: Number, default: 0 }
