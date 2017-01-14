@@ -649,11 +649,11 @@ exports.findByTemplates = (req, res) ->
                 # console.log data
 
             WinnerLog.create {
-              user_id: winner.uid,
+              user_id: winner[0].uid,
               contest_id: c._id,
               template_id: req.params.id,
               contest_name: c.name,
-              score: winner.score,
+              score: winner[0].score,
               prize:  c.loot.prize
               created_at: new Date()
               }, (err, winnerlog) ->

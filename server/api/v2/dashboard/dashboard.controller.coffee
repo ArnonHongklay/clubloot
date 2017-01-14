@@ -5,7 +5,9 @@ _ = require 'lodash'
 nodemailer = require 'nodemailer'
 Player = require '../../user/user.model'
 Contest = require '../../contest/contest.model'
+Conomy = require '../../conomy_log/conomy_log.model'
 Program = require '../../program/program.model'
+Ledger = require '../../ledger/ledger.model'
 SigninLog = require '../../signin_log/signin_log.model'
 
 exports.index = (req, res) ->
@@ -28,6 +30,17 @@ exports.allplayer = (req, res) ->
     return handleError(res, err)  if err
     res.status(200).json players
 
+exports.allledger_by_date = (req, res) ->
+  start = new Date(req.body.fr)
+  s = start.setHours(0,0,0,0)
+  end = new Date(req.body.to)
+  e = end.setHours(23,59,59,999)
+
+  Ledger.find({ created_at: {$gte: s, $lt: e} }).where('transaction.format').equals('prize').exec (err, ledgers) ->
+    return handleError(res, err)  if err
+    res.status(200).json ledgers
+
+
 exports.allplayer_by_date = (req, res) ->
   start = new Date(req.body.fr)
   s = start.setHours(0,0,0,0)
@@ -37,6 +50,16 @@ exports.allplayer_by_date = (req, res) ->
   Player.find { created_at: {$gte: s, $lt: e} }, (err, players) ->
     return handleError(res, err)  if err
     res.status(200).json players
+
+exports.conomy_by_date = (req, res) ->
+  start = new Date(req.body.fr)
+  s = start.setHours(0,0,0,0)
+  end = new Date(req.body.to)
+  e = end.setHours(23,59,59,999)
+
+  Conomy.find { created_at: {$gte: s, $lt: e} }, (err, conomys) ->
+    return handleError(res, err)  if err
+    res.status(200).json conomys
 
 exports.tournament = (req, res) ->
   Contest.count (err, tournaments) ->

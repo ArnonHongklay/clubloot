@@ -92,9 +92,9 @@
       <div class="col-sm-12 col-md-6">
         <h5 style="font-weight: 600!important;font-size:16px;">The Rich List</h5>
         <ul class="list-group">
-          <li ng-repeat="rc in rich" class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
+          <li ng-repeat="rc in rich | orderBy:getAllBag:true" class="list-group-item" ng-class="{menuactive: menu=='Academy Awards'}" ng-click="menu='Academy Awards'">
             <span class="pull-left b-text">[{{ rc.first_name || rc.username }}]</span>
-            <span class="pull-right g-text">{{ rc.coins }}</span>
+            <span class="pull-right g-text">{{ getAllBag(rc) }}</span>
           </li>
         </ul>
       </div>
