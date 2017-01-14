@@ -23,6 +23,7 @@ module.exports = (app) ->
   app.use '/api/signin_log',      require './api/signin_log'
   app.use '/api/prize',           require './api/prize'
   app.use '/api/winner_log',      require './api/winner_log'
+  app.use '/api/conomy_log',      require './api/conomy_log'
   app.use '/api/broadcast',       require './api/broadcast'
   app.use '/auth',                require './auth'
 
