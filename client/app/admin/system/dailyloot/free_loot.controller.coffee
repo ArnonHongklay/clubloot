@@ -7,10 +7,10 @@ angular.module 'clublootApp'
   $scope.updateFreeLoot = () ->
     # console.log $scope.freeLoot
     $http.put("/api/daily_loot/#{$scope.freeLoot._id}",
-        $scope.freeLoot
-      ).success((data, status, headers, config) ->
-        # console.log data
-        return swal("Free Loot updated")
-      ).error((data, status, headers, config) ->
-        # console.log data
-      )
+      $scope.freeLoot
+    ).success((data, status, headers, config) ->
+      # console.log data
+      return swal("Free Loot updated")
+    ).error((data, status, headers, config) ->
+      # console.log data
+    )

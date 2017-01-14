@@ -1,16 +1,7 @@
+
 angular.module 'clublootApp'
 .controller 'AdminSystemPrizesCtrl', ($scope, $http, $state, prize, $modal, Upload, $timeout) ->
   $scope.prizes = prize.data
-
-  # $scope.add = ->
-  #   # console.log $scope.prize
-  #   $http.post("/api/prize",
-  #     $scope.prize
-  #   ).success((data, status, headers, config) ->
-  #     $scope.reload()
-  #   ).error((data, status, headers, config) ->
-  #     swal("Not found!!")
-  #   )
 
   $scope.uploadPic = (file) ->
     swal {
@@ -19,7 +10,7 @@ angular.module 'clublootApp'
       showCancelButton: true
     }, (isConfirm) ->
       if isConfirm
-        console.log file
+        # console.log file
         file.upload = Upload.upload(
           url: '/api/prize'
           data:
@@ -32,7 +23,6 @@ angular.module 'clublootApp'
           $http.get('/api/prize').success((data) ->
             swal("added!")
             $scope.prizes = data
-            console.log data
             $scope.prize = ""
           )
         ), ((response) ->
@@ -49,11 +39,11 @@ angular.module 'clublootApp'
 
     $modal.open(
       templateUrl: 'myModal.html'
-      controller: 'ModalDialogController'
+      controller: 'PrizeEditController'
       resolve:
         prizes: ($http, $stateParams) ->
           return $scope.prizeEdit
-      ).result.then (->
+    ).result.then (->
       # alert 'OK'
       return
     ), ->
@@ -81,12 +71,41 @@ angular.module 'clublootApp'
       $scope.prizes = data
     )
 
-.controller 'ModalDialogController', ($scope, $modalInstance, prizes, $http) ->
-  $scope.prizeEdit = prizes
-  $scope.ok = ->
-    $http.put("/api/prize/#{$scope.prizeEdit._id}", $scope.prizeEdit).success (data) ->
-      $modalInstance.close()
+  $scope.showDetail = (prize_data)->
+    $modal.open(
+      templateUrl: 'test.html'
+      controller: 'ShowDetailController'
+      resolve:
+        prize: ($http, $stateParams) ->
+          return prize_data
+    )
 
+.controller 'ShowDetailController', ($scope, prize) ->
+  $scope.prize = prize
+
+.controller 'PrizeEditController', ($scope, $modalInstance, prizes, $http, Upload, $timeout) ->
+  $scope.prizeEdit = prizes
+  $scope.ok = (file)->
+    if $scope.prizeEditPicture
+      file.upload = Upload.upload(
+        url: "/api/prize/#{$scope.prizeEdit._id}"
+        method: 'PUT'
+        data:
+          prize: $scope.prizeEdit
+          file: file
+        )
+
+      file.upload.then (response) ->
+        $timeout ->
+          file.result = response.data
+          console.log file.result
+
+        $modalInstance.close()
+    else
+      $http.put("/api/prize/#{$scope.prizeEdit._id}",
+        prize: $scope.prizeEdit
+      ).success (data) ->
+        $modalInstance.close()
     return
   $scope.cancel = ->
     $modalInstance.dismiss 'cancel'

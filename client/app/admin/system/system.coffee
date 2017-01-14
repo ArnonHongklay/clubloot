@@ -65,13 +65,15 @@ angular.module 'clublootApp'
     controller: 'QuestionCtrl'
     resolve:
       id: ($http, $state, $stateParams) ->
-        # console.log $stateParams.id
         $http.get "/api/templates/#{$stateParams.id}/questions"
 
   .state 'AdminSystem.ledger',
     url: '/ledger'
     templateUrl: 'app/admin/system/ledger/ledger.html'
     controller: 'AdminSystemLedgerCtrl'
+    resolve:
+      ledgers: ($http, $state, $stateParams) ->
+        $http.get "/api/ledgers"
 
   .state 'AdminSystem.prizes',
     url: '/prizes'

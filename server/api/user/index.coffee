@@ -14,14 +14,13 @@ router.get '/me', auth.isAuthenticated(), controller.me
 router.put '/:id/deletemessage', auth.isAuthenticated(), controller.deleteMessage
 router.put '/:id/password', auth.isAuthenticated(), controller.changePassword
 router.get '/:id', auth.isAuthenticated(), controller.show
+router.post '/:id/update_gem',      auth.isAuthenticated(), controller.updateGem
 
-
-router.post '/:id/update_gem', auth.isAuthenticated(), controller.updateGem
 router.get '/:id/contests/:status', auth.isAuthenticated(), controller.showContests
-router.get '/:id/transactions', auth.isAuthenticated(), controller.showTransactions
-# router.get '/:id/prizes', auth.isAuthenticated(), controller.prizes
-# router.get '/:id/notes', auth.isAuthenticated(), controller.notes
-router.get '/:id/accounting', auth.isAuthenticated(), controller.accounting
+router.get '/:id/transactions',     auth.isAuthenticated(), controller.showTransactions
+router.get '/:id/prizes',           auth.isAuthenticated(), controller.showPrizes
+router.get '/:id/notes',            auth.isAuthenticated(), controller.notes
+router.get '/:id/accounting',       auth.isAuthenticated(), controller.accounting
 
 
 router.post '/', controller.create

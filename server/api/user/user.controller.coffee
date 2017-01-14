@@ -2,15 +2,16 @@
 
 _ = require 'lodash'
 
-User = require './user.model'
-Contest = require '../contest/contest.model'
+User      = require './user.model'
+Contest   = require '../contest/contest.model'
 WinnerLog = require '../winner_log/winner_log.model'
-Tax = require '../tax/tax.model'
+Tax       = require '../tax/tax.model'
+Ledger    = require '../ledger/ledger.model'
 
-passport = require 'passport'
-config = require '../../config/environment'
+passport  = require 'passport'
+config    = require '../../config/environment'
 SigninLog = require '../signin_log/signin_log.model'
-jwt = require 'jsonwebtoken'
+jwt       = require 'jsonwebtoken'
 
 DateDiff =
   inDays: (d1, d2) ->
@@ -46,7 +47,6 @@ exports.index = (req, res) ->
 Creates a new user
 ###
 exports.create = (req, res, next) ->
-  console.log req.body
   newUser = new User(req.body)
   newUser.provider = 'local'
   newUser.role = 'user'
@@ -70,33 +70,31 @@ Get a single user
 ###
 exports.show = (req, res, next) ->
   userId = req.params.id
-  console.log req.params.id
   User.findById userId, (err, user) ->
     return res.status(401).end()  unless user
-    console.log "-----------------------==============================="
-    console.log user
+
     today = new Date()
 
     if user
-      console.log "22227777777777777777777777"
+      # console.log "22227777777777777777777777"
       unless user.last_seen
-        console.log "last_seen1"
-        SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
+        SigninLog.create {
+          user_id: user._id,
+          created_at: today
+        }, (err, SigninLog) ->
           user.last_seen = new Date()
           user.save()
-          console.log SigninLog
 
       if user.last_seen
-        console.log "sssssssssssssssssssssssssssssssssssssssssss"
+        # console.log "sssssssssssssssssssssssssssssssssssssssssss"
         unless user.last_seen.setHours(0,0,0,0) == today.setHours(0,0,0,0)
-          console.log "last_seen2"
-          SigninLog.create {user_id: user._id, created_at: today}, (err, SigninLog) ->
-            console.log SigninLog
+          SigninLog.create {
+            user_id: user._id,
+            created_at: today
+          }, (err, SigninLog) ->
             user.last_seen = new Date()
             user.save()
 
-        # console.log "xxx "
-        # console.log today.getDate() - user.last_seen.getDate()
         user.total_logins = user.total_logins + 1
         if today.getDate() - user.last_seen.getDate() == 0
           user.consecutive_logins = user.consecutive_logins + 1
@@ -117,7 +115,6 @@ exports.show = (req, res, next) ->
 ###*
 Get a single user
 ###
-
 exports.deleteMessage = (req, res) ->
   User.findById req.params.id, (err, user) ->
     user.messages = req.body
@@ -125,21 +122,49 @@ exports.deleteMessage = (req, res) ->
     res.status(200).json user
 
 exports.updateGem = (req, res) ->
-  console.log "req"
   User.findById req.params.id, (err, user) ->
-    console.log "===============-----user-----"
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
     updated = _.merge(user, req.body.gem)
+
     Tax.create {
-              tax_type: 'convertFee'
-              coin: req.body.fee
-              user_id: user._id
-              created_at: new Date()
-              }, (err, tax) ->
-                console.log "create tax=================="
-                console.log tax
+      tax_type: 'convertFee'
+      coin: req.body.fee
+      user_id: user._id
+      created_at: new Date()
+    }, (err, tax) ->
+
+    # log ledger
+    params = {
+      action: 'plus'
+      user: user
+      transaction: {
+        format: 'gem'
+        status: 'completed'
+        from: 'zero'
+        to: 'gem'
+        amount: req.body.fee
+        tax: req.body.fee
+      }
+    }
+
+    Ledger.create {
+      action: params['action']
+      user: {
+        id: params['user']._id,
+        name: "#{params['user'].first_name} #{params['user'].last_name}",
+        email: params['user'].email
+      }
+      transaction: params['transaction']
+      balance: {
+        diamonds:   params['user'].diamonds
+        emeralds:   params['user'].emeralds
+        sapphires:  params['user'].sapphires
+        rubies:     params['user'].rubies
+        coins:      params['user'].coins
+      }
+    }
 
     user.save (err) ->
       return handleError(res, err)  if err
@@ -150,9 +175,6 @@ exports.update = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
-    # console.log "xxxxx"
-    # console.log user
-    # console.log req.body
     updated = _.merge(user, req.body)
     user.save (err) ->
       return handleError(res, err)  if err
@@ -160,34 +182,6 @@ exports.update = (req, res) ->
 
 handleError = (res, err) ->
   res.status(500).json err
-
-
-# exports.updateWinner = (req, res) ->
-#   User.findById req.params.id, (err, user) ->
-#     return handleError(res, err) if err
-#     return res.status(404).end() unless user
-#
-#     updated = _.merge(user, req.body)
-#     user.save (err) ->
-#       return handleError(res, err)  if err
-#       res.status(200).json user
-#
-# handleError = (res, err) ->
-#   res.status(500).json err
-#
-# exports.updateJoined = (req, res) ->
-#   # console.log req.params
-#   User.findById req.params.id, (err, user) ->
-#     return handleError(res, err) if err
-#     return res.status(404).end() unless user
-#
-#     updated = _.merge(user, req.body)
-#     user.save (err) ->
-#       return handleError(res, err)  if err
-#       res.status(200).json user
-#
-# handleError = (res, err) ->
-#   res.status(500).json err
 
 ###*
 Deletes a user
@@ -222,25 +216,21 @@ exports.me = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId
-  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+  , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
     return res.json user
 
 exports.showContests = (req, res, next) ->
-  console.log "show contest"
-  console.log req.params
-  # console.log req.body
-
   userId = req.params.id
   status = req.params.status
 
   User.findOne
     _id: userId
-  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+  , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
-    # console.log user
+
     if status == 'active'
       Contest.where('player.uid').equals(user._id).where('stage').in(['upcoming', 'live']).exec (err, contest) ->
         return res.json contest
@@ -261,7 +251,29 @@ exports.showTransactions = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId
-  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+  , '-salt -hashedPassword', (err, user) ->
+    return next(err)  if err
+    return res.status(401).end() unless user
+
+    Ledger.where('user.id').equals(req.params.id).exec (err, ledgers) ->
+      res.json ledgers
+
+exports.showPrizes = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) ->
+    return next(err)  if err
+    return res.status(401).end() unless user
+
+    Ledger.where('user.id').equals(req.params.id).where('transaction.format').equals('prize').exec (err, ledgers) ->
+      res.json ledgers
+
+exports.notes = (req, res, next) ->
+  userId = req.user._id
+  User.findOne
+    _id: userId
+  , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
     return res.json user
@@ -270,7 +282,7 @@ exports.accounting = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId
-  , '-salt -hashedPassword', (err, user) -> # don't ever give out the password or salt
+  , '-salt -hashedPassword', (err, user) ->
     return next(err)  if err
     return res.status(401).end() unless user
     return res.json user

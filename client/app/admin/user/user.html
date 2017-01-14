@@ -18,12 +18,24 @@
   <div class="row">
     <div class="col-sm-12">
       <ul class="nav nav-tabs">
-        <li><a ui-sref="Adminuser.profile({user_id: user._id})">Profile</a></li>
-        <li><a ui-sref="Adminuser.contests({user_id: user._id})">Contests</a></li>
-        <li><a ui-sref="Adminuser.transactions({user_id: user._id})">Transactions</a></li>
-        <li><a ui-sref="Adminuser.prizes({user_id: user._id})">Prizes</a></li>
-        <li><a ui-sref="Adminuser.notes({user_id: user._id})">Notes</a></li>
-        <li><a ui-sref="Adminuser.accounting({user_id: user._id})">Accounting</a></li>
+        <li ng-class="{ 'active': menuActive == 'Profile' }" ng-click="menuActive = 'Profile'">
+          <a ui-sref="Adminuser.profile({user_id: user._id})">Profile</a>
+        </li>
+        <li ng-class="{ 'active': menuActive == 'Contests' }" ng-click="menuActive = 'Contests'">
+          <a ui-sref="Adminuser.contests({user_id: user._id})">Contests</a>
+        </li>
+        <li ng-class="{ 'active': menuActive == 'Transactions' }" ng-click="menuActive = 'Transactions'">
+          <a ui-sref="Adminuser.transactions({user_id: user._id})">Transactions</a>
+        </li>
+        <li ng-class="{ 'active': menuActive == 'Prizes' }" ng-click="menuActive = 'Prizes'">
+          <a ui-sref="Adminuser.prizes({user_id: user._id})">Prizes</a>
+        </li>
+        <li ng-class="{ 'active': menuActive == 'Notes' }" ng-click="menuActive = 'Notes'">
+          <a ui-sref="Adminuser.notes({user_id: user._id})">Notes</a>
+        </li>
+        <li ng-class="{ 'active': menuActive == 'Accounting' }" ng-click="menuActive = 'Accounting'">
+          <a ui-sref="Adminuser.accounting({user_id: user._id})">Accounting</a>
+        </li>
       </ul>
     </div>
   </div>
