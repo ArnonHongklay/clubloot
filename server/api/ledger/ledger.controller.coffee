@@ -9,7 +9,7 @@ handleError = (res, err) ->
   res.status(500).json err
 
 exports.index = (req, res) ->
-  Ledger.find (err, ledgers) ->
+  Ledger.find().sort(created_at: -1).exec (err, ledgers) ->
     return handleError(res, err) if err
     res.status(200).json ledgers
 
