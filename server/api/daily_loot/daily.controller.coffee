@@ -104,6 +104,7 @@ exports.getFreeLoot = (req, res, next) ->
           description:  'Daily loot'
           from:         'systems'
           to:           'coins'
+          unit:         'coins'
           amount:       baseCoins + bonus
           tax:          0
           ref: {

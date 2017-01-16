@@ -394,6 +394,7 @@ exports.create = (req, res) ->
             description:  'Create contest'
             from:         'coins'
             to:           'contest creating'
+            unit:         'coins'
             amount:       contest.fee
             tax:          (contest.fee * 10) / 100
             ref: {
@@ -451,6 +452,7 @@ exports.joinContest = (req, res) ->
             description:  'Joined contest'
             from:         'coins'
             to:           'contest joined'
+            unit:         'coins'
             amount:       contest.fee
             tax:          (contest.fee * 10) / 100
             ref: {
@@ -682,6 +684,7 @@ exports.findByTemplates = (req, res) ->
                       description:  'Winner contest'
                       from:         'contest'
                       to:           'winner'
+                      unit:         'rubies'
                       amount:       c.loot.prize
                       tax:          (contest.fee * 10) / 100
                       ref: {

@@ -31,6 +31,7 @@ ledgerSchema = new Schema
       description: String
       from: String
       to: String
+      unit: String
       amount: Float
       tax: Float
       ref: {

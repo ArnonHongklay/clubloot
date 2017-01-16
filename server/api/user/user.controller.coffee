@@ -126,6 +126,21 @@ exports.updateGem = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
+    console.log user
+    console.log req.body.gem
+
+    console.log user.rubies - req.body.gem.rubies
+    console.log req.body.gem.sapphires - user.sapphires
+    if user.rubies - req.body.gem.rubies == 5 && req.body.gem.sapphires - user.sapphires == 1
+      convert_from  = 'rubies'
+      convert_to    = 'sapphires'
+    if user.sapphires - req.body.gem.sapphires == 5 && req.body.gem.emeralds - user.emeralds == 1
+      convert_from  = 'sapphires'
+      convert_to    = 'emeralds'
+    if user.emeralds - req.body.gem.emeralds == 5 && req.body.gem.diamonds - user.diamonds == 1
+      convert_from  = 'emeralds'
+      convert_to    = 'diamonds'
+
     updated = _.merge(user, req.body.gem)
 
     Tax.create {
@@ -155,10 +170,24 @@ exports.updateGem = (req, res) ->
         {
           action:       'minus'
           description:  'Convert Gem'
+          from:         convert_from
+          to:           convert_to
+          unit:         convert_from
+          amount:       5
+          tax:          0
+          ref: {
+            format: null
+            id: null
+          }
+        }
+        {
+          action:       'minus'
+          description:  'Convert Gem'
           from:         'coins'
-          to:           'gems'
+          to:           convert_to
+          unit:         'coins'
           amount:       req.body.fee
-          tax:          req.body.fee
+          tax:          0
           ref: {
             format: null
             id: null
@@ -167,10 +196,11 @@ exports.updateGem = (req, res) ->
         {
           action:       'plus'
           description:  'Convert Gem'
-          from:         'coins'
-          to:           'gems'
-          amount:       req.body.fee
-          tax:          req.body.fee
+          from:         "#{convert_from} + coins"
+          to:           convert_to
+          unit:         convert_to
+          amount:       1
+          tax:          0
           ref: {
             format: null
             id: null
@@ -189,9 +219,13 @@ exports.update = (req, res) ->
     return res.status(404).end()  unless user
 
     transaction = []
-    if user.coins != req.body.coins
+    if user.coins - req.body.coins != 0
+      if user.coins < req.body.coins
+        action = 'plus'
+      else
+        action = 'minus'
       transaction.push {
-        action:       'plus'
+        action:       action
         description:  'Admin advanced'
         from:         'admin'
         to:           'coins'
@@ -203,9 +237,13 @@ exports.update = (req, res) ->
         }
       }
 
-    if user.diamonds != req.body.diamonds
+    if user.diamonds - req.body.diamonds != 0
+      if user.diamonds < req.body.diamonds
+        action = 'plus'
+      else
+        action = 'minus'
       transaction.push {
-        action:       'plus'
+        action:       action
         description:  'Admin advanced'
         from:         'admin'
         to:           'diamonds'
@@ -217,9 +255,13 @@ exports.update = (req, res) ->
         }
       }
 
-    if user.emeralds != req.body.emeralds
+    if user.emeralds - req.body.emeralds != 0
+      if user.emeralds < req.body.emeralds
+        action = 'plus'
+      else
+        action = 'minus'
       transaction.push {
-        action:       'plus'
+        action:       action
         description:  'Admin advanced'
         from:         'admin'
         to:           'emeralds'
@@ -231,9 +273,13 @@ exports.update = (req, res) ->
         }
       }
 
-    if user.sapphires != req.body.sapphires
+    if user.sapphires - req.body.sapphires != 0
+      if user.sapphires < req.body.sapphires
+        action = 'plus'
+      else
+        action = 'minus'
       transaction.push {
-        action:       'plus'
+        action:       action
         description:  'Admin advanced'
         from:         'admin'
         to:           'sapphires'
@@ -245,9 +291,13 @@ exports.update = (req, res) ->
         }
       }
 
-    if user.rubies != req.body.rubies
+    if user.rubies - req.body.rubies != 0
+      if user.rubies < req.body.rubies
+        action = 'plus'
+      else
+        action = 'minus'
       transaction.push {
-        action:       'plus'
+        action:       action
         description:  'Admin advanced'
         from:         'admin'
         to:           'rubies'
@@ -259,29 +309,30 @@ exports.update = (req, res) ->
         }
       }
 
-    console.log transaction
+    # console.log transaction
     updated = _.merge(user, req.body)
     user.save (err) ->
       return handleError(res, err)  if err
 
-      Ledger.create {
-        status: 'completed'
-        format: 'gem'
-        user: {
-          id:       user._id,
-          username: user.username
-          name:     "#{user.first_name} #{user.last_name}",
-          email:    user.email
+      if transaction.length > 0
+        Ledger.create {
+          status: 'completed'
+          format: 'gem'
+          user: {
+            id:       user._id,
+            username: user.username
+            name:     "#{user.first_name} #{user.last_name}",
+            email:    user.email
+          }
+          balance: {
+            coins:      user.coins
+            diamonds:   user.diamonds
+            emeralds:   user.emeralds
+            sapphires:  user.sapphires
+            rubies:     user.rubies
+          }
+          transaction: transaction
         }
-        balance: {
-          coins:      user.coins
-          diamonds:   user.diamonds
-          emeralds:   user.emeralds
-          sapphires:  user.sapphires
-          rubies:     user.rubies
-        }
-        transaction: transaction
-      }
 
       res.status(200).json user
 
@@ -360,7 +411,7 @@ exports.showTransactions = (req, res, next) ->
     return next(err)  if err
     return res.status(401).end() unless user
 
-    Ledger.where('user.id').equals(req.params.id).exec (err, ledgers) ->
+    Ledger.where('user.id').equals(req.params.id).sort(created_at: -1).exec (err, ledgers) ->
       res.json ledgers
 
 exports.showPrizes = (req, res, next) ->
