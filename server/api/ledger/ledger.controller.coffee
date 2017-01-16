@@ -9,28 +9,44 @@ handleError = (res, err) ->
   res.status(500).json err
 
 exports.index = (req, res) ->
-  Ledger.find (err, ledgers) ->
+  Ledger.find().sort(created_at: -1).exec (err, ledgers) ->
     return handleError(res, err) if err
     res.status(200).json ledgers
 
 exports.create = (req, res) ->
   params = req.body
+  user = params['user']
+  amount = params['transaction'].amount
+  ref = params['transaction'].ref
 
   Ledger.create {
-    action: params['action']
+    status: 'pending'
+    format: 'prize'
     user: {
-      id: params['user']._id,
-      name: "#{params['user'].first_name} #{params['user'].last_name}",
-      email: params['user'].email
+      id:       user._id,
+      username: user.username
+      name:     "#{user.first_name} #{user.last_name}",
+      email:    user.email
     }
-    transaction: params['transaction']
     balance: {
-      diamonds:   params['user'].diamonds
-      emeralds:   params['user'].emeralds
-      sapphires:  params['user'].sapphires
-      rubies:     params['user'].rubies
-      coins:      params['user'].coins
+      coins:      user.coins
+      diamonds:   user.diamonds
+      emeralds:   user.emeralds
+      sapphires:  user.sapphires
+      rubies:     user.rubies
     }
+    transaction: [
+      {
+        action:       'minus'
+        description:  'Prize'
+        from:         'diamonds'
+        to:           'prize'
+        unit:         'diamonds'
+        amount:       amount
+        tax:          0
+        ref:          ref
+      }
+    ]
   }, (err, ledger) ->
     return handleError(res, err) if err
     res.status(201).json ledger
@@ -45,9 +61,9 @@ exports.complete = (req, res) ->
   Ledger.findById req.params.id, (err, prize) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless prize
-    prize.transaction.status          = 'completed'
-    prize.transaction.tracking_number = req.body.tracking_number
-    prize.transaction.carrier         = req.body.carrier
+    prize.status          = 'completed'
+    prize.details.tracking_number = req.body.tracking_number
+    prize.details.carrier         = req.body.carrier
     prize.save (err) ->
       return handleError(res, err)  if err
       res.status(200).json prize

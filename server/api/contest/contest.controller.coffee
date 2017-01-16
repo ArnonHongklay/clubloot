@@ -372,38 +372,38 @@ exports.create = (req, res) ->
         created_at: new Date()
       }, (err, tax) ->
 
-      # log ledger
-      params = {
-        action: 'plus'
-        user: user
-        transaction: {
-          format: 'contest'
-          status: 'completed'
-          from: 'coins'
-          to: 'create contest'
-          amount: contest.fee
-          tax: (contest.fee * 10) / 100
-        }
-      }
-
       Ledger.create {
-        action: params['action']
+        status: 'completed'
+        format: 'contest'
         user: {
-          id: params['user']._id,
-          name: "#{params['user'].first_name} #{params['user'].last_name}",
-          email: params['user'].email
+          id:       user._id,
+          username: user.username
+          name:     "#{user.first_name} #{user.last_name}",
+          email:    user.email
         }
-        transaction: params['transaction']
         balance: {
-          diamonds:   params['user'].diamonds
-          emeralds:   params['user'].emeralds
-          sapphires:  params['user'].sapphires
-          rubies:     params['user'].rubies
-          coins:      params['user'].coins
+          coins:      user.coins
+          diamonds:   user.diamonds
+          emeralds:   user.emeralds
+          sapphires:  user.sapphires
+          rubies:     user.rubies
         }
-      }, (err, ledger) ->
-        console.log err
-        console.log ledger
+        transaction: [
+          {
+            action:       'minus'
+            description:  'Create contest'
+            from:         'coins'
+            to:           'contest creating'
+            unit:         'coins'
+            amount:       contest.fee
+            tax:          (contest.fee * 10) / 100
+            ref: {
+              format: null
+              id: null
+            }
+          }
+        ]
+      }
 
       user.save()
 
@@ -430,35 +430,37 @@ exports.joinContest = (req, res) ->
       }, (err, tax) ->
         console.log tax
 
-      # log ledger
-      console.log params = {
-        action: 'plus'
-        user: user
-        transaction: {
-          format: 'contest'
-          status: 'completed'
-          from: 'coins'
-          to: 'join contest'
-          amount: contest.fee
-          tax: (contest.fee * 10) / 100
-        }
-      }
-
       Ledger.create {
-        action: params['action']
+        status: 'completed'
+        format: 'contest'
         user: {
-          id: params['user']._id,
-          name: "#{params['user'].first_name} #{params['user'].last_name}",
-          email: params['user'].email
+          id:       user._id,
+          username: user.username
+          name:     "#{user.first_name} #{user.last_name}",
+          email:    user.email
         }
-        transaction: params['transaction']
         balance: {
-          diamonds:   params['user'].diamonds
-          emeralds:   params['user'].emeralds
-          sapphires:  params['user'].sapphires
-          rubies:     params['user'].rubies
-          coins:      params['user'].coins
+          coins:      user.coins
+          diamonds:   user.diamonds
+          emeralds:   user.emeralds
+          sapphires:  user.sapphires
+          rubies:     user.rubies
         }
+        transaction: [
+          {
+            action:       'minus'
+            description:  'Joined contest'
+            from:         'coins'
+            to:           'contest joined'
+            unit:         'coins'
+            amount:       contest.fee
+            tax:          (contest.fee * 10) / 100
+            ref: {
+              format: null
+              id: null
+            }
+          }
+        ]
       }
 
       contest.participant.push(req.body)
@@ -659,35 +661,40 @@ exports.findByTemplates = (req, res) ->
               }, (err, winnerlog) ->
                   # console.log "callback"
                   # log ledger
-                params = {
-                  action: 'plus'
-                  user: winner
-                  transaction: {
-                    format: 'won'
-                    status: 'completed'
-                    from: 'contest'
-                    to: 'winner'
-                    amount: c.loot.prize
-                    tax: null
+                user = winner
+                Ledger.create {
+                  status: 'completed'
+                  format: 'won'
+                  user: {
+                    id:       user._id,
+                    username: user.username
+                    name:     "#{user.first_name} #{user.last_name}",
+                    email:    user.email
                   }
+                  balance: {
+                    coins:      user.coins
+                    diamonds:   user.diamonds
+                    emeralds:   user.emeralds
+                    sapphires:  user.sapphires
+                    rubies:     user.rubies
+                  }
+                  transaction: [
+                    {
+                      action:       'plus'
+                      description:  'Winner contest'
+                      from:         'contest'
+                      to:           'winner'
+                      unit:         'rubies'
+                      amount:       c.loot.prize
+                      tax:          (contest.fee * 10) / 100
+                      ref: {
+                        format: null
+                        id: null
+                      }
+                    }
+                  ]
                 }
 
-                Ledger.create {
-                  action: params['action']
-                  user: {
-                    id: params['user']._id,
-                    name: "#{params['user'].first_name} #{params['user'].last_name}",
-                    email: params['user'].email
-                  }
-                  transaction: params['transaction']
-                  balance: {
-                    diamonds:   params['user'].diamonds
-                    emeralds:   params['user'].emeralds
-                    sapphires:  params['user'].sapphires
-                    rubies:     params['user'].rubies
-                    coins:      params['user'].coins
-                  }
-                }
         # setTimeout (->
           # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
               # console.log "Winner"

@@ -24,6 +24,7 @@ router.get '/:id/accounting',       auth.isAuthenticated(), controller.accountin
 
 
 router.post '/', controller.create
+router.put '/:id/profile', auth.isAuthenticated(), controller.updateProfile
 router.put '/:id', auth.isAuthenticated(), controller.update
 
 module.exports = router
