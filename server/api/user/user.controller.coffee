@@ -229,8 +229,9 @@ exports.update = (req, res) ->
         description:  'Admin advanced'
         from:         'admin'
         to:           'coins'
+        unit:         'coins'
         amount:       req.body.coins - user.coins
-        tax:          null
+        tax:          0
         ref: {
           format: null
           id: null
@@ -247,8 +248,9 @@ exports.update = (req, res) ->
         description:  'Admin advanced'
         from:         'admin'
         to:           'diamonds'
+        unit:         'diamonds'
         amount:       req.body.diamonds - user.diamonds
-        tax:          null
+        tax:          0
         ref: {
           format: null
           id: null
@@ -265,8 +267,9 @@ exports.update = (req, res) ->
         description:  'Admin advanced'
         from:         'admin'
         to:           'emeralds'
+        unit:         'emeralds'
         amount:       req.body.emeralds - user.emeralds
-        tax:          null
+        tax:          0
         ref: {
           format: null
           id: null
@@ -283,8 +286,9 @@ exports.update = (req, res) ->
         description:  'Admin advanced'
         from:         'admin'
         to:           'sapphires'
+        unit:         'sapphires'
         amount:       req.body.sapphires - user.sapphires
-        tax:          null
+        tax:          0
         ref: {
           format: null
           id: null
@@ -301,8 +305,9 @@ exports.update = (req, res) ->
         description:  'Admin advanced'
         from:         'admin'
         to:           'rubies'
+        unit:         'rubies'
         amount:       req.body.rubies - user.rubies
-        tax:          null
+        tax:          0
         ref: {
           format: null
           id: null

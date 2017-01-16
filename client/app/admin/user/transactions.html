@@ -54,7 +54,12 @@
         </td>
         <td>
           <div ng-repeat="transaction in ledger.transaction">
-            {{ transaction.amount }} {{ transaction.unit }}
+            <p ng-if="ledger.format != 'won'">
+              {{ transaction.amount }} {{ transaction.unit }}
+            </p>
+            <p ng-if="ledger.format == 'won'">
+              {{ transaction.amount - transaction.tax }} {{ transaction.unit }}
+            </p>
           </div>
         </td>
         <td style="vertical-align: middle;">

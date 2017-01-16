@@ -16,6 +16,8 @@ exports.index = (req, res) ->
 exports.create = (req, res) ->
   params = req.body
   user = params['user']
+  amount = params['transaction'].amount
+  ref = params['transaction'].ref
 
   Ledger.create {
     status: 'pending'
@@ -39,12 +41,10 @@ exports.create = (req, res) ->
         description:  'Prize'
         from:         'diamonds'
         to:           'prize'
-        amount:       baseCoins + bonus
+        unit:         'diamonds'
+        amount:       amount
         tax:          0
-        ref: {
-          format: null
-          id: null
-        }
+        ref:          ref
       }
     ]
   }, (err, ledger) ->
