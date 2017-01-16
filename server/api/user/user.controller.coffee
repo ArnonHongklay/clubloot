@@ -218,6 +218,16 @@ exports.update = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
+    updated = _.merge(user, req.body)
+    user.save (err) ->
+      return handleError(res, err)  if err
+      res.status(200).json user
+
+exports.updateProfile = (req, res) ->
+  User.findById req.params.id, (err, user) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless user
+
     transaction = []
     if user.coins - req.body.coins != 0
       if user.coins < req.body.coins
@@ -319,6 +329,7 @@ exports.update = (req, res) ->
     user.save (err) ->
       return handleError(res, err)  if err
 
+      console.log transaction
       if transaction.length > 0
         Ledger.create {
           status: 'completed'
@@ -427,7 +438,9 @@ exports.showPrizes = (req, res, next) ->
     return next(err)  if err
     return res.status(401).end() unless user
 
-    Ledger.where('user.id').equals(req.params.id).where('transaction.format').equals('prize').exec (err, ledgers) ->
+    Ledger.where('user.id').equals(req.params.id)
+          .where('format').equals('prize')
+          .exec (err, ledgers) ->
       res.json ledgers
 
 exports.notes = (req, res, next) ->

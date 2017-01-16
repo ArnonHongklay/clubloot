@@ -1,8 +1,10 @@
 
 angular.module 'clublootApp'
-.controller 'AdminUserPrizesCtrl', ($scope, $http, socket, prizes, $modal) ->
+.controller 'AdminUserPrizesCtrl', ($scope, $stateParams, $http, socket, prizes, $modal) ->
   $scope.menuActive = 'Prizes'
   $scope.prizes = prizes.data
+
+  console.log $scope.prizes
 
   $scope.editPrize = (prize)->
     $modal.open(
@@ -12,7 +14,7 @@ angular.module 'clublootApp'
         prize: ($http, $stateParams) ->
           return prize
     ).result.then (->
-      $http.get("/api/ledgers").success (data) ->
+      $http.get("/api/users/#{$stateParams.user_id}/prizes").success (data) ->
         $scope.prizes = data
         console.log $scope.prizes
     )

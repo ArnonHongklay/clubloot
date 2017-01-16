@@ -12,7 +12,7 @@
         </th>
         <th class="col-sm-2">&nbsp;</th>
       </tr>
-      <tr ng-repeat="prize in prizes" ng-if="prize.transaction.status == 'pending'">
+      <tr ng-repeat="prize in prizes" ng-if="prize.status == 'pending'">
         <td>
           {{ prize.created_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
         </td>
@@ -43,7 +43,7 @@
           Status
         </th>
       </tr>
-      <tr ng-repeat="prize in prizes" ng-if="prize.transaction.status == 'completed'">
+      <tr ng-repeat="prize in prizes" ng-if="prize.status == 'completed'">
         <td>
           {{ prize.updated_at | amDateFormat:'MM/DD/YYYY HH:mm:ss' }}
         </td>
@@ -51,10 +51,10 @@
           <a href="#" ng-click="showDetail(prize)">Prize</a>
         </td>
         <td>
-          {{ prize.transaction.tracking_number }}
+          {{ prize.details.tracking_number }}
         </td>
         <td>
-          {{ prize.transaction.status }}
+          {{ prize.details.status }}
         </td>
       </tr>
     </table>

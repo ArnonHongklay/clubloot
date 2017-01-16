@@ -61,9 +61,9 @@ exports.complete = (req, res) ->
   Ledger.findById req.params.id, (err, prize) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless prize
-    prize.transaction.status          = 'completed'
-    prize.transaction.tracking_number = req.body.tracking_number
-    prize.transaction.carrier         = req.body.carrier
+    prize.status          = 'completed'
+    prize.details.tracking_number = req.body.tracking_number
+    prize.details.carrier         = req.body.carrier
     prize.save (err) ->
       return handleError(res, err)  if err
       res.status(200).json prize
