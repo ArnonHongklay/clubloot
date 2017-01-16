@@ -6,28 +6,14 @@ Float = require('mongoose-float').loadType(mongoose)
 Schema = mongoose.Schema
 
 ledgerSchema = new Schema
+  status: String
+  format: { type: String, enum: ['loot', 'contest', 'won', 'gem', 'prize'] }
   user: {
     id: String
     username: String
     name: String
     email: String
   }
-  format: { type: String, enum: ['loot', 'contest', 'won', 'gem', 'prize'] }
-  status: String
-  transaction: [
-    {
-      action: { type: String, enum: ['plus', 'minus'] }
-      from: String
-      to: String
-      description: String
-      amount: Float
-      tax: Float
-      ref: {
-        format: String
-        id: String
-      }
-    }
-  ]
   balance: {
     coins: { type: Number, default: 0 }
     diamonds: { type: Number, default: 0 }
@@ -39,6 +25,20 @@ ledgerSchema = new Schema
     tracking_number: String
     carrier: String
   }
+  transaction: [
+    {
+      action: { type: String, enum: ['plus', 'minus'] }
+      description: String
+      from: String
+      to: String
+      amount: Float
+      tax: Float
+      ref: {
+        format: String
+        id: String
+      }
+    }
+  ]
   created_at: Date
   updated_at: Date
 

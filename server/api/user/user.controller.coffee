@@ -135,35 +135,48 @@ exports.updateGem = (req, res) ->
       created_at: new Date()
     }, (err, tax) ->
 
-    # log ledger
-    params = {
-      action: 'plus'
-      user: user
-      transaction: {
-        format: 'gem'
-        status: 'completed'
-        from: 'zero'
-        to: 'gem'
-        amount: req.body.fee
-        tax: req.body.fee
-      }
-    }
-
     Ledger.create {
-      action: params['action']
+      status: 'completed'
+      format: 'gem'
       user: {
-        id: params['user']._id,
-        name: "#{params['user'].first_name} #{params['user'].last_name}",
-        email: params['user'].email
+        id:       user._id,
+        username: user.username
+        name:     "#{user.first_name} #{user.last_name}",
+        email:    user.email
       }
-      transaction: params['transaction']
       balance: {
-        diamonds:   params['user'].diamonds
-        emeralds:   params['user'].emeralds
-        sapphires:  params['user'].sapphires
-        rubies:     params['user'].rubies
-        coins:      params['user'].coins
+        coins:      user.coins
+        diamonds:   user.diamonds
+        emeralds:   user.emeralds
+        sapphires:  user.sapphires
+        rubies:     user.rubies
       }
+      transaction: [
+        {
+          action:       'minus'
+          description:  'Convert Gem'
+          from:         'coins'
+          to:           'gems'
+          amount:       req.body.fee
+          tax:          req.body.fee
+          ref: {
+            format: null
+            id: null
+          }
+        }
+        {
+          action:       'plus'
+          description:  'Convert Gem'
+          from:         'coins'
+          to:           'gems'
+          amount:       req.body.fee
+          tax:          req.body.fee
+          ref: {
+            format: null
+            id: null
+          }
+        }
+      ]
     }
 
     user.save (err) ->
@@ -175,9 +188,101 @@ exports.update = (req, res) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless user
 
+    transaction = []
+    if user.coins != req.body.coins
+      transaction.push {
+        action:       'plus'
+        description:  'Admin advanced'
+        from:         'admin'
+        to:           'coins'
+        amount:       req.body.coins - user.coins
+        tax:          null
+        ref: {
+          format: null
+          id: null
+        }
+      }
+
+    if user.diamonds != req.body.diamonds
+      transaction.push {
+        action:       'plus'
+        description:  'Admin advanced'
+        from:         'admin'
+        to:           'diamonds'
+        amount:       req.body.diamonds - user.diamonds
+        tax:          null
+        ref: {
+          format: null
+          id: null
+        }
+      }
+
+    if user.emeralds != req.body.emeralds
+      transaction.push {
+        action:       'plus'
+        description:  'Admin advanced'
+        from:         'admin'
+        to:           'emeralds'
+        amount:       req.body.emeralds - user.emeralds
+        tax:          null
+        ref: {
+          format: null
+          id: null
+        }
+      }
+
+    if user.sapphires != req.body.sapphires
+      transaction.push {
+        action:       'plus'
+        description:  'Admin advanced'
+        from:         'admin'
+        to:           'sapphires'
+        amount:       req.body.sapphires - user.sapphires
+        tax:          null
+        ref: {
+          format: null
+          id: null
+        }
+      }
+
+    if user.rubies != req.body.rubies
+      transaction.push {
+        action:       'plus'
+        description:  'Admin advanced'
+        from:         'admin'
+        to:           'rubies'
+        amount:       req.body.rubies - user.rubies
+        tax:          null
+        ref: {
+          format: null
+          id: null
+        }
+      }
+
+    console.log transaction
     updated = _.merge(user, req.body)
     user.save (err) ->
       return handleError(res, err)  if err
+
+      Ledger.create {
+        status: 'completed'
+        format: 'gem'
+        user: {
+          id:       user._id,
+          username: user.username
+          name:     "#{user.first_name} #{user.last_name}",
+          email:    user.email
+        }
+        balance: {
+          coins:      user.coins
+          diamonds:   user.diamonds
+          emeralds:   user.emeralds
+          sapphires:  user.sapphires
+          rubies:     user.rubies
+        }
+        transaction: transaction
+      }
+
       res.status(200).json user
 
 handleError = (res, err) ->

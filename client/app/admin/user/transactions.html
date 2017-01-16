@@ -23,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="ledger in transactions" rowspan="{{ledger.transaction.length}}">
+      <tr ng-repeat="ledger in ledgers" rowspan="{{ledger.transaction.length}}">
         <td class="text-center">
           <div ng-repeat="transaction in ledger.transaction">
             <i class="fa" ng-class="{'fa-plus': transaction.action=='plus','fa-minus': transaction.action=='minus'}" aria-hidden="true"></i>
@@ -51,25 +51,25 @@
             {{ transaction.amount }} {{ transaction.to }}
           </div>
         </td>
-        <td rowspan="{{ledger.transaction.length}}">
+        <td>
           <span>
-            {{ ledger.transaction.balance.coins }}
+            {{ ledger.balance.coins }}
             <img src="assets/images/Piggy Bank Icon.png" width="40">
           </span>
           <span style="color: #951111">
-            {{ ledger.transaction.balance.rubies }}
+            {{ ledger.balance.rubies }}
             <i class="fa fa-diamond" aria-hidden="true"></i>
           </span>
           <span style="color: #2A4C7A">
-            {{ ledger.transaction.balance.sapphires }}
+            {{ ledger.balance.sapphires }}
             <i class="fa fa-diamond" aria-hidden="true"></i>
           </span>
           <span style="color: #758F42">
-            {{ ledger.transaction.balance.emeralds }}
+            {{ ledger.balance.emeralds }}
             <i class="fa fa-diamond" aria-hidden="true"></i>
           </span>
           <span style="color: #9F9B93">
-            {{ ledger.transaction.balance.diamonds }}
+            {{ ledger.balance.diamonds }}
             <i class="fa fa-diamond" aria-hidden="true"></i>
           </span>
         </td>
@@ -83,31 +83,31 @@
     <h3 class="modal-title">Details</h3>
   </div>
   <div class="modal-body">
-    <h1>{{transactions.name}}</h1>
-    <p>User: {{transactions.user.name}}</p>
-    <p>User: {{transactions.user.email}}</p>
-    <p>Transaction #: {{transactions._id}}</p>
-    <p>Convert: {{ transactions.transaction.from }} -> {{transactions.transaction.to}}</p>
-    <p>Amount: {{transactions.transaction.amount}}</p>
+    <h1>{{ledgers.name}}</h1>
+    <p>User: {{ledgers.user.username}}</p>
+    <p>User: {{ledgers.user.email}}</p>
+    <p>Transaction #: {{ledgers._id}}</p>
+    <p>Convert: {{ ledgers.transaction.from }} -> {{ledgers.transaction.to}}</p>
+    <p>Amount: {{ledgers.transaction.amount}}</p>
     <p>
       <span>
-        {{transactions.balance.coins}}
+        {{ledgers.balance.coins}}
         <img src="assets/images/Piggy Bank Icon.png" width="40">
       </span>
       <span style="color: #951111">
-        {{transactions.balance.rubies}}
+        {{ledgers.balance.rubies}}
         <i class="fa fa-diamond" aria-hidden="true"></i>
       </span>
       <span style="color: #2A4C7A">
-        {{transactions.balance.sapphires}}
+        {{ledgers.balance.sapphires}}
         <i class="fa fa-diamond" aria-hidden="true"></i>
       </span>
       <span style="color: #758F42">
-        {{transactions.balance.emeralds}}
+        {{ledgers.balance.emeralds}}
         <i class="fa fa-diamond" aria-hidden="true"></i>
       </span>
       <span style="color: #9F9B93">
-        {{transactions.balance.diamonds}}
+        {{ledgers.balance.diamonds}}
         <i class="fa fa-diamond" aria-hidden="true"></i>
         </span>
     </p>

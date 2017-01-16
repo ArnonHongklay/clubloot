@@ -2,16 +2,22 @@
 angular.module 'clublootApp'
 .controller 'AdminUserTransactionsCtrl', ($scope, $http, socket, transactions, $modal) ->
   $scope.menuActive = 'Transactions'
-  $scope.transactions = transactions.data
+  $scope.ledgers    = transactions.data
 
-  $scope.transactionDetail = (transaction)->
+  $scope.transactionDetail = (ledger, transaction)->
     $modal.open(
       templateUrl: 'ModalTransactionsCtrl.html'
       controller: 'ModalTransactionsCtrl'
       resolve:
-        transactions: ($http, $stateParams) ->
+        ledgers: ($http, $stateParams) ->
+          return ledger
+        transaction: ($http, $stateParams) ->
           return transaction
     )
 
-.controller 'ModalTransactionsCtrl', ($scope, $http, socket, transactions) ->
-  $scope.transactions = transactions
+.controller 'ModalTransactionsCtrl', ($scope, $http, socket, ledgers, transaction) ->
+  $scope.ledgers      = ledgers
+  $scope.transaction  = transaction
+
+  console.log $scope.ledgers
+  console.log $scope.transaction

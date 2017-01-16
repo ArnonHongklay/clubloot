@@ -15,22 +15,38 @@ exports.index = (req, res) ->
 
 exports.create = (req, res) ->
   params = req.body
+  user = params['user']
 
   Ledger.create {
-    action: params['action']
+    status: 'pending'
+    format: 'prize'
     user: {
-      id: params['user']._id,
-      name: "#{params['user'].first_name} #{params['user'].last_name}",
-      email: params['user'].email
+      id:       user._id,
+      username: user.username
+      name:     "#{user.first_name} #{user.last_name}",
+      email:    user.email
     }
-    transaction: params['transaction']
     balance: {
-      diamonds:   params['user'].diamonds
-      emeralds:   params['user'].emeralds
-      sapphires:  params['user'].sapphires
-      rubies:     params['user'].rubies
-      coins:      params['user'].coins
+      coins:      user.coins
+      diamonds:   user.diamonds
+      emeralds:   user.emeralds
+      sapphires:  user.sapphires
+      rubies:     user.rubies
     }
+    transaction: [
+      {
+        action:       'minus'
+        description:  'Prize'
+        from:         'diamonds'
+        to:           'prize'
+        amount:       baseCoins + bonus
+        tax:          0
+        ref: {
+          format: null
+          id: null
+        }
+      }
+    ]
   }, (err, ledger) ->
     return handleError(res, err) if err
     res.status(201).json ledger
