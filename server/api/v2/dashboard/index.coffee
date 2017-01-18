@@ -11,6 +11,8 @@ router.get '/allplayer', controller.allplayer
 router.post '/allplayer_by_date', controller.allplayer_by_date
 router.post '/conomy_by_date', controller.conomy_by_date
 router.post '/allledger_by_date', controller.allledger_by_date
+router.post '/allloot_by_date', controller.allloot_by_date
+
 router.get '/signincount', controller.signincount
 
 router.post '/tournament_by_date', controller.tournament_by_date
