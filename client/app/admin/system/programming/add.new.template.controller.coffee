@@ -27,6 +27,7 @@ angular.module 'clublootApp'
 
   $scope.setProgram = (option) ->
     $scope.template.program = option.name
+    $scope.template.program_image = option.image
 
   $scope.setQuestion = (option) ->
     $scope.template.number_questions = option.number
@@ -50,6 +51,7 @@ angular.module 'clublootApp'
     $scope.template.active = start_time > currentdate
     $scope.template.active = end_time < currentdate
 
+    console.log $scope.template
     $http.post("/api/templates",
         $scope.template
       ).success((data, status, headers, config) ->

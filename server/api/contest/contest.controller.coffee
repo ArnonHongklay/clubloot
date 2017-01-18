@@ -295,11 +295,13 @@ myContest =
     Template.findById contest.template_id, (err, template) ->
       s_time = template.start_time
       e_time = template.end_time
+      program_image = template.program_image
 
       Contest.findById contest._id, (err, contest) ->
         current_time = new Date().getTime()
         contest.start_time = s_time.getTime()
         contest.end_time   = e_time.getTime()
+        contest.program_image = template.program_image
 
         if current_time > s_time.getTime()
           contest.status = "upcoming"
@@ -312,6 +314,7 @@ myContest =
         Contest.findById contest._id, (err, contest) ->
           contest.start_time = s_time.getTime()
           contest.end_time   = e_time.getTime()
+          contest.program_image = template.program_image
 
           if contest.participant.length < contest.max_player
             for user in contest.participant
@@ -330,6 +333,7 @@ myContest =
 
       s_date = schedule.scheduleJob(s_time, ->
         Contest.findById contest._id, (err, contest) ->
+          contest.program_image = template.program_image
           contest.start_time = s_time.getTime()
           contest.end_time   = e_time.getTime()
           contest.status = "upcoming"

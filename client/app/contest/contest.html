@@ -18,10 +18,10 @@
                <p>{{contest.program}}</p>
                <p>{{contest.prize}}</p>
                <p>Starts in</p>
-               <p>12 hr 39 min</p>
+               <p count-down="{{contest.end_time || contest.status}}"></p>
              </div>
              <div class="item-hover">
-               <img src="assets/images/contest/academy-awards.png">
+               <img ng-src="{{contest.program_image}}">
              </div>
            </div>
         </div>

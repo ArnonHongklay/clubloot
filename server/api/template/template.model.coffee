@@ -8,6 +8,7 @@ TemplateSchema = new Schema
   number_answers: Number
   number_questions: Number
   program: String
+  program_image: String
   start_time: Date
   end_time: Date
   active:

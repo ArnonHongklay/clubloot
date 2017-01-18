@@ -13,42 +13,26 @@ angular.module 'clublootApp'
     { title: 'Awards', name: 'awards' },
   ]
 
-  $scope.submit = ->
-    # console.log $scope.image_program
-    if $scope.adminProgram.file.$valid and $scope.image_program
-      $scope.upload $scope.image_program
-    else
-      $scope.no_image()
+  $scope.submit = (file) ->
+    file.upload = Upload.upload(
+      url: '/api/program'
+      data:
+        contest: $scope.program
+        file: file)
+    file.upload.then ((response) ->
+      $timeout ->
+        file.result = response.data
 
-  $scope.no_image = ->
-    $http.post("/api/program",
-        $scope.program
-      ).success((data, status, headers, config) ->
-        swal("Program #{data.name} created")
-      ).error((data, status, headers, config) ->
-        swal("Not found!!")
-      )
-
-  $scope.upload = (file) ->
-    # console.log file
-    Upload.upload(
-      url: '/api/program/uploads'
-      method: 'POST',
-      data: $scope.program
-      file: file
-    ).then ((resp) ->
-      # console.log 'Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data
-      $scope.program.image = resp.data
-      # console.log $scope.program
-      $http.post("/api/program",
-          $scope.program
-        ).success((data, status, headers, config) ->
-          swal("Program #{data.name} created")
-        ).error((data, status, headers, config) ->
-          swal("Not found!!")
-        )
-    ), ((resp) ->
-      # console.log 'Error status: ' + resp.status
+      console.log response
+      #
+      # $http.get('/api/prize').success((data) ->
+      #   swal("added!")
+      #   $scope.prizes = data
+      #   $scope.prize = ""
+      # )
+    ), ((response) ->
+      if response.status > 0
+        $scope.errorMsg = response.status + ': ' + response.data
     ), (evt) ->
-      progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
-      # console.log 'progress: ' + progressPercentage + '% ' + evt.config.data.file.name
+      # Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total))
