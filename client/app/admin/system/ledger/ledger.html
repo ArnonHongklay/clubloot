@@ -32,6 +32,9 @@
                 Date Time
               </th>
               <th>
+                Username
+              </th>
+              <th>
                 Transaction #
               </th>
               <th>
@@ -55,6 +58,11 @@
               <td class="b-text" style="vertical-align: middle;">
                 {{ ledger.created_at | amDateFormat:'MM/DD/YYYY' }} <br>
                 {{ ledger.created_at | amDateFormat:'HH:mm:ss' }}
+              </td>
+              <td>
+                  <a href="#" ng-click="gotoUser(ledger.user.id)">
+                    {{ ledger.user.username || ledger.user.email }}
+                  </a>
               </td>
               <td>
                 <div ng-repeat="transaction in ledger.transaction">
