@@ -29,6 +29,7 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON 'package.json'
     yeoman:
       # configurable paths
+
       client: require('./bower.json').appPath or 'client'
       dist: 'dist'
 
@@ -72,12 +73,12 @@ module.exports = (grunt) ->
         files: ['<%= yeoman.client %>/{app,components}/**/*.css']
         tasks: ['injector:css']
 
-      jsTest:
-        files: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.js'
-          '<%= yeoman.client %>/{app,components}/**/*.mock.js'
-        ]
-        tasks: ['karma']
+      # jsTest:
+      #   files: [
+      #     '<%= yeoman.client %>/{app,components}/**/*.spec.js'
+      #     '<%= yeoman.client %>/{app,components}/**/*.mock.js'
+      #   ]
+      #   tasks: ['karma']
 
       injectSass:
         files: ['<%= yeoman.client %>/{app,components}/**/*.{scss,sass}']
@@ -97,9 +98,9 @@ module.exports = (grunt) ->
           'injector:scripts'
         ]
 
-      coffeeTest:
-        files: ['<%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}']
-        tasks: ['karma']
+      # coffeeTest:
+      #   files: ['<%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}']
+      #   tasks: ['karma']
 
       livereload:
         files: [
@@ -117,9 +118,9 @@ module.exports = (grunt) ->
         files: ['server/**/*.{coffee,litcoffee,coffee.md}']
         tasks: ['newer:coffee']
 
-      mochaTest:
-        files: ['.server/**/*.spec.js']
-        tasks: ['env:test', 'mochaTest']
+      # mochaTest:
+      #   files: ['.server/**/*.spec.js']
+      #   tasks: ['env:test', 'mochaTest']
 
       gruntfile:
         files: ['Gruntfile.coffee']
@@ -319,6 +320,7 @@ module.exports = (grunt) ->
       options:
 
         # This should be the name of your apps angular module
+        module: 'clublootApp'
         htmlmin:
           collapseBooleanAttributes: true
           collapseWhitespace: true
@@ -438,26 +440,26 @@ module.exports = (grunt) ->
       ]
 
     # Test settings
-    karma:
-      unit:
-        configFile: 'karma.conf.js'
-        singleRun: true
-
-    mochaTest:
-      options:
-        reporter: 'spec'
-        require: 'coffee-script/register'
-
-      src: ['server/**/*.spec.coffee']
-
-    protractor:
-      options:
-        configFile: 'protractor.conf.js'
-
-      chrome:
-        options:
-          args:
-            browser: 'chrome'
+    # karma:
+    #   unit:
+    #     configFile: 'karma.conf.js'
+    #     singleRun: true
+    #
+    # mochaTest:
+    #   options:
+    #     reporter: 'spec'
+    #     require: 'coffee-script/register'
+    #
+    #   src: ['server/**/*.spec.coffee']
+    #
+    # protractor:
+    #   options:
+    #     configFile: 'protractor.conf.js'
+    #
+    #   chrome:
+    #     options:
+    #       args:
+    #         browser: 'chrome'
 
     env:
       test:
@@ -626,7 +628,7 @@ module.exports = (grunt) ->
       return grunt.task.run [
         'env:all'
         'env:test'
-        'mochaTest'
+        # 'mochaTest'
       ]
 
     else if target is 'client'
@@ -637,7 +639,7 @@ module.exports = (grunt) ->
         'concurrent:test'
         'injector'
         'autoprefixer'
-        'karma'
+        # 'karma'
       ]
 
     else if target is 'e2e'
@@ -651,7 +653,7 @@ module.exports = (grunt) ->
         'wiredep'
         'autoprefixer'
         'express:dev'
-        'protractor'
+        # 'protractor'
       ]
 
     else
@@ -685,4 +687,3 @@ module.exports = (grunt) ->
     'test'
     'build'
   ])
-

@@ -10,6 +10,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 5.0'
 
+gem 'knock', '~> 2.0'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
@@ -38,7 +40,12 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 3.0'
 gem 'redis-rails'
-gem 'leaderboard'
+
+gem 'grape'
+gem 'hashie-forbidden_attributes'
+gem 'grape-swagger'
+gem 'grape-swagger-entity'
+gem 'grape-swagger-representable'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

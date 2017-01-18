@@ -6,6 +6,7 @@ Schema = mongoose.Schema
 ContestSchema = new Schema
   name: String
   program: String
+  program_image: String
   owner: String
   prize: Number
   loot: {

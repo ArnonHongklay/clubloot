@@ -4,7 +4,8 @@ set :repo_url,    'git@github.com:abovelab/clubloot.git'
 set :deploy_to,   '/home/deploy/clubloot'
 
 set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml}
-set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system client/bower_components node_modules}
+set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system
+                      client/bower_components client/assets/uploads node_modules}
 
 def red(str)
   "\e[31m#{str}\e[0m"
@@ -50,46 +51,16 @@ namespace :deploy do
   task :grunt do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
+        execute "ps -ef | grep app | grep -v grep | awk '{print $2}' | xargs kill"
         execute :grunt, '--force'
-      end
-    end
-  end
-
-  desc 'grunt stop'
-  task :grunt_stop do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute :grunt, 'forever:server:stop'
-      end
-    end
-  end
-
-  desc 'grunt start'
-  task :grunt_start do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
         execute :grunt, 'forever:server:start'
       end
     end
   end
 
-  desc 'grunt restart'
-  task :grunt_restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute :grunt, 'forever:server:restart'
-      end
-    end
-  end
-
-  # before 'deploy:assets:precompile', :npm_install
-  # before 'deploy:assets:precompile', :bower_install
-
-  before 'deploy:assets:precompile', :grunt
-  before 'deploy:assets:precompile', :grunt_restart
-
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
+  after :finishing, :grunt
 end
 
 namespace :rails do

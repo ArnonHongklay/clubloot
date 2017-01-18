@@ -1,7 +1,8 @@
 'use strict'
 
 _ = require 'lodash'
-Prize = require './prize.model'
+Prize  = require './prize.model'
+Ledger = require '../ledger/ledger.model'
 config = require '../../config/environment'
 
 # Get list of prizes
@@ -30,10 +31,17 @@ exports.create = (req, res) ->
 # Updates an existing prize in the DB.
 exports.update = (req, res) ->
   delete req.body._id  if req.body._id
+
   Prize.findById req.params.id, (err, prize) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless prize
-    updated = _.merge(prize, req.body)
+
+    body = req.body
+    if req.files
+      file = req.files.file
+      body.prize.picture = file.path.replace(config.root + '/client', '')
+
+    updated = _.merge(prize, body.prize)
     updated.save (err) ->
       return handleError(res, err)  if err
       res.status(200).json prize
@@ -46,6 +54,19 @@ exports.destroy = (req, res) ->
     prize.remove (err) ->
       return handleError(res, err)  if err
       res.status(204).end()
+
+exports.putCountPrize = (req, res) ->
+  total = 0
+  Ledger.where('transaction.format').equals('prize')
+        .where('transaction.ref.id').equals(req.params.id)
+        .count()
+        .exec (err, ledger) ->
+    total = ledger
+    Prize.findById req.params.id, (err, prize) ->
+      updated = _.merge(prize, {count: total})
+      updated.save (err) ->
+        return handleError(res, err)  if err
+        res.status(200).json prize
 
 handleError = (res, err) ->
   res.status(500).json err

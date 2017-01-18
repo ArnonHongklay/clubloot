@@ -10,5 +10,6 @@ PrizeSchema = new Schema
   picture: String
   description: String
   active: Boolean
+  count: Number
 
 module.exports = mongoose.model 'Prize', PrizeSchema

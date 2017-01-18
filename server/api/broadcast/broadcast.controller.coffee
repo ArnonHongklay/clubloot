@@ -30,17 +30,17 @@ exports.show = (req, res) ->
 
 # Creates a new broadcast in the DB.
 exports.create = (req, res) ->
-  console.log "--------------------"
-  console.log req.body
+  # console.log "--------------------"
+  # console.log req.body
   Broadcast.create req.body, (err, broadcast) ->
     return handleError(res, err)  if err
 
     schedule.scheduleJob(broadcast.publish_time, ->
-      console.log "999999999999999999999990000000000000000000000000"
-      console.log broadcast
+      # console.log "999999999999999999999990000000000000000000000000"
+      # console.log broadcast
       User.update {}, { $push: {messages: broadcast} }, { upsert: true, multi: true }, (err) ->
-        console.log "9999"
-        console.log broadcast
+        # console.log "9999"
+        # console.log broadcast
         c_socket.emit 'message', broadcast
     )
 

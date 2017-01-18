@@ -5,6 +5,8 @@ _ = require 'lodash'
 User  = require '../user/user.model'
 Daily = require './daily.model'
 
+Ledger = require '../ledger/ledger.model'
+
 DateDiff =
   inDays: (d1, d2) ->
     t2 = d2.getTime()
@@ -53,8 +55,10 @@ exports.update = (req, res) ->
 
 exports.getFreeLoot = (req, res, next) ->
   dailyConfig = {}
+
   Daily.find (err, daily) ->
     dailyConfig = daily[0]
+
   User.findById req.params.id, (err, user) ->
     user.free_loot = false
     counter = 0
@@ -78,12 +82,43 @@ exports.getFreeLoot = (req, res, next) ->
     user.coins = user.coins + baseCoins + bonus
     user.save
 
-    # console.log user.coins
-    # console.log baseCoins + bonus
+    Ledger.create {
+      status: 'completed'
+      format: 'loot'
+      user: {
+        id:       user._id,
+        username: user.username
+        name:     "#{user.first_name} #{user.last_name}",
+        email:    user.email
+      }
+      balance: {
+        coins:      user.coins
+        diamonds:   user.diamonds
+        emeralds:   user.emeralds
+        sapphires:  user.sapphires
+        rubies:     user.rubies
+      }
+      transaction: [
+        {
+          action:       'plus'
+          description:  'Daily loot'
+          from:         'systems'
+          to:           'coins'
+          unit:         'coins'
+          amount:       baseCoins + bonus
+          tax:          0
+          ref: {
+            format: null
+            id: null
+          }
+        }
+      ]
+    }
 
     user.save (err) ->
       data = { user: user, freeCoins: baseCoins + bonus }
       res.json data
+
 
 handleError = (res, err) ->
   res.status(500).json err

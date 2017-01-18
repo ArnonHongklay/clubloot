@@ -1,13 +1,15 @@
 
 angular.module 'clublootApp'
 .controller 'AdminUserContestsActiveCtrl', ($scope, $http, socket, $state, $stateParams) ->
-	menuContests = 'active'
-
+  $scope.menuContests = 'active'
+  $scope.menuActive = 'Contests'
 
 angular.module 'clublootApp'
 .controller 'AdminUserContestsCompletedCtrl', ($scope, $http, socket, $state, $stateParams) ->
-  menuContests = 'completed'
+  $scope.menuContests = 'completed'
+  $scope.menuActive = 'Contests'
 
 angular.module 'clublootApp'
 .controller 'AdminUserContestsWonCtrl', ($scope, $http, socket, $state, $stateParams) ->
-  menuContests = 'won'
+  $scope.menuContests = 'won'
+  $scope.menuActive = 'Contests'

@@ -35,7 +35,18 @@ exports.set = (req, res) ->
 exports.today = (req, res) ->
   start = new Date()
   s = start.setHours(0,0,0,0)
-  end = new Date();
+  end = new Date()
+  e = end.setHours(23,59,59,999)
+
+  WinnerLog.find { created_at: {$gte: s, $lt: e} }, (err, winner_logs) ->
+    return handleError(res, err)  if err
+    res.status(200).json winner_logs
+
+exports.by_date = (req, res) ->
+  console.log req.body
+  start = new Date(req.body.fr)
+  s = start.setHours(0,0,0,0)
+  end = new Date(req.body.to)
   e = end.setHours(23,59,59,999)
 
   WinnerLog.find { created_at: {$gte: s, $lt: e} }, (err, winner_logs) ->

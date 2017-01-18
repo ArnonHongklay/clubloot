@@ -12,7 +12,7 @@ exports.index = (req, res) ->
 
 exports.create = (req, res) ->
   Subscribe.create req.body, (err, subscribe) ->
-    console.log subscribe
+  # console.log subscribe
 
     transporter = nodemailer.createTransport(
       service: 'Gmail'
@@ -30,7 +30,7 @@ exports.create = (req, res) ->
     transporter.sendMail mailOptions, (error, info) ->
       if error
         return console.log(error)
-      console.log 'Message sent: ' + info.response
+    # console.log 'Message sent: ' + info.response
       return
 
     return handleError(res, err)  if err
