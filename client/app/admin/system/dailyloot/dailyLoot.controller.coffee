@@ -7,6 +7,8 @@ angular.module 'clublootApp'
   $scope.allClaimed = allWinnerLogs.data
   $scope.lootClaimed = 0
   $scope.todayClaimed = []
+  $scope.todayClaimedList = []
+  $scope.claimedName = []
 
   $scope.data = [ {
     'key': 'Quantity'
@@ -30,20 +32,22 @@ angular.module 'clublootApp'
     console.log data
     allClaimed = 0
     for ca in data
-      for t in ca.transaction
-        if t.action == "plus"
-          if t.unit == "coins"
-            coin = t.amount
-          else if t.unit == "rubies"
-            coin = t.amount*100
-          else if t.unit == "sapphires"
-            coin = t.amount*500
-          else if t.unit == "emeralds"
-            coin = t.amount*2500
-          else if t.unit == "diamonds"
-            coin = t.amount*12500
-          allClaimed = allClaimed + coin
-          $scope.todayClaimed.push({user: ca.user, amount: coin})
+      if ca.format == "loot"
+        for t in ca.transaction
+          if t.action == "plus"
+            if t.unit == "coins"
+              coin = t.amount
+            else if t.unit == "rubies"
+              coin = t.amount*100
+            else if t.unit == "sapphires"
+              coin = t.amount*500
+            else if t.unit == "emeralds"
+              coin = t.amount*2500
+            else if t.unit == "diamonds"
+              coin = t.amount*12500
+            allClaimed = allClaimed + coin
+            $scope.todayClaimed.push({user: ca.user, amount: coin})
+
     $scope.lootClaimed = allClaimed
 
   $scope.options = chart:
