@@ -111,4 +111,3 @@ angular.module 'clublootApp'
     , 10000
 
   $scope.loop()
-
