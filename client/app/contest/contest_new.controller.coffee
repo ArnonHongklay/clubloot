@@ -80,11 +80,6 @@ angular.module 'clublootApp'
     $http.post("/api/contest",
         $scope.contests
       ).success((data, status, headers, config) ->
-        # console.log $scope.programList
-        # console.log $scope.templates
-        # console.log $scope.questions
-
-        # console.log data
         $scope.template_ids = []
         for template in $scope.templates
           if template.program == data.program #&& template.active == true
@@ -92,7 +87,7 @@ angular.module 'clublootApp'
             # console.log template._id
 
         $scope.template_id = $scope.template_ids[$scope.template_ids.length-1]
-
+        $scope.template_id = $scope.contests.template_id
         $scope.contest = {}
         $scope.contest.id = data._id
         $http.get("/api/templates/#{$scope.template_id}", null).success (d) ->
@@ -181,9 +176,7 @@ angular.module 'clublootApp'
     parseInt(fee) + parseInt(tax)
 
   $scope.calPrize = (index) ->
-    # console.log index
-    # console.log $('#contestFee').val()
-    # console.log "================="
+
     v = parseInt($('#contestFee').val())
 
     $scope.gemIndex = $scope.gemMatrix.list[$scope.contests.max_player-2].fee.indexOf(v)
@@ -200,22 +193,15 @@ angular.module 'clublootApp'
     if gemType == "EMERALD"
       $scope.gemColor = "color: green;"
 
-    # console.log parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
     $scope.gemCounts = []
-    # console.log "GRM:"+parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
-    # console.log gemType
     for num in [1..parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)]
       $scope.gemCounts.push {}
 
-    # console.log parseInt(
-    #   parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)
-    # )
     tax = parseInt($scope.contests.fee) * parseInt($scope.contests.max_player) * 10 / 100
 
     # $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
 
     $scope.contests.loot.prize = $scope.allPrize[$scope.gemIndex]
-    # $scope.calGem(parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)))
 
   $scope.calGem = (val) ->
     # console.log val

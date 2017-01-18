@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'clublootApp'
-.controller 'ContestQuestionCtrl', ($timeout, $scope, $http, Auth, templates, contest) ->
+.controller 'ContestQuestionCtrl', ($timeout, $scope, $stateParams, $http, Auth, templates, contest) ->
   $scope.templates = templates.data
   $scope.contests = contest.data
   $scope.current_user = Auth.getCurrentUser()
@@ -23,13 +23,17 @@ angular.module 'clublootApp'
       $scope.template_ids.push(template._id)
       # console.log template._id
 
-  $scope.template_id = $scope.template_ids[$scope.template_ids.length-1]
+  $scope.template_id = $scope.template_ids[$scope.template_ids.length-2]
+
+  $scope.template_id = $scope.contests.template_id
+
   $scope.contest = {}
 
   $scope.contest._id = $scope.contests._id
   $http.get("/api/templates/#{$scope.template_id}/questions",
       null
     ).success((ques) ->
+
       $scope.contest.ques = ques
     ).error((data, status, headers, config) ->
       swal("Not Active")
