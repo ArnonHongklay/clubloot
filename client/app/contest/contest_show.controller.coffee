@@ -15,7 +15,13 @@ angular.module 'clublootApp'
   $scope.currentTemplate = ''
   $scope.selectedContestStatus = ''
 
+  $http.get("/api/users").success (data) ->
+    $scope.users = data
 
+  $scope.username = (email) ->
+    for user in $scope.users
+      if email == user.email
+        return user.username
 
   $scope.checkJoin = (contest) ->
     alreadyJoin = false
