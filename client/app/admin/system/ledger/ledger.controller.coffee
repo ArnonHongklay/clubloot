@@ -1,5 +1,5 @@
 angular.module 'clublootApp'
-.controller 'AdminSystemLedgerCtrl', ($scope, $http, socket, $state, ledgers) ->
+.controller 'AdminSystemLedgerCtrl', ($scope, $http, socket, $state, ledgers, $window) ->
   # console.log "AdminSystemLedgerCtrl"
   $scope.ledgers = ledgers.data
 
@@ -29,3 +29,6 @@ angular.module 'clublootApp'
     ).success (data, status, headers, config) ->
       console.log data
       $scope.ledgers = data
+
+  $scope.gotoUser = (id) ->
+    $window.location.href = "/admin/user/#{id}/transactions"
