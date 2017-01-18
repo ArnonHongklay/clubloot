@@ -7,8 +7,6 @@ angular.module 'clublootApp'
   $scope.current_user = Auth.getCurrentUser()
   $scope.newPlayer = false
 
-  console.log $scope.contests
-
   for player, i in $scope.contests.player
 
     if player.name == $scope.current_user.email
@@ -29,18 +27,13 @@ angular.module 'clublootApp'
 
   $scope.template_id = $scope.contests.template_id
 
-  console.log $scope.template_id
-  console.log "template_id"
-  console.log $scope.template_ids
   $scope.contest = {}
 
   $scope.contest._id = $scope.contests._id
   $http.get("/api/templates/#{$scope.template_id}/questions",
       null
     ).success((ques) ->
-      console.log $stateParams.contest
-      console.log "===2=2=2=2=2="
-      console.log ques
+
       $scope.contest.ques = ques
     ).error((data, status, headers, config) ->
       swal("Not Active")
