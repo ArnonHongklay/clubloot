@@ -92,7 +92,7 @@ angular.module 'clublootApp'
             # console.log template._id
 
         $scope.template_id = $scope.template_ids[$scope.template_ids.length-1]
-
+        $scope.template_id = $scope.contests.template_id
         $scope.contest = {}
         $scope.contest.id = data._id
         $http.get("/api/templates/#{$scope.template_id}", null).success (d) ->
