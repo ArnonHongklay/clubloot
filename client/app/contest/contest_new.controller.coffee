@@ -284,6 +284,7 @@ angular.module 'clublootApp'
       $http.post("/api/contest/#{$scope.contest.id}/destroy", {}).success (data, status, headers, config) ->
 
   $scope.$on '$locationChangeStart', (event, next, current) ->
+    return if $scope.createNewStep == '1'
   # $scope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
     unless $scope.checkAnswer
       event.preventDefault()
