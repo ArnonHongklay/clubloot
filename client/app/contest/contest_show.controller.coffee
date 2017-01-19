@@ -21,10 +21,10 @@ angular.module 'clublootApp'
 
   $scope.checkSameScore = (score) ->
     if $scope.oldScore == score
-      return true
+      return 1
     else
       $scope.oldScore = score
-      return false
+      return 0
 
   $scope.username = (email) ->
     for user in $scope.users
