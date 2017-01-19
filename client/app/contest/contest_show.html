@@ -163,7 +163,7 @@
               <div class="place-no" ng-if="contestSelection.player[$index].score != contestSelection.player[$index-1].score">
                 <span class="score-{{$index}}" ng-if="$index < 10">0</span>{{ $index + 1 }}
               </div>
-              <div class="place-no" ng-if="contestSelection.player[$index].score == contestSelection.player[$index-1].score">
+              <div class="place-no" ng-if="checkSameScore(player.score)">
                 <span></span>
               </div>
               {{ username(player.name) }}

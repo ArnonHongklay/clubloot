@@ -14,9 +14,17 @@ angular.module 'clublootApp'
   $scope.currentPlayer
   $scope.currentTemplate = ''
   $scope.selectedContestStatus = ''
+  $scope.oldScore = 0
 
   $http.get("/api/users").success (data) ->
     $scope.users = data
+
+  $scope.checkSameScore = (score) ->
+    if $scope.oldScore == score
+      return true
+    else
+      $scope.oldScore = score
+      return false
 
   $scope.username = (email) ->
     for user in $scope.users
