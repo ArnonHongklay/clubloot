@@ -52,36 +52,41 @@ myContest =
     s_time = ''
     e_time = ''
     Template.findById contest.template_id, (err, template) ->
-      s_time = template.start_time
-      e_time = template.end_time
-      program_image = template.program_image
-      console.log "22222222222"
-      Contest.findById contest._id, (err, contest) ->
-        console.log contest.status
-        return if contest.status == "cancel" || contest.status == "live"
-        console.log "3333333333333"
-        current_time = new Date().getTime()
-        contest.start_time = s_time.getTime()
-        contest.end_time   = e_time.getTime()
-        contest.program_image = template.program_image
-        console.log "current:#{current_time}"
-        console.log "n:"
-
-        if current_time > e_time.getTime()
-          console.log "44444444444444444444"
+      unless template
+        Contest.findById contest._id, (err, contest) ->
+          contest.remove (err) ->
+            return
+      else
+        s_time = template.start_time
+        e_time = template.end_time
+        program_image = template.program_image
+        console.log "22222222222"
+        Contest.findById contest._id, (err, contest) ->
+          console.log contest.status
+          return if contest.status == "cancel" || contest.status == "live" || contest.status == "close"
+          console.log "3333333333333"
+          current_time = new Date().getTime()
+          contest.start_time = s_time.getTime()
+          contest.end_time   = e_time.getTime()
           contest.program_image = template.program_image
-          if contest.participant.length < contest.max_player
-            for user in contest.participant
-              User.findById user._id, (err, user) ->
-                user.coins = user.coins + contest.fee
-                user.save()
-            contest.status = "cancel"
-            contest.stage = "cancel"
-            contest.save()
-          else
-            contest.status = "live"
-            contest.stage = "live"
-            contest.save()
+          console.log "current:#{current_time}"
+          console.log "n:"
+
+          if current_time > e_time.getTime()
+            console.log "44444444444444444444"
+            contest.program_image = template.program_image
+            if contest.participant.length < contest.max_player
+              for user in contest.participant
+                User.findById user._id, (err, user) ->
+                  user.coins = user.coins + contest.fee
+                  user.save()
+              contest.status = "cancel"
+              contest.stage = "cancel"
+              contest.save()
+            else
+              contest.status = "live"
+              contest.stage = "live"
+              contest.save()
 
 
 rule2 = new schedule.RecurrenceRule()
