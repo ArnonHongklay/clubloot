@@ -612,7 +612,6 @@ exports.findByTemplates = (req, res) ->
                       user.wonContest.push contest
                       user.save()
 
-#---------------------------------------------------------------------------------
 
           else if winner.length == 1
             User.findById winner[0].uid, (err, user) ->
