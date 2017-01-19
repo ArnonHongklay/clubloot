@@ -4,7 +4,6 @@ Template = require '../api/template/template.model'
 Contest  = require '../api/contest/contest.model'
 schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
-console.log "sdsdsdsdksldksldkslkdslkdsl999999999999999999999999999"
 # rule.minute = new (schedule.Range)(0, 59, 1)
 # rule.hour = 23
 
@@ -49,34 +48,27 @@ k = schedule.scheduleJob(rule, ->
 
 myContest =
   start: (contest) ->
-    console.log contest
     s_time = ''
     e_time = ''
     Template.findById contest.template_id, (err, template) ->
       s_time = template.start_time
       e_time = template.end_time
       program_image = template.program_image
-
+      console.log "11111111111111"
       Contest.findById contest._id, (err, contest) ->
-        return if contest.status == "cancel"
+        console.log contest.status
+        return if contest.status == "cancel" || contest.status == "live"
+        console.log "22222222222222222"
         current_time = new Date().getTime()
         contest.start_time = s_time.getTime()
         contest.end_time   = e_time.getTime()
         contest.program_image = template.program_image
+        console.log "current:#{current_time}"
+        console.log "n:"
 
-        if current_time > s_time.getTime()
-          contest.status = "upcoming"
-          contest.stage = "upcoming"
-          contest.save()
-            # console.log "contest Start #{contest.status} #{contest._id}"
-          return
-
-      n_date = schedule.scheduleJob(e_time, ->
-        Contest.findById contest._id, (err, contest) ->
-          contest.start_time = s_time.getTime()
-          contest.end_time   = e_time.getTime()
+        if current_time > e_time.getTime()
+          console.log "777777777777777777777777799999999999999999999"
           contest.program_image = template.program_image
-
           if contest.participant.length < contest.max_player
             for user in contest.participant
               User.findById user._id, (err, user) ->
@@ -89,19 +81,7 @@ myContest =
             contest.status = "live"
             contest.stage = "live"
             contest.save()
-        return
-      )
 
-      s_date = schedule.scheduleJob(s_time, ->
-        Contest.findById contest._id, (err, contest) ->
-          contest.program_image = template.program_image
-          contest.start_time = s_time.getTime()
-          contest.end_time   = e_time.getTime()
-          contest.status = "upcoming"
-          contest.stage = "upcoming"
-          contest.save()
-        return
-      )
 
 rule2 = new schedule.RecurrenceRule()
 rule2.minute = new (schedule.Range)(0, 59, 1)

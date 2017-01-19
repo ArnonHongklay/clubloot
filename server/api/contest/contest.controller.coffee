@@ -774,11 +774,13 @@ render = (res, data) ->
 
 
 
-
-
-
-
-
+exports.destroy = (req, res) ->
+  Contest.findById req.params.id, (err, contest) ->
+    return handleError(res, err)  if err
+    return res.status(404).end()  unless contest
+    contest.remove (err) ->
+      return handleError(res, err)  if err
+      res.status(204).end()
 
 
 

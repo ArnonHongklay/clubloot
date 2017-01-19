@@ -10,6 +10,7 @@ angular.module 'clublootApp'
   $scope.gemIndex = null
   $scope.currentPrize = 0
   $scope.qaSelection = []
+  $scope.checkAnswer = false
 
   $scope.allPrize = [110, 220, 330, 440, 550, 1100, 1650, 2200, 2750, 5500, 8250, 11000]
 
@@ -274,10 +275,41 @@ angular.module 'clublootApp'
     # console.log $scope.qaSelection
     if $scope.contest.ques.length == $scope.qaSelection.length
       # console.log "xxxxx"
+      $scope.checkAnswer = true
       return true
+
+  window.onbeforeunload = (e) ->
+    e.preventDefault()
+    $http.post("/api/contest/#{$scope.contest.id}/destroy", {}).success (data, status, headers, config) ->
+
+  $scope.$on '$locationChangeStart', (event, next, current) ->
+  # $scope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+    unless $scope.checkAnswer
+      event.preventDefault()
+
+      swal {
+        title: 'Are you sure?'
+        text: 'Contest will not be create'
+        type: 'warning'
+        showCancelButton: true
+        confirmButtonColor: '#DD6B55'
+        confirmButtonText: 'yes'
+        cancelButtonText: 'No'
+        closeOnConfirm: false
+        closeOnCancel: true
+      }, (isConfirm) ->
+        if isConfirm
+          $http.post("/api/contest/#{$scope.contest.id}/destroy", {}).success (data, status, headers, config) ->
+            window.location.href = next
+        else
+          event.preventDefault()
+
+
+    return
 
   $scope.addScore = ->
     counter = 0
+    $scope.checkAnswer = true
     for q,i in $scope.contest.ques
       for a in q.answers
         # console.log a
