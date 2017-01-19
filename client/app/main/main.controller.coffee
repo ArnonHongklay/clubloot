@@ -184,12 +184,13 @@ angular.module 'clublootApp'
     gemIndex = $scope.gemMatrix.list[parseInt(player)-2].fee.indexOf(parseInt(fee))
     $scope.gemMatrix.gem[gemIndex]
 
-
   $scope.goContest = (contest) ->
     window.location.href = "/question/#{contest._id}/"
 
   $scope.goLive = (contest) ->
     window.location.href = "/contest/#{contest.template_id}/"
+
+
 
 angular.module 'clublootApp'
 .directive 'gemRepeat', ($timeout, $state, $stateParams) ->
