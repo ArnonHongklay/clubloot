@@ -279,8 +279,9 @@ angular.module 'clublootApp'
       return true
 
   window.onbeforeunload = (e) ->
-    e.preventDefault()
-    $http.post("/api/contest/#{$scope.contest.id}/destroy", {}).success (data, status, headers, config) ->
+    unless $scope.checkAnswer
+      e.preventDefault()
+      $http.post("/api/contest/#{$scope.contest.id}/destroy", {}).success (data, status, headers, config) ->
 
   $scope.$on '$locationChangeStart', (event, next, current) ->
   # $scope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
