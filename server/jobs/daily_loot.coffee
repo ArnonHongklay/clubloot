@@ -1,8 +1,9 @@
 User = require '../api/user/user.model'
 Conomy = require '../api/conomy_log/conomy_log.model'
+Template = require '../api/template/template.model'
+Contest  = require '../api/contest/contest.model'
 schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
-console.log "sdsdsdsdksldksldkslkdslkdsl999999999999999999999999999"
 # rule.minute = new (schedule.Range)(0, 59, 1)
 # rule.hour = 23
 
@@ -17,7 +18,6 @@ console.log "sdsdsdsdksldksldkslkdslkdsl999999999999999999999999999"
 #     return
 
 # )
-console.log "1234567890"
 rule.second = 59
 rule.hour = 23
 rule.minute = 59
@@ -44,11 +44,66 @@ k = schedule.scheduleJob(rule, ->
   return
 )
 
+
+
+myContest =
+  start: (contest) ->
+    console.log "start function"
+    s_time = ''
+    e_time = ''
+    Template.findById contest.template_id, (err, template) ->
+      unless template
+        Contest.findById contest._id, (err, contest) ->
+          contest.remove (err) ->
+            return
+      else
+        s_time = template.start_time
+        e_time = template.end_time
+        program_image = template.program_image
+        console.log "22222222222"
+        Contest.findById contest._id, (err, contest) ->
+          console.log contest.status
+          return if contest.status == "cancel" || contest.status == "live" || contest.status == "close"
+          console.log "3333333333333"
+          current_time = new Date().getTime()
+          contest.start_time = s_time.getTime()
+          contest.end_time   = e_time.getTime()
+          contest.program_image = template.program_image
+          console.log "current:#{current_time}"
+          console.log "n:"
+
+          if current_time > e_time.getTime()
+            console.log "44444444444444444444"
+            contest.program_image = template.program_image
+            if contest.participant.length < contest.max_player
+              for user in contest.participant
+                User.findById user._id, (err, user) ->
+                  user.coins = user.coins + contest.fee
+                  user.save()
+              contest.status = "cancel"
+              contest.stage = "cancel"
+              contest.save()
+            else
+              contest.status = "live"
+              contest.stage = "live"
+              contest.save()
+
+
 rule2 = new schedule.RecurrenceRule()
-rule2.second = 30
-rule2.hour = 2
-rule2.minute = 3
+rule2.minute = new (schedule.Range)(0, 59, 1)
 j = schedule.scheduleJob(rule2, ->
   console.log new Date, 'The 30th second of the minute.'
+  start = new Date()
+  s = start.setHours(0,0,0,0)
+  end = new Date()
+  e = end.setHours(23,59,59,999)
+  #  end_time: {$gte: s, $lt: e} }
+  Contest.find({}).exec (err, contests) ->
+    console.log "11111111"
+    console.log "contest count:" + contests.length
+    for contest in contests
+      console.log "contest"
+      myContest.start(contest)
+
   return
 )

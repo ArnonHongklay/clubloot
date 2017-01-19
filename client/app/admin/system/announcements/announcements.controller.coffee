@@ -14,10 +14,13 @@ angular.module 'clublootApp'
     return if $scope.newMessage.message == ''
     return if $scope.newMessage.publish_time == ''
     # console.log $scope.newMessage
+    $scope.newMessage.publish_time = new Date($scope.newMessage.publish_time)
     $scope.newMessage.postBy = Auth.getCurrentUser().email
     $http.post("/api/broadcast",
       $scope.newMessage
     ).success((data, status, headers, config) ->
+      console.log "=-=-=-="
+      console.log data
       $scope.messages.unshift(data)
       $scope.newMessage = {message:'', publish_time:'', postBy:''}
       swal("Announcements created")
