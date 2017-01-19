@@ -48,17 +48,18 @@ k = schedule.scheduleJob(rule, ->
 
 myContest =
   start: (contest) ->
+    console.log "start function"
     s_time = ''
     e_time = ''
     Template.findById contest.template_id, (err, template) ->
       s_time = template.start_time
       e_time = template.end_time
       program_image = template.program_image
-      console.log "11111111111111"
+      console.log "22222222222"
       Contest.findById contest._id, (err, contest) ->
         console.log contest.status
         return if contest.status == "cancel" || contest.status == "live"
-        console.log "22222222222222222"
+        console.log "3333333333333"
         current_time = new Date().getTime()
         contest.start_time = s_time.getTime()
         contest.end_time   = e_time.getTime()
@@ -67,7 +68,7 @@ myContest =
         console.log "n:"
 
         if current_time > e_time.getTime()
-          console.log "777777777777777777777777799999999999999999999"
+          console.log "44444444444444444444"
           contest.program_image = template.program_image
           if contest.participant.length < contest.max_player
             for user in contest.participant
@@ -92,8 +93,10 @@ j = schedule.scheduleJob(rule2, ->
   end = new Date()
   e = end.setHours(23,59,59,999)
   Contest.find({ end_time: {$gte: s, $lt: e} }).exec (err, contests) ->
+    console.log "11111111"
+    console.log "contest count:"+contests.length
     for contest in contests
-      console.log "12345"
+      console.log "contest"
       myContest.start(contest)
 
   return
