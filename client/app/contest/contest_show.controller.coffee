@@ -139,8 +139,10 @@ angular.module 'clublootApp'
   $scope.checkScore = (player, index) ->
     score = 0
     for uAnswer, i in player.answers
-      if $scope.questions[i].answers[uAnswer].is_correct == true
-        score = score + 1
+      if uAnswer
+        if $scope.questions[i].answers[uAnswer].is_correct == true
+          score = score + 1
+
     player.score = score
     score
 
