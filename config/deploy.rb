@@ -64,6 +64,17 @@ namespace :deploy do
   after :finishing, :grunt
 end
 
+namespace :node do
+  desc 'log production'
+  task :log do
+    on roles(:web) do
+      within current_path do
+        execute :tail, '-f log/access.log'
+      end
+    end
+  end
+end
+
 namespace :rails do
   desc 'Console to production'
   task :console do

@@ -100,11 +100,10 @@ j = schedule.scheduleJob(rule2, ->
   #  end_time: {$gte: s, $lt: e} }
   Contest.find({}).exec (err, contests) ->
     console.log "11111111"
-    console.log "contest count:"+contests.length
+    console.log "contest count:" + contests.length
     for contest in contests
       console.log "contest"
       myContest.start(contest)
 
   return
 )
-
