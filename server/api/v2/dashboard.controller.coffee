@@ -2,13 +2,13 @@
 'use strict'
 
 _ = require 'lodash'
-nodemailer = require 'nodemailer'
-Player = require '../../user/user.model'
-Contest = require '../../contest/contest.model'
-Conomy = require '../../conomy_log/conomy_log.model'
-Program = require '../../program/program.model'
-Ledger = require '../../ledger/ledger.model'
-SigninLog = require '../../signin_log/signin_log.model'
+nodemailer  = require 'nodemailer'
+Player      = require '../user/user.model'
+Contest     = require '../contest/contest.model'
+Conomy      = require '../conomy_log/conomy_log.model'
+Program     = require '../program/program.model'
+Ledger      = require '../ledger/ledger.model'
+SigninLog   = require '../signin_log/signin_log.model'
 
 exports.index = (req, res) ->
   Player.find (err, players) ->

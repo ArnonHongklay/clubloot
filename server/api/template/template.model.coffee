@@ -4,7 +4,7 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
 TemplateSchema = new Schema
-  name: String
+  # name: String
   number_answers: Number
   number_questions: Number
   program: String
@@ -14,5 +14,18 @@ TemplateSchema = new Schema
   active:
     type: Boolean
     default: true
+
+
+  # new template
+  name: String
+  program_id: String
+  questions: [
+    {
+      is_correct: Number
+      answers: [
+        { name: String }
+      ]
+    }
+  ]
 
 module.exports = mongoose.model 'Template', TemplateSchema

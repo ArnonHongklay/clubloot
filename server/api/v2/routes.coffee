@@ -9,7 +9,7 @@ templateController  = require './template.controller'
 questionController  = require './question.controller'
 answerController    = require './answer.controller'
 
-contestController   = require './contest.controller'
+# contestController   = require './contest.controller'
 
 router = express.Router()
 
@@ -42,33 +42,33 @@ router.put    '/template/:id',   templateController.update
 router.patch  '/template/:id',   templateController.update
 router.delete '/template/:id',   templateController.destroy
 
-router.get    '/template/:id/question',       questionController.index
-router.get    '/template/:id/question/:id',   questionController.show
-router.post   '/template/:id/question',       questionController.create
-router.put    '/template/:id/question/:id',   questionController.update
-router.patch  '/template/:id/question/:id',   questionController.update
-router.delete '/template/:id/question/:id',   questionController.destroy
+router.get    '/template/:id/question',             questionController.index
+router.get    '/template/:id/question/:question',   questionController.show
+router.post   '/template/:id/question',             questionController.create
+router.put    '/template/:id/question/:question',   questionController.update
+router.patch  '/template/:id/question/:question',   questionController.update
+router.delete '/template/:id/question/:question',   questionController.destroy
 
-router.get    '/template/:id/question/:id/answer',
+router.get    '/template/:id/question/:question/answer',
               answerController.index
-router.get    '/template/:id/question/:id/answer/:id',
+router.get    '/template/:id/question/:question/answer/:answer',
               answerController.show
-router.post   '/template/:id/question/:id/answer',
+router.post   '/template/:id/question/:question/answer',
               answerController.create
-router.put    '/template/:id/question/:id/answer/:id',
+router.put    '/template/:id/question/:question/answer/:answer',
               answerController.update
-router.patch  '/template/:id/question/:id/answer/:id',
+router.patch  '/template/:id/question/:question/answer/:answer',
               answerController.update
-router.delete '/template/:id/question/:id/answer/:id',
+router.delete '/template/:id/question/:question/answer/:answer',
               answerController.destroy
 
 
-router.get    '/template/:id/contest',       contestController.index
-router.get    '/template/:id/contest/:id',   contestController.show
-router.post   '/template/:id/contest',       contestController.create
-router.put    '/template/:id/contest/:id',   contestController.update
-router.patch  '/template/:id/contest/:id',   contestController.update
-router.delete '/template/:id/contest/:id',   contestController.destroy
+# router.get    '/template/:id/contest',       contestController.index
+# router.get    '/template/:id/contest/:id',   contestController.show
+# router.post   '/template/:id/contest',       contestController.create
+# router.put    '/template/:id/contest/:id',   contestController.update
+# router.patch  '/template/:id/contest/:id',   contestController.update
+# router.delete '/template/:id/contest/:id',   contestController.destroy
 
 # router.get    '/',      controller.index
 # router.get    '/:id',   controller.show
