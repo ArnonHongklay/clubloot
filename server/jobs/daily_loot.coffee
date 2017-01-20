@@ -16,8 +16,8 @@ rule = new schedule.RecurrenceRule()
 #       user.save()
 #       return
 #     return
-
 # )
+
 rule.second = 59
 rule.hour = 23
 rule.minute = 59
