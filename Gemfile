@@ -48,6 +48,7 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', git: 'https://github.com/capistrano/rbenv.git'
   gem 'capistrano-rails-console'
+  gem 'capistrano-npm'
 
   gem 'ffaker'
 end
