@@ -612,6 +612,53 @@ exports.findByTemplates = (req, res) ->
                       user.wonContest.push contest
                       user.save()
 
+              WinnerLog.create {
+                user_id: w.uid,
+                contest_id: c._id,
+                template_id: req.params.id,
+                contest_name: c.name,
+                score: w.score,
+                prize:  c.loot.prize
+                created_at: new Date()
+                }, (err, winnerlog) ->
+                    # console.log "callback"
+                    # log ledger
+                  user = w
+                  for re in refund
+
+                    Ledger.create {
+                      status: 'completed'
+                      format: 'won'
+                      user: {
+                        id:       user._id,
+                        username: user.username
+                        name:     "#{user.first_name} #{user.last_name}",
+                        email:    user.email
+                      }
+                      balance: {
+                        coins:      user.coins
+                        diamonds:   user.diamonds
+                        emeralds:   user.emeralds
+                        sapphires:  user.sapphires
+                        rubies:     user.rubies
+                      }
+                      transaction: [
+                        {
+                          action:       'plus'
+                          description:  'Winner contest'
+                          from:         'contest'
+                          to:           'winner'
+                          unit:         re.type
+                          amount:       re.value
+                          tax:          0
+                          ref: {
+                            format: null
+                            id: null
+                          }
+                        }
+                      ]
+                    }
+
 #---------------------------------------------------------------------------------
 
           else if winner.length == 1

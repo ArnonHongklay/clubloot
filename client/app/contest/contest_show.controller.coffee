@@ -14,9 +14,17 @@ angular.module 'clublootApp'
   $scope.currentPlayer
   $scope.currentTemplate = ''
   $scope.selectedContestStatus = ''
+  $scope.oldScore = 0
 
   $http.get("/api/users").success (data) ->
     $scope.users = data
+
+  $scope.checkSameScore = (score) ->
+    if $scope.oldScore == score
+      return 1
+    else
+      $scope.oldScore = score
+      return 0
 
   $scope.username = (email) ->
     for user in $scope.users
@@ -131,8 +139,10 @@ angular.module 'clublootApp'
   $scope.checkScore = (player, index) ->
     score = 0
     for uAnswer, i in player.answers
-      if $scope.questions[i].answers[uAnswer].is_correct == true
-        score = score + 1
+      if uAnswer
+        if $scope.questions[i].answers[uAnswer].is_correct == true
+          score = score + 1
+
     player.score = score
     score
 

@@ -142,7 +142,8 @@
           </tr>
         </tbody>
       </table>
-      <div ng-show="contestSelection.stage =='upcoming' && !alreadyJoin" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)" ng-disabled="joinedDisabled">JOIN CONTEST</div>
+      <div ng-show="contestSelection.stage =='upcoming' && !alreadyJoin && contestSelection.player.length < contestSelection.max_player" class="btn btn-primary" style="background: #50ACC4;width: 100%;border: 0px;" ng-click="joinContest(contestSelection)" ng-disabled="joinedDisabled">JOIN CONTEST</div>
+      <div ng-show="contestSelection.stage =='upcoming' && !alreadyJoin && contestSelection.player.length == contestSelection.max_player" class="btn btn-default" style="background: #999;color: #fff;width: 100%;border: 0px;" ng-disabled="joinedDisabled">CONTEST IS FULL</div>
       <div ng-show="alreadyJoin && contestSelection.stage =='upcoming' && contestSelection.stage !='cancel'&& contestSelection.stage !='live'" class="btn btn-primary disabled" style="background: #50ACC4; width: 100%; border: 0px;">WAITING</div>
       <div ng-show="contestSelection.stage=='cancel'" class="btn btn-danger" style="width: 100%;border: 0px;">CANCELED</div>
       <div ng-show="contestSelection.stage=='live'" class="btn btn-success" style="width: 100%;border: 0px;">LIVE</div>
@@ -159,13 +160,10 @@
         <tbody>
           <tr ng-repeat="player in contestSelection.player | orderBy:'-score'" ng-click="compairPlayer(player)">
             <td class="text-blue" style="text-align:left;">
-              <div class="place-no" ng-if="contestSelection.player[$index].score != contestSelection.player[$index-1].score">
+              <div class="place-no" ng-if="!checkSameScore(player.score) || $index == 0" style="position: absolute;">
                 <span class="score-{{$index}}" ng-if="$index < 10">0</span>{{ $index + 1 }}
               </div>
-              <div class="place-no" ng-if="contestSelection.player[$index].score == contestSelection.player[$index-1].score">
-                <span></span>
-              </div>
-              {{ username(player.name) }}
+              <div style="display: inline; margin-left: 45px;">{{ username(player.name) }}</div>
               <span class="pull-right">
                 <span ng-hide="player.isWin">{{ checkScore(player, $index) || 0 }}</span>
                 <span ng-show="player.isWin">

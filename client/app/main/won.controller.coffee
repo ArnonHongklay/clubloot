@@ -2,6 +2,7 @@
 
 angular.module 'clublootApp'
 .controller 'WonCtrl', ($scope, $http, socket, $rootScope, Auth, contests) ->
+  $scope.currentUser = Auth.getCurrentUser()
   $scope.contests = Auth.getCurrentUser().wonContest
   $scope.id_logs = []
 
@@ -114,6 +115,15 @@ angular.module 'clublootApp'
     if gemType == "EMERALD"
       gemColor = "color: green;"
     return gemColor
+
+  $scope.checkGemColor = (type) ->
+
+    # console.log type
+    return "color:red;!important"     if type == "ruby"
+    return "color:blue;!important"    if type == "sapphire"
+    return "color:green;!important"   if type == "emerald"
+    return "color:grey;!important" if type == "diamond"
+
 
   $scope.gemRepeat = (fee, player) ->
     prize = parseInt(fee) * parseInt(player)
