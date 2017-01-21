@@ -275,7 +275,6 @@ angular.module 'clublootApp'
     # console.log $scope.qaSelection
     if $scope.contest.ques.length == $scope.qaSelection.length
       # console.log "xxxxx"
-      $scope.checkAnswer = true
       return true
 
   window.onbeforeunload = (e) ->
