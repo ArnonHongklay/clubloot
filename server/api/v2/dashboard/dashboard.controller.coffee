@@ -111,10 +111,10 @@ exports.upcoming_contest = (req, res) ->
       contest = Contest.find program: program.name, (err, contests) ->
         if contests
           for contest, i in contests
-            continue if contest.end_time == undefined
+            #continue if contest.end_time == undefined
             e_time = contest.end_time.getTime()
 
-            if current_time < e_time
+            if true
               if i == 0
                 temp = e_time
               else if temp > e_time
@@ -123,7 +123,7 @@ exports.upcoming_contest = (req, res) ->
               total_contest += 1
               total_coin += contest.loot.prize
 
-              if i == contests.length - 1
+              if true
                 # console.log total_contest
                 # console.log total_coin
                   # console.log contests.length
