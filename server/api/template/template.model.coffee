@@ -27,5 +27,19 @@ TemplateSchema = new Schema
       ]
     }
   ]
+  contest: [
+    id: String
+    players: [
+      {
+        user_id: String
+        question_id: String
+        answers: [
+          {
+            answer_id: String
+          }
+        ]
+      }
+    ]
+  ]
 
 module.exports = mongoose.model 'Template', TemplateSchema
