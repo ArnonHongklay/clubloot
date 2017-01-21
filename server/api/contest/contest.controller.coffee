@@ -659,10 +659,11 @@ exports.findByTemplates = (req, res) ->
                       ]
                     }
 
-#---------------------------------------------------------------------------------
 
           else if winner.length == 1
+            console.log "won11111"
             User.findById winner[0].uid, (err, user) ->
+              console.log user
               for py, k in contest.player
                 contest.player[k].isWin = false
                 contest.player[k].winPrize = []
@@ -686,7 +687,6 @@ exports.findByTemplates = (req, res) ->
 
               if user.wonContest.length == 0
                 user.wonContest.push contest
-                user.save()
               else
                 wonList = []
                 for won, i in user.wonContest
@@ -700,7 +700,7 @@ exports.findByTemplates = (req, res) ->
 
             # User.update { _id: winner.uid }, { wonContest: [ contest ] }, { multi: true }, (err, data) ->
                 # console.log data
-
+            console.log "create winner log"
             WinnerLog.create {
               user_id: winner[0].uid,
               contest_id: c._id,
