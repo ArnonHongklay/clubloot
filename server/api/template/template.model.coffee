@@ -9,11 +9,11 @@ TemplateSchema = new Schema
   number_questions: Number
   program: String
   program_image: String
-  start_time: Date
-  end_time: Date
-  active:
-    type: Boolean
-    default: true
+  # start_time: Date
+  # end_time: Date
+  # active:
+  #   type: Boolean
+  #   default: true
 
 
   # new template
@@ -61,8 +61,9 @@ TemplateSchema = new Schema
     }
     fee: Number
     public: Boolean
-    start_time: Date
-    end_time: Date
   ]
+  active: { type: Boolean, default: true }
+  start_time: Date
+  end_time: Date
 
 module.exports = mongoose.model 'Template', TemplateSchema
