@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"clubloot-dev.conomylogs"}]}
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"clubloot.conomylogs"}]}
