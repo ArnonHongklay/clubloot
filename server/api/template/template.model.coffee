@@ -28,10 +28,25 @@ TemplateSchema = new Schema
     }
   ]
   contest: [
-    id: String
+    name: String
+    stage: String
+    owner: {
+      user_id: String
+      user_name: String
+      user_fullname: String
+      user_email: String
+    }
+    max_player: Number
     players: [
       {
-        user_id: String
+        user: {
+          user_id: String
+          user_name: String
+          user_fullname: String
+          user_email: String
+        }
+        score: String
+        is_win: Boolean
         question_id: String
         answers: [
           {
@@ -40,6 +55,14 @@ TemplateSchema = new Schema
         ]
       }
     ]
+    loot: {
+      prize: Number
+      category: String
+    }
+    fee: Number
+    public: Boolean
+    start_time: Date
+    end_time: Date
   ]
 
 module.exports = mongoose.model 'Template', TemplateSchema
