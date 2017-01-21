@@ -573,10 +573,15 @@ exports.findByTemplates = (req, res) ->
                 user.joinedContest.push contest
                 user.save()
               else
-                for jc, i in user.joinedContest
-                  if i == user.joinedContest.length - 1 && jc._id == contest._id
-                    user.joinedContest.push contest
-                    user.save()
+                jcs = []
+                for jc in user.joinedContest
+                  jcs.push(String(jc._id))
+
+                console.log jcs
+                console.log contest._id
+                if jcs.indexOf(String(contest._id)) < 0
+                  user.joinedContest.push contest
+                  user.save()
 
           if winner.length == c.max_player
             for py, k in contest.player
