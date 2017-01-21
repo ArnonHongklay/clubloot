@@ -140,8 +140,6 @@ angular.module 'clublootApp'
 
   $scope.checkScore = (player, index) ->
     score = 0
-    return 0
-    console.log player.answers.length
     return 0 if player.answers.length == 0
     for uAnswer, i in player.answers
       if uAnswer
