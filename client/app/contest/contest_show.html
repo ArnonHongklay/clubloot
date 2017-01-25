@@ -221,12 +221,14 @@
               Q{{$index}}
             </td>
             <td class="text-blue" style="text-align:left;width: 25%">
-              {{selectedCompair.user[$index].ans}}
-              <i ng-if="contestSelection.status != 'upcoming'" class="check-ans fa {{checkAns(selectedCompair.user[$index].p, $index)}}" ></i>
+              <span ng-hide="contestSelection.stage=='upcoming'">
+                {{selectedCompair.user[$index].ans}}
+                <i class="check-ans fa {{checkAns(selectedCompair.user[$index].p, $index)}}" ></i>
+              </span>
             </td>
             <td class="text-blue" style="text-align:left;width: 25%">
               <span ng-hide="contestSelection.stage=='upcoming'">
-                {{selectedCompair.vs[$index].ans}} 
+                {{selectedCompair.vs[$index].ans}}
                 <i class="check-ans fa {{checkAns(ans.p, $index)}}" ></i>
               </span>
             </td>
