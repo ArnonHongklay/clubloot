@@ -353,6 +353,7 @@ myContest =
                     }
                   ]
                 }
+
                 user.save()
             contest.status = "cancel"
             contest.stage = "cancel"
