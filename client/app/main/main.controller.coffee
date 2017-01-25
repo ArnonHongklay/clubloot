@@ -14,6 +14,8 @@ angular.module 'clublootApp'
 
   $scope.broadcasts = broadcasts.data
   $scope.contests = contests.data
+
+  console.log $scope.contests
   $scope.id_logs = []
 
   $scope.gemMatrix = {
