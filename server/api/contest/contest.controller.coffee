@@ -417,6 +417,8 @@ exports.joinContest = (req, res) ->
   Contest.findById req.params.id, (err, contest) ->
     return handleError(res, err)  if err
     return res.status(404).end()  unless contest
+    if contest.player.length == contest.max_player
+      return res.status(500).send({ message: "Contest is full" })
     # console.log "joinContest==========================="
     User.findById req.body._id, (err, user) ->
       # console.log "user==========================="
@@ -591,6 +593,9 @@ exports.findByTemplates = (req, res) ->
             for s_winner in winner
               User.findById s_winner.uid, (err, user) ->
                 user.coins = user.coins + c.fee
+                s_contest = contest
+                s_contest.loot.prize = c.fee
+                user.wonContest.push s_contest
                 user.save()
           else if winner.length > 1
             refund_index = c.loot.prize

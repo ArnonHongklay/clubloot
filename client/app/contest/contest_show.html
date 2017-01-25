@@ -418,7 +418,9 @@
 
             </td>
             <td class="text-blue" style="text-align:left;width: 25%">
+              <span ng-hide="contestSelection.stage=='upcoming'">
               {{selectedCompair.vs[$index].ans}} <i class="check-ans fa {{checkAns(ans.p, $index)}}" ></i>
+              </span>
             </td>
           </tr>
         </tbody>
