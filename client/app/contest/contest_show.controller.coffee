@@ -16,6 +16,8 @@ angular.module 'clublootApp'
   $scope.selectedContestStatus = ''
   $scope.oldScore = 0
 
+  console.log $scope.templates
+
   $http.get("/api/users").success (data) ->
     $scope.users = data
 
@@ -138,6 +140,7 @@ angular.module 'clublootApp'
 
   $scope.checkScore = (player, index) ->
     score = 0
+    return 0 if player.answers.length == 0
     for uAnswer, i in player.answers
       if uAnswer
         if $scope.questions[i].answers[uAnswer].is_correct == true
@@ -151,6 +154,8 @@ angular.module 'clublootApp'
 
 
   $scope.compairPlayer = (player) ->
+    console.log $scope.contestSelection
+    console.log "-=-=--=="
     $scope.selectedCompair = {
       user: [],
       vs: [],
@@ -164,7 +169,7 @@ angular.module 'clublootApp'
 
     $scope.selectedCompair.name = player.name || "enemy"
     return unless $scope.currentPlayer.answers
-    for ans, i in $scope.currentPlayer.answers
+    for ans, i in $scope.questions
         # console.log ans
       $scope.selectedCompair.user.push {
         ans: $scope.ansChoice[$scope.currentPlayer.answers[i]],
@@ -181,6 +186,8 @@ angular.module 'clublootApp'
       # console.log $scope.questions
       # console.log ans
       # console.log index
+
+    return "fa-times" unless $scope.questions[index].answers[ans]
 
     return "fa-check" if $scope.questions[index].answers[ans].is_correct == true
 
