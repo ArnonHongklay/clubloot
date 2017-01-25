@@ -79,6 +79,40 @@ myContest =
               for user in contest.participant
                 User.findById user._id, (err, user) ->
                   user.coins = user.coins + contest.fee
+
+                  Ledger.create {
+                    status: 'completed'
+                    format: 'contest'
+                    user: {
+                      id:       user._id,
+                      username: user.username
+                      name:     "#{user.first_name} #{user.last_name}",
+                      email:    user.email
+                    }
+                    balance: {
+                      coins:      user.coins
+                      diamonds:   user.diamonds
+                      emeralds:   user.emeralds
+                      sapphires:  user.sapphires
+                      rubies:     user.rubies
+                    }
+                    transaction: [
+                      {
+                        action:       'plus'
+                        description:  'Refund'
+                        from:         'system'
+                        to:           'refund'
+                        unit:         'coins'
+                        amount:       contest.fee
+                        tax:          0
+                        ref: {
+                          format: null
+                          id: null
+                        }
+                      }
+                    ]
+                  }
+
                   user.save()
               contest.status = "cancel"
               contest.stage = "cancel"
