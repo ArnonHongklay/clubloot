@@ -71,7 +71,15 @@ angular.module 'clublootApp'
               $scope.addScore()
 
             ).error((data, status, headers, config) ->
-              swal("Not Active")
+              swal {
+                title: data.message
+                text: ''
+                type: 'warning'
+                confirmButtonColor: '#DD6B55'
+                confirmButtonText: 'ok'
+                closeOnConfirm: true
+              }, (isConfirm) ->
+                window.location.href = "/"
             )
         else
     else
@@ -81,7 +89,15 @@ angular.module 'clublootApp'
         $scope.addScore()
 
       ).error((data, status, headers, config) ->
-        swal("Not Active")
+        swal {
+          title: data.message
+          text: ''
+          type: 'warning'
+          confirmButtonColor: '#DD6B55'
+          confirmButtonText: 'ok'
+          closeOnConfirm: true
+        }, (isConfirm) ->
+          window.location.href = "/"
       )
 
 
