@@ -588,7 +588,7 @@ exports.findByTemplates = (req, res) ->
           if winner.length == c.max_player
             for py, k in contest.player
               contest.player[k].isWin = false
-              contest.player[k].winPrize = []
+              contest.player[k].winPrize = { value: c.fee, type: "coin" }
             contest.save()
             for s_winner in winner
               User.findById s_winner.uid, (err, user) ->
