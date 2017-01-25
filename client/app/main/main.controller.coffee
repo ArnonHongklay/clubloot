@@ -152,12 +152,19 @@ angular.module 'clublootApp'
     socket.unsyncUpdates 'thing'
 
   $scope.setFilter = (value) ->
-    if value == 'live'
-      $scope.live = true
-      $scope.upcoming = false
-    else
-      $scope.live = false
-      $scope.upcoming = true
+    switch value
+      when 'live'
+        $scope.live = true
+        $scope.upcoming = false
+        $scope.past = false
+      when 'upcoming'
+        $scope.live = false
+        $scope.upcoming = true
+        $scope.past = false
+      when 'past'
+        $scope.live = false
+        $scope.upcoming = false
+        $scope.past = true
 
   $scope.setFilter('live')
 
