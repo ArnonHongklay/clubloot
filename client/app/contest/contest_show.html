@@ -221,8 +221,8 @@
               Q{{$index}}
             </td>
             <td class="text-blue" style="text-align:left;width: 25%">
+              {{selectedCompair.user[$index].ans}}
               <span ng-hide="contestSelection.stage=='upcoming'">
-                {{selectedCompair.user[$index].ans}}
                 <i class="check-ans fa {{checkAns(selectedCompair.user[$index].p, $index)}}" ></i>
               </span>
             </td>
