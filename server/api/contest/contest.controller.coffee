@@ -264,28 +264,16 @@ getFefund = (user_id, refund) ->
 getQuestions = (tem_id) ->
   query = Question.find({'templates': tem_id})
   query.exec (err, templates) ->
-      # console.log templates
-      # console.log "99999999999999999999999999999999999999999"
     return templates
 
 checkScore = (player, questions) ->
   score = 0
   num = 0
-    # console.log player
-    # console.log "questions----------------------------"
   for uAnswer in player.answers
-      # console.log "ans"
-      # console.log "num:"+num
-      # console.log questions[num]
-      # console.log "player"
-      # console.log uAnswer
     if questions[num].answers[uAnswer].is_correct
-        # console.log score
       score = score + 1
     num = num + 1
   player.score = score
-    # console.log score
-    # console.log "score================================================================="
   score
 
 myContest =
@@ -868,26 +856,28 @@ exports.findProgramActive = (req, res) ->
 
     for program in programs
       # contest = Contest.findOne({program: program.name})
-      contest = Contest.where('program').equals(program.name).exec (err, contests) ->
-        if contests
-          for contest, i in contests
-            continue if contest.end_time == undefined
-            e_time = contest.end_time.getTime()
+      contest = Contest.where('program').equals(program.name)
+        .where('end_time').gt(current_time)
+        .exec (err, contests) ->
+          if contests
+            for contest, i in contests
+              continue if contest.end_time == undefined
+              e_time = contest.end_time.getTime()
 
-            # console.log e_time
-            # console.log current_time
-            # console.log current_time < e_time
+              console.log e_time
+              console.log current_time
+              console.log current_time < e_time
+              console.log contest
+              if current_time < e_time
+                if i == 0
+                  temp = e_time
+                  c = contest
+                else if temp > e_time
+                  temp = e_time
+                  c = contest
 
-            if current_time < e_time
-              if i == 0
-                temp = e_time
-                c = contest
-              else if temp > e_time
-                temp = e_time
-                c = contest
-
-              if i == contests.length - 1
-                bucket.push(c)
+                if i == contests.length - 1
+                  bucket.push(c)
 
     setTimeout (->
       # console.log bucket
