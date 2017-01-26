@@ -79,7 +79,7 @@
 
     <div ng-show="past == true">
         <div  ng-repeat="contest in contests"
-              ng-if="(contest.stage == 'close' || contest.stage == 'cancel') && checkJoin(contest)"
+              ng-if="checkJoin(contest) && (contest.stage != 'live' && contest.stage != 'upcoming')"
               class="col-xs-12"
               style="border-bottom: 1px solid #ccc; line-height:50px; font-size: 18px; color: #42A3BE; cursor: pointer">
           <div class="row">
