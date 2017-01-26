@@ -2,7 +2,7 @@ User = require '../api/user/user.model'
 Conomy = require '../api/conomy_log/conomy_log.model'
 Template = require '../api/template/template.model'
 Contest  = require '../api/contest/contest.model'
-Ledger = require '../ledger/ledger.model'
+Ledger = require '../api/ledger/ledger.model'
 schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
 
