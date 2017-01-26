@@ -10,7 +10,7 @@ angular.module 'clublootApp'
         (date.getMonth() + 1) + '/' +
          date.getDate() + ' ' +
          date.getHours() + ':' +
-         date.getMinutes() + ':' +
+         (date.getMinutes() + 1) + ':' +
          date.getSeconds()
 
     element.countdown cc, (event) ->
