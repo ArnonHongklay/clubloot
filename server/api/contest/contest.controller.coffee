@@ -504,7 +504,7 @@ exports.joinContest = (req, res) ->
       }
 
       contest.participant.push(req.body)
-      contest.player.push({ uid: req.body._id, name: req.body.email, score: 10 })
+      contest.player.push({ uid: req.body._id, name: user.username, score: 10 })
 
       contest.save (err) ->
         return handleError(res, err)  if err
