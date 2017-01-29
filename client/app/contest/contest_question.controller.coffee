@@ -6,6 +6,7 @@ angular.module 'clublootApp'
   $scope.contests = contest.data
   $scope.current_user = Auth.getCurrentUser()
   $scope.newPlayer = false
+  $scope.qaSelection = []
 
   for player, i in $scope.contests.player
 
@@ -15,7 +16,9 @@ angular.module 'clublootApp'
       if player.name != $scope.current_user.name
         $scope.newPlayer = true
 
-  $scope.qaSelection = []
+
+  for player in $scope.contests.player
+    $scope.currentPlayer = player if player.uid == $scope.current_user._id
 
   $scope.template_ids = []
   for template in $scope.templates
@@ -35,6 +38,9 @@ angular.module 'clublootApp'
     ).success((ques) ->
 
       $scope.contest.ques = ques
+      console.log $scope.contest.ques
+      for q, i in $scope.contest.ques
+        $scope.qaSelection[i] = "#{$scope.currentPlayer.answers[i]}"
     ).error((data, status, headers, config) ->
       swal("Not Active")
     )
@@ -65,7 +71,15 @@ angular.module 'clublootApp'
               $scope.addScore()
 
             ).error((data, status, headers, config) ->
-              swal("Not Active")
+              swal {
+                title: data.message
+                text: ''
+                type: 'warning'
+                confirmButtonColor: '#DD6B55'
+                confirmButtonText: 'ok'
+                closeOnConfirm: true
+              }, (isConfirm) ->
+                window.location.href = "/"
             )
         else
     else
@@ -75,7 +89,15 @@ angular.module 'clublootApp'
         $scope.addScore()
 
       ).error((data, status, headers, config) ->
-        swal("Not Active")
+        swal {
+          title: data.message
+          text: ''
+          type: 'warning'
+          confirmButtonColor: '#DD6B55'
+          confirmButtonText: 'ok'
+          closeOnConfirm: true
+        }, (isConfirm) ->
+          window.location.href = "/"
       )
 
 
@@ -119,3 +141,5 @@ angular.module 'clublootApp'
   $scope.openAns = (index) ->
     # console.log index
     $scope.qaShowAns[index] = true
+
+

@@ -16,6 +16,8 @@ angular.module 'clublootApp'
   $scope.selectedContestStatus = ''
   $scope.oldScore = 0
 
+  console.log $scope.templates
+
   $http.get("/api/users").success (data) ->
     $scope.users = data
 
@@ -81,31 +83,12 @@ angular.module 'clublootApp'
 
   }
 
-
-    # console.log "templates"
-    # console.log $scope.templates
-    # console.log socket
-    # console.log "Userid"
-    # console.log Auth.getCurrentUser()._id
-
-    # console.log $scope.templates
-
-
   $scope.checkActive = (contest) ->
     status = contest.stage
     if contest.stage != "close"
       return true
     else
       return false
-    # if status == "upcoming" || status == "finish"
-    #     # console.log status
-    #   return true
-    # else if status =="cancel"
-    #   return false
-    # else
-    #   now = new Date().getTime()
-    #   start = new Date(status).getTime()
-    #   return now < start
 
   $scope.stepBack = () ->
     window.location.href = '/contest'
@@ -125,12 +108,7 @@ angular.module 'clublootApp'
       swal("Not Active")
     )
 
-  # socket.syncUpdates 'question', $scope.questions
-
-
   $scope.checkGemColor = (type) ->
-
-    # console.log type
     return "color:red;!important"     if type == "ruby"
     return "color:blue;!important"    if type == "sapphire"
     return "color:green;!important"   if type == "emerald"
@@ -138,6 +116,7 @@ angular.module 'clublootApp'
 
   $scope.checkScore = (player, index) ->
     score = 0
+    return 0 if player.answers.length == 0
     for uAnswer, i in player.answers
       if uAnswer
         if $scope.questions[i].answers[uAnswer].is_correct == true
@@ -151,20 +130,18 @@ angular.module 'clublootApp'
 
 
   $scope.compairPlayer = (player) ->
+    console.log $scope.contestSelection
+    console.log "-=-=--=="
     $scope.selectedCompair = {
       user: [],
       vs: [],
       player: player,
       me: $scope.currentPlayer
     }
-      # console.log $scope.currentPlayer
-
-      # console.log $scope.selectedCompair.me.answers
-      # console.log "==================="
 
     $scope.selectedCompair.name = player.name || "enemy"
     return unless $scope.currentPlayer.answers
-    for ans, i in $scope.currentPlayer.answers
+    for ans, i in $scope.questions
         # console.log ans
       $scope.selectedCompair.user.push {
         ans: $scope.ansChoice[$scope.currentPlayer.answers[i]],
@@ -174,14 +151,9 @@ angular.module 'clublootApp'
         ans: $scope.ansChoice[player.answers[i]],
         p: player.answers[i]
       }
-      # console.log $scope.selectedCompair
-
 
   $scope.checkAns = (ans, index) ->
-      # console.log $scope.questions
-      # console.log ans
-      # console.log index
-
+    return "fa-times" unless $scope.questions[index].answers[ans]
     return "fa-check" if $scope.questions[index].answers[ans].is_correct == true
 
     for i, k in $scope.questions[index].answers
@@ -200,15 +172,9 @@ angular.module 'clublootApp'
 
 
   socket.syncUpdates 'contest', [], (event, item, object) ->
-    # console.log "contest syncUpdates"
-    # console.log object
-    # console.log item
-    # console.log $scope.contestSelection._id
     if item._id == $scope.contestSelection._id
       $scope.contestSelection = item
       $scope.$apply()
-
-    # console.log "------------------"
 
     if $scope.contest.program == item.program && event == "created"
       i = 0
@@ -222,7 +188,6 @@ angular.module 'clublootApp'
         return
 
     for contest in $scope.allContest
-        # console.log contest._id == item._id
       if contest._id == item._id
         contest.stage = item.stage
         contest.player = item.player
@@ -234,12 +199,6 @@ angular.module 'clublootApp'
 
 
   socket.syncUpdates 'contest', $scope.templates
-
-  # $scope.orderContest = (contest) ->
-  #     # console.log "contest"
-  #     # console.log contest
-  #     # console.log contest.max_player - contest.player.length
-  #   return contest.max_player - contest.player.length
 
   $scope.orderContest = (contest) ->
     $scope.students = $filter('orderBy')(contest, ->
@@ -343,16 +302,7 @@ angular.module 'clublootApp'
 
       if i == con.player.length - 1
         if con.player.length <= con.max_player
-            # console.log con._id
           $state.go("question", { contest: con._id })
-          # $http.put("/api/contest/#{con._id}/join",
-          #     Auth.getCurrentUser()
-          #   ).success((ok) ->
-          #     $scope.contestSelection = ok
-          #     $state.go("question", { contest: con._id })
-          #   ).error((data, status, headers, config) ->
-          #     swal("Not Active")
-          #   )
         else
           swal("Full contest")
           return false
@@ -365,10 +315,7 @@ angular.module 'clublootApp'
     $scope.showContestDetails($scope.contest)
 
     if $stateParams.viewPlayer
-        # console.log $stateParams.viewPlayer
-        # console.log $('#tablePlayers tr:first-child')
       setTimeout (->
-        #your code to be executed after 1 second
         $('#tablePlayers tr:first-child').click()
         return
       ), 1000
@@ -387,6 +334,4 @@ angular.module 'clublootApp'
     tmp = ""
     for i in [1..theGem.count]
       tmp += gem
-      # console.log "-------------------------"
-      # console.log tmp
     element.html tmp
