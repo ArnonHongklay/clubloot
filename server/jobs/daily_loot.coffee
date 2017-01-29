@@ -6,20 +6,6 @@ Ledger = require '../api/ledger/ledger.model'
 schedule = require('node-schedule')
 rule = new schedule.RecurrenceRule()
 
-<<<<<<< HEAD
-
-# j = schedule.scheduleJob(rule, ->
-#   # console.log "Can get more free coins"
-#   User.find (err, users) ->
-#     users.forEach (user) ->
-#       user.free_loot = true
-#       user.save()
-#       return
-#     return
-# )
-
-=======
->>>>>>> develop
 rule.second = 59
 rule.hour = 23
 rule.minute = 59
