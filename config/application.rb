@@ -9,7 +9,6 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
-# require "sprockets/railtie"
 require "rails/test_unit/railtie"
 require 'sprockets/railtie'
 
@@ -29,7 +28,6 @@ module Clubloot
     # config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     # config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
 
-    config.api_only = true
     # config.middleware.use ActionDispatch::Flash
     # config.middleware.use ActionDispatch::Cookies
     # config.middleware.use ActionDispatch::Session::CookieStore

@@ -1,4 +1,4 @@
-class ledger
+class Ledger
   include Mongoid::Document
 
   field :_id,         type: BSON::ObjectId
