@@ -10,6 +10,7 @@ angular.module 'clublootApp'
   $scope.gemIndex = null
   $scope.currentPrize = 0
   $scope.qaSelection = []
+  $scope.checkAnswer = false
 
   $scope.allPrize = [110, 220, 330, 440, 550, 1100, 1650, 2200, 2750, 5500, 8250, 11000]
 
@@ -69,7 +70,7 @@ angular.module 'clublootApp'
     return now < end
 
   $scope.landingContest = ->
-    $scope.contests.owner = Auth.getCurrentUser().email
+    $scope.contests.owner = Auth.getCurrentUser().username
     $scope.contests.loot.category = "gem-red"
     $scope.contests.participant = []
     $scope.contests.participant.push(Auth.getCurrentUser())
@@ -80,19 +81,13 @@ angular.module 'clublootApp'
     $http.post("/api/contest",
         $scope.contests
       ).success((data, status, headers, config) ->
-        # console.log $scope.programList
-        # console.log $scope.templates
-        # console.log $scope.questions
-
-        # console.log data
         $scope.template_ids = []
         for template in $scope.templates
           if template.program == data.program #&& template.active == true
             $scope.template_ids.push(template._id)
-            # console.log template._id
 
         $scope.template_id = $scope.template_ids[$scope.template_ids.length-1]
-
+        $scope.template_id = $scope.contests.template_id
         $scope.contest = {}
         $scope.contest.id = data._id
         $http.get("/api/templates/#{$scope.template_id}", null).success (d) ->
@@ -181,9 +176,7 @@ angular.module 'clublootApp'
     parseInt(fee) + parseInt(tax)
 
   $scope.calPrize = (index) ->
-    # console.log index
-    # console.log $('#contestFee').val()
-    # console.log "================="
+
     v = parseInt($('#contestFee').val())
 
     $scope.gemIndex = $scope.gemMatrix.list[$scope.contests.max_player-2].fee.indexOf(v)
@@ -200,22 +193,15 @@ angular.module 'clublootApp'
     if gemType == "EMERALD"
       $scope.gemColor = "color: green;"
 
-    # console.log parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
     $scope.gemCounts = []
-    # console.log "GRM:"+parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)
-    # console.log gemType
     for num in [1..parseInt($scope.gemMatrix.gem[$scope.gemIndex].count)]
       $scope.gemCounts.push {}
 
-    # console.log parseInt(
-    #   parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)
-    # )
     tax = parseInt($scope.contests.fee) * parseInt($scope.contests.max_player) * 10 / 100
 
     # $scope.contests.loot.prize = parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player))
 
     $scope.contests.loot.prize = $scope.allPrize[$scope.gemIndex]
-    # $scope.calGem(parseInt(parseInt($scope.contests.fee) * parseInt($scope.contests.max_player)))
 
   $scope.calGem = (val) ->
     # console.log val
@@ -290,8 +276,40 @@ angular.module 'clublootApp'
       # console.log "xxxxx"
       return true
 
+  window.onbeforeunload = (e) ->
+    unless $scope.checkAnswer
+      e.preventDefault()
+      $http.post("/api/contest/#{$scope.contest.id}/destroy", {}).success (data, status, headers, config) ->
+
+  $scope.$on '$locationChangeStart', (event, next, current) ->
+    return if $scope.createNewStep == '1'
+  # $scope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+    unless $scope.checkAnswer
+      event.preventDefault()
+
+      swal {
+        title: 'Are you sure?'
+        text: 'Contest will not be create'
+        type: 'warning'
+        showCancelButton: true
+        confirmButtonColor: '#DD6B55'
+        confirmButtonText: 'yes'
+        cancelButtonText: 'No'
+        closeOnConfirm: false
+        closeOnCancel: true
+      }, (isConfirm) ->
+        if isConfirm
+          $http.post("/api/contest/#{$scope.contest.id}/destroy", {}).success (data, status, headers, config) ->
+            window.location.href = next
+        else
+          event.preventDefault()
+
+
+    return
+
   $scope.addScore = ->
     counter = 0
+    $scope.checkAnswer = true
     for q,i in $scope.contest.ques
       for a in q.answers
         # console.log a
@@ -305,7 +323,7 @@ angular.module 'clublootApp'
       # console.log counter
       $scope.contest.player = [{
         uid: Auth.getCurrentUser()._id,
-        name: Auth.getCurrentUser().email,
+        name: Auth.getCurrentUser().username,
         score: counter,
         answers: $scope.qaSelection
       }]

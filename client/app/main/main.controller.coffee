@@ -14,6 +14,8 @@ angular.module 'clublootApp'
 
   $scope.broadcasts = broadcasts.data
   $scope.contests = contests.data
+
+  console.log $scope.contests
   $scope.id_logs = []
 
   $scope.gemMatrix = {
@@ -152,12 +154,19 @@ angular.module 'clublootApp'
     socket.unsyncUpdates 'thing'
 
   $scope.setFilter = (value) ->
-    if value == 'live'
-      $scope.live = true
-      $scope.upcoming = false
-    else
-      $scope.live = false
-      $scope.upcoming = true
+    switch value
+      when 'live'
+        $scope.live = true
+        $scope.upcoming = false
+        $scope.past = false
+      when 'upcoming'
+        $scope.live = false
+        $scope.upcoming = true
+        $scope.past = false
+      when 'past'
+        $scope.live = false
+        $scope.upcoming = false
+        $scope.past = true
 
   $scope.setFilter('live')
 
@@ -184,12 +193,13 @@ angular.module 'clublootApp'
     gemIndex = $scope.gemMatrix.list[parseInt(player)-2].fee.indexOf(parseInt(fee))
     $scope.gemMatrix.gem[gemIndex]
 
-
   $scope.goContest = (contest) ->
     window.location.href = "/question/#{contest._id}/"
 
   $scope.goLive = (contest) ->
     window.location.href = "/contest/#{contest.template_id}/"
+
+
 
 angular.module 'clublootApp'
 .directive 'gemRepeat', ($timeout, $state, $stateParams) ->
