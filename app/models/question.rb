@@ -5,5 +5,4 @@ class Question
 
   embeds_many :answers
   embedded_in :template
-  # field :answers,     type: Array
 end
