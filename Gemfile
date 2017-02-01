@@ -38,13 +38,11 @@ gem 'omniauth-facebook'
 gem 'figaro'
 
 
-# Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
+gem 'jquery-rails'
+gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-# Use postgresql as the database for Active Record
 
 gem 'bootstrap', '~> 4.0.0.alpha6'
 
