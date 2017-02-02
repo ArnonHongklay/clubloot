@@ -4,14 +4,18 @@ Rails.application.routes.draw do
   # namespace :api, path: '/', contraints: { subdomain: 'api' } do
   devise_for :users
 
-  root 'courses#index'
-  resources :ledgers
-  resources :programs
-  resources :templates do
-    resources :questions do
-      resources :answers
+  root 'systems#index'
+  get 'systems/index'
+
+  namespace :systems do
+    resources :ledgers
+    resources :programs
+    resources :templates do
+      resources :questions do
+        resources :answers
+      end
+      resources :contests
     end
-    resources :contests
   end
   # end
 end

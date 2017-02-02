@@ -45,6 +45,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'bootstrap', '~> 4.0.0.alpha6'
+gem "tabs_on_rails"
 
 
 
