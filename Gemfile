@@ -48,7 +48,6 @@ gem 'bootstrap', '~> 4.0.0.alpha6'
 gem "tabs_on_rails"
 
 
-
 group :production do
   gem 'rails_12factor'
 end
