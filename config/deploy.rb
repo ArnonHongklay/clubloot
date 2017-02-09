@@ -1,7 +1,7 @@
 set :application, 'clubloot'
-set :repo_url,    'git@github.com:abovelab/clubloot.git'
+set :repo_url,    'git@github.com:letsdoitrocks/clubloot.git'
 
-set :deploy_to,   '/home/deploy/clubloot'
+set :deploy_to,   '/home/deploy/clubloot/admin'
 
 set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml
                       server/config/environment/development.coffee }

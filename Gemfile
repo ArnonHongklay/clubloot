@@ -71,6 +71,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', git: 'https://github.com/capistrano/rbenv'
+  gem 'capistrano-npm'
   gem 'airbrussh', require: false
   gem 'slackistrano', '3.1.0.beta'
 end
