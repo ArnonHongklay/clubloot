@@ -3,10 +3,8 @@ set :repo_url,    'git@github.com:letsdoitrocks/clubloot.git'
 
 set :deploy_to,   '/home/deploy/clubloot/admin'
 
-set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml
-                      server/config/environment/development.coffee }
-set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system
-                      client/bower_components client/assets/uploads node_modules}
+set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml}
+set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 def red(str)
   "\e[31m#{str}\e[0m"
