@@ -1,13 +1,13 @@
-<nav class="nav flex-column">
-  <a class="nav-link active" href="#">Announcements</a>
-  <a class="nav-link" href="#">Daily Loot</a>
-  <a class="nav-link" href="#">Programming</a>
-  <a class="nav-link" href="#">Ledger</a>
-  <a class="nav-link" href="#">Prizes</a>
-  <a class="nav-link" href="#">Taxes</a>
-  <a class="nav-link" href="#">Gems</a>
-  <a class="nav-link" href="#">Users</a>
-  <a class="nav-link" href="#">Winners</a>
-  <a class="nav-link" href="#">Free Loot</a>
-  <a class="nav-link" href="#">Subscribe</a>
-</nav>
+<%= tabs_tag open_tabs: { class: 'nav flex-column' } do |tab| %>
+  <%= tab.announcements 'Announcements', root_path, class: 'nav-link' %>
+  <%= tab.dailyloot 'Daily Loot', root_path, class: 'nav-link'  %>
+  <%= tab.programming 'Programming', programs_path, class: 'nav-link'  %>
+  <%= tab.ledgers 'Ledger', ledgers_path, class: 'nav-link'  %>
+  <%= tab.prizes 'Prizes', root_path, class: 'nav-link'  %>
+  <%= tab.taxes 'Taxes', root_path, class: 'nav-link'  %>
+  <%= tab.gems 'Gems', root_path, class: 'nav-link'  %>
+  <%= tab.users 'Users', root_path, class: 'nav-link'  %>
+  <%= tab.winners 'Winners', root_path, class: 'nav-link'  %>
+  <%= tab.freeloot 'Free Loot', root_path, class: 'nav-link'  %>
+  <%= tab.subscribe 'Subscribe', root_path, class: 'nav-link'  %>
+<% end %>

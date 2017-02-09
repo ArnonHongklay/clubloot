@@ -6,13 +6,13 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+        <%= link_to 'Dashboard <span class="sr-only">(current)</span>'.html_safe, root_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Services</a>
+        <%= link_to 'Services', root_path, class: 'nav-link disabled' %>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">System</a>
+        <%= link_to 'System', systems_index_path, class: 'nav-link' %>
       </li>
     </ul>
     <form class="form-inline mt-2 mt-md-0">
