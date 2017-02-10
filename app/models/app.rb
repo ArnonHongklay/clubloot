@@ -25,12 +25,11 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def root_domain
-    # if environment.development?
-    #   'daydash.local'
-    # else
-    #   'daydash.co'
-    # end
-    'clubloot.com'
+    if environment.development?
+      'clubloot.local'
+    else
+      'clubloot.com'
+    end
   end
 
   def protocol
