@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_template, only: [:new, :create, :edit, :update]
 
   # GET /questions
   # GET /questions.json
@@ -14,7 +15,13 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
+    @questions = []
+    (0..@template.number_questions.to_i - 1).each do |question|
+      @questions[question] = Question.new
+      (0..@template.number_answers.to_i - 1).each do |answer|
+        @questions[question].answers[answer] = Answer.new
+      end
+    end
   end
 
   # GET /questions/1/edit
@@ -24,16 +31,25 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    questions = params[:q]
+    answers = params[:a]
+    questions.each do |question|
+      temp = @template.questions.create(name: questions[question])
+      answers[question].each do |answer|
+        temp.answers.create(name: answers[question][answer])
+      end
+    end
+
+    # @question = Question.new(question_params)
 
     respond_to do |format|
-      if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+      # if @question.save
+        format.html { redirect_to @template, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @question.errors, status: :unprocessable_entity }
+    #   end
     end
   end
 
@@ -67,8 +83,12 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
     end
 
+    def set_template
+      @template = Template.find(params[:template_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.fetch(:question, {})
+      # params.fetch(:question, {})
     end
 end
