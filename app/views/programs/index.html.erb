@@ -1,25 +1,89 @@
-<p id="notice"><%= notice %></p>
+<article class="content items-list-page">
+  <div class="title-search-block">
+    <div class="title-block">
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="title">
+            Programs
+            <%= link_to 'Add New', new_program_path, class: 'btn btn-primary btn-sm rounded-s' %>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="items-search">
+      <form class="form-inline">
+        <div class="input-group">
+          <input type="text" class="form-control boxed rounded-s" placeholder="Search for..."> <span class="input-group-btn">
+          <button class="btn btn-secondary rounded-s" type="button">
+          <i class="fa fa-search"></i>
+          </button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card items">
+    <ul class="item-list striped">
+      <li class="item item-list-header hidden-sm-down">
+        <div class="item-row">
+          <div class="item-col fixed item-col-check">
+            <label class="item-check" id="select-all-items">
+            <input type="checkbox" class="checkbox"> <span></span> </label>
+          </div>
+          <div class="item-col item-col-header fixed item-col-img md">
+            <div> <span>Media</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-title">
+            <div> <span>Name</span> </div>
+          </div>
+          <div class="item-col item-col-header fixed item-col-actions-dropdown"> </div>
+        </div>
+      </li>
 
-<h1>Programs</h1>
+      <% @programs.each do |program| %>
+        <li class="item">
+          <div class="item-row">
+            <div class="item-col fixed item-col-check">
+              <label class="item-check" id="select-all-items">
+              <input type="checkbox" class="checkbox" checked="<%= program.active %>"> <span></span> </label>
+            </div>
+            <div class="item-col fixed item-col-img md">
+              <a href="item-editor.html">
+                <div class="item-img rounded" style="background-image: url(https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg)"></div>
+              </a>
+            </div>
+            <div class="item-col fixed pull-left item-col-title">
+              <div class="item-heading">Name</div>
+              <div>
+                <%= link_to program do %>
+                  <h4 class="item-title">
+                    <%= program.try(:name) %>
+                  </h4>
+                <% end %>
+              </div>
+            </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @programs.each do |program| %>
-      <tr>
-        <td><%= link_to 'Show', program %></td>
-        <td><%= link_to 'Edit', edit_program_path(program) %></td>
-        <td><%= link_to 'Destroy', program, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Program', new_program_path %>
+            <div class="item-col fixed item-col-actions-dropdown">
+              <div class="item-actions-dropdown">
+                <a class="item-actions-toggle-btn"> <span class="inactive">
+                <i class="fa fa-cog"></i>
+                </span> <span class="active">
+                <i class="fa fa-chevron-circle-right"></i>
+                </span> </a>
+                <div class="item-actions-block">
+                  <ul class="item-actions-list">
+                    <li>
+                      <%= link_to edit_program_path(program), class: 'edit' do %>
+                        <i class="fa fa-pencil"></i>
+                      <% end %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</article>

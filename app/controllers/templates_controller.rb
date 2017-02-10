@@ -1,6 +1,6 @@
 class TemplatesController < ApplicationController
   before_action :set_template, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_programs, only: [:new, :edit, :create, :update]
   # GET /templates
   # GET /templates.json
   def index
@@ -67,8 +67,12 @@ class TemplatesController < ApplicationController
       @template = Template.find(params[:id])
     end
 
+    def set_programs
+      @programs = Program.all
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_params
-      params.fetch(:template, {})
+      # params.fetch(:template, {})
+      params.require(:template).permit(:name, :program, :number_questions, :number_answers)
     end
 end

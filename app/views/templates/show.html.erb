@@ -1,4 +1,20 @@
-<p id="notice"><%= notice %></p>
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Show Template <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
 
-<%= link_to 'Edit', edit_template_path(@template) %> |
-<%= link_to 'Back', templates_path %>
+  <p id="notice"><%= notice %></p>
+  <p>
+    Name: <%= @template.name %>
+  </p>
+  <p>
+    Questions: <%= @template.number_questions %>
+  </p>
+  <p>
+    Answers: <%= @template.number_answers %>
+  </p>
+  <%= link_to 'Edit', edit_template_path(@template), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Back', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
+</article>
