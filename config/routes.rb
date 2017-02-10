@@ -8,13 +8,12 @@ Rails.application.routes.draw do
   resources :systems, only: :index do
     collection do
       resources :ledgers
-      resources :programs do
-        resources :templates do
-          resources :questions do
-            resources :answers
-          end
-          resources :contests
+      resources :programs
+      resources :templates do
+        resources :questions do
+          resources :answers
         end
+        resources :contests
       end
     end
   end

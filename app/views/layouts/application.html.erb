@@ -1,17 +1,79 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- <title> ModularAdmin - Free Dashboard Theme | HTML Version </title> -->
     <title>Clubloot</title>
     <%= csrf_meta_tags %>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="/css/vendor.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <!-- Theme initialization -->
+    <%#<script>
+        var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+        {};
+        var themeName = themeSettings.themeName || '';
+        if (themeName)
+        {
+            document.write('<link rel="stylesheet" id="theme-style" href="css/app-' + themeName + '.css">');
+        }
+        else
+        {
+            document.write('<link rel="stylesheet" id="theme-style" href="css/app.css">');
+        }
+    </script>%>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <div class="container">
-      <%= yield %>
+    <div class="main-wrapper">
+      <div class="app" id="app">
+        <%= render 'layouts/header' %>
+        <%= render 'layouts/left_sidebar' %>
+
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <article class="content dashboard-page">
+         <%= yield %>
+        </article>
+<!--         <footer class="footer">
+          <div class="footer-block buttons">
+            <iframe class="footer-github-btn" src="https://ghbtns.com/github-btn.html?user=modularcode&repo=modular-admin-html&type=star&count=true" frameborder="0" scrolling="0" width="140px" height="20px"></iframe>
+          </div>
+          <div class="footer-block author">
+            <ul>
+              <li> created by <a href="https://github.com/modularcode">ModularCode</a> </li>
+              <li> <a href="https://github.com/modularcode/modular-admin-html#get-in-touch">get in touch</a> </li>
+            </ul>
+          </div>
+        </footer> -->
+       <%= render 'layouts/modal' %>
+      </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+        <!-- Reference block for JS -->
+<div class="ref" id="ref">
+    <div class="color-primary"></div>
+    <div class="chart">
+        <div class="color-primary"></div>
+        <div class="color-secondary"></div>
+    </div>
+</div>
+<script src="/js/vendor.js"></script>
+<script src="/js/app.js"></script>
   </body>
 </html>
