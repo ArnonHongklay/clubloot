@@ -19,4 +19,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  constraints(subdomain: App.api_host)  do
+    get 'systems/index'
+  end
 end
