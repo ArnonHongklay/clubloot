@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints(subdomain: App.api_host) do
-    mount Clubloot::API => '/'
-  end
+  # constraints(subdomain: App.api_host) do
+  #   mount Clubloot::API => '/'
+  # end
 end

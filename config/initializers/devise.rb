@@ -6,15 +6,14 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  config.secret_key = 'a6c26b8649b9b6b86b040f6fb9cb9c0c28063f7d2442fc0fe1a0de95231509a6dedcaa57d9819499b51eb988770d66d6c6bfeae81f0637065ced4bfe6eb150ac'
+  # config.secret_key = 'cf901c348e9e6d37e8dc4f095fa1e3a9a5339e227a27d563502ca12e64e24ef0cf8e440868d4d28c26242664f3a0d5fb7de5ad0012f2e7f18b0f651bb97a2138'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], callback_url: ENV['FACEBOOK_CALLBACK'],
-                  scope: 'email', info_fields: 'email,first_name,last_name,gender,birthday'
+
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
@@ -109,7 +108,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'b2037f5f55bae315c91f85c46445db6e66a8308df1e121ebd5c90e571083fdd1a93f1bc79625c00a29a8b64d23b3af9b199d540ce2921bae794aae8ca196ab68'
+  # config.pepper = '9074a73ae31968edaf9ddc05d78d015bf0f27ace382a0e64a0fe62b3b040386e84f4586d8514c9d2306d5e1896639e04be36312b577a94035abc80ddceea7754'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
