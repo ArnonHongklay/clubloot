@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  constraints(subdomain: App.admin_host)  do
+
+  constraints(subdomain: App.host('api')) do
+    # mount Sidekiq::Web => '/workers'
+    # mount ActionCable.server => "/cable"
+
+    mount ApplicationAPI, at: '/'
+    mount GrapeSwaggerRails::Engine, at: '/explorer'
+  end
+
+  constraints(subdomain: App.host('admin'))  do
     devise_for :users
 
     root 'systems#index'
@@ -18,9 +26,5 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
-
-  constraints(subdomain: App.api_host) do
-    mount Clubloot::API => '/'
   end
 end

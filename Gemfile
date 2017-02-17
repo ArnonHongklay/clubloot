@@ -1,50 +1,48 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+ruby '2.4.0'
+
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+gem 'rails', '~> 5.0.1'
 
 platform :ruby do
   gem 'pg', '~> 0.18'
   gem 'puma', '~> 3.0'
   gem 'unicorn'
   gem 'mini_racer'
+
+  gem 'mongoid', '~> 6.0.0'
+  gem 'mongoid-slug'
+  gem 'mongoid_rails_migrations'
+  gem 'mongoid-paperclip'
+  gem 'bson_ext'
+  gem 'redis', '~> 3.0'
+  gem 'redis-rails'
 end
 
-gem 'mongoid', '~> 6.0.0'
-gem 'mongoid-slug'
-gem 'mongoid_rails_migrations'
-gem 'mongoid-paperclip'
-gem 'bson_ext'
-gem 'redis', '~> 3.0'
-gem 'redis-rails'
-
-gem 'jbuilder', '~> 2.5'
-gem 'json', git: 'https://github.com/arnonhongklay/json', branch: 'v1.8'
-gem 'jsonapi'
-gem 'jsonapi-parser', '~> 0.1.1.beta2'
-gem 'active_model_serializers'
-gem 'rack-cors'
-gem 'rack-attack'
-gem 'hashie-forbidden_attributes'
-gem 'grape'
-gem 'grape-entity'
-gem 'grape-swagger'
-gem 'grape-swagger-rails'
-gem 'grape-active_model_serializers'
-
-gem 'knock', '~> 2.0'
-
-gem 'devise'
-gem 'omniauth-facebook'
-gem 'figaro'
-
-
-gem 'bcrypt', '~> 3.1.7'
-gem 'sass-rails', '~> 5.0'
-gem 'jquery-rails'
-gem 'turbolinks', '~> 5'
+# default
 gem 'uglifier', '>= 1.3.0'
+gem 'sprockets', '~> 3.0'
+gem 'sprockets-es6'
+gem 'turbolinks', '~> 5'
+gem 'sass-rails', '~> 5.0'
+gem 'coffee-rails'
 
-gem 'bootstrap', '~> 4.0.0.alpha6'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-bootstrap-datepicker'
+  gem 'rails-assets-bootstrap-datetimepicker'
+  gem 'rails-assets-jquery'
+  gem 'rails-assets-jquery-ujs'
+  gem 'rails-assets-jquery-ui'
+  gem 'rails-assets-fontawesome'
+  gem 'rails-assets-moment'
+  gem 'rails-assets-slick.js'
+  gem 'rails-assets-parsleyjs'
+end
 
 group :production do
   gem 'rails_12factor'
@@ -69,7 +67,6 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', git: 'https://github.com/capistrano/rbenv'
-  gem 'capistrano-npm'
   gem 'airbrussh', require: false
   gem 'slackistrano', '3.1.0.beta'
 end
@@ -82,10 +79,8 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'pry-theme'
 
-  # gem 'rspec-rails', '~> 3.0'
-  git_source(:github) do |repo_name|
-    repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-    "https://github.com/#{repo_name}.git"
+  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+    gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
   end
 
   gem 'factory_girl_rails'
@@ -97,8 +92,6 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
-  gem 'guard'
-  gem 'guard-rspec'
   gem 'shoulda'
   gem 'shoulda-matchers'#, '~> 3.0'
   gem 'poltergeist'
@@ -110,3 +103,34 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+# gem 'knock', '~> 2.0'
+gem 'hashie', '3.5.1'
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'koala'
+
+gem 'jbuilder', '~> 2.5'
+gem 'json', git: 'https://github.com/arnonhongklay/json', branch: 'v1.8'
+gem 'rack-cors'
+gem 'rack-attack'
+
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-swagger-entity'
+gem 'grape-swagger-representable'
+gem 'grape-active_model_serializers'
+gem 'active_model_serializers'
+gem 'activemodel-serializers-xml'
+gem 'hashie-forbidden_attributes'
+gem 'open_uri_redirections'
+# gem 'jsonapi'
+# gem 'jsonapi-parser', '~> 0.1.1.beta2'
+
+# ActiveRecord Helper
+gem 'figaro'

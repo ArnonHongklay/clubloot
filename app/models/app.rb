@@ -10,18 +10,16 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def domain(subdomain = nil)
-    protocol + '//' + case subdomain
-                      when 'api'
-                        "#{api_host}.#{root_domain}#{port}"
-                      when 'admin'
-                        "admin.#{root_domain}#{port}"
-                      else
-                        if environment.development?
-                          "#{root_domain}#{port}"
-                        else
-                          "#{root_domain}"
-                        end
-                      end
+    domain = case subdomain
+    when 'api'
+      "#{host('api')}.#{root_domain}"
+    when 'admin'
+      "admin.#{root_domain}"
+    else
+      root_domain
+    end
+
+    protocol + '//' + domain
   end
 
   def root_domain
@@ -29,42 +27,24 @@ class App < Struct.new(:region, :environment, :version)
       'clubloot.local'
     else
       'clubloot.com'
-    end
+    end + port
   end
 
   def protocol
     # environment.development? ? 'http:' : 'https:'
-    'http'
+    'http:'
   end
 
   def port
-    ':1337' if environment.development?
+    ':5000' if environment.development?
   end
 
-  def host
+  def host(subdomain = nil)
     case environment
-    when 'alpha'
-      'alpha'
+    when 'staging', 'alpha'
+      subdomain.nil? ? 'alpha' : "alpha-#{subdomain}"
     else
-      ''
-    end
-  end
-
-  def admin_host
-    case environment
-    when  'alpha'
-      'alpha-admin'
-    else
-      'admin'
-    end
-  end
-
-  def api_host
-    case environment
-    when  'alpha'
-      'alpha-api'
-    else
-      'api'
+      "#{subdomain}"
     end
   end
 
