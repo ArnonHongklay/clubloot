@@ -1,6 +1,6 @@
 class Contest
   include Mongoid::Document
-  srore_in collection: 'templates', database: 'clubloot-development'
+  # srore_in collection: 'templates', database: 'clubloot-development'
 
   field :name,  type: String
   field :stage, type: String

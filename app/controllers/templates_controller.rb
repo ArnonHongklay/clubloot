@@ -1,6 +1,6 @@
 class TemplatesController < ApplicationController
   before_action :set_template, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_programs, only: [:new, :edit, :create, :update]
   # GET /templates
   # GET /templates.json
   def index
@@ -28,7 +28,7 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       if @template.save
-        format.html { redirect_to @template, notice: 'Template was successfully created.' }
+        format.html { redirect_to new_template_question_path(@template), notice: 'Template was successfully created.' }
         format.json { render :show, status: :created, location: @template }
       else
         format.html { render :new }
@@ -67,8 +67,12 @@ class TemplatesController < ApplicationController
       @template = Template.find(params[:id])
     end
 
+    def set_programs
+      @programs = Program.all
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_params
-      params.fetch(:template, {})
+      # params.fetch(:template, {})
+      params.require(:template).permit(:name, :program, :number_questions, :number_answers, :start_time, :end_time)
     end
 end

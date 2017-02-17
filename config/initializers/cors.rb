@@ -5,12 +5,24 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
+# Rails.application.config.middleware.insert_before 0, Rack::Cors do
+#   allow do
+#     origins '*'
+
+#     resource '*',
+#       headers: :any,
+#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
+#   end
+# end
+
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '*'
+    origins 'clubloot.(com|local)'
+    resource '/v1/*', headers: :any, medthods: [:get, :post, :put, :delete]
+  end
 
-    resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  allow do
+   origins '*'
+   resource '/public/*', headers: :any, medthods: :get
   end
 end

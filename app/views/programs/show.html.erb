@@ -1,4 +1,20 @@
-<p id="notice"><%= notice %></p>
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Show program <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
 
-<%= link_to 'Edit', edit_program_path(@program) %> |
-<%= link_to 'Back', programs_path %>
+  <p id="notice"><%= notice %></p>
+  <p>
+    Name: <%= @program.name %>
+  </p>
+  <p>
+    Category: <%= @program.category %>
+  </p>
+  <p>
+    Status: <%= @program.active %>
+  </p>
+  <%= link_to 'Edit', edit_program_path(@program), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Back', programs_path, class: 'btn btn-primary btn-sm rounded-s' %>
+</article>

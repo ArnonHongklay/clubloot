@@ -24,7 +24,7 @@ class ProgramsController < ApplicationController
   # POST /programs
   # POST /programs.json
   def create
-    @program = Program.new(program_params)
+    @program = Program.new(program_params.merge!(active: true))
 
     respond_to do |format|
       if @program.save
@@ -69,6 +69,7 @@ class ProgramsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def program_params
-      params.fetch(:program, {})
+      # params.fetch(:program, {})
+      params.require(:program).permit(:name, :category, :active)
     end
 end

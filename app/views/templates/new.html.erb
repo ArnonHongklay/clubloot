@@ -1,5 +1,9 @@
-<h1>New Template</h1>
-
-<%= render 'form', template: @template %>
-
-<%= link_to 'Back', templates_path %>
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Add new template <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+  <%= link_to 'Back', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= render 'form', template: @template %>
+</article>

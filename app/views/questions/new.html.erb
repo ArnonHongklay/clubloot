@@ -1,5 +1,34 @@
-<h1>New Question</h1>
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Add new question <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
 
-<%= render 'form', question: @question %>
-
-<%= link_to 'Back', questions_path %>
+  <%= form_for(@questions, url: template_questions_path(@template), html: { class: 'item' }) do |f| %>
+    <div class="card card-block">
+      <% @questions.each_with_index do |question, question_index| %>
+        <div class="row">
+          <label class="col-sm-2 form-control-label text-xs-right"> Question: <%= question_index + 1 %> </label>
+          <div class="col-sm-7">
+            <div class="form-group row">
+              <input type="text" name="<%= "q[#{question_index}]" %>" value="">
+            </div>
+          </div>
+        </div>
+        <% question.answers.each_with_index do |answer, answer_index| %>
+          <div class="row">
+            <label class="col-sm-3 form-control-label text-xs-right"> Answer: <%= answer_index + 1 %> </label>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <input type="text" name="<%= "a[#{question_index}][#{answer_index}]" %>" value="">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <hr />
+      <% end %>
+      <%= f.submit 'Submit', class: 'btn btn-primary btn-submit' %>
+    </div>
+  <% end %>
+</article>

@@ -1,4 +1,47 @@
-<p id="notice"><%= notice %></p>
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Show Template <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+  <div class="card card-block">
+    <p id="notice"><%= notice %></p>
+    <p>
+      Name: <%= @template.name %>
+    </p>
+    <p>
+      Questions: <%= @template.number_questions %>
+    </p>
+    <p>
+      Answers: <%= @template.number_answers %>
+    </p>
 
-<%= link_to 'Edit', edit_template_path(@template) %> |
-<%= link_to 'Back', templates_path %>
+    <%= link_to 'Edit', edit_template_path(@template), class: 'btn btn-primary btn-sm rounded-s' %>
+    <%= link_to 'Back', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
+  </div>
+
+  <div class="card card-block">
+    <% @template.questions.each_with_index do |question, question_index| %>
+      <div class="row">
+        <label class="col-sm-2 form-control-label text-xs-right"> Question: <%= question_index %> </label>
+        <div class="col-sm-10">
+          <%= question.name %>
+        </div>
+      </div>
+      <% question.answers.each_with_index do |answer, answer_index| %>
+        <div class="row">
+          <div class="col-sm-offset-2 col-sm-9">
+            <div class="form-group row">
+              <label>
+                <input class="radio" name="question-<%= question %>" type="radio"> <span><%= answer.name %></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <hr />
+    <% end %>
+
+    <%= link_to 'Back', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
+  </div>
+</article>

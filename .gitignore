@@ -17,7 +17,7 @@
 .byebug_history
 
 node_modules
-public
+# public
 .server
 .tmp
 .sass-cache
