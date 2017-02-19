@@ -9,6 +9,21 @@
 # production:
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
-FACEBOOK_APP_ID: 1314127911972315
-FACEBOOK_APP_SECRET: bbbb82aac193f3f9099fe81eef16114c
-FACEBOOK_CALLBACK: 'http://localhost:3000/users/auth/facebook/callback'
+default: &default
+  FACEBOOK_APP_ID: 1314127911972315
+  FACEBOOK_APP_SECRET: bbbb82aac193f3f9099fe81eef16114c
+  FACEBOOK_CALLBACK: 'http://localhost:3000/users/auth/facebook/callback'
+
+  AWS_ACCESS_KEY_ID: 'AKIAJEA7QFQWK7ZEOSSA'
+  AWS_SECRET_ACCESS_KEY: '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'
+  AWS_REGION: 'us-west-1'
+
+development:
+  <<: *default
+  HELLO: developers
+  S3_BUCKET_NAME: 'clubloot-development'
+
+production:
+  <<: *default
+  HELLO: users
+  S3_BUCKET_NAME: 'clubloot'

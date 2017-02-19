@@ -2,12 +2,12 @@ class User
   include Mongoid::Document
   include Mongoid::Paperclip
 
-  has_many :ratings
-  has_and_belongs_to_many :rooms, inverse_of: :users
-  has_many :host_room, class_name: 'Room', inverse_of: :host
-  has_many :ratings_to, class_name: 'Rating', inverse_of: :from_user
+  # has_many :ratings
+  # has_and_belongs_to_many :rooms, inverse_of: :users
+  # has_many :host_room, class_name: 'Room', inverse_of: :host
+  # has_many :ratings_to, class_name: 'Rating', inverse_of: :from_user
 
-  after_create :initial_leaderboard
+  # after_create :initial_leaderboard
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -65,13 +65,12 @@ class User
       :medium   => ['250x250',    :jpg]
     },
     default_url: ActionController::Base.helpers.asset_path('user_no_avatar.png')
-
   validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   validates_uniqueness_of :username
 
-  validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
+  # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
   def hosted
     host_room.count

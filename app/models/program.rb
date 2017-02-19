@@ -9,6 +9,9 @@ class Program
   field :category,  type: String
   field :active,    type: Boolean, default: false
 
+  has_mongoid_attached_file :attachment
+  validates_attachment :attachment, content_type: { content_type: /\Aimage\/.*\Z/ }
+
   scope :active,    -> { where(active: true) }
   scope :pending,   -> { where(active: false) }
 end
