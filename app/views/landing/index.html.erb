@@ -1,2 +1,151 @@
-<h1>Landing#index</h1>
-<p>Find me in app/views/landing/index.html.erb</p>
+<style>
+  body#landing .container {
+    margin-top: 50px;
+  }
+  .content {
+    min-height: 500px;
+  }
+  h1, b {
+    color: #5C4877;
+  }
+  p {
+    font-size: 12pt;
+  }
+  p.subtitle {
+    font-size: 14pt;
+  }
+  .footer {
+    background: #F0F0F0;
+    padding: 15px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+  }
+  a {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #000;
+  }
+  .btn-submit {
+    width: 100%;
+  }
+
+  .modal-content {
+    border: 3px solid #ccc;
+    border-radius: 0px;
+  }
+  .modal-header {
+    border: none;
+  }
+</style>
+
+<div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <%= image_tag 'tv-02.png', alt: 'Clubloot' %>
+        </div>
+        <div class="col-xs-12 col-md-6 content">
+          <div class="row">
+            <div class="col-xs-12">
+              <h1>ClubLoot is coming...</h1>
+              <p class="subtitle">Watch your favorite tv shows!<br>
+              Complete with friends!<br>
+              Win prizes!</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <p>&nbsp;</p>
+              <p><b>Join our private beta.</b> Every week, one lucky participant will win $25!</p>
+
+              <form class="form-horizontal">
+                <div class="mc-field-group form-group">
+                  <div class="col-xs-8">
+                    <input type="text" value="" name="FNAME" class="form-control" id="fname" placeholder="Full name">
+                  </div>
+                </div>
+                <div class="mc-field-group form-group">
+                  <div class="col-xs-8">
+                    <input type="email" value="" name="EMAIL" class="form-control required email" id="email" placeholder="Email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-8">
+                    <div class="clear">
+                      <input type="button" value="Subscribe" name="subscribe" id="subscribe" class="button btn btn-info btn-submit">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="row footer">
+            <div class="col-xs-8 col-md-8">
+              &copy 2016 Clubloot, Inc. <a href="#">Legal</a> <a href="#">Privacy</a> <a href="#">Contact</a>
+            </div>
+            <div class="col-xs-4 col-md-4 text-right">
+              <a href="https://instagram.com/clubloot" target="_blank">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.facebook.com/clubloot" target="_blank">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="#">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="#">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trigger the modal with a button -->
+    <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" style="font-size: 50px;
+    background: none;
+    line-height: 24px;">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h1>Thank you!</h1>
+            <p>Look for your invitation to our private beta in your email inbox. We’ll contact you if you’re this week’s $25 winner.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#subscribe').on('click', function(){
+          var fname = $("#fname").val();
+          var email = $("#email").val();
+          $.ajax({
+            url: '/subscribe',
+            data: {
+              'name': fname,
+              'email': email
+            },
+            type: 'POST',
+            success: function(result) {
+              $("#fname").val("");
+              $("#email").val("");
+              $('#myModal').modal();
+            }
+          });
+        });
+      });
+    </script>

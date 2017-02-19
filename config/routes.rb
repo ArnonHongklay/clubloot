@@ -30,5 +30,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'landing#index'
+  constraints(subdomain: App.host(''))  do
+    root 'landing#index'
+  end
 end
