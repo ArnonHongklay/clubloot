@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'landing/index'
+
   constraints(subdomain: App.host('api')) do
     # mount Sidekiq::Web => '/workers'
     # mount ActionCable.server => "/cable"
@@ -27,4 +29,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  root 'landing#index'
 end
