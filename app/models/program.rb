@@ -14,4 +14,6 @@ class Program
 
   scope :active,    -> { where(active: true) }
   scope :pending,   -> { where(active: false) }
+
+  validates :name, :category, :attachment, presence: true
 end
