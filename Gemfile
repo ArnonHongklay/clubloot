@@ -16,8 +16,11 @@ platform :ruby do
 
   gem 'mongoid', '~> 6.0.0'
   gem 'mongoid-slug'
-  gem 'mongoid_rails_migrations'
   gem 'mongoid-paperclip'
+  gem 'mongoid-locker'
+  gem 'mongoid-history'
+  gem 'mongoid_rails_migrations'
+
   gem 'bson_ext'
   gem 'redis', '~> 3.0'
   gem 'redis-rails'

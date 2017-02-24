@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'landing/index'
 
   constraints(subdomain: App.host('api')) do
@@ -26,6 +25,7 @@ Rails.application.routes.draw do
           end
           resources :contests
         end
+        resources :prizes
       end
     end
   end
