@@ -13,7 +13,6 @@ class Template
   embeds_many :questions
   embeds_many :contests
 
-
   field :start_time,        type: DateTime
   field :end_time,          type: DateTime
   field :active,            type: Boolean

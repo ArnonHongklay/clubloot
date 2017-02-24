@@ -1,5 +1,6 @@
 class Question
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :is_correct,  type: Integer
   field :name,        type: String

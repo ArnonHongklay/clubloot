@@ -15,6 +15,7 @@ platform :ruby do
   gem 'mini_racer'
 
   gem 'mongoid', '~> 6.0.0'
+  gem "mongoid-enum", git: 'https://github.com/monster-media/mongoid-enum'
   gem 'mongoid-slug'
   gem 'mongoid-paperclip'
   gem 'mongoid-locker'

@@ -1,25 +1,56 @@
-<p id="notice"><%= notice %></p>
+<article class="content responsive-tables-page">
+  <p id="notice"><%= notice %></p>
 
-<h1>Ledgers</h1>
+  <div class="title-block">
+    <h1 class="title"> Ledger Tables
+    <%#= link_to 'Add New', new_ledger_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    </h1>
+    <%#<p class="title-description"> When blocks aren't enough </p>%>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @ledgers.each do |ledger| %>
-      <tr>
-        <td><%= link_to 'Show', ledger %></td>
-        <td><%= link_to 'Edit', edit_ledger_path(ledger) %></td>
-        <td><%= link_to 'Destroy', ledger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Ledger', new_ledger_path %>
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-block">
+            <div class="card-title-block">
+              <h3 class="title"> Transaction </h3>
+            </div>
+            <section class="example">
+              <div class="table-flip-scroll">
+                <table class="table table-striped table-bordered table-hover flip-content">
+                  <thead class="flip-header">
+                    <tr>
+                      <th>Code</th>
+                      <th>Date Time</th>
+                      <th>Username</th>
+                      <th>Transaction</th>
+                      <th>Description</th>
+                      <th>Amount</th>
+                      <th>Balance</th>
+                      <%#<th>&nbsp;</th>%>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @ledgers.each do |ledger| %>
+                      <tr class="odd gradeX">
+                        <td><%= ledger.status %></td>
+                        <td><%= ledger.created_at %></td>
+                        <td><%= ledger.user[:username] %></td>
+                        <td><%= ledger.user %></td>
+                        <td><%= ledger.user %></td>
+                        <td class="center"><%= ledger.user %></td>
+                        <td class="center"><%= ledger.user %></td>
+                        <%#<td>= link_to 'Edit', edit_ledger_path(ledger) </td>%>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>

@@ -14,6 +14,13 @@ GIT
       sshkit (~> 1.3)
 
 GIT
+  remote: https://github.com/monster-media/mongoid-enum
+  revision: 270323f3d71d837e04e55a0cae83b537722819b9
+  specs:
+    mongoid-enum (0.4.0)
+      mongoid (>= 6.0.0.beta)
+
+GIT
   remote: https://github.com/rspec/rspec-core.git
   revision: 2a85e718b3638c4ccf14298734377b4f4d3c9882
   branch: master
@@ -576,6 +583,7 @@ DEPENDENCIES
   meta_request
   mini_racer
   mongoid (~> 6.0.0)
+  mongoid-enum!
   mongoid-history
   mongoid-locker
   mongoid-paperclip

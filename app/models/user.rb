@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Paperclip
+  include Mongoid::Timestamps
 
   # has_many :ratings
   # has_and_belongs_to_many :rooms, inverse_of: :users

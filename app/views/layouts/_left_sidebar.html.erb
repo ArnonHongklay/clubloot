@@ -15,7 +15,9 @@
           <a href="#"> <i class="fa fa-bullhorn"></i> Announcements </a>
         </li>
         <li>
-          <a href="#"> <i class="fa fa-money"></i> Ledger</a>
+          <%= link_to ledgers_path do %>
+            <i class="fa fa-money"></i> Ledgers
+          <% end %>
         </li>
         <li>
           <a href="#"> <i class="fa fa-th-large"></i> Programming <i class="fa arrow"></i> </a>
@@ -47,7 +49,9 @@
           <a href="#"> <i class="fa fa-bookmark"></i> Gems</a>
         </li>
         <li>
-          <a href="#"> <i class="fa fa-bookmark"></i> Prizes</a>
+          <%= link_to prizes_path do %>
+            <i class="fa fa-bookmark"></i> Prizes
+          <% end %>
         </li>
         <li>
           <a href="#"> <i class="fa fa-dollar"></i> Taxes</a>
