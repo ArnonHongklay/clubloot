@@ -1,5 +1,9 @@
-<h1>New Prize</h1>
-
-<%= render 'form', prize: @prize %>
-
-<%= link_to 'Back', prizes_path %>
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Add new Prize <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+  <%= link_to 'Back', prizes_path, class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= render 'form', prize: @prize %>
+</article>

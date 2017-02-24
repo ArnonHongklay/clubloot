@@ -1,25 +1,54 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Prizes</h1>
+<article class="content responsive-tables-page">
+  <p id="notice"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="title-block">
+    <h1 class="title"> Prize Tables
+    <%= link_to 'Add New', new_prize_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    </h1>
+    <%#<p class="title-description"> When blocks aren't enough </p>%>
+  </div>
 
-  <tbody>
-    <% @prizes.each do |prize| %>
-      <tr>
-        <td><%= link_to 'Show', prize %></td>
-        <td><%= link_to 'Edit', edit_prize_path(prize) %></td>
-        <td><%= link_to 'Destroy', prize, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Prize', new_prize_path %>
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-block">
+            <div class="card-title-block">
+              <h3 class="title"> Transaction </h3>
+            </div>
+            <section class="example">
+              <div class="table-flip-scroll">
+                <table class="table table-striped table-bordered table-hover flip-content">
+                  <thead class="flip-header">
+                    <tr>
+                      <th>Name</th>
+                      <th>Picture</th>
+                      <th>Prize</th>
+                      <th>Quantity</th>
+                      <th>Description</th>
+                      <th colspan="2">&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @prizes.each do |prize| %>
+                      <tr class="odd gradeX">
+                        <td><%= prize.name %></td>
+                        <td><%= image_tag prize.attachment, width: 120, height: 120 %></td>
+                        <td><%= prize.price %></td>
+                        <td><%= prize.quantity %></td>
+                        <td><%= prize.description %></td>
+                        <td><%= link_to 'Edit', edit_prize_path(prize) %></td>
+                        <td><%= link_to 'Destroy', prize, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
