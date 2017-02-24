@@ -34,13 +34,54 @@
                   <tbody>
                     <% @ledgers.each do |ledger| %>
                       <tr class="odd gradeX">
-                        <td><%= ledger.status %></td>
-                        <td><%= ledger.created_at %></td>
-                        <td><%= ledger.user[:username] %></td>
-                        <td><%= ledger.user %></td>
-                        <td><%= ledger.user %></td>
-                        <td class="center"><%= ledger.user %></td>
-                        <td class="center"><%= ledger.user %></td>
+                        <td class="center">
+                          <% ledger.transaction.each do |transaction| %>
+                            <%= "<i class='fa fa-#{transaction._action}' aria-hidden='true'></i>".html_safe %><br>
+                          <% end %>
+                        </td>
+                        <td><%= ledger.created_at.strftime("%B %d, %Y") %></td>
+                        <td><%= ledger.user[:username] || ledger.user[:email] %></td>
+                        <td>
+                          <% ledger.transaction.each do |transaction| %>
+                            <%= transaction._id %>
+                          <% end %>
+                        </td>
+                        <td>
+                          <% ledger.transaction.each do |transaction| %>
+                            <%= "(#{transaction.description}) #{transaction.from} -> #{transaction.to}" %><br>
+                          <% end %>
+                        </td>
+                        <td class="center">
+                          <% ledger.transaction.each do |transaction| %>
+                            <% if ledger.format == 'won' %>
+                              <%= "#{transaction.amount - transaction.tax} #{transaction.unit}" %>
+                            <% else %>
+                              <%= "#{transaction.amount} #{transaction.unit}" %>
+                            <% end %>
+                          <% end %>
+                        </td>
+                        <td class="center">
+                          <span>
+                            <%= ledger.balance[:coins] %>
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                          </span>
+                          <span style="color: #951111">
+                            <%= ledger.balance[:rubies] %>
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                          </span>
+                          <span style="color: #2A4C7A">
+                            <%= ledger.balance[:sapphires] %>
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                          </span>
+                          <span style="color: #758F42">
+                            <%= ledger.balance[:emeralds] %>
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                          </span>
+                          <span style="color: #9F9B93">
+                            <%= ledger.balance[:diamonds] %>
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                          </span>
+                        </td>
                         <%#<td>= link_to 'Edit', edit_ledger_path(ledger) </td>%>
                       </tr>
                     <% end %>
