@@ -32,6 +32,9 @@ grunt.log
 
 config/application.yml
 
+public/system/*
+!public/system/.keep
+
 /client/assets/uploads/prizes/*
 !/client/assets/uploads/prizes/.keep
 /client/assets/uploads/program/*
