@@ -13,10 +13,14 @@ module V1
 
     resource :template do
       params do
-        requires :email,    type: String, desc: "email of the user"
-        requires :password, type: String, desc: "password of the user"
+        requires :name,    type: String, desc: "email of the user"
+        requires :program, type: String, desc: "password of the user"
+        requires :number_question,    type: Integer, desc: "email of the user"
+        requires :number, type: Integer, desc: "password of the user"
+        requires :name,    type: String, desc: "email of the user"
+        requires :program, type: String, desc: "password of the user"
       end
-      post "/signup" do
+      post "/new" do
         begin
           user = User.create!(email: params[:email], password: params[:password])
           present :status, :success
@@ -26,8 +30,6 @@ module V1
           present :data, e
         end
       end
-
-
     end
   end
 end
