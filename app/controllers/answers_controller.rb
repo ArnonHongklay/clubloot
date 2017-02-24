@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :edit, :destroy]
+  before_action :set_answer, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:update]
 
   # GET /answers
@@ -68,7 +68,7 @@ class AnswersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_answer
-      @answer = Answer.find(params[:id])
+      # @answer = Answer.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
