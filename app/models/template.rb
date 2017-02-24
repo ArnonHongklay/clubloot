@@ -16,4 +16,14 @@ class Template
   field :start_time,        type: DateTime
   field :end_time,          type: DateTime
   field :active,            type: Boolean
+
+
+  after_save :check_choice
+
+  private
+    def check_choice
+      if number_answers_changed? or number_questions_changed?
+        self.questions.destroy_all
+      end
+    end
 end

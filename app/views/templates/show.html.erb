@@ -4,6 +4,7 @@
       Show Template <span class="sparkline bar" data-type="bar"></span>
     </h3>
   </div>
+  <%= link_to 'Back', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
   <div class="card card-block">
     <p id="notice"><%= notice %></p>
     <p>
@@ -15,11 +16,17 @@
     <p>
       Answers: <%= @template.number_answers %>
     </p>
+    <p>
+      Start Time: <%= @template.start_time.try(:strftime, "%B %d, %Y %H:%M:%S") %>
+    </p>
+    <p>
+      End Time: <%= @template.end_time.try(:strftime, "%B %d, %Y %H:%M:%S") %>
+    </p>
 
-    <%= link_to 'Edit', edit_template_path(@template), class: 'btn btn-primary btn-sm rounded-s' %>
-    <%= link_to 'Back', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    <%= link_to 'Edit Template', edit_template_path(@template) %>
   </div>
 
+  <%= link_to 'Edit Questions & Answers', edit_all_template_questions_path(@template) %>
   <div class="card card-block">
     <% @template.questions.each_with_index do |question, question_index| %>
       <div class="row">
@@ -30,7 +37,7 @@
       </div>
       <% question.answers.each_with_index do |answer, answer_index| %>
         <div class="row">
-          <div class="col-sm-offset-2 col-sm-9">
+          <div class="offset-sm-2 col-sm-9">
             <div class="form-group row">
               <label>
                 <input class="radio" name="question-<%= question %>" type="radio"> <span><%= answer.name %></span>
@@ -42,6 +49,6 @@
       <hr />
     <% end %>
 
-    <%= link_to 'Back', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    <%= link_to 'End contest', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
   </div>
 </article>

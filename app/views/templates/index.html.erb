@@ -35,68 +35,58 @@
     </div>
   </div>
   <div class="card items">
-
-<ul class="item-list striped">
-  <li class="item item-list-header hidden-sm-down">
-    <div class="item-row">
-      <div class="item-col item-col-header item-col-title">
-        <div> <span>Name</span> </div>
-      </div>
-      <div class="item-col item-col-header item-col-sales">
-        <div> <span>Sales</span> </div>
-      </div>
-      <div class="item-col item-col-header item-col-stats">
-        <div class="no-overflow"> <span>Stats</span> </div>
-      </div>
-      <div class="item-col item-col-header item-col-date">
-        <div> <span>Published</span> </div>
-      </div>
-      <div class="item-col item-col-header item-col-date">
-        <div> <span>Published</span> </div>
-      </div>
-      <div class="item-col item-col-header fixed item-col-actions-dropdown"> </div>
-    </div>
-  </li>
-        <% @templates.each do |template| %>
-
-  <li class="item">
-    <div class="item-row">
-      <div class="item-col fixed pull-left item-col-title">
-        <div class="item-heading">Name</div>
-        <div>
-          <%= link_to template do %>
-            <h4 class="item-title">
-              <%= template.try(:name) || template._id %>
-            </h4>
-          <% end %>
+    <ul class="item-list striped">
+      <li class="item item-list-header hidden-sm-down">
+        <div class="item-row">
+          <div class="item-col item-col-header item-col-title">
+            <div> <span>Name</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-sales">
+            <div class="no-overflow"> <span>Question</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-stats">
+            <div class="no-overflow"> <span>Answers</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-date">
+            <div> <span>Start Time</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-date">
+            <div> <span>End Time</span> </div>
+          </div>
         </div>
-      </div>
-      <div class="item-col item-col-sales">
-        <div class="item-heading">Question</div>
-        <div><%= template.number_questions %></div>
-      </div>
-      <div class="item-col item-col-stats">
-        <div class="item-heading">Answers</div>
-        <div><%= template.number_answers %></div>
-      </div>
-      <div class="item-col item-col-date">
-        <div class="item-heading">Published</div>
-        <div class="no-overflow"> 21 SEP 10:45 </div>
-      </div>
-      <div class="item-col item-col-date">
-        <div class="item-heading">Published</div>
-        <div class="no-overflow"> 21 SEP 10:45 </div>
-      </div>
-      <div class="item-col fixed item-col-actions-dropdown">
-        <%= link_to edit_template_path(template), class: 'edit' do %>
-          <i class="fa fa-pencil"></i>
-        <% end %>
-      </div>
-    </div>
-  </li>
-        <% end %>
-
-</ul>
-
+      </li>
+      <% @templates.each do |template| %>
+        <li class="item">
+          <div class="item-row">
+            <div class="item-col fixed pull-left item-col-title">
+              <div class="item-heading">Name</div>
+              <div>
+                <%= link_to template do %>
+                  <h4 class="item-title">
+                    <%= template.try(:name) || template._id %>
+                  </h4>
+                <% end %>
+              </div>
+            </div>
+            <div class="item-col item-col-sales">
+              <div class="item-heading">Question</div>
+              <div><%= template.number_questions %></div>
+            </div>
+            <div class="item-col item-col-stats">
+              <div class="item-heading">Answers</div>
+              <div><%= template.number_answers %></div>
+            </div>
+            <div class="item-col item-col-date">
+              <div class="item-heading">Published</div>
+              <div class="no-overflow"> <%= template.start_time.try(:strftime, "%B %d, %Y %H:%M:%S") %> </div>
+            </div>
+            <div class="item-col item-col-date">
+              <div class="item-heading">Published</div>
+              <div class="no-overflow"> <%= template.end_time.try(:strftime, "%B %d, %Y %H:%M:%S") %> </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </article>

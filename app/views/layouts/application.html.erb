@@ -29,8 +29,17 @@
         }
     </script>%>
 
-    <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <style>
+      td.center-left {
+        vertical-align: middle;
+      }
+      td.center-center {
+        vertical-align: middle;
+        text-align: center;
+      }
+    </style>
   </head>
 
   <body>
@@ -76,8 +85,8 @@
 
     <script type="text/javascript">
       $(document).ready(function(){
-        $('#datetimepicker1').datetimepicker();
-        $('#datetimepicker2').datetimepicker();
+        $('#datetimepicker1').datetimepicker({ format: 'YYYY-MM-DD HH:mm:ss' });
+        $('#datetimepicker2').datetimepicker({ format: 'YYYY-MM-DD HH:mm:ss' });
       });
     </script>
   </body>

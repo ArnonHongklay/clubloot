@@ -18,9 +18,15 @@ Rails.application.routes.draw do
     resources :systems, only: :index do
       collection do
         resources :ledgers
-        resources :programs
+        resources :programs do
+          put 'toggle_status', on: :member
+        end
         resources :templates do
           resources :questions do
+            collection do
+              get 'edit_all'
+              put 'update_all'
+            end
             resources :answers
           end
           resources :contests

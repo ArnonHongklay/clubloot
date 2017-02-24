@@ -18,7 +18,7 @@
             </div>
             <section class="example">
               <div class="table-flip-scroll">
-                <table class="table table-striped table-bordered table-hover flip-content">
+                <table class="table table-bordered table-hover flip-content">
                   <thead class="flip-header">
                     <tr>
                       <th>Code</th>
@@ -34,16 +34,16 @@
                   <tbody>
                     <% @ledgers.each do |ledger| %>
                       <tr class="odd gradeX">
-                        <td class="center">
+                        <td class="center-center">
                           <% ledger.transaction.each do |transaction| %>
                             <%= "<i class='fa fa-#{transaction._action}' aria-hidden='true'></i>".html_safe %><br>
                           <% end %>
                         </td>
-                        <td><%= ledger.created_at.strftime("%B %d, %Y") %></td>
-                        <td><%= ledger.user[:username] || ledger.user[:email] %></td>
+                        <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y") %></td>
+                        <td class="center-left"><%= ledger.user[:username] || ledger.user[:email] %></td>
                         <td>
                           <% ledger.transaction.each do |transaction| %>
-                            <%= transaction._id %>
+                            <%= transaction._id %><br>
                           <% end %>
                         </td>
                         <td>
@@ -51,16 +51,16 @@
                             <%= "(#{transaction.description}) #{transaction.from} -> #{transaction.to}" %><br>
                           <% end %>
                         </td>
-                        <td class="center">
+                        <td>
                           <% ledger.transaction.each do |transaction| %>
                             <% if ledger.format == 'won' %>
                               <%= "#{transaction.amount - transaction.tax} #{transaction.unit}" %>
                             <% else %>
                               <%= "#{transaction.amount} #{transaction.unit}" %>
                             <% end %>
-                          <% end %>
+                          <% end %><br>
                         </td>
-                        <td class="center">
+                        <td class="center-left">
                           <span>
                             <%= ledger.balance[:coins] %>
                             <i class="fa fa-money" aria-hidden="true"></i>

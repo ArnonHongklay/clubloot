@@ -1,5 +1,5 @@
 class ProgramsController < ApplicationController
-  before_action :set_program, only: [:show, :edit, :update, :destroy]
+  before_action :set_program, only: [:show, :edit, :update, :destroy, :toggle_status]
 
   # GET /programs
   # GET /programs.json
@@ -47,6 +47,18 @@ class ProgramsController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @program.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def toggle_status
+    respond_to do |format|
+      if @program.update(active: !@program.active)
+        format.html { redirect_to programs_path, notice: 'Program was successfully updated.' }
+        # format.json { render :show, status: :ok, location: @program }
+      else
+        format.html { render :edit }
+        # format.json { render json: @program.errors, status: :unprocessable_entity }
       end
     end
   end

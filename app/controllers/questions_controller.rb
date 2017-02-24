@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-  before_action :set_template, only: [:new, :create, :edit, :update]
+  before_action :set_template, only: [:new, :create, :edit, :edit_all, :update, :update_all]
 
   # GET /questions
   # GET /questions.json
@@ -26,6 +26,33 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
+  end
+
+  def edit_all
+    @questions = @template.questions
+  end
+
+  def update_all
+    question_params = params[:q]
+    answer_params = params[:a]
+
+    @template.questions.each_with_index do |question, question_index|
+      if question.name != question_params[question_index.to_s]
+        question.update(name: question_params[question_index.to_s])
+      end
+
+      question.answers.each_with_index do |answer, answer_index|
+        if answer.name != answer_params[question_index.to_s][answer_index.to_s]
+          answer.update(name: answer_params[question_index.to_s][answer_index.to_s])
+        end
+      end
+    end
+
+
+    # respond_to do |format|
+    #   format.html { redirect_to @template, notice: 'Question was successfully created.' }
+    #   format.json { render :show, status: :created, location: @question }
+    # end
   end
 
   # POST /questions
