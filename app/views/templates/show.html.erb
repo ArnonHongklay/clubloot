@@ -30,7 +30,7 @@
   <div class="card card-block">
     <% @template.questions.each_with_index do |question, question_index| %>
       <div class="row">
-        <label class="col-sm-2 form-control-label text-xs-right"> Question: <%= question_index %> </label>
+        <label class="col-sm-2 form-control-label text-xs-right"> Question: <%= question_index + 1 %> </label>
         <div class="col-sm-10">
           <%= question.name %>
         </div>
@@ -40,15 +40,57 @@
           <div class="offset-sm-2 col-sm-9">
             <div class="form-group row">
               <label>
-                <input class="radio" name="question-<%= question %>" type="radio"> <span><%= answer.name %></span>
+                <input class="radio"
+                       name="question-<%= question._id %>"
+                       type="radio"
+                       value="<%= answer._id %>"
+                       <%= 'checked' if question.is_correct.to_s == answer._id.to_s %>>
+                <span><%= answer.name %></span>
               </label>
             </div>
           </div>
         </div>
       <% end %>
+      <div class="row">
+        <div class="col-sm-9">
+          <div class="btn btn-primary btn-sm rounded-s pull-right" onClick="answerQuestion('<%= @template._id %>', '<%= question._id %>')">Enter Question<%= question_index + 1 %></div>
+        </div>
+      </div>
       <hr />
     <% end %>
 
     <%= link_to 'End contest', templates_path, class: 'btn btn-primary btn-sm rounded-s' %>
   </div>
 </article>
+
+<script>
+
+  function answerQuestion(template, question, answer){
+    answer = $('input[name=question-'+ question +']:checked').val()
+    if(answer == undefined){
+      $.alert('Please select a answer of question!');
+      return false;
+    }
+
+    $.confirm({
+        title: 'Confirm!',
+        content: 'Simple confirm!',
+        buttons: {
+          confirm: function () {
+            $.ajax({
+                url: '/systems/templates/'+ template +'/questions/'+ question +'/answers/' + answer,
+                type: 'PUT',
+                success: function(result) {
+                  $.alert('Confirmed!');
+                }
+            });
+          },
+          cancel: function () {
+              $.alert('Canceled!');
+          },
+        }
+    });
+
+
+  }
+</script>

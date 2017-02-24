@@ -27,6 +27,9 @@ Rails.application.routes.draw do
               get 'edit_all'
               put 'update_all'
             end
+            member do
+              put 'answer'
+            end
             resources :answers
           end
           resources :contests
