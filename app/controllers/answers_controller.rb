@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :edit, :update, :destroy]
+  before_action :set_answer, only: [:show, :edit, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:update]
 
   # GET /answers
