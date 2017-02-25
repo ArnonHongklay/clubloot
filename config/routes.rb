@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
     resources :systems, only: :index do
       collection do
+        resources :announcements
         resources :ledgers
         resources :programs do
           put 'toggle_status', on: :member
