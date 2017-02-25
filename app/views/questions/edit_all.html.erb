@@ -6,31 +6,5 @@
   </div>
 
   <%= link_to 'Back', template_path(@template), class: 'btn btn-primary btn-sm rounded-s' %>
-
-  <%= form_for(@questions, url: update_all_template_questions_path(@template), html: { class: 'item', method: :put }) do |f| %>
-    <div class="card card-block">
-      <% @questions.each_with_index do |question, question_index| %>
-        <div class="row">
-          <label class="col-sm-2 form-control-label text-xs-right"> Question: <%= question_index + 1 %> </label>
-          <div class="col-sm-7">
-            <div class="form-group row">
-              <input type="text" name="<%= "q[#{question_index}]" %>" value="<%= question.name %>">
-            </div>
-          </div>
-        </div>
-        <% question.answers.each_with_index do |answer, answer_index| %>
-          <div class="row">
-            <label class="col-sm-3 form-control-label text-xs-right"> Answer: <%= answer_index + 1 %> </label>
-            <div class="col-sm-6">
-              <div class="form-group row">
-                <input type="text" name="<%= "a[#{question_index}][#{answer_index}]" %>" value="<%= answer.name %>">
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <hr />
-      <% end %>
-      <%= f.submit 'Submit', class: 'btn btn-primary btn-submit' %>
-    </div>
-  <% end %>
+  <%= render 'form', questions: @questions, url: update_all_template_questions_path(@template), method: :put %>
 </article>

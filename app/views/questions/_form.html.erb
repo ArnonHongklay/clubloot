@@ -1,17 +1,26 @@
-<%= form_for(question) do |f| %>
-  <% if question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
-      <ul>
-      <% question.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<%= form_for(questions, url: url, html: { class: 'item', method: method }) do |f| %>
+  <div class="card card-block">
+    <% @questions.each_with_index do |question, question_index| %>
+      <div class="row">
+        <label class="col-sm-2 form-control-label text-xs-right"> Question: <%= question_index + 1 %> </label>
+        <div class="col-sm-7">
+          <div class="form-group row">
+            <input type="text" name="<%= "q[#{question_index}]" %>" value="<%= question.name %>">
+          </div>
+        </div>
+      </div>
+      <% question.answers.each_with_index do |answer, answer_index| %>
+        <div class="row">
+          <label class="col-sm-3 form-control-label text-xs-right"> Answer: <%= answer_index + 1 %> </label>
+          <div class="col-sm-6">
+            <div class="form-group row">
+              <input type="text" name="<%= "a[#{question_index}][#{answer_index}]" %>" value="<%= answer.name %>">
+            </div>
+          </div>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+      <hr />
+    <% end %>
+    <%= f.submit 'Submit', class: 'btn btn-primary btn-submit' %>
   </div>
 <% end %>

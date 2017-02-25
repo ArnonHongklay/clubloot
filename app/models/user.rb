@@ -104,7 +104,6 @@ class User
       user.gender     = profile["gender"]
       user.dob        = profile["birthday"]
     end
-
   end
 
   def update_stats
