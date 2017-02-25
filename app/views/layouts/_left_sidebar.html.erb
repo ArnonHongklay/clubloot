@@ -9,10 +9,16 @@
     <nav class="menu">
       <ul class="nav metismenu" id="sidebar-menu">
         <li class="active">
-          <a href="#"> <i class="fa fa-dashboard"></i> Dashboard </a>
+          <a href="#">
+            <%#= link_to dashboard_path do %>
+              <i class="fa fa-dashboard"></i> Dashboard
+            <%# end %>
+          </a>
         </li>
         <li>
-          <a href="#"> <i class="fa fa-bullhorn"></i> Announcements </a>
+          <%= link_to announcements_path do %>
+            <i class="fa fa-bullhorn"></i> Announcements
+          <% end %>
         </li>
         <li>
           <%= link_to ledgers_path do %>
@@ -34,27 +40,27 @@
         <li>
           <a href="#"> <i class="fa fa-group"></i> Users <i class="fa arrow"></i> </a>
           <ul>
-            <li> <a href="#">List</a> </li>
-            <li> <a href="#">Winners</a> </li>
-            <li> <a href="#">Subscribe</a> </li>
+            <li> <%= link_to "List", templates_path %> </li>
+            <li> <%= link_to "Winners", templates_path %> </li>
+            <li> <%= link_to "Subscribe", templates_path %> </li>
           </ul>
         </li>
         <li>
           <a href="#"> <i class="fa fa-rocket"></i> Loot <i class="fa arrow"></i> </a>
           <ul>
-            <li>
-              <a href="#">Daily Loot</a>
-            </li>
-            <li>
-              <a href="#">Free Loot</a>
-            </li>
+            <li> <%= link_to "Daily Loot", templates_path %> </li>
+            <li> <%= link_to "Free Loot", templates_path %> </li>
           </ul>
         </li>
         <li>
-          <a href="#"> <i class="fa fa-bookmark"></i> Gems</a>
+          <%= link_to prizes_path do %>
+            <i class="fa fa-bookmark"></i> Gems
+          <% end %>
         </li>
         <li>
-          <a href="#"> <i class="fa fa-dollar"></i> Taxes</a>
+          <%= link_to prizes_path do %>
+            <i class="fa fa-dollar"></i> Taxes
+          <% end %>
         </li>
       </ul>
     </nav>
