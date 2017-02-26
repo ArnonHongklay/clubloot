@@ -24,10 +24,10 @@ class App < Struct.new(:region, :environment, :version)
 
   def root_domain
     if environment.development?
-      'clubloot.local'
+      'clubloot.local' + port
     else
       'clubloot.com'
-    end + port
+    end
   end
 
   def protocol
