@@ -82,56 +82,66 @@ class User
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   validates_uniqueness_of :username
 
+  has_many :contests
+
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-      user.email      = auth.info.email
-      user.first_name = auth.extra.raw_info.first_name
-      user.last_name  = auth.extra.raw_info.last_name
-      user.password   = Devise.friendly_token[0,20]
-      user.gender     = auth.extra.raw_info.gender
-      user.dob        = auth.extra.raw_info.birthday
+  def self.join_contest(contest_id)
+    if self.contests.find(contest_id).present?
+      p contest_id
+    else
+      contest = Contest.find(contest_id)
     end
   end
 
-  def self.initial_by_fb_access_token(access_token)
-    graph = Koala::Facebook::API.new(access_token)
-    profile = graph.get_object("me", fields: "email, first_name, last_name, gender, birthday")
+  # def self.from_omniauth(auth)
+  #   where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+  #     user.email      = auth.info.email
+  #     user.first_name = auth.extra.raw_info.first_name
+  #     user.last_name  = auth.extra.raw_info.last_name
+  #     user.password   = Devise.friendly_token[0,20]
+  #     user.gender     = auth.extra.raw_info.gender
+  #     user.dob        = auth.extra.raw_info.birthday
+  #   end
+  # end
 
-    where(provider: 'facebook', uid: profile["id"]).first_or_initialize.tap do |user|
-      user.email      = profile["email"]
-      user.first_name = profile["first_name"]
-      user.last_name  = profile["last_name"]
-      user.password   = Devise.friendly_token[0,20]
-      user.gender     = profile["gender"]
-      user.dob        = profile["birthday"]
-    end
-  end
+  # def self.initial_by_fb_access_token(access_token)
+  #   graph = Koala::Facebook::API.new(access_token)
+  #   profile = graph.get_object("me", fields: "email, first_name, last_name, gender, birthday")
 
-  def update_stats
-    stats = %w{skill timeliness completion language friendliness}
-    cumulative = {}
-    self.ratings.active.each do |rating|
-      stats.each {|stat| cumulative[stat] = cumulative[stat] ? cumulative[stat] + rating[stat] : rating[stat] }
-    end
+  #   where(provider: 'facebook', uid: profile["id"]).first_or_initialize.tap do |user|
+  #     user.email      = profile["email"]
+  #     user.first_name = profile["first_name"]
+  #     user.last_name  = profile["last_name"]
+  #     user.password   = Devise.friendly_token[0,20]
+  #     user.gender     = profile["gender"]
+  #     user.dob        = profile["birthday"]
+  #   end
+  # end
 
-    cumulative.each {|k, v| cumulative[k] = v / ratings.count }
-    update!(cumulative)
-  end
+  # def update_stats
+  #   stats = %w{skill timeliness completion language friendliness}
+  #   cumulative = {}
+  #   self.ratings.active.each do |rating|
+  #     stats.each {|stat| cumulative[stat] = cumulative[stat] ? cumulative[stat] + rating[stat] : rating[stat] }
+  #   end
+
+  #   cumulative.each {|k, v| cumulative[k] = v / ratings.count }
+  #   update!(cumulative)
+  # end
 
 private
 
-  def get_score_from(rating)
-    stats = %w{skill timeliness completion language friendliness}
-    stats.inject(0) {|sum, stat| sum + rating[stat].clamp(0, 10) } / stats.length
-  end
+  # def get_score_from(rating)
+  #   stats = %w{skill timeliness completion language friendliness}
+  #   stats.inject(0) {|sum, stat| sum + rating[stat].clamp(0, 10) } / stats.length
+  # end
 
-  def add_score(rating)
-    $leaderboard.change_score_for(self.id, get_score_from(rating))
-  end
+  # def add_score(rating)
+  #   $leaderboard.change_score_for(self.id, get_score_from(rating))
+  # end
 
-  def remove_score(rating)
-    $leaderboard.change_score_for(self.id, -get_score_from(rating))
-  end
+  # def remove_score(rating)
+  #   $leaderboard.change_score_for(self.id, -get_score_from(rating))
+  # end
 end
