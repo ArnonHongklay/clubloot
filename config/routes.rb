@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   end
 
   constraints(subdomain: App.host('admin'))  do
-    devise_for :users
+    devise_for :users, controllers: {
+      sessions: 'users/sessions'
+    }
 
     root 'systems#index'
     get 'systems/index'
