@@ -5,7 +5,7 @@ set :deploy_to,   '/home/deploy/clubloot/admin'
 set :console_env, :production # use different environment than deployment environment (rails_env)
 
 set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml config/instance.yml}
-set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 def red(str)
   "\e[31m#{str}\e[0m"
@@ -73,22 +73,22 @@ namespace :node do
   end
 end
 
-# namespace :rails do
-#   desc 'Console to production'
-#   task :console do
-#     on roles(:web) do
-#       within current_path do
-#         execute :rails, 'console production'
-#       end
-#     end
-#   end
+namespace :rails do
+  desc 'Console to production'
+  task :console do
+    on roles(:web) do
+      within current_path do
+        execute :rails, 'console production'
+      end
+    end
+  end
 
-#   desc "Task log"
-#   task :logs do
-#     on roles(:web) do
-#       within current_path do
-#         execute :tail, '-f log/puma_error.log'
-#       end
-#     end
-#   end
-# end
+  desc "Task log"
+  task :logs do
+    on roles(:web) do
+      within current_path do
+        execute :tail, '-f log/puma_error.log'
+      end
+    end
+  end
+end

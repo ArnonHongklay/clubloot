@@ -141,13 +141,13 @@ class User
   #   update!(cumulative)
   # end
 
-  private
-    def change_access_token
-      loop do
-        code = App.generate_code(32)
-        break code unless User.find_by(token: code).present?
-      end
-    end
+  # private
+  #   def change_access_token
+  #     loop do
+  #       code = App.generate_code(32)
+  #       break code unless User.find_by(token: code).present?
+  #     end
+  #   end
 
   # def get_score_from(rating)
   #   stats = %w{skill timeliness completion language friendliness}
