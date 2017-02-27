@@ -6,7 +6,7 @@ class Contest
   field :max_players, type: Integer, default: 2
 
   field :status, type: String
-  field :state,  type: String, default: "upcomming"
+  field :state,  type: String, default: "upcoming"
 
   field :prize, type: Integer
   field :fee, type: Integer

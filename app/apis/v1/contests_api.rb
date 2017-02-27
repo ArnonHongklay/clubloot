@@ -11,7 +11,7 @@ module V1
             present :status, :failure
           end
           present :status, :success
-          present :data, programs
+          present :data, programs, with: Entities::ProgramsExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
@@ -28,7 +28,7 @@ module V1
           else
             present :status, :failure
           end
-          present :data, templates
+          present :data, templates, with: Entities::TemplatesExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
@@ -45,7 +45,7 @@ module V1
           else
             present :status, :failure
           end
-          present :data, template
+          present :data, template, with: Entities::TemplateExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
