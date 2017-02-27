@@ -19,7 +19,11 @@ class Contest
   def self.create_contest(user, template)
     contest = new(host: user, template: template)
     contest.players << user
-    contest.save
+    if contest.save
+      contest
+    else
+      false
+    end
   end
 
   def self.prize_list
