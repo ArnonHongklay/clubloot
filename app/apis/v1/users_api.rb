@@ -57,7 +57,14 @@ module V1
           # requires :number, type: Integer, desc: "password of the user"
           requires :token,        type: String, default: nil, desc: 'User Token'
           requires :template_id,  type: String, desc: "Template Id"
-          # requires :attributes, type: Hash, default: {}
+          requires :user, type: Hash do
+            optional :first_name, type: String
+            optional :last_name, type: String
+            # requires :address, type: Hash do
+            #   requires :city, type: String
+            #   optional :region, type: String
+            # end
+          end
         end
         post "/new" do
           begin

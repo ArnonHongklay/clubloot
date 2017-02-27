@@ -35,24 +35,24 @@
                     <% @ledgers.each do |ledger| %>
                       <tr class="odd gradeX">
                         <td class="center-center">
-                          <% ledger.transactions.each do |transaction| %>
+                          <% ledger.transaction.each do |transaction| %>
                             <%= "<i class='fa fa-#{transaction._action}' aria-hidden='true'></i>".html_safe %><br>
                           <% end %>
                         </td>
                         <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y") %></td>
                         <td class="center-left"><%= ledger.user[:username] || ledger.user[:email] %></td>
                         <td>
-                          <% ledger.transactions.each do |transaction| %>
+                          <% ledger.transaction.each do |transaction| %>
                             <%= transaction._id %><br>
                           <% end %>
                         </td>
                         <td>
-                          <% ledger.transactions.each do |transaction| %>
+                          <% ledger.transaction.each do |transaction| %>
                             <%= "(#{transaction.description}) #{transaction.from} -> #{transaction.to}" %><br>
                           <% end %>
                         </td>
                         <td>
-                          <% ledger.transactions.each do |transaction| %>
+                          <% ledger.transaction.each do |transaction| %>
                             <% if ledger.format == 'won' %>
                               <%= "#{transaction.amount - transaction.tax} #{transaction.unit}" %>
                             <% else %>
