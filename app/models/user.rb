@@ -86,7 +86,7 @@ class User
   has_and_belongs_to_many :contests, inverse_of: :players
   has_many :host_contests, class_name: 'Contest', inverse_of: :host
 
-  after_save :change_access_token
+  # after_save :change_access_token
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
   def join_contest(contest_id)
