@@ -8,7 +8,7 @@ class Ledger
   field :user,    type: Hash, default: lambda { default_users }
   field :balance, type: Hash, default: lambda { default_balance }
   field :details, type: Hash, default: lambda { default_details }
-  embeds_many :transaction
+  embeds_many :transactions
 
   private
     def default_users

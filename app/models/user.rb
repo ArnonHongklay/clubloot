@@ -10,8 +10,9 @@ class User
          :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
-  field :email,              type: String, default: ""
-  field :encrypted_password, type: String, default: ""
+  field :email,               type: String, default: ""
+  field :encrypted_password,  type: String, default: ""
+  field :token,               type: String, default: ""
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -82,15 +83,25 @@ class User
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   validates_uniqueness_of :username
 
-  has_many :contests
+  has_and_belongs_to_many :contests, inverse_of: :players
+  has_many :host_contests, class_name: 'Contest', inverse_of: :host
 
+  after_save :change_access_token
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
-  def self.join_contest(contest_id)
-    if self.contests.find(contest_id).present?
-      p contest_id
-    else
+  def join_contest(contest_id)
+    if self.contests.find(contest_id).blank?
       contest = Contest.find(contest_id)
+      self.contests << contest
+      self.save
+    else
+      false
+    end
+  end
+
+  def self.hard_update_token
+    User.all.each do |user|
+      user.update(token: App.generate_code(32))
     end
   end
 
@@ -130,7 +141,13 @@ class User
   #   update!(cumulative)
   # end
 
-private
+  private
+    def change_access_token
+      loop do
+        code = App.generate_code(32)
+        break code unless User.find_by(token: code).present?
+      end
+    end
 
   # def get_score_from(rating)
   #   stats = %w{skill timeliness completion language friendliness}

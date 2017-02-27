@@ -6,7 +6,6 @@ class Template
   belongs_to :program, inverse_of: :templates
 
   field :name,              type: String
-  # field :program,           type: Integer
   field :number_questions,  type: String
   field :number_answers,    type: String
 
