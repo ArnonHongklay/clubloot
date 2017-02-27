@@ -2,6 +2,7 @@ set :application, 'clubloot'
 set :repo_url,    'git@github.com:letsdoitrocks/clubloot.git'
 
 set :deploy_to,   '/home/deploy/clubloot/admin'
+set :console_env, :production # use different environment than deployment environment (rails_env)
 
 set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml config/instance.yml}
 set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
