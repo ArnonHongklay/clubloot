@@ -10,6 +10,7 @@
       <ul class="nav metismenu" id="sidebar-menu">
         <%= nav_link 'Dashboard',     root_path,          'dashboard' %>
         <%= nav_link 'Announcements', announcements_path, 'bullhorn' %>
+        <%= nav_link 'Loot',          loots_path,         'rocket' %>
         <%= nav_link 'Ledgers',       ledgers_path,       'money' %>
         <%= nav_link 'Prizes',        prizes_path,        'bookmark' %>
 
@@ -20,24 +21,17 @@
             <li> <%= link_to "Templates", templates_path %> </li>
           </ul>
         </li>
-        <li class="<%= nav_sub_link [root_path, root_path, root_path] %>">
+        <li class="<%= nav_sub_link [users_path, users_path, users_path] %>">
           <a href="#"> <i class="fa fa-group"></i> Users <i class="fa arrow"></i> </a>
           <ul>
-            <li> <%= link_to "List", root_path %> </li>
-            <li> <%= link_to "Winners", root_path %> </li>
-            <li> <%= link_to "Subscribe", root_path %> </li>
-          </ul>
-        </li>
-        <li class="<%= nav_sub_link [root_path, root_path] %>">
-          <a href="#"> <i class="fa fa-rocket"></i> Loot <i class="fa arrow"></i> </a>
-          <ul>
-            <li> <%= link_to "Daily Loot", root_path %> </li>
-            <li> <%= link_to "Free Loot", root_path %> </li>
+            <li> <%= link_to "List", users_path %> </li>
+            <li> <%= link_to "Winners", users_path %> </li>
+            <li> <%= link_to "Subscribe", users_path %> </li>
           </ul>
         </li>
 
-        <%= nav_link 'Gems',  root_path, 'bookmark' %>
-        <%= nav_link 'Taxes', root_path, 'dollar' %>
+        <%= nav_link 'Gems',        gems_path,          'bookmark' %>
+        <%#= nav_link 'Taxes', root_path, 'dollar' %>
       </ul>
     </nav>
   </div>

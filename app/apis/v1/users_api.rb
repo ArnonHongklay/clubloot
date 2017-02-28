@@ -104,8 +104,6 @@ module V1
           end
         end
 
-
-
         params do
           requires :token,        type: String, default: nil, desc: 'User Token'
           requires :contest_id,   type: String, desc: "Contest Id"

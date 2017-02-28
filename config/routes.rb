@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :systems, only: :index do
       collection do
         resources :announcements
+        resources :loots, only: [:index, :update]
         resources :ledgers
         resources :programs do
           put 'toggle_status', on: :member
@@ -38,6 +39,8 @@ Rails.application.routes.draw do
           resources :contests
         end
         resources :prizes
+        resources :users
+        resources :gems
       end
     end
   end

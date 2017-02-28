@@ -11,6 +11,20 @@
     </div>
   <% end %>
 
+  <div class="form-group"> <label class="control-label">Free coins base</label>
+    <%= f.text_field :base, class: 'form-control underlined' %>
+  </div>
+  <div class="form-group"> <label class="control-label">Min Consecutive login</label>
+    <%= f.text_field :minConsecutive, class: 'form-control underlined' %>
+  </div>
+  <div class="form-group"> <label class="control-label">Max Consecutive login</label>
+    <%= f.text_field :maxConsecutive, class: 'form-control underlined' %>
+  </div>
+  <div class="form-group"> <label class="control-label">More coin per consecutive</label>
+    <%= f.text_field :moreCoin, class: 'form-control underlined' %>
+  </div>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

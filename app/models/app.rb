@@ -64,3 +64,23 @@ class App < Struct.new(:region, :environment, :version)
 
   self.current = new
 end
+
+class Loot
+  include Mongoid::Document
+  store_in collection: "dailies"
+
+  field :base, type: Integer
+  field :minConsecutive, type: Integer
+  field :maxConsecutive, type: Integer
+  field :moreCoin, type: Integer
+end
+
+class GemConvert
+  include Mongoid::Document
+  store_in collection: "gemcs"
+
+  field :ruby,      type: Hash
+  field :sapphire,  type: Hash
+  field :emerald,   type: Hash
+  field :diamond,   type: Hash
+end

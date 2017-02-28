@@ -28,7 +28,7 @@ class Contest
   end
 
   def self.quiz(user, contest)
-    # self.
+    # selfi
   end
 
   def self.prize_list

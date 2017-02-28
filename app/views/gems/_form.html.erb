@@ -1,0 +1,101 @@
+<%= form_for(gem_convert, url: gem_path(gem_convert), html: { method: :put }) do |f| %>
+  <% if gem_convert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(gem_convert.errors.count, "error") %> prohibited this gem from being saved:</h2>
+
+      <ul>
+      <% gem_convert.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row form-group">
+    <div class="col-xs-6">
+      <label class="control-label">Diamond</label>
+      <div class="input-group">
+        <%= f.number_field :diamond_rate, class: 'form-control', value: gem_convert.diamond[:rate] %>
+        <span class="input-group-addon" style="color: #758F42">
+          <i class="fa fa-diamond" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <label class="control-label">Fee</label>
+      <div class="input-group">
+        <%= f.number_field :diamond_fee, class: 'form-control', value: gem_convert.diamond[:fee] %>
+        <span class="input-group-addon">
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row form-group">
+    <div class="col-xs-6">
+      <label class="control-label">Sapphire</label>
+      <div class="input-group">
+        <%= f.number_field :sapphire_rate, class: 'form-control', value: gem_convert.sapphire[:rate] %>
+        <span class="input-group-addon" style="color: #2A4C7A">
+          <i class="fa fa-diamond" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <label class="control-label">Fee</label>
+      <div class="input-group">
+        <%= f.number_field :sapphire_fee, class: 'form-control', value: gem_convert.sapphire[:fee] %>
+        <span class="input-group-addon">
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row form-group">
+    <div class="col-xs-6">
+      <label class="control-label">Emerald</label>
+      <div class="input-group">
+        <%= f.number_field :emerald_rate, class: 'form-control', value: gem_convert.emerald[:rate] %>
+        <span class="input-group-addon" style="color: #951111">
+          <i class="fa fa-diamond" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <label class="control-label">Fee</label>
+      <div class="input-group">
+        <%= f.number_field :emerald_fee, class: 'form-control', value: gem_convert.emerald[:fee] %>
+        <span class="input-group-addon">
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row form-group">
+    <div class="col-xs-6">
+      <label class="control-label">Ruby</label>
+      <div class="input-group">
+        <%= f.number_field :ruby_rate, class: 'form-control', value: gem_convert.ruby[:rate] %>
+        <span class="input-group-addon">
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <label class="control-label">Fee</label>
+      <div class="input-group">
+        <%= f.number_field :ruby_fee, class: 'form-control', value: gem_convert.ruby[:fee] %>
+        <span class="input-group-addon">
+          <i class="fa fa-money" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
