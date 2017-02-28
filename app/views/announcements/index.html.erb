@@ -1,25 +1,55 @@
-<p id="notice"><%= notice %></p>
+<article class="content forms-page">
+  <p id="notice"><%= notice %></p>
 
-<h1>Announcements</h1>
+  <div class="title-block">
+    <h1 class="title"> Announcements
+    <%#= link_to 'Add New', new_ledger_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    </h1>
+    <%#<p class="title-description"> When blocks aren't enough </p>%>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @announcements.each do |announcement| %>
-      <tr>
-        <td><%= link_to 'Show', announcement %></td>
-        <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
-        <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <section class="section">
+      <div class="row sameheight-container">
+          <div class="col-md-6">
+              <div class="card card-block sameheight-item">
+                  <div class="title-block">
+                      <h3 class="title"> New Announcement </h3>
+                  </div>
+                  <form role="form">
+                      <div class="form-group"> <label class="control-label">Publish at</label> <input type="text" class="form-control underlined"> </div>
+                      <div class="form-group"> <label class="control-label">Announcement</label> <textarea rows="3" class="form-control underlined"></textarea> </div>
+                  </form>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="card card-block sameheight-item">
+                  <div class="title-block">
+                      <h3 class="title"> Previous Announcement </h3>
+                  </div>
 
-<br>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th colspan="3"></th>
+                      </tr>
+                    </thead>
 
-<%= link_to 'New Announcement', new_announcement_path %>
+                    <tbody>
+                      <% @announcements.each do |announcement| %>
+                        <tr>
+                          <td><%= link_to 'Show', announcement %></td>
+                          <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
+                          <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                                    <%= link_to 'New Announcement', new_announcement_path %>
+
+              </div>
+          </div>
+      </div>
+  </section>
+</article>
+

@@ -6,6 +6,7 @@ class Contest
   field :max_players, type: Integer, default: 2
 
   field :status, type: String
+  field :active, type: Boolean, default: false
   field :state,  type: String, default: "upcoming"
 
   field :prize, type: Integer
@@ -16,14 +17,18 @@ class Contest
   belongs_to :host, class_name: 'User', inverse_of: :host_contests
   has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
 
-  def self.create_contest(user, template)
-    contest = new(host: user, template: template)
+  def self.create_contest(user, template, contest)
+    contest = new(host: user, template: template, max_players: contest[:player], fee: contest[:fee])
     contest.players << user
     if contest.save
       contest
     else
       false
     end
+  end
+
+  def self.quiz(user, contest)
+    # self.
   end
 
   def self.prize_list

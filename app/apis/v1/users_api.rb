@@ -51,19 +51,11 @@ module V1
 
       resource :contest do
         params do
-          # requires :name,    type: String, desc: "email of the user"
-          # requires :program, type: String, desc: "password of the user"
-          # requires :number_question,  type: Integer, desc: "email of the user"
-          # requires :number, type: Integer, desc: "password of the user"
           requires :token,        type: String, default: nil, desc: 'User Token'
           requires :template_id,  type: String, desc: "Template Id"
-          requires :user, type: Hash do
-            optional :first_name, type: String
-            optional :last_name, type: String
-            # requires :address, type: Hash do
-            #   requires :city, type: String
-            #   optional :region, type: String
-            # end
+          requires :details, type: Hash do
+            requires :player, type: Integer
+            requires :fee, type: Integer
           end
         end
         post "/new" do
@@ -71,7 +63,7 @@ module V1
             template = Template.find(params[:template_id])
 
             if user = User.find_by(token: params[:token])
-              if contest = Contest.create_contest(user, template)
+              if contest = Contest.create_contest(user, template, params[:details])
                 present :status, :success
                 present :data, contest #, with: Entities::AuthExpose
               else
@@ -101,6 +93,35 @@ module V1
               else
                 present :status, :failure
                 present :data, "Can't join a contest."
+              end
+            else
+              present :status, :failure
+              present :data, "Users don't have in our system."
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+
+
+
+        params do
+          requires :token,        type: String, default: nil, desc: 'User Token'
+          requires :contest_id,   type: String, desc: "Contest Id"
+          requires :details,      type: Array[String], desc: "[{ question: $question_id, answer: $answer_id }]"
+        end
+        put "/quiz" do
+          begin
+            template = Template.find(params[:template_id])
+
+            if user = User.find_by(token: params[:token])
+              if contest = Contest.create_contest(user, template, params[:contest])
+                present :status, :success
+                present :data, contest #, with: Entities::AuthExpose
+              else
+                present :status, :failure
+                present :data, "Can't creating a new contest."
               end
             else
               present :status, :failure
