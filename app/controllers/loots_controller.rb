@@ -8,7 +8,7 @@ class LootsController < ApplicationController
   def update
     respond_to do |format|
       if @loot.update(loot_params)
-        format.html { redirect_to @loot, notice: 'Loot was successfully updated.' }
+        format.html { redirect_to loots_path, notice: 'Loot was successfully updated.' }
         format.json { render :show, status: :ok, location: @loot }
       else
         format.html { render :edit }
