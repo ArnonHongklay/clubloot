@@ -54,8 +54,9 @@ module V1
           requires :token,        type: String, default: nil, desc: 'User Token'
           requires :template_id,  type: String, desc: "Template Id"
           requires :details, type: Hash do
+            requires :name, type: String
             requires :player, type: Integer
-            requires :fee, type: Integer
+            requires :prize, type: Integer
           end
         end
         post "/new" do

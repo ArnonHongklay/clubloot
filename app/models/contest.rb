@@ -18,7 +18,7 @@ class Contest
   has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
 
   def self.create_contest(user, template, contest)
-    contest = new(host: user, template: template, max_players: contest[:player], fee: contest[:fee])
+    contest = new(host: user, template: template, max_players: contest[:player], prize: contest[:prize])
     contest.players << user
     if contest.save
       contest
