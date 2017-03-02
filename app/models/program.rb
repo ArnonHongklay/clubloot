@@ -16,4 +16,26 @@ class Program
   scope :pending,   -> { where(active: false) }
 
   validates :name, :category, :attachment, presence: true
+
+  def self.upcoming
+    includes(:templates).select do |program|
+      program.templates.upcoming_program.present?
+    end
+  end
+
+  def self.live
+    includes(:templates).select do |program|
+      program.templates.live_program.present?
+    end
+  end
+
+  def self.past
+    includes(:templates).select do |program|
+      program.templates.past_program.present?
+    end
+  end
+
+  def start_time
+    templates.upcoming_time
+  end
 end

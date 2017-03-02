@@ -3,4 +3,5 @@ class Entities::ProgramsExpose < Grape::Entity
   expose :attachment
   expose :category
   expose :name
+  expose :start_time
 end

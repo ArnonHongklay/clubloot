@@ -38,6 +38,7 @@ class Contest
         if question.answers.find(quiz[:answer_id]).present?
           this_contest.quizes.create(quiz.merge!(player_id: user.id))
         else
+          this_contest.quizes.destroy_all
           raise "this question don't exists"
         end
       else

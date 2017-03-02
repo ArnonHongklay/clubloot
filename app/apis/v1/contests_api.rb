@@ -5,7 +5,7 @@ module V1
     resource :contests do
       get '/programs' do
         begin
-          programs = Program.all
+          programs = Program.upcoming
           # programs = Program.where(date: Time.zone.parse(start_date)..Time.zone.parse(end_date))
 
           if programs
