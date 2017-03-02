@@ -3,21 +3,65 @@ module V1
     extend Defaults::Engine
 
     resource :contests do
-      get '/programs' do
-        begin
-          programs = Program.upcoming
-          # programs = Program.where(date: Time.zone.parse(start_date)..Time.zone.parse(end_date))
-
-          if programs
-            present :status, :success
-          else
+      resource :programs do
+        get '/' do
+          begin
+            if programs = Program.upcoming
+              present :status, :success
+              if programs.present?
+                present :data, programs, with: Entities::ProgramsExpose
+              else
+                present :data, programs
+              end
+            else
+              present :status, :failure
+              present :data, "Can't show data"
+            end
+          rescue Exception => e
             present :status, :failure
+            present :data, e
           end
-          present :status, :success
-          present :data, programs, with: Entities::ProgramsExpose
-        rescue Exception => e
-          present :status, :failure
-          present :data, e
+        end
+      end
+      resource :program do
+        get '/templates' do
+          begin
+            programs = Program.includes(:templates).live
+            if programs
+              present :status, :success
+              if programs.present?
+                present :data, programs, with: Entities::ProgramTemplatesExpose
+              else
+                present :data, programs
+              end
+            else
+              present :status, :failure
+              present :data, "Can't show data"
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+
+        params do
+          requires :template_id, type: String, desc: "Template Id"
+        end
+        get "template/:template_id" do
+          begin
+            template = Template.find(params[:template_id])
+            contests = template.contests
+            if contests.present?
+              present :status, :success
+              present :data, contests#, with: Entities::ProgramTemplateContestExpose
+            else
+              present :status, :failure
+              present :data, "Can't show data"
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
         end
       end
 
