@@ -106,9 +106,9 @@ module V1
         end
 
         params do
-          requires :token,        type: String, default: nil, desc: 'User Token'
-          requires :contest_id,   type: String, desc: "Contest Id"
-          requires :details,      type: Array[String], desc: "[{ question: $question_id, answer: $answer_id }]"
+          requires :token,        type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
+          requires :contest_id,   type: String, default: '58b82e942cc3c43e4e31ca2c', desc: "Contest Id"
+          requires :details,      type: Array[JSON], default: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]', desc: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]'
         end
         put "/quiz" do
           begin
