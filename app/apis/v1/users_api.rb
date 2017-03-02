@@ -106,21 +106,24 @@ module V1
         end
 
         params do
-          requires :token,        type: String, default: nil, desc: 'User Token'
-          requires :contest_id,   type: String, desc: "Contest Id"
-          requires :details,      type: Array[String], desc: "[{ question: $question_id, answer: $answer_id }]"
+          requires :token,        type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
+          requires :contest_id,   type: String, default: '58b82e942cc3c43e4e31ca2c', desc: "Contest Id"
+          requires :details,      type: Array[JSON], default: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]', desc: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]'
         end
         put "/quiz" do
           begin
-            template = Template.find(params[:template_id])
-
             if user = User.find_by(token: params[:token])
-              if contest = Contest.create_contest(user, template, params[:contest])
-                present :status, :success
-                present :data, contest #, with: Entities::AuthExpose
+              if contest = user.contests.find(params[:contest_id])
+                if quiz_contest = Contest.quiz(user, contest, params[:details])
+                  present :status, :success
+                  present :data, quiz_contest #, with: Entities::AuthExpose
+                else
+                  present :status, :failure
+                  present :data, "Can't complete quiz"
+                end
               else
                 present :status, :failure
-                present :data, "Can't creating a new contest."
+                present :data, "Can't found contest"
               end
             else
               present :status, :failure
