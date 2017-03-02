@@ -56,7 +56,7 @@ module V1
           requires :details, type: Hash do
             requires :name, type: String
             requires :player, type: Integer
-            requires :prize, type: Integer
+            requires :fee, type: Integer
           end
         end
         post "/new" do

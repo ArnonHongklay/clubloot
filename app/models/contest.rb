@@ -20,7 +20,7 @@ class Contest
   embeds_many :quizes, class_name: 'Quiz' #, dependent: :nullify
 
   def self.create_contest(user, template, contest)
-    contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], prize: contest[:prize])
+    contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], fee: contest[:fee])
     contest.players << user
     if contest.save
       contest
