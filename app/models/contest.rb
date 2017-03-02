@@ -17,6 +17,9 @@ class Contest
   belongs_to :host, class_name: 'User', inverse_of: :host_contests
   has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
 
+  # embeds_many :quizes #, class: 'Quiz'
+  # field :quiz, type: Array
+
   def self.create_contest(user, template, contest)
     contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], prize: contest[:prize])
     contest.players << user
@@ -27,12 +30,15 @@ class Contest
     end
   end
 
-  def self.quiz(user, contest)
-    # selfi
+  def self.quiz(user, contest, quiz)
+    template = user.contests.find(contest).template
+    questions = template.questions
+
+    binding.pry
   end
 
   def self.prize_list
-    [110, 220, 330, 440, 550, 1100, 1650, 2200, 2750, 5500, 8250, 11000]
+    [ 110, 220, 330, 440, 550, 1100, 1650, 2200, 2750, 5500, 8250, 11000 ]
   end
 
   def self.gem_matrix

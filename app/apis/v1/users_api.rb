@@ -112,15 +112,18 @@ module V1
         end
         put "/quiz" do
           begin
-            template = Template.find(params[:template_id])
-
             if user = User.find_by(token: params[:token])
-              if contest = Contest.create_contest(user, template, params[:contest])
-                present :status, :success
-                present :data, contest #, with: Entities::AuthExpose
+              if contest = user.contests.find(params[:contest_id])
+                if quiz_contest = Contest.quiz(user, contest, params[:details])
+                  present :status, :success
+                  present :data, quiz_contest #, with: Entities::AuthExpose
+                else
+                  present :status, :failure
+                  present :data, "Can't complete quiz"
+                end
               else
                 present :status, :failure
-                present :data, "Can't creating a new contest."
+                present :data, "Can't found contest"
               end
             else
               present :status, :failure

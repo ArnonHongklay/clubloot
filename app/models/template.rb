@@ -10,7 +10,6 @@ class Template
   field :number_answers,    type: String
 
   embeds_many :questions
-  # embeds_many :contests
 
   field :start_time,        type: DateTime
   field :end_time,          type: DateTime
