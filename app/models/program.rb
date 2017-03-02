@@ -35,7 +35,7 @@ class Program
     end
   end
 
-  def start_time
+  def upcoming_time
     templates.upcoming_time
   end
 end

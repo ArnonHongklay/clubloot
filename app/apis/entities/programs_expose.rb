@@ -3,5 +3,5 @@ class Entities::ProgramsExpose < Grape::Entity
   expose :attachment
   expose :category
   expose :name
-  expose :start_time
+  expose :upcoming_time
 end
