@@ -91,7 +91,7 @@ module V1
             if user = User.find_by(token: params[:token])
               if user.join_contest(params[:contest_id])
                 present :status, :success
-                present :data, contest #, with: Entities::AuthExpose
+                present :data, contest, with: Entities::ContestExpose
               else
                 present :status, :failure
                 present :data, "Can't join a contest."
@@ -111,7 +111,7 @@ module V1
           requires :contest_id,   type: String, default: '58b82e942cc3c43e4e31ca2c', desc: "Contest Id"
           requires :details,      type: Array[JSON], default: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]', desc: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]'
         end
-        put "/quiz" do
+        post "/quiz" do
           begin
             if user = User.find_by(token: params[:token])
               if contest = user.contests.find(params[:contest_id])
