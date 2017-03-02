@@ -5,7 +5,10 @@ module V1
     resource :contests do
       get '/programs' do
         begin
-          if programs = Program.all
+          programs = Program.all
+          # programs = Program.where(date: Time.zone.parse(start_date)..Time.zone.parse(end_date))
+
+          if programs
             present :status, :success
           else
             present :status, :failure

@@ -65,8 +65,9 @@ module V1
 
             if user = User.find_by(token: params[:token])
               if contest = Contest.create_contest(user, template, params[:details])
+                # binding.pry
                 present :status, :success
-                present :data, contest #, with: Entities::AuthExpose
+                present :data, contest, with: Entities::ContestExpose
               else
                 present :status, :failure
                 present :data, "Can't creating a new contest."
