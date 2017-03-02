@@ -67,7 +67,7 @@ module V1
               if contest = Contest.create_contest(user, template, params[:details])
                 # binding.pry
                 present :status, :success
-                present :data, [ contest ], with: Entities::ContestExpose
+                present :data, contest, with: Entities::ContestExpose
               else
                 present :status, :failure
                 present :data, "Can't creating a new contest."
