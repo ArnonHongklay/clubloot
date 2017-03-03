@@ -1,5 +1,5 @@
 class SubscribeMailer < ApplicationMailer
-  default from: 'clublootcom@gmail.com'
+  default from: 'Clubloot.com <clublootcom@gmail.com>'
 
   def subscribe_email(subscriber)
     @subscriber = subscriber
