@@ -20,7 +20,16 @@ class Contest
   embeds_many :quizes, class_name: 'Quiz' #, dependent: :nullify
 
   def self.create_contest(user, template, contest)
-    contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], fee: contest[:fee])
+    player = contest[:player].to_i
+    raise "out of range player" if player < 2 && player > 20
+    fee = contest[:fee].to_i
+    raise "wrong fee" if fee > 10 && fee < 0
+
+    fee_select = self.gem_matrix[:list].select do |x|
+      x[:player] == player
+    end.first[:fee][fee]
+
+    contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], fee: fee_select)
     contest.players << user
     if contest.save
       contest
