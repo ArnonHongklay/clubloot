@@ -14,11 +14,13 @@ Rails.application.routes.draw do
       sessions: 'users/sessions'
     }
 
-    root 'systems#index'
-    get 'systems/index'
+    root 'dashboard#index'
 
-    resources :systems, only: :index do
+    resources :systems do
       collection do
+        get '/', to: 'dashboard#index'
+        get '/loot', to: 'dashboard#loot'
+
         resources :announcements
         resources :loots, only: [:index, :update]
         resources :ledgers
@@ -39,6 +41,8 @@ Rails.application.routes.draw do
           resources :contests
         end
         resources :prizes
+        get '/subscribes', to: 'users#subscribes'
+        get '/winners', to: 'users#winners'
         resources :users
         resources :gems
       end

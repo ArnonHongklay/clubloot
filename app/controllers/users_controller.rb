@@ -7,6 +7,16 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def subscribes
+    # @subscribe = Subscribe.all
+    @subscribes = User.all
+  end
+
+  def winners
+    # @winners = Winner.all
+    @winners = User.all
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show

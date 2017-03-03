@@ -20,12 +20,12 @@
             <li> <%= link_to "Templates", templates_path %> </li>
           </ul>
         </li>
-        <li class="<%= nav_sub_link [users_path, users_path, users_path] %>">
+        <li class="<%= nav_sub_link [users_path, subscribes_systems_path, winners_systems_path] %>">
           <a href="#"> <i class="fa fa-group"></i> Users <i class="fa arrow"></i> </a>
           <ul>
             <li> <%= link_to "List", users_path %> </li>
-            <li> <%= link_to "Winners", users_path %> </li>
-            <li> <%= link_to "Subscribe", users_path %> </li>
+            <li> <%= link_to "Winners", subscribes_systems_path %> </li>
+            <li> <%= link_to "Subscribe", winners_systems_path %> </li>
           </ul>
         </li>
         <li class="<%= nav_sub_link [loots_path, gems_path] %>">
