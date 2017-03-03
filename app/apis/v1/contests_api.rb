@@ -57,7 +57,7 @@ module V1
             contests = template.contests
             if contests.present?
               present :status, :success
-              present :data, contests#, with: Entities::ProgramTemplateContestExpose
+              present :data, contests, with: Entities::ProgramTemplatesContestExpose
             else
               present :status, :failure
               present :data, "Can't show data"
