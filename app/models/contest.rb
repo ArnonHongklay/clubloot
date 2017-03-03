@@ -56,6 +56,10 @@ class Contest
     end
   end
 
+  def self.score
+
+  end
+
   def self.prize_list
     [ 110, 220, 330, 440, 550, 1100, 1650, 2200, 2750, 5500, 8250, 11000 ]
   end
