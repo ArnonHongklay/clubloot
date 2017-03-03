@@ -56,8 +56,23 @@ class Contest
     end
   end
 
-  def self.score
-
+  def leaders
+    bucket = []
+    players.each do |player|
+      quiz = quizes.where(player_id: player.id)
+      bucket.push(
+        Hashie::Mash.new(
+          id: player.id,
+          name: player.name,
+          first_name: player.first_name,
+          last_name: player.last_name,
+          email: player.email,
+          quizes: quiz,
+          score: quiz.sum(&:currect)
+        )
+      )
+    end
+    bucket
   end
 
   def self.prize_list

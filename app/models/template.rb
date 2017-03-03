@@ -32,6 +32,9 @@ class Template
     min
   end
 
+  def self.current_template
+    self.upcoming_program.sort_by(&:end_time).first
+  end
   private
     def check_choice
       if number_answers_changed? or number_questions_changed?

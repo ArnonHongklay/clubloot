@@ -18,24 +18,28 @@ class Program
   validates :name, :category, :attachment, presence: true
 
   def self.upcoming
-    includes(:templates).select do |program|
+    self.active.includes(:templates).select do |program|
       program.templates.upcoming_program.present?
     end
   end
 
   def self.live
-    includes(:templates).select do |program|
+    self.active.includes(:templates).select do |program|
       program.templates.live_program.present?
     end
   end
 
   def self.past
-    includes(:templates).select do |program|
+    self.active.includes(:templates).select do |program|
       program.templates.past_program.present?
     end
   end
 
   def upcoming_time
     templates.upcoming_time
+  end
+
+  def all_contests
+    templates.current_template.contests
   end
 end

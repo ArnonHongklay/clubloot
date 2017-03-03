@@ -18,6 +18,8 @@ default: &default
   AWS_SECRET_ACCESS_KEY: 'InytPF3v8vR2VSqDWwyoaenDZQ2ZTR2jnwaiHwKf'
   AWS_REGION: 'us-west-1'
 
+  GMAIL_USERNAME: 'clublootcom@gmail.com'
+  GMAIL_PASSWORD: 'Arnon007'
 development:
   <<: *default
   HELLO: developers
