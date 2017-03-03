@@ -1,4 +1,53 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Show User <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+
+  <p id="notice"><%= notice %></p>
+  <p>
+    Name: <%= @user.name %>
+  </p>
+  <p>
+    username: <%= @user.username %>
+  </p>
+  <p>
+    first_name: <%= @user.first_name %>
+  </p>
+  <p>
+    last_name: <%= @user.last_name %>
+  </p>
+  <p>
+    billing_address: <%= @user.billing_address %>
+  </p>
+  <p>
+    billing_city: <%= @user.billing_city %>
+  </p>
+  <p>
+    billing_state: <%= @user.billing_state %>
+  </p>
+  <p>
+    billing_zipcode: <%= @user.billing_zipcode %>
+  </p>
+  <p>
+    diamonds: <%= @user.diamonds %>
+  </p>
+  <p>
+    emeralds: <%= @user.emeralds %>
+  </p>
+  <p>
+    sapphires: <%= @user.sapphires %>
+  </p>
+  <p>
+    rubies: <%= @user.rubies %>
+  </p>
+  <p>
+    coins: <%= @user.coins %>
+  </p>
+
+  <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Back', users_path, class: 'btn btn-primary btn-sm rounded-s' %>
+</article>
