@@ -24,9 +24,12 @@ module V1
         end
       end
       resource :program do
-        get '/templates' do
+        params do
+          requires :program_id, type: String, desc: "Program Id"
+        end
+        get ':program_id/templates' do
           begin
-            programs = Program.includes(:templates).live
+            programs = Program.find(params[:program_id])
             if programs
               present :status, :success
               if programs.present?
@@ -45,11 +48,12 @@ module V1
         end
 
         params do
+          requires :program_id, type: String, desc: "Program Id"
           requires :template_id, type: String, desc: "Template Id"
         end
-        get "template/:template_id" do
+        get ":program_id/template/:template_id" do
           begin
-            template = Template.find(params[:template_id])
+            template = Program.find(params[:program_id]).templates.find(params[:template_id])
             contests = template.contests
             if contests.present?
               present :status, :success
