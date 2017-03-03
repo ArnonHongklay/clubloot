@@ -25,14 +25,14 @@ config.validations = {
 	highlight: function(element, errorClass, validClass) {
 		$(element).parents("div.form-group")
 		.addClass(errorClass)
-		.removeClass(validClass); 
-	}, 
+		.removeClass(validClass);
+	},
 
 	// add error class
 	unhighlight: function(element, errorClass, validClass) {
 		$(element).parents(".has-error")
 		.removeClass(errorClass)
-		.addClass(validClass); 
+		.addClass(validClass);
 	},
 
 	// submit handler
@@ -61,7 +61,7 @@ $(function() {
 
 		animate({
 			name: 'fadeInUp',
-			selector: $el 
+			selector: $el
 		});
 
 		$el.addClass('visible');
@@ -170,16 +170,16 @@ $(function() {
 		},
 		errorPlacement: function(error, element) {
 			if (
-				element.attr("name") == "firstname" || 
-				element.attr("name") == "lastname" 
+				element.attr("name") == "firstname" ||
+				element.attr("name") == "lastname"
 			) {
 				error.insertAfter($("#lastname").closest('.row'));
 				element.parents("div.form-group")
 				.addClass('has-error');
-			} 
+			}
 			else if (
-				element.attr("name") == "password" || 
-				element.attr("name") == "retype_password" 
+				element.attr("name") == "password" ||
+				element.attr("name") == "retype_password"
 			) {
 				error.insertAfter($("#retype_password").closest('.row'));
 				element.parents("div.form-group")
@@ -229,7 +229,7 @@ function animate(options) {
 	var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
 	$(options.selector)
 	.addClass(animationName)
-	.one(animationEnd, 
+	.one(animationEnd,
 		function(){
 			$(this).removeClass(animationName);
 		}
@@ -244,7 +244,7 @@ $(function() {
 			$itemActions.removeClass('active');
 		}
 	});
-	
+
 	$('.item-actions-toggle-btn').on('click',function(e){
 		e.preventDefault();
 
@@ -252,16 +252,16 @@ $(function() {
 
 		$itemActions.not($thisActionList).removeClass('active');
 
-		$thisActionList.toggleClass('active');	
+		$thisActionList.toggleClass('active');
 	});
 });
 
 /***********************************************
 *        NProgress Settings
 ***********************************************/
-var npSettings = { 
-	easing: 'ease', 
-	speed: 500 
+var npSettings = {
+	easing: 'ease',
+	speed: 500
 }
 
 NProgress.configure(npSettings);
@@ -302,7 +302,7 @@ function setSameHeights($container) {
 			var excludedStr = $(this).data('exclude') || '';
 			var excluded = excludedStr.split(',');
 
-			// Set height of element if it's not excluded on 
+			// Set height of element if it's not excluded on
 			if (excluded.indexOf(viewport) === -1) {
 				$(this).innerHeight(maxHeight);
 			}
@@ -641,7 +641,7 @@ $(function() {
 
 });
 $(function() {
-    
+
     if (!$('#morris-one-line-chart').length) {
         return false;
     }
@@ -649,7 +649,7 @@ $(function() {
     function drawMorrisCharts() {
 
         $('#morris-one-line-chart').empty();
-        
+
         Morris.Line({
             element: 'morris-one-line-chart',
                 data: [
@@ -778,11 +778,11 @@ $(function() {
     var item = 'visits';
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-       
+
        el = e.target;
        item = $(el).attr('href').replace('#', '');
        switchHistoryCharts(item);
-       
+
     });
 
     $(document).on("themechange", function(){
@@ -814,7 +814,7 @@ $(function() {
             { x: '2015-09-04', y: 75 },
             { x: '2015-09-05', y: 50 },
             { x: '2015-09-06', y: 75 },
-            { x: '2015-09-07', y: 86 } 
+            { x: '2015-09-07', y: 86 }
         ];
 
 
@@ -849,46 +849,46 @@ $(function() {
     function drawDownloadsChart(){
 
         var dataDownloads = [
-            { 
+            {
                 year: '2006',
                 downloads: 1300
             },
-            { 
-                year: '2007', 
+            {
+                year: '2007',
                 downloads: 1526
             },
-            { 
-                year: '2008', 
+            {
+                year: '2008',
                 downloads: 2000
             },
-            { 
-                year: '2009', 
+            {
+                year: '2009',
                 downloads: 1800
             },
-            { 
-                year: '2010', 
+            {
+                year: '2010',
                 downloads: 1650
-            },    
-            { 
-                year: '2011', 
+            },
+            {
+                year: '2011',
                 downloads: 620
             },
-            { 
-                year: '2012', 
+            {
+                year: '2012',
                 downloads: 1000
             },
-            { 
-                year: '2013', 
+            {
+                year: '2013',
                 downloads: 1896
             },
-            { 
-                year: '2014', 
+            {
+                year: '2014',
                 downloads: 850
             },
-            { 
-                year: '2015', 
+            {
+                year: '2015',
                 downloads: 1500
-            }  
+            }
         ];
 
 
@@ -912,7 +912,7 @@ $(function() {
 
 
 $(function() {
-	
+
 
 	function drawDashboardItemsListSparklines(){
 		$(".dashboard-page .items .sparkline").each(function() {
@@ -958,7 +958,7 @@ $(function() {
 
     if (!$dashboardSalesBreakdownChart.length) {
         return false;
-    } 
+    }
 
     function drawSalesChart(){
 
@@ -987,7 +987,7 @@ $(function() {
     $(document).on("themechange", function(){
        drawSalesChart();
     });
-    
+
 })
 $(function() {
 
@@ -1007,7 +1007,7 @@ $(function() {
 
         var sales_data = {
             us: 2000,
-            ru: 2000, 
+            ru: 2000,
             gb: 10000,
             fr: 10000,
             de: 10000,
@@ -1108,7 +1108,7 @@ $(function() {
 
 
     $('#select-all-items').on('change', function() {
-        var $this = $(this).children(':checkbox').get(0);    
+        var $this = $(this).children(':checkbox').get(0);
 
         $(this).parents('li')
             .siblings()
@@ -1163,7 +1163,7 @@ $(function() {
 
 
 	});
-	
+
 });
 $(function () {
 
@@ -1174,14 +1174,14 @@ $(function () {
 
 	$('#sidebar-collapse-btn').on('click', function(event){
 		event.preventDefault();
-		
+
 		$("#app").toggleClass("sidebar-open");
 	});
 
 	$("#sidebar-overlay").on('click', function() {
 		$("#app").removeClass("sidebar-open");
 	});
-	
+
 });
 $(function() {
 	$('.nav-profile > li > a').on('click', function() {
@@ -1281,10 +1281,10 @@ $(function () {
 			setThemeControlsState();
 			saveThemeSettings();
 
-			$(document).trigger("themechange");	
-			
+			$(document).trigger("themechange");
+
 			next();
-		});	
+		});
 	}
 
 	/************************************************
@@ -1348,8 +1348,8 @@ $(function () {
 	*			Update theme color
 	*************************************************/
 	function setThemeColor(){
-		config.chart.colorPrimary = tinycolor($ref.find(".chart .color-primary").css("color"));	
-		config.chart.colorSecondary = tinycolor($ref.find(".chart .color-secondary").css("color"));	
+		config.chart.colorPrimary = tinycolor($ref.find(".chart .color-primary").css("color"));
+		config.chart.colorSecondary = tinycolor($ref.find(".chart .color-secondary").css("color"));
 	}
 
 	/************************************************
@@ -1385,5 +1385,5 @@ $(function() {
 // start load bar
 NProgress.start();
 
-// end loading bar 
+// end loading bar
 NProgress.done();
