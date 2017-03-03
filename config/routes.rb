@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'landing/index'
+  post 'landing/subscribes'
 
   constraints(subdomain: App.host('api')) do
     # mount Sidekiq::Web => '/workers'

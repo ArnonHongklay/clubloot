@@ -134,7 +134,7 @@
           var fname = $("#fname").val();
           var email = $("#email").val();
           $.ajax({
-            url: '/subscribe',
+            url: '<%=landing_subscribes_path%>',
             data: {
               'name': fname,
               'email': email

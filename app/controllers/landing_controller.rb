@@ -1,10 +1,13 @@
 class LandingController < ApplicationController
   layout 'landing'
+  skip_before_filter :verify_authenticity_token
 
   def index
   end
 
-  def mailer
-
+  def subscribes
+    if subscriber = Subscribe.create(name: params[:name], email: params[:email])
+      SubscribeMailer.subscribe_email(subscriber)
+    end
   end
 end
