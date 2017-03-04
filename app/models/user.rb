@@ -89,16 +89,6 @@ class User
   # after_save :change_access_token
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
-  def join_contest(contest_id)
-    if self.contests.find(contest_id).blank?
-      contest = Contest.find(contest_id)
-      self.contests << contest
-      self.save
-    else
-      false
-    end
-  end
-
   def self.hard_update_token
     User.all.each do |user|
       user.update(token: App.generate_code(32))

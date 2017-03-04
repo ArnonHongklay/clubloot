@@ -1,5 +1,7 @@
 class Contest
   include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Enum
   # srore_in collection: 'templates', database: 'clubloot-development'
 
   field :name,  type: String
@@ -7,7 +9,8 @@ class Contest
 
   field :status, type: String
   field :active, type: Boolean, default: false
-  field :state,  type: String, default: "upcoming"
+  # field :state,  type: String, default: "upcoming"
+  enum :state, [:upcoming, :live, :end, :cancel], default: :upcoming
 
   field :prize, type: Integer
   field :fee, type: Integer
@@ -33,6 +36,17 @@ class Contest
     contest.players << user
     if contest.save
       contest
+    else
+      false
+    end
+  end
+
+  def join_contest(user, contest_id)
+    contest = Contest.find(contest_id)
+
+    if user.contests.where(id: contest_id).blank?
+      user.contests << contest
+      user.save
     else
       false
     end

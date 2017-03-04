@@ -89,7 +89,7 @@ module V1
         post "/join" do
           begin
             if user = User.find_by(token: params[:token])
-              if user.join_contest(params[:contest_id])
+              if contest = Contest.create_contest(user, params[:contest_id])
                 present :status, :success
                 present :data, contest, with: Entities::ContestExpose
               else
