@@ -46,6 +46,8 @@ class Contest
     if user.contests.where(id: contest_id).blank?
       contest.players << user
       contest.save
+
+      contest
     else
       false
     end
