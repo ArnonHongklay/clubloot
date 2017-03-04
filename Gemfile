@@ -139,3 +139,4 @@ gem 'open_uri_redirections'
 # ActiveRecord Helper
 gem 'figaro'
 gem 'aws-sdk', '~> 2'
+gem 'sidekiq'
