@@ -63,18 +63,23 @@ class Contest
   def self.quiz(user, contest, quizes)
     this_contest = user.contests.find(contest)
     questions = this_contest.template.questions
-    quizes.each do |quiz|
-      question = questions.find(quiz[:question_id])
-      if question.present?
-        if question.answers.find(quiz[:answer_id]).present?
-          this_contest.quizes.create(quiz.merge!(player_id: user.id))
+
+    if questions.count == quizes.count
+      quizes.each do |quiz|
+        question = questions.where(id: quiz[:question_id]).first
+        if question.present?
+          if question.answers.find(quiz[:answer_id]).present?
+            this_contest.quizes.create(quiz.merge!(player_id: user.id))
+          else
+            this_contest.quizes.destroy_all
+            raise "this question don't exists"
+          end
         else
-          this_contest.quizes.destroy_all
           raise "this question don't exists"
         end
-      else
-        raise "this question don't exists"
       end
+    else
+      this_contest.players.find(user).delete
     end
   end
 
@@ -82,7 +87,7 @@ class Contest
     this_contest = user.contests.find(contest)
     questions = this_contest.template.questions
     quizes.each do |quiz|
-      question = questions.find(quiz[:question_id])
+      question = questions.where(id: quiz[:question_id]).first
       if question.present?
         if question.answers.find(quiz[:answer_id]).present?
           this_contest.quizes.destroy_all
@@ -167,159 +172,159 @@ class Contest
   def self.refund_list
     [
       [
-        [{type: 'coin', value: 50}],
-        [{type: 'coin', value: 34}],
-        [{type: 'coin', value: 25}],
-        [{type: 'coin', value: 20}],
-        [{type: 'coin', value: 17}],
-        [{type: 'coin', value: 15}],
-        [{type: 'coin', value: 13}],
-        [{type: 'coin', value: 12}],
-        [{type: 'coin', value: 10}]
+        { type: 'coin', value: 50 },
+        { type: 'coin', value: 34 },
+        { type: 'coin', value: 25 },
+        { type: 'coin', value: 20 },
+        { type: 'coin', value: 17 },
+        { type: 'coin', value: 15 },
+        { type: 'coin', value: 13 },
+        { type: 'coin', value: 12 },
+        { type: 'coin', value: 10 }
       ],
       #1R 67C 50C 40C 34C 29C 25C 23C 20C
       [
-        [{type: 'ruby', value: 1}],
-        [{type: 'coin', value: 67}],
-        [{type: 'coin', value: 50}],
-        [{type: 'coin', value: 40}],
-        [{type: 'coin', value: 34}],
-        [{type: 'coin', value: 29}],
-        [{type: 'coin', value: 25}],
-        [{type: 'coin', value: 23}],
-        [{type: 'coin', value: 20}]
+        { type: 'ruby', value: 1 },
+        { type: 'coin', value: 67 },
+        { type: 'coin', value: 50 },
+        { type: 'coin', value: 40 },
+        { type: 'coin', value: 34 },
+        { type: 'coin', value: 29 },
+        { type: 'coin', value: 25 },
+        { type: 'coin', value: 23 },
+        { type: 'coin', value: 20 }
       ],
       #1R 50C 1R  75C 60C 50C 43C 38C 34C 30C
       [
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 50}],
-        [{type: 'ruby', value: 1}],
-        [{type: 'coin', value: 75}],
-        [{type: 'coin', value: 60}],
-        [{type: 'coin', value: 50}],
-        [{type: 'coin', value: 43}],
-        [{type: 'coin', value: 38}],
-        [{type: 'coin', value: 34}],
-        [{type: 'coin', value: 30}]
+        { type: 'ruby', value: 1}, {type: 'coin', value: 50 },
+        { type: 'ruby', value: 1 },
+        { type: 'coin', value: 75 },
+        { type: 'coin', value: 60 },
+        { type: 'coin', value: 50 },
+        { type: 'coin', value: 43 },
+        { type: 'coin', value: 38 },
+        { type: 'coin', value: 34 },
+        { type: 'coin', value: 30 }
       ],
       #2R 1R 34C  1R  80C 67C 58C 50C 45C 40C
       [
-        [{type: 'ruby', value: 2}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 34}],
-        [{type: 'ruby', value: 1}],
-        [{type: 'coin', value: 80}],
-        [{type: 'coin', value: 67}],
-        [{type: 'coin', value: 58}],
-        [{type: 'coin', value: 50}],
-        [{type: 'coin', value: 45}],
-        [{type: 'coin', value: 40}]
+        { type: 'ruby', value: 2 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 34 },
+        { type: 'ruby', value: 1 },
+        { type: 'coin', value: 80 },
+        { type: 'coin', value: 67 },
+        { type: 'coin', value: 58 },
+        { type: 'coin', value: 50 },
+        { type: 'coin', value: 45 },
+        { type: 'coin', value: 40 }
       ],
       #2R 50C 1R 67C  1R 25C  1R  84C 72C 63C 56C 50C
       [
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 67}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 25}],
-        [{type: 'ruby', value: 1}],
-        [{type: 'coin', value: 84}],
-        [{type: 'coin', value: 72}],
-        [{type: 'coin', value: 63}],
-        [{type: 'coin', value: 56}],
-        [{type: 'coin', value: 50}]
+        { type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 67 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 25 },
+        { type: 'ruby', value: 1 },
+        { type: 'coin', value: 84 },
+        { type: 'coin', value: 72 },
+        { type: 'coin', value: 63 },
+        { type: 'coin', value: 56 },
+        { type: 'coin', value: 50 }
       ],
       #1S 3R 34C  2R 50C  2R  1R 67C  1R 43C  1R 25C  1R 12C  1R
       [
-        [{type: 'sapphire', value: 1}],
-        [{type: 'ruby', value: 3}, {type: 'coin', value: 34}],
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'ruby', value: 2}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 67}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 43}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 25}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 12}],
-        [{type: 'ruby', value: 1}]
+        { type: 'sapphire', value: 1 },
+        { type: 'ruby', value: 3}, {type: 'coin', value: 34 },
+        { type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'ruby', value: 2 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 67 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 43 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 25 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 12 },
+        { type: 'ruby', value: 1 }
       ],
       #1S 2R 50C  1S  3R 75C  3R  2R 50C  2R 15C  1R 88C  1R 67C  1R 50C
       [
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'sapphire', value: 1}],
-        [{type: 'ruby', value: 3}, {type: 'coin', value: 75}],
-        [{type: 'ruby', value: 3}],
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 15}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 88}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 67}],
-        [{type: 'ruby', value: 1}, {type: 'coin', value: 50}]
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'sapphire', value: 1 },
+        { type: 'ruby', value: 3}, {type: 'coin', value: 75 },
+        { type: 'ruby', value: 3 },
+        { type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'ruby', value: 2}, {type: 'coin', value: 15 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 88 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 67 },
+        { type: 'ruby', value: 1}, {type: 'coin', value: 50 }
       ],
       #2S 1S 1R 67C 1S  4R  3R 34C  2R 86C  2R 50C  2R 23C  2R
       [
-        [{type: 'sapphire', value: 2}],
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 67}],
-        [{type: 'sapphire', value: 1}],
-        [{type: 'ruby', value: 4}],
-        [{type: 'ruby', value: 3}, {type: 'coin', value: 34}],
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 86}],
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 23}],
-        [{type: 'ruby', value: 2}]
+        { type: 'sapphire', value: 2 },
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 67 },
+        { type: 'sapphire', value: 1 },
+        { type: 'ruby', value: 4 },
+        { type: 'ruby', value: 3}, {type: 'coin', value: 34 },
+        { type: 'ruby', value: 2}, {type: 'coin', value: 86 },
+        { type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'ruby', value: 2}, {type: 'coin', value: 23 },
+        { type: 'ruby', value: 2 }
       ],
       #2S 2R 50C  1S 3R 34C 1S 1R 25C 1S  4R 17C  3R 58C  3R 13C  2R 78C  2R 50C
       [
-        [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34}],
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 25}],
-        [{type: 'sapphire', value: 1}],
-        [{type: 'ruby', value: 4}, {type: 'coin', value: 17}],
-        [{type: 'ruby', value: 3}, {type: 'coin', value: 58}],
-        [{type: 'ruby', value: 3}, {type: 'coin', value: 13}],
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 78}],
-        [{type: 'ruby', value: 2}, {type: 'coin', value: 50}]
+        { type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34 },
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 25 },
+        { type: 'sapphire', value: 1 },
+        { type: 'ruby', value: 4}, {type: 'coin', value: 17 },
+        { type: 'ruby', value: 3}, {type: 'coin', value: 58 },
+        { type: 'ruby', value: 3}, {type: 'coin', value: 13 },
+        { type: 'ruby', value: 2}, {type: 'coin', value: 78 },
+        { type: 'ruby', value: 2}, {type: 'coin', value: 50 }
       ],
       # 1E  3S 1R 67C 2S 2R 50C 2S  1S 3R 34C 1S 2R 15C 1S 25C  1S 56C  1S
       [
-        [{type: 'emerald', value: 1}],
-        [{type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67}],
-        [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'sapphire', value: 2}],
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34}],
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 15}],
-        [{type: 'sapphire', value: 1}, {type: 'coin', value: 56}],
-        [{type: 'sapphire', value: 1}, {type: 'coin', value: 25}],
-        [{type: 'sapphire', value: 1}]
+        { type: 'emerald', value: 1 },
+        { type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67 },
+        { type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'sapphire', value: 2 },
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34 },
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 15 },
+        { type: 'sapphire', value: 1}, {type: 'coin', value: 56 },
+        { type: 'sapphire', value: 1}, {type: 'coin', value: 25 },
+        { type: 'sapphire', value: 1 }
       ],
       # 1E 2S 2R 50C  1E  3S 3R 75C 3S  2S 2R 50C 2S 72C  1S 4R 38C 1S 3R 34C 1S 2R 50C
       [
-        [{type: 'emerald', value: 1}, {type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'emerald', value: 1}],
-        [{type: 'sapphire', value: 3}, {type: 'ruby', value: 3}, {type: 'coin', value: 75}],
-        [{type: 'sapphire', value: 3}],
-        [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'sapphire', value: 2}, {type: 'coin', value: 72}],
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 4}, {type: 'coin', value: 38}],
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34}],
-        [{type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}]
+        { type: 'emerald', value: 1}, {type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'emerald', value: 1 },
+        { type: 'sapphire', value: 3}, {type: 'ruby', value: 3}, {type: 'coin', value: 75 },
+        { type: 'sapphire', value: 3 },
+        { type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'sapphire', value: 2}, {type: 'coin', value: 72 },
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 4}, {type: 'coin', value: 38 },
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34 },
+        { type: 'sapphire', value: 1}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 }
       ],
       #2E 1E 1S 3R 34C  1E  4S  3S 1R 67C 2S 4R 29C 2S 2R 50C 2S 1R 12C 2S
       [
-        [{type: 'emerald', value: 2}],
-        [{type: 'emerald', value: 1}, {type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34}],
-        [{type: 'emerald', value: 1}],
-        [{type: 'sapphire', value: 4}],
-        [{type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67}],
-        [{type: 'sapphire', value: 2}, {type: 'ruby', value: 4}, {type: 'coin', value: 29}],
-        [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'sapphire', value: 2}, {type: 'ruby', value: 1}, {type: 'coin', value: 12}],
-        [{type: 'sapphire', value: 2}]
+        { type: 'emerald', value: 2 },
+        { type: 'emerald', value: 1}, {type: 'sapphire', value: 1}, {type: 'ruby', value: 3}, {type: 'coin', value: 34 },
+        { type: 'emerald', value: 1 },
+        { type: 'sapphire', value: 4 },
+        { type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67 },
+        { type: 'sapphire', value: 2}, {type: 'ruby', value: 4}, {type: 'coin', value: 29 },
+        { type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'sapphire', value: 2}, {type: 'ruby', value: 1}, {type: 'coin', value: 12 },
+        { type: 'sapphire', value: 2 }
       ],
       #2E 2S 2R 50C 1E 3S 1R 67C  1E 1S 1R 25C  1E  4S 84C  3S 2R 86C 3S 63C  2S 3R 89C 2S 2R 50C
       [
-        [{type: 'emerald', value: 2}, {type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}],
-        [{type: 'emerald', value: 1}, {type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67}],
-        [{type: 'emerald', value: 1}, {type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 25}],
-        [{type: 'emerald', value: 1}],
-        [{type: 'sapphire', value: 4}, {type: 'coin', value: 84}],
-        [{type: 'sapphire', value: 3}, {type: 'ruby', value: 2}, {type: 'coin', value: 86}],
-        [{type: 'sapphire', value: 3}, {type: 'coin', value: 63}],
-        [{type: 'sapphire', value: 2}, {type: 'ruby', value: 3}, {type: 'coin', value: 89}],
-        [{type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50}]
+        { type: 'emerald', value: 2}, {type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 },
+        { type: 'emerald', value: 1}, {type: 'sapphire', value: 3}, {type: 'ruby', value: 1}, {type: 'coin', value: 67 },
+        { type: 'emerald', value: 1}, {type: 'sapphire', value: 1}, {type: 'ruby', value: 1}, {type: 'coin', value: 25 },
+        { type: 'emerald', value: 1 },
+        { type: 'sapphire', value: 4}, {type: 'coin', value: 84 },
+        { type: 'sapphire', value: 3}, {type: 'ruby', value: 2}, {type: 'coin', value: 86 },
+        { type: 'sapphire', value: 3}, {type: 'coin', value: 63 },
+        { type: 'sapphire', value: 2}, {type: 'ruby', value: 3}, {type: 'coin', value: 89 },
+        { type: 'sapphire', value: 2}, {type: 'ruby', value: 2}, {type: 'coin', value: 50 }
       ]
     ]
   end
