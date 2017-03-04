@@ -53,6 +53,13 @@ class Contest
     end
   end
 
+  def self.edit_contest(user, contest_id)
+    contest = Contest.find(contest_id)
+    if user.contests.where(id: contest_id).present?
+      contest
+    end
+  end
+
   def self.quiz(user, contest, quizes)
     this_contest = user.contests.find(contest)
     questions = this_contest.template.questions
@@ -60,6 +67,25 @@ class Contest
       question = questions.find(quiz[:question_id])
       if question.present?
         if question.answers.find(quiz[:answer_id]).present?
+          this_contest.quizes.create(quiz.merge!(player_id: user.id))
+        else
+          this_contest.quizes.destroy_all
+          raise "this question don't exists"
+        end
+      else
+        raise "this question don't exists"
+      end
+    end
+  end
+
+  def self.edit_quiz(user, contest, quizes)
+    this_contest = user.contests.find(contest)
+    questions = this_contest.template.questions
+    quizes.each do |quiz|
+      question = questions.find(quiz[:question_id])
+      if question.present?
+        if question.answers.find(quiz[:answer_id]).present?
+          this_contest.quizes.destroy_all
           this_contest.quizes.create(quiz.merge!(player_id: user.id))
         else
           this_contest.quizes.destroy_all
