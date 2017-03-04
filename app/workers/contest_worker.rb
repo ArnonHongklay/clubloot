@@ -2,6 +2,8 @@ class ContestWorker
   include Sidekiq::Worker
 
   def perform(*args)
-    # Do something
+    Contest.all.each do |c|
+      p c.status
+    end
   end
 end
