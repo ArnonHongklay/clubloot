@@ -43,10 +43,9 @@ class Contest
 
   def self.join_contest(user, contest_id)
     contest = Contest.find(contest_id)
-
     if user.contests.where(id: contest_id).blank?
-      user.contests << contest
-      user.save
+      contest.players << user
+      contest.save
     else
       false
     end
