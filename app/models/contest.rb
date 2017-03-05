@@ -6,8 +6,8 @@ class Contest
   field :name,  type: String
   field :max_players, type: Integer, default: 2
 
-  field :status, type: String
-  enum :state, [:usable, :unusable], default: :usable
+  # field :status, type: String
+  enum :status, [:usable, :unusable], default: :usable
   field :active, type: Boolean, default: false
   enum :state, [:upcoming, :live, :end, :cancel], default: :upcoming
 
