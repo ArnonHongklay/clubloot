@@ -35,7 +35,7 @@ module V1
         get "/" do
           begin
             if user = User.find_by(token: params[:token])
-              contests = user.contests.where(state: params[:state])
+              contests = user.contests.where(_state: params[:state])
               present :status, :success
               present :data, contests, with: Entities::ContestAllExpose
             else
