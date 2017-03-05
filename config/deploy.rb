@@ -29,6 +29,13 @@ namespace :deploy do
     end
   end
 
+  desc 'run workers'
+  task :restart_workers do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :sudo, "systemctl restart sidekiq"
+    end
+  end
+
   desc 'Bower Install'
   task :bower_install do
     on roles(:app), in: :sequence, wait: 5 do
@@ -60,6 +67,7 @@ namespace :deploy do
 
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
+  after :published,   :restart_workers
 end
 
 namespace :node do
