@@ -2,7 +2,6 @@ class Contest
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Enum
-  # srore_in collection: 'templates', database: 'clubloot-development'
 
   field :name,  type: String
   field :max_players, type: Integer, default: 2

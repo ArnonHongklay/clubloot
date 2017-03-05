@@ -1,4 +1,5 @@
 class ProgramsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_program, only: [:show, :edit, :update, :destroy, :toggle_status]
 
   # GET /programs

@@ -1,4 +1,5 @@
 class LedgersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_ledger, only: :show
 
   def index

@@ -1,4 +1,5 @@
 class GemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_gem, only: [:index, :update]
 
   def index; end

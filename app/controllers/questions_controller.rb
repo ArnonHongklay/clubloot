@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_template, only: [:new, :create, :edit_all, :update_all]
 
   def new
