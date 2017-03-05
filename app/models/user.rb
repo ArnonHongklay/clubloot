@@ -3,6 +3,8 @@ class User
   include Mongoid::Paperclip
   include Mongoid::Timestamps
 
+  srore_in collection: 'accounts'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
