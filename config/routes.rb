@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   post 'landing/subscribes'
 
   constraints(subdomain: App.host('api')) do
-    # mount Sidekiq::Web => '/workers'
-    # mount ActionCable.server => "/cable"
+    mount Sidekiq::Web => '/workers'
+    mount ActionCable.server => "/cable"
 
     mount ApplicationAPI, at: '/'
     mount GrapeSwaggerRails::Engine, at: '/explorer'

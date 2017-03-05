@@ -8,8 +8,8 @@ class Contest
   field :max_players, type: Integer, default: 2
 
   field :status, type: String
+  enum :state, [:usable, :unusable], default: :usable
   field :active, type: Boolean, default: false
-  # field :state,  type: String, default: "upcoming"
   enum :state, [:upcoming, :live, :end, :cancel], default: :upcoming
 
   field :prize, type: Integer
@@ -21,6 +21,9 @@ class Contest
   has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
 
   embeds_many :quizes, class_name: 'Quiz' #, dependent: :nullify
+
+  scope :active,  -> { where(active: true) }
+  scope :pending, -> { where(active: false) }
 
   def self.create_contest(user, template, contest)
     player = contest[:player].to_i
@@ -45,9 +48,11 @@ class Contest
     contest = Contest.find(contest_id)
     if user.contests.where(id: contest_id).blank?
       contest.players << user
-      contest.save
-
-      contest
+      if contest.save
+        contest
+      else
+        false
+      end
     else
       false
     end

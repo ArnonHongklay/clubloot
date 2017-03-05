@@ -108,7 +108,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 # gem 'knock', '~> 2.0'
@@ -118,7 +117,7 @@ gem 'omniauth-facebook'
 gem 'koala'
 
 gem 'jbuilder', '~> 2.5'
-gem 'json', git: 'https://github.com/arnonhongklay/json', branch: 'v1.8'
+gem 'json', git: 'https://github.com/nonmadden/json', branch: 'v1.8'
 gem 'rack-cors'
 gem 'rack-attack'
 
@@ -138,5 +137,46 @@ gem 'open_uri_redirections'
 
 # ActiveRecord Helper
 gem 'figaro'
-gem 'aws-sdk', '~> 2'
+# gem 'annotate'
+# gem 'has_scope'
+# gem 'enumerize'
+# gem 'friendly_id', '~> 5.1.0'
+# gem 'paranoia', git: 'https://github.com/nonmadden/paranoia', branch: 'rails5'
+# gem 'paperclip', git: 'https://github.com/nonmadden/paperclip'
+# gem 'paperclip-ffmpeg'
+# gem 'rqrcode_png'
+# gem 'dragonfly', '~> 1.0.12'
+# gem 'money-rails'
+
+# gem 'rubyzip', '= 1.0.0'
+# gem 'axlsx', '= 2.0.1'
+# gem 'axlsx_rails'
+
+# worker
+# gem 'devise-async'
 gem 'sidekiq'
+gem 'sidekiq-cron'
+
+# gem 'react_on_rails', '~> 6'
+
+# gem 'simple_form'
+# gem 'show_for'
+# gem 'kaminari'
+# gem 'rails_autolink'
+# gem 'rails-controller-testing'
+
+# gem 'firebase'
+# gem 'gcloud'
+gem 'aws-sdk', '~> 2'
+# gem 'omise'
+# gem 'mailgun'
+# gem 'one_signal'
+# gem 'slack-notifier'
+# gem 'rollbar'
+
+# marketing
+# gem 'meta-tags'
+# gem 'google-api-client'
+# gem 'mixpanel-ruby'
+# gem 'vanity'
+# gem 'split'
