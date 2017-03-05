@@ -43,3 +43,10 @@ ContestUpcomingWorker:
   class: "ContestUpcomingWorker"
   queue: default
   # active_job: true
+
+TokenWorker:
+  cron: "0/30 * * * *"
+  class: "TokenWorker"
+  queue: default
+  # active_job: true
+

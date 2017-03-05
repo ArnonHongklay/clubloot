@@ -1,9 +1,10 @@
 //= require jquery-ujs
+//= require cable
 
 $(document).on('ready', function() {
 
   var bodyId = $('body').attr('id');
-  console.log(bodyId);
+  // console.log(bodyId);
 
   function init() {
     console.log("xxxx")

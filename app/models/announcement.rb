@@ -19,8 +19,8 @@ class Announcement
 
     AnnouncementChannel.broadcast_to(
       "announcement_#{self.id}",
-      type: "announcement",
-      body: self
+      action: "announcement",
+      data: self
     )
   end
 end

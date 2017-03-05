@@ -96,7 +96,7 @@ class User
 
   def self.hard_update_token
     User.all.each do |user|
-      user.update(token: App.generate_code(32))
+      user.update(token: App.generate_code(32)) unless user.token.present?
     end
   end
 
