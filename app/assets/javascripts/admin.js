@@ -1,12 +1,18 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('ready', function() {
+
   var bodyId = $('body').attr('id');
   console.log(bodyId);
-  if(bodyId == 'edit-template' || bodyId == 'new-template') {
-    $('#datetimepicker1').datetimepicker({ format: 'YYYY-MM-DD HH:mm:ss' });
-    $('#datetimepicker2').datetimepicker({ format: 'YYYY-MM-DD HH:mm:ss' });
-  }
 
-  if(bodyId == 'announcement'){
-    $('#announcement_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD HH:mm:ss' });
+  function init() {
+    console.log("xxxx")
+    if(bodyId == 'edit-template' || bodyId == 'new-template') {
+        $('#datetimepicker1').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
+        $('#datetimepicker2').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
+    }
+
+    if(bodyId == 'announcement'){
+      $('#announcement_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
+    }
   }
+  init()
 });
