@@ -33,13 +33,13 @@
 # */30 * * * *
 
 ContestLiveWorker:
-  cron: "0 1 * * *"
+  cron: "*/1 * * * *"
   class: "ContestLiveWorker"
   queue: default
   # active_job: true
 
 ContestUpcomingWorker:
-  cron: "0 1 * * *"
+  cron: "*/1 * * * *"
   class: "ContestUpcomingWorker"
   queue: default
   # active_job: true
