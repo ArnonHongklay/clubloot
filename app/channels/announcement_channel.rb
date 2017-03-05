@@ -1,6 +1,5 @@
 class AnnouncementChannel < ApplicationCable::Channel
   def subscribed
-    # stream_from "some_channel"
     stream_from "announcement_#{params[:announcement_id]}"
   end
 

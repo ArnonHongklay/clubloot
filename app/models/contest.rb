@@ -121,7 +121,7 @@ class Contest
           last_name: player.last_name,
           email: player.email,
           quizes: quiz,
-          score: quiz.sum(&:currect)
+          score: quiz.sum(&:correct)
         )
       )
     end

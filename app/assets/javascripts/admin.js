@@ -1,3 +1,5 @@
+//= require jquery-ujs
+
 $(document).on('ready', function() {
 
   var bodyId = $('body').attr('id');
