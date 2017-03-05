@@ -9,8 +9,7 @@ class UsersController < ApplicationController
   end
 
   def subscribes
-    # @subscribe = Subscribe.all
-    @subscribes = User.all
+    @subscribes = Subscribe.all
   end
 
   def winners
