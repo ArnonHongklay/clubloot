@@ -33,7 +33,8 @@ namespace :deploy do
   task :restart_workers do
     on roles(:app), in: :sequence, wait: 5 do
       # execute :sudo, "systemctl restart sidekiq"
-      execute :sudo, "reload sidekiq index=10"
+      execute :sudo, "service sidekiq stop"
+      execute :sudo, "service sidekiq start"
     end
   end
 
