@@ -37,6 +37,7 @@ class Template
   end
 
   private
+
     def check_choice
       if number_answers_changed? or number_questions_changed?
         self.questions.destroy_all
