@@ -1,0 +1,45 @@
+
+# EventUpdateJob:
+#   cron: "0 6 * * *"
+#   class: "EventUpdateJob"
+#   queue: default
+#   active_job: true
+
+# ReminderJob:
+#   cron: "0 5 * * *"
+#   class: "ReminderJob"
+#   queue: default
+#   active_job: true
+
+# NotificationJob:
+#   cron: "*/5 * * * *"
+#   class: "NotificationJob"
+#   queue: default
+#   active_job: true
+
+# OrderInspectorJob:
+#   cron: "*/5 * * * *"
+#   class: "OrderInspectorJob"
+#   queue: default
+#   active_job: true
+
+# TicketInspectorJob:
+#   cron: "0 1 * * *"
+#   class: "TicketInspectorJob"
+#   queue: default
+#   active_job: true
+
+# every 30 minutes
+# */30 * * * *
+
+ContestLiveWorker:
+  cron: "0 1 * * *"
+  class: "ContestLiveWorker"
+  queue: default
+  # active_job: true
+
+ContestUpcomingWorker:
+  cron: "0 1 * * *"
+  class: "ContestUpcomingWorker"
+  queue: default
+  # active_job: true

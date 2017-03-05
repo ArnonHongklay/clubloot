@@ -8,19 +8,19 @@ class ContestWorker
       start_time  = contest.template.start_time
       end_time    = contest.template.end_time
 
-      if current_time >= start_time
-        contest.update(active: true)
-      else
-        contest.update(active: false)
-      end
+      # if current_time >= start_time
+      #   contest.update(active: true)
+      # else
+      #   contest.update(active: false)
+      # end
 
-      if current_time >= end_time
-        if contest.players.count < contest.max_players
-          contest.update(state: :cancel)
-        else
-          contest.update(state: :live)
-        end
-      end
+      # if current_time >= end_time
+      #   if contest.players.count < contest.max_players
+      #     contest.update(state: :cancel)
+      #   else
+      #     contest.update(state: :live)
+      #   end
+      # end
     end
   end
 end
