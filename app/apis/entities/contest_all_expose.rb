@@ -14,7 +14,7 @@ class Entities::ContestAllExpose < Grape::Entity
   expose :program do |item|
     item.template.program
   end
-  # expose :players do |item|
-  #   item.players
-  # end
+  expose :upcoming_time do |item|
+    item.template.end_time
+  end
 end
