@@ -42,7 +42,7 @@ class Template
   def end_contest
     update(active: false)
     contests.each do |contest|
-      WinnerWorker.perform_async(self, contest)
+      WinnerWorker.perform_async(self.id, contest.id)
     end
   end
 

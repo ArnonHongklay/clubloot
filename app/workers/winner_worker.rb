@@ -1,7 +1,7 @@
 class WinnerWorker
   include Sidekiq::Worker
 
-  def perform(template, contest)
+  def perform(tempalte_id, contest_id)
     # questions = template.questions
 
     # self.template.contests.each do |contest|
@@ -13,6 +13,8 @@ class WinnerWorker
     #     end
     #   end
     # end
+    template = Template.find(tempalte_id)
+    contest = Contest.find(contest_id)
 
     contest.update(_state: :end)
     contest.leaders.select{ |l| l.position == 1 }.each do |player|
