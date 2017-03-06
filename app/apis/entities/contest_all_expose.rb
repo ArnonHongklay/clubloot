@@ -11,6 +11,7 @@ class Entities::ContestAllExpose < Grape::Entity
   expose :players
   expose :template
   expose :winners
+  expose :quizes
   expose :program do |item|
     item.template.program
   end
