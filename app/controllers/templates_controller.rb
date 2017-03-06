@@ -49,6 +49,10 @@ class TemplatesController < ApplicationController
 
   def end_contest
     @template.end_contest
+    respond_to do |format|
+      format.html { redirect_to templates_url, notice: 'Template was successfully updated.' }
+      format.json { head :no_content }
+    end
   end
 
   def destroy

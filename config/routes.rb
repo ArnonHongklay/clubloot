@@ -30,6 +30,9 @@ Rails.application.routes.draw do
           put 'toggle_status', on: :member
         end
         resources :templates do
+          member do
+            get 'end_contest'
+          end
           resources :questions do
             collection do
               get 'edit_all'
@@ -45,9 +48,7 @@ Rails.application.routes.draw do
         resources :prizes
         get '/subscribes', to: 'users#subscribes'
         resources :users do
-          # member do
-            get '/winners', to: 'users#winners'
-          # end
+          get '/winners', to: 'users#winners'
         end
         resources :gems
       end
