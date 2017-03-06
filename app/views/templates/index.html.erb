@@ -34,6 +34,8 @@
       </form>
     </div>
   </div>
+
+  <h3>Template Active</h3>
   <div class="card items">
     <ul class="item-list striped">
       <li class="item item-list-header hidden-sm-down">
@@ -55,7 +57,64 @@
           </div>
         </div>
       </li>
-      <% @templates.each do |template| %>
+      <% @template_active.each do |template| %>
+        <li class="item">
+          <div class="item-row">
+            <div class="item-col fixed pull-left item-col-title">
+              <div class="item-heading">Name</div>
+              <div>
+                <%= link_to template do %>
+                  <h4 class="item-title">
+                    <%= template.try(:name) || template._id %>
+                  </h4>
+                <% end %>
+              </div>
+            </div>
+            <div class="item-col item-col-sales">
+              <div class="item-heading">Question</div>
+              <div><%= template.number_questions %></div>
+            </div>
+            <div class="item-col item-col-stats">
+              <div class="item-heading">Answers</div>
+              <div><%= template.number_answers %></div>
+            </div>
+            <div class="item-col item-col-date">
+              <div class="item-heading">Published</div>
+              <div class="no-overflow"> <%= template.start_time.try(:strftime, "%B %d, %Y %H:%M:%S") %> </div>
+            </div>
+            <div class="item-col item-col-date">
+              <div class="item-heading">Published</div>
+              <div class="no-overflow"> <%= template.end_time.try(:strftime, "%B %d, %Y %H:%M:%S") %> </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <h3>Template Expired</h3>
+  <div class="card items">
+    <ul class="item-list striped">
+      <li class="item item-list-header hidden-sm-down">
+        <div class="item-row">
+          <div class="item-col item-col-header item-col-title">
+            <div> <span>Name</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-sales">
+            <div class="no-overflow"> <span>Question</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-stats">
+            <div class="no-overflow"> <span>Answers</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-date">
+            <div> <span>Start Time</span> </div>
+          </div>
+          <div class="item-col item-col-header item-col-date">
+            <div> <span>End Time</span> </div>
+          </div>
+        </div>
+      </li>
+      <% @template_expired.each do |template| %>
         <li class="item">
           <div class="item-row">
             <div class="item-col fixed pull-left item-col-title">

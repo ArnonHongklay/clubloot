@@ -19,6 +19,9 @@ class Template
 
   after_save :check_choice
 
+  scope :active, -> { where(active: true) }
+  scope :expired, -> { where(active: false) }
+
   scope :upcoming_program, -> { where(:start_time.lte => Time.zone.now, :end_time.gte => Time.zone.now) }
   scope :live_program, -> { where(:end_time.lte => Time.zone.now) }
   scope :past_program, -> { where(:end_time.lte => Time.zone.now, :end_time.lte => Time.zone.now) }

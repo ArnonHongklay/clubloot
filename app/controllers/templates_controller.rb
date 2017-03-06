@@ -5,6 +5,8 @@ class TemplatesController < ApplicationController
 
   def index
     @templates = Template.all
+    @template_active = @templates.active
+    @template_expired = @templates.expired
   end
 
   def show
