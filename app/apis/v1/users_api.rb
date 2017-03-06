@@ -38,8 +38,11 @@ module V1
               if params[:state].eql?('winners')
                 contests = user.winners
               else
-                state = params[:state].eql?("past") ? 'end' : params[:state]
-                contests = user.contests.where(_state: state)
+                if params[:state].eql?('past')
+                  contests = user.contests.where(_state: 'end')
+                else
+                  contests = user.contests.active.where(_state: params[:state])
+                end
               end
               present :status, :success
               present :data, contests, with: Entities::ContestAllExpose
