@@ -24,7 +24,7 @@ class Template
 
   scope :upcoming_program, -> { active.where(:start_time.lte => Time.zone.now, :end_time.gte => Time.zone.now) }
   scope :live_program, -> { active.where(:end_time.lte => Time.zone.now) }
-  scope :past_program, -> { expired.where(:end_time.lte => Time.zone.now, :end_time.lte => Time.zone.now) }
+  scope :past_program, -> { expired }
 
   def self.upcoming_time
     upcoming = self.upcoming_program
