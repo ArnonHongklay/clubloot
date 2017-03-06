@@ -62,13 +62,6 @@ class Contest
     end
   end
 
-  def self.edit_contest(user, contest_id)
-    contest = Contest.find(contest_id)
-    if user.contests.where(id: contest_id).present?
-      contest
-    end
-  end
-
   def self.quiz(user, contest, quizes)
     this_contest = user.contests.find(contest)
     questions = this_contest.template.questions
@@ -89,6 +82,13 @@ class Contest
       end
     else
       this_contest.players.delete(user)
+    end
+  end
+
+  def self.edit_contest(user, contest_id)
+    contest = Contest.find(contest_id)
+    if user.contests.where(id: contest_id).present?
+      contest
     end
   end
 
