@@ -18,4 +18,5 @@ class Entities::ContestAllExpose < Grape::Entity
   expose :upcoming_time do |item|
     item.template.end_time
   end
+  expose :leaders
 end
