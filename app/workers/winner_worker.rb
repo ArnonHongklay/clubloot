@@ -14,10 +14,10 @@ class WinnerWorker
     #   end
     # end
 
-    contest.state = 'end'
+    contest.update(state: :end)
     contest.leaders.select{ |l| l.position == 1 }.each do |player|
       contest.winners << User.find(player.id)
+      contest.save!
     end
-    contest.save
   end
 end
