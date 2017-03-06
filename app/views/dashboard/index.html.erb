@@ -107,36 +107,12 @@
               </div>%>
               <table class="table table-striped">
                 <tbody>
+                  <% @richs.each do |rich| %>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <th scope="row"><%= rich.username %></th>
+                    <td><%= rich.coins %> coins</td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                  <% end %>
                 </tbody>
               </table>
             </div>
@@ -158,31 +134,21 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
+                    <th>Program</th>
+                    <th>Contest</th>
+                    <th>Player</th>
+                    <th>Start</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                  <% @contests.each do |contest| %>
+                    <tr>
+                      <th scope="row"><%= contest.try(:template).try(:program).try(:name) %></th>
+                      <td><%= contest.name %></td>
+                      <td><%= contest.max_players %></td>
+                      <td><%= contest.template.end_time.try(:strftime, "%B %d, %Y %H:%M:%S") %></td>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             </section>
