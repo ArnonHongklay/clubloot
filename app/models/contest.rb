@@ -50,6 +50,10 @@ class Contest
 
   def self.join_contest(user, contest_id)
     contest = Contest.find(contest_id)
+
+    raise "joined already" if contest.players.find(user.id)
+    raise "full player" if contest.players.count >= contest.max_players
+
     if user.contests.where(id: contest_id).blank?
       contest.players << user
       if contest.save
@@ -115,6 +119,7 @@ class Contest
 
   def leaders
     leaders = []
+
     players.each do |player|
       quiz = quizes.where(player_id: player.id)
       leaders.push(
