@@ -119,7 +119,7 @@ module V1
             if user = User.find_by(token: params[:token])
               if contest = Contest.edit_contest(user, params[:contest_id])
                 present :status, :success
-                present :data, contest, with: Entities::ContestExpose
+                present :data, contest, with: Entities::ContestEditExpose
               else
                 present :status, :failure
                 present :data, "Can't join a contest."
