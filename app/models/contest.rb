@@ -22,6 +22,8 @@ class Contest
   # has_many :user_contests
   # has_many :players, class_name: 'User', inverse_of: :contests, through: :user_contests
 
+  has_and_belongs_to_many :winners, class_name: 'User', inverse_of: :winners
+
   embeds_many :quizes, class_name: 'Quiz' #, dependent: :nullify
 
   scope :active,  -> { where(active: true) }

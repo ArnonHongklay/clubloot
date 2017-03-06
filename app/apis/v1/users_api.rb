@@ -30,14 +30,19 @@ module V1
       resource :contests do
         params do
           requires :token, type: String, default: nil, desc: 'User Token'
-          optional :state, type: String, default: "upcoming"
+          optional :state, type: String, default: "upcoming", desc: 'upcoming, live, past, winners'
         end
         get "/" do
           begin
             if user = User.find_by(token: params[:token])
-              contests = user.contests.where(_state: params[:state])
+              if params[:state].eql?('winners')
+                contests = user.winners
+              else
+                state = params[:state].eql?("past") ? 'end' : params[:state]
+                contests = user.contests.where(_state: state)
+              end
               present :status, :success
-              present :data, contests, with: Entities::ContestAllExpose
+              present :data, contests #, with: Entities::ContestAllExpose
             else
               present :status, :failure
               present :data, "Users don't have in our system."

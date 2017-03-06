@@ -89,6 +89,8 @@ class User
   # has_many :user_contests
   # has_many :contests, inverse_of: :players, through: :user_contests
 
+  has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
+
   has_many :host_contests, class_name: 'Contest', inverse_of: :host
 
   # after_save :change_access_token
