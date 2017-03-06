@@ -42,7 +42,7 @@ module V1
                 contests = user.contests.where(_state: state)
               end
               present :status, :success
-              present :data, contests #, with: Entities::ContestAllExpose
+              present :data, contests, with: Entities::ContestAllExpose
             else
               present :status, :failure
               present :data, "Users don't have in our system."

@@ -3,12 +3,17 @@ class Entities::ContestAllExpose < Grape::Entity
   expose :max_players
   expose :status
   expose :state
-  expose :prize
+  expose :active
   expose :fee
+  expose :prize
   expose :public
-  # expose :template do |item|
-  #   item.template
-  # end
+  expose :host
+  expose :players
+  expose :template
+  expose :winners
+  expose :program do |item|
+    item.template.program
+  end
   # expose :players do |item|
   #   item.players
   # end
