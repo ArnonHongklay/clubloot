@@ -39,12 +39,11 @@ class Template
   def end_contest
     update(active: false)
     contests.each do |contest|
-      WinnerWorker.perform_later(contest)
+      WinnerWorker.perform_async(self, contest)
     end
   end
 
   private
-
     def check_choice
       if number_answers_changed? or number_questions_changed?
         self.questions.destroy_all

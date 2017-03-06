@@ -112,10 +112,10 @@ class Contest
   end
 
   def leaders
-    bucket = []
+    leaders = []
     players.each do |player|
       quiz = quizes.where(player_id: player.id)
-      bucket.push(
+      leaders.push(
         Hashie::Mash.new(
           id: player.id,
           name: player.name,
@@ -123,11 +123,25 @@ class Contest
           last_name: player.last_name,
           email: player.email,
           quizes: quiz,
-          score: quiz.sum(&:correct)
+          score: quiz.sum(&:correct),
+          position: nil
         )
       )
     end
-    bucket
+
+    leaders.sort(&:score).each_with_index do |leader, i|
+      if i == 0
+        leader.update(position: 1)
+      else
+        if leaders[i-1].score == leaders[i].score
+          leader.update(position: leaders[i-1].position)
+        else
+          leader.update(position: l + 1)
+        end
+      end
+    end
+
+    leaders
   end
 
   def self.prize_list
