@@ -96,14 +96,13 @@ class Contest
     this_contest = user.contests.find(contest)
     questions = this_contest.template.questions
 
+    # clear old answr
+    this_contest.quizes.destroy_all
     quizes.each do |quiz|
       question = questions.where(id: quiz[:question_id]).first
       if question.present?
         if question.answers.find(quiz[:answer_id]).present?
-          this_contest.quizes.destroy_all
           this_contest.quizes.create(quiz.merge!(player_id: user.id))
-
-          this_contest
         else
           this_contest.quizes.destroy_all
           raise "this question don't exists"
