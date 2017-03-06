@@ -95,11 +95,12 @@ class Contest
   def self.edit_quiz(user, contest, quizes)
     this_contest = user.contests.find(contest)
     questions = this_contest.template.questions
+
     quizes.each do |quiz|
       question = questions.where(id: quiz[:question_id]).first
       if question.present?
         if question.answers.find(quiz[:answer_id]).present?
-          this_contest.quizes.destroy_all
+          this_contest.quizes.find_by(player_id: user.id).delete
           this_contest.quizes.create(quiz.merge!(player_id: user.id))
         else
           this_contest.quizes.destroy_all
