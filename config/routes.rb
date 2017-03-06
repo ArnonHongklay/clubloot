@@ -44,8 +44,11 @@ Rails.application.routes.draw do
         end
         resources :prizes
         get '/subscribes', to: 'users#subscribes'
-        get '/winners', to: 'users#winners'
-        resources :users
+        resources :users do
+          # member do
+            get '/winners', to: 'users#winners'
+          # end
+        end
         resources :gems
       end
     end

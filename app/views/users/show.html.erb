@@ -7,6 +7,10 @@
     </h3>
   </div>
 
+  <% if @user.winners.present? %>
+    <%= link_to 'Winners', user_winners_path(@user) %>
+  <% end %>
+
   <p id="notice"><%= notice %></p>
   <p>
     Name: <%= @user.name %>

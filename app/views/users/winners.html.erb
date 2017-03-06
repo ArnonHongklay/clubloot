@@ -19,44 +19,19 @@
                 <table class="table table-bordered table-hover flip-content">
                   <thead class="flip-header">
                     <tr>
+                      <th>Contest name</th>
+                      <th>Players</th>
+                      <th>Fee</th>
                       <th>Username</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Balance</th>
-                      <th colspan="3">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% @winners.each do |user| %>
+                    <% @winners.each do |winner| %>
                       <tr>
-                        <td><%= user.username %></td>
-                        <td><%= user.first_name %></td>
-                        <td><%= user.last_name %></td>
-                        <td>
-                          <span>
-                            <%= user.coins %>
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                          </span>
-                          <span style="color: #951111">
-                            <%= user.rubies %>
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
-                          </span>
-                          <span style="color: #2A4C7A">
-                            <%= user.sapphires %>
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
-                          </span>
-                          <span style="color: #758F42">
-                            <%= user.emeralds %>
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
-                          </span>
-                          <span style="color: #9F9B93">
-                            <%= user.diamonds %>
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
-                          </span>
-                        </td>
-                        <td><%= link_to 'Show', user %></td>
-                        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-                        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        <td><%= winner.name %></td>
+                        <td><%= winner.players.count %> users</td>
+                        <td><%= winner.fee %></td>
+                        <td><%= @user.username %></td>
                       </tr>
                     <% end %>
                   </tbody>

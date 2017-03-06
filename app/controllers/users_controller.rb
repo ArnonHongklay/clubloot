@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   end
 
   def winners
-    # @winners = Winner.all
-    @winners = User.all
+    @user = User.find(params[:user_id])
+    @winners = @user.winners
   end
 
   # GET /users/1
