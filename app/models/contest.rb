@@ -138,7 +138,7 @@ class Contest
         if leaders[i-1].score == leaders[i].score
           leader.update(position: leaders[i-1].position)
         else
-          leader.update(position: l + 1)
+          leader.update(position: i + 1)
         end
       end
     end
