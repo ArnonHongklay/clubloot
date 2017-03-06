@@ -13,7 +13,7 @@ class Template
 
   field :start_time,        type: DateTime
   field :end_time,          type: DateTime
-  field :active,            type: Boolean
+  field :active,            type: Boolean, default: true
 
   has_many :contests
 
@@ -34,6 +34,13 @@ class Template
 
   def self.current_template
     self.upcoming_program.sort_by(&:end_time).first
+  end
+
+  def end_contest
+    update(active: false)
+    contests.each do |contest|
+      WinnerWorker.perform_later(contest)
+    end
   end
 
   private

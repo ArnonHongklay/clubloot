@@ -1,30 +1,22 @@
 class TemplatesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_template, only: [:show, :edit, :update, :destroy]
+  before_action :set_template, only: [:show, :edit, :update, :end_contest, :destroy]
   before_action :set_programs, only: [:new, :edit, :create, :update]
 
-  # GET /templates
-  # GET /templates.json
   def index
     @templates = Template.all
   end
 
-  # GET /templates/1
-  # GET /templates/1.json
   def show
   end
 
-  # GET /templates/new
   def new
     @template = Template.new
   end
 
-  # GET /templates/1/edit
   def edit
   end
 
-  # POST /templates
-  # POST /templates.json
   def create
     @template = Template.new(template_params)
 
@@ -39,8 +31,6 @@ class TemplatesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /templates/1
-  # PATCH/PUT /templates/1.json
   def update
     respond_to do |format|
       if @template.update(template_params)
@@ -57,8 +47,10 @@ class TemplatesController < ApplicationController
     end
   end
 
-  # DELETE /templates/1
-  # DELETE /templates/1.json
+  def end_contest
+    @template.end_contest
+  end
+
   def destroy
     @template.destroy
     respond_to do |format|
@@ -68,7 +60,6 @@ class TemplatesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_template
       @template = Template.find(params[:id])
     end
