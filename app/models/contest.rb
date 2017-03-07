@@ -29,6 +29,22 @@ class Contest
   scope :active,  -> { where(active: true) }
   scope :pending, -> { where(active: false) }
 
+  def save_transaction(user, contest)
+    transaction = OpenStruct.new(
+      status: 'complete',
+      format: 'contest',
+      action: 'plus',
+      description: 'create or join contest',
+      from: 'coins',
+      to: 'contest',
+      unit: 'coins',
+      amount: contest.fee,
+      tax: 0
+    )
+    user.update(coins: (user.coins - contest.fee))
+    Ledger.create_transaction(user, transaction)
+  end
+
   def self.create_contest(user, template, contest)
     player = contest[:player].to_i
     raise "out of range player" if player < 2 && player > 20
@@ -361,21 +377,4 @@ class Contest
       ]
     ]
   end
-
-  private
-    def save_transaction(user, contest)
-      transaction = OpenStruct.new(
-        status: 'complete',
-        format: 'contest',
-        action: 'plus',
-        description: 'create or join contest',
-        from: 'coins',
-        to: 'contest',
-        unit: 'coins',
-        amount: contest.fee,
-        tax: 0
-      )
-      user.update(coins: (user.coins - contest.fee))
-      Ledger.create_transaction(user, transaction)
-    end
 end
