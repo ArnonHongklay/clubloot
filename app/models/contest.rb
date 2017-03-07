@@ -55,7 +55,7 @@ class Contest
       x[:player] == player
     end.first[:fee][fee]
 
-    contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], fee: fee_select)
+    contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], fee: fee_select, prize: fee)
     contest.players << user
     if contest.save
       save_transaction(user, contest)
@@ -172,6 +172,14 @@ class Contest
     end
 
     temp
+  end
+
+  def loot_prize
+    if winners.count > 0
+      Contest.refund_list[self.prize][self.winners.count]
+    else
+      false
+    end
   end
 
   def self.prize_list

@@ -30,10 +30,10 @@ class WinnerWorker
   private
     def save_transaction(user, contest)
       total_winner = contest.winners.count
-      fee          = contest.fee
-      prize = fee / total_winner
+      prize          = contest.prize
+      # prize = fee / total_winner
 
-      rate = Contest.refund_list[Contest.prize_list.index(fee)][total_winner]
+      rate = Contest.refund_list[prize][total_winner]
 
       transaction = OpenStruct.new(
         status: 'complete',

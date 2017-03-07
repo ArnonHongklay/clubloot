@@ -20,4 +20,5 @@ class Entities::ContestAllExpose < Grape::Entity
     item.template.end_time
   end
   expose :leaders
+  expose :loot_prize
 end
