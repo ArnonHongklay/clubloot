@@ -175,8 +175,9 @@ class Contest
   end
 
   def loot_prize
+    prize = self.prize || 0
     if winners.count > 0
-      Contest.refund_list[self.prize][self.winners.count]
+      Contest.refund_list[prize][self.winners.count]
     else
       false
     end
