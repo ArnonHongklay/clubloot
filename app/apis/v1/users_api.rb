@@ -39,7 +39,7 @@ module V1
                 contests = user.winners
               else
                 if params[:state].eql?('past')
-                  contests = user.contests.where(_state: { '$in': [:end, :cancel]})
+                  contests = user.contests.where(state: { '$in': [:end, :cancel]})
                 else
                   contests = user.contests.where(_state: params[:state])
                 end
