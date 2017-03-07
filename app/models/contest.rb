@@ -142,7 +142,7 @@ class Contest
     players.each do |player|
       quiz = quizes.where(player_id: player.id)
       leaders.push(
-        Hashie::Mash.new(
+        {
           id: player.id,
           name: player.name,
           first_name: player.first_name,
@@ -151,23 +151,27 @@ class Contest
           quizes: quiz,
           score: quiz.sum(&:correct),
           position: nil
-        )
+        }
       )
     end
 
-    leaders.sort(&:score).each_with_index do |leader, i|
+    leaders_position = leaders.sort!{ |a,b| b[:score] <=> a[:score] }
+
+    temp = []
+    leaders_position.each_with_index do |leader, i|
       if i == 0
-        leader.update(position: 1)
+        leader[:position] = 1
       else
-        if leaders[i-1].score == leaders[i].score
-          leader.update(position: leaders[i-1].position)
+        if leaders[i-1][:score] == leaders[i][:score]
+          leader[:position] = leaders[i-1][:position]
         else
-          leader.update(position: i + 1)
+          leader[:position] = i + 1
         end
       end
+      temp << Hashie::Mash.new(leader)
     end
 
-    leaders
+    temp
   end
 
   def self.prize_list
