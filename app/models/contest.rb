@@ -58,7 +58,7 @@ class Contest
     contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], fee: fee_select)
     contest.players << user
     if contest.save
-      save_transaction(user, contest)
+      self.save_transaction(user, contest)
       contest
     else
       false
@@ -75,7 +75,7 @@ class Contest
     if user.contests.where(id: contest_id).blank?
       contest.players << user
       if contest.save
-        save_transaction(user, contest)
+        self.save_transaction(user, contest)
         contest
       else
         false
