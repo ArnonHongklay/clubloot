@@ -3,7 +3,7 @@ class LedgersController < ApplicationController
   before_action :set_ledger, only: :show
 
   def index
-    @ledgers = Ledger.all
+    @ledgers = Ledger.order(created_at: :desc)
   end
 
   def show
