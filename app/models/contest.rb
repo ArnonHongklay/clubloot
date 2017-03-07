@@ -162,10 +162,10 @@ class Contest
       if i == 0
         leader[:position] = 1
       else
-        if leaders[i-1][:score] == leaders[i][:score]
-          leader[:position] = leaders[i-1][:position]
+        if leaders_position[i-1][:score] == leaders_position[i][:score]
+          leader[:position] = leaders_position[i-1][:position]
         else
-          leader[:position] = i + 1
+          leader[:position] =i + 1
         end
       end
       temp << Hashie::Mash.new(leader)
