@@ -18,8 +18,36 @@ class WinnerWorker
 
     contest.update(_state: :end)
     contest.leaders.select{ |l| l.position == 1 }.each do |player|
-      contest.winners << User.find(player.id)
+      user = User.find(player.id)
+      contest.winners << user
       contest.save!
+
+      save_transaction(user, contest)
     end
+
   end
+
+  private
+    def save_transaction(user, contest)
+      p user
+      p contest
+      total_winner = contest.winners.count
+      fee          = contest.fee
+
+      prize = fee / total_winner
+
+      transaction = OpenStruct.new(
+        status: 'complete',
+        format: 'winners',
+        action: 'plus',
+        description: 'Winner contest',
+        from: 'coins',
+        to: 'winner',
+        unit: 'coins',
+        amount: prize,
+        tax: 0
+      )
+
+      Ledger.create_transaction(user, transaction)
+    end
 end
