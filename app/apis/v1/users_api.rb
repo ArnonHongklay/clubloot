@@ -60,27 +60,27 @@ module V1
       resource :contest do
         params do
           requires :token,      type: String, default: nil, desc: 'User Token'
-          end
-          get ":contest_id" do
-            begin
-              if user = User.find_by(token: params[:token])
-                if contest = user.contests.find(params[:contest_id])
-                  present :status, :success
-                  present :data, contest, with: Entities::ContestAllExpose
-                else
-                  present :status, :failure
-                  present :data, "Can't creating a new contest."
-                end
+        end
+        get ":contest_id" do
+          begin
+            if user = User.find_by(token: params[:token])
+              if contest = user.contests.find(params[:contest_id])
+                present :status, :success
+                present :data, contest, with: Entities::ContestAllExpose
               else
                 present :status, :failure
-                present :data, "Users don't have in our system."
+                present :data, "Can't creating a new contest."
               end
-            rescue Exception => e
+            else
               present :status, :failure
-              present :data, e
+              present :data, "Users don't have in our system."
             end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
           end
         end
+
         params do
           requires :token,        type: String, default: nil, desc: 'User Token'
           requires :template_id,  type: String, desc: "Template Id"
