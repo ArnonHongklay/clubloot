@@ -43,7 +43,7 @@ class WinnerWorker
         from: 'coins',
         to: 'winner',
         unit: 'coins',
-        amount: rate[:value],
+        amount: rate[0][:value],
         tax: 0
       )
 
@@ -52,20 +52,20 @@ class WinnerWorker
     end
 
     def getFund(user, rate)
-      if rate[:type] == 'coin'
-        user.update(coins: user.coins + rate[:value])
+      if rate[0][:type] == 'coin'
+        user.update(coins: user.coins + rate[0][:value])
       end
-      if rate[:type] == 'ruby'
-        user.update(rubies: user.rubies + rate[:value])
+      if rate[0][:type] == 'ruby'
+        user.update(rubies: user.rubies + rate[0][:value])
       end
-      if rate[:type] == 'sapphire'
-        user.update(sapphires: user.sapphires + rate[:value])
+      if rate[0][:type] == 'sapphire'
+        user.update(sapphires: user.sapphires + rate[0][:value])
       end
-      if rate[:type] == 'emerald'
-        user.update(emeralds: user.emeralds + rate[:value])
+      if rate[0][:type] == 'emerald'
+        user.update(emeralds: user.emeralds + rate[0][:value])
       end
-      if rate[:type] == 'diamond'
-        user.update(diamonds: user.diamonds + rate[:value])
+      if rate[0][:type] == 'diamond'
+        user.update(diamonds: user.diamonds + rate[0][:value])
       end
     end
 end
