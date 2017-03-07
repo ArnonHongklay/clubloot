@@ -30,7 +30,7 @@ class WinnerWorker
   private
     def save_transaction(user, contest)
       total_winner = contest.winners.count
-      prize          = contest.prize
+      prize          = contest.prize || 0
       # prize = fee / total_winner
 
       rate = Contest.refund_list[prize][total_winner]
