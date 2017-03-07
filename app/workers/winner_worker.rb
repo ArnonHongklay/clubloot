@@ -16,7 +16,7 @@ class WinnerWorker
     template = Template.find(tempalte_id)
     contest = Contest.find(contest_id)
 
-    contest.update(_state: :end)
+    contest.update(state: :end)
     contest.leaders.select{ |l| l.position == 1 }.each do |player|
       contest.winners << User.find(player.id)
       contest.save!

@@ -4,7 +4,7 @@ class ContestUpcomingWorker
   def perform(*args)
     current_time = Time.zone.now
 
-    Contest.where(_state: :upcoming).includes(:template).each do |contest|
+    Contest.where(state: :upcoming).includes(:template).each do |contest|
       start_time  = contest.template.start_time
       end_time    = contest.template.end_time
 

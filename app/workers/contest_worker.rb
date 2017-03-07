@@ -16,9 +16,9 @@ class ContestWorker
 
       # if current_time >= end_time
       #   if contest.players.count < contest.max_players
-      #     contest.update(_state: :cancel)
+      #     contest.update(state: :cancel)
       #   else
-      #     contest.update(_state: :live)
+      #     contest.update(state: :live)
       #   end
       # end
     end
