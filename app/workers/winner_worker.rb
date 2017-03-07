@@ -38,7 +38,7 @@ class WinnerWorker
       transaction = OpenStruct.new(
         status: 'complete',
         format: 'winners',
-        action: 'plus',
+        action: 'minus',
         description: 'Winner contest',
         from: 'coins',
         to: 'winner',
