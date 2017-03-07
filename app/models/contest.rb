@@ -51,7 +51,7 @@ class Contest
   def self.join_contest(user, contest_id)
     contest = Contest.find(contest_id)
 
-    raise "joined already" if contest.players.find(user.id)
+    raise "joined already" if contest.players.where(id: user.id).present?
     raise "full player" if contest.players.count >= contest.max_players
 
     if user.contests.where(id: contest_id).blank?
