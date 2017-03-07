@@ -29,12 +29,11 @@ class WinnerWorker
 
   private
     def save_transaction(user, contest)
-      p user
-      p contest
       total_winner = contest.winners.count
       fee          = contest.fee
-
       prize = fee / total_winner
+
+      rate = Contest.refund_list[Contest.prize_list.index(fee)][total_winner]
 
       transaction = OpenStruct.new(
         status: 'complete',
@@ -44,10 +43,29 @@ class WinnerWorker
         from: 'coins',
         to: 'winner',
         unit: 'coins',
-        amount: prize,
+        amount: rate[:value],
         tax: 0
       )
 
+      getFund(user, rate)
       Ledger.create_transaction(user, transaction)
+    end
+
+    def getFund(user, rate)
+      if rate[:type] == 'coin'
+        user.update(coins: user.coins + rate[:value])
+      end
+      if rate[:type] == 'ruby'
+        user.update(rubies: user.rubies + rate[:value])
+      end
+      if rate[:type] == 'sapphire'
+        user.update(sapphires: user.sapphires + rate[:value])
+      end
+      if rate[:type] == 'emerald'
+        user.update(emeralds: user.emeralds + rate[:value])
+      end
+      if rate[:type] == 'diamond'
+        user.update(diamonds: user.diamonds + rate[:value])
+      end
     end
 end
