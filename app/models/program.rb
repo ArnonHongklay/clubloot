@@ -40,6 +40,7 @@ class Program
   end
 
   def all_contests
-    templates.current_template.contests
+    # templates.current_template.contests
+    templates.sort_by(&:end_time).first
   end
 end
