@@ -9,6 +9,6 @@ class AnnouncementChannel < ApplicationCable::Channel
 
   def speak(data)
     # ActionCable.server.broadcast("announcement_#{params[:announcement_id]}", message: data['message'])
-    Announcement.create! content: data['message']
+    Announcement.create!(publish: data['publish'], description: data['description'])
   end
 end

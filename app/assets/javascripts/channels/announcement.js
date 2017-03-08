@@ -3,11 +3,13 @@ App.announcement = App.cable.subscriptions.create("AnnouncementChannel", {
   disconnected: function() {},
   received: function(data) {
     // return alert(data['message']);
-    return $('#messages').append(data['message']);
+    console.log(data['message']);
+    // $('.sameheight-item').html(data['message']);
   },
-  speak: function(message) {
+  speak: function(publish, description) {
     return this.perform('speak', {
-      message: message
+      publish: publish,
+      description: description
     });
   }
 });

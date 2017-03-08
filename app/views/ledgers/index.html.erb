@@ -36,7 +36,7 @@
                       <tr class="odd gradeX">
                         <td class="center-center">
                           <% ledger.transaction.each do |transaction| %>
-                            <%= "<i class='fa fa-#{transaction._action}' aria-hidden='true'></i>".html_safe %><br>
+                            <%= "<i class='fa fa-#{transaction.action}' aria-hidden='true'></i>".html_safe %><br>
                           <% end %>
                         </td>
                         <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y") %></td>
@@ -54,11 +54,11 @@
                         <td>
                           <% ledger.transaction.each do |transaction| %>
                             <% if ledger.format == 'won' %>
-                              <%= "#{transaction.amount - transaction.tax} #{transaction.unit}" %>
+                              <%= "#{transaction.amount - transaction.tax} #{transaction.unit}" %><br>
                             <% else %>
-                              <%= "#{transaction.amount} #{transaction.unit}" %>
+                              <%= "#{transaction.amount} #{transaction.unit}" %><br>
                             <% end %>
-                          <% end %><br>
+                          <% end %>
                         </td>
                         <td class="center-left">
                           <span>
