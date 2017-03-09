@@ -13,6 +13,7 @@ class Contest
 
   field :prize, type: Integer
   field :fee, type: Integer
+  field :fee_index, type: Integer
   field :public, type: Boolean, default: true
 
   belongs_to :template, inverse_of: :contests
@@ -55,7 +56,12 @@ class Contest
       x[:player] == player
     end.first[:fee][fee]
 
-    contest = new(host: user, template: template, name: contest[:name], max_players: contest[:player], fee: fee_select, prize: fee)
+    contest = new( host: user,
+                   template: template,
+                   name: contest[:name],
+                   max_players: contest[:player],
+                   fee: fee_select,
+                   prize: fee)
     contest.players << user
     if contest.save
       save_transaction(user, contest)
@@ -177,7 +183,8 @@ class Contest
   def loot_prize
     prize = self.prize || 0
     if winners.count > 0
-      Contest.refund_list[prize][self.winners.count]
+      # Contest.refund_list[prize][self.winners.count]
+      Contest.gem_matrix[:gem][prize]
     else
       false
     end

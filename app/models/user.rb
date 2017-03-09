@@ -166,6 +166,9 @@ class User
 
   private
     def ledger_log
+      return if self.contest_ids_changed?
+      return if self.winner_ids_changed?
+
       transaction = []
       action = nil
 

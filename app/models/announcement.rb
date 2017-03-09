@@ -26,7 +26,7 @@ class Announcement
 
   def edited
     User.all.each do |user|
-      user.messages.create(message: self.description, publish_time: self.publish)
+      # user.messages.create(message: self.description, publish_time: self.publish)
       # ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
     end
   end
