@@ -1,18 +1,24 @@
 class AnnouncementChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "announcement_channel"
+    # stream_from "announcement_#{params[:token]}"
   end
 
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def speak(data)
-    # ActionCable.server.broadcast("announcement_#{params[:announcement_id]}", message: data['message'])
-    Announcement.create!(publish: data['publish'], description: data['description'])
+  def show(data)
+    if user = User.find_by(token: data['token'])
+      ActionCable.server.broadcast("announcement_#{params[:token]}", user.announcements )
+    end
   end
 
-  def get_announcement(data)
-    ActionCable.server.broadcast("announcement_channel", Announcement.all)
+  def destroy(data)
+    announcement = Announcement.find(data['announcement'])
+    user = User.find_by(token: data['token'])
+
+    if user.announcements.delete(announcement)
+      ActionCable.server.broadcast("announcement_#{params[:token]}", user.announcements )
+    end
   end
 end

@@ -17,6 +17,15 @@ class UsersController < ApplicationController
     @winners = @user.winners
   end
 
+  def contests
+    @user = User.find(params[:user_id])
+    @contests = @user.contests
+
+    @contest_upcoming = @user.contests.where(_state: :upcoming)
+    @contest_live = @user.contests.where(_state: :live)
+    @contest_past = @user.contests.where(_state: { '$in': [:end, :cancel]})
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show

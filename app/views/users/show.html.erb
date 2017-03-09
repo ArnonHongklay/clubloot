@@ -4,14 +4,25 @@
   <div class="title-block">
     <h3 class="title">
       Show User <span class="sparkline bar" data-type="bar"></span>
+
     </h3>
   </div>
 
+  <p id="notice"><%= notice %></p>
+
+  <% if @user.contests.present? %>
+    <%= link_to 'Contests', user_contests_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+  <% else %>
+    <button class="btn btn-primary btn-sm rounded-s disabled">Contests</button>
+  <% end %>
   <% if @user.winners.present? %>
-    <%= link_to 'Winners', user_winners_path(@user) %>
+    <%= link_to 'Winners', user_winners_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+  <% else %>
+    <button class="btn btn-primary btn-sm rounded-s disabled">Winners</button>
   <% end %>
 
-  <p id="notice"><%= notice %></p>
+  <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Back', users_path, class: 'btn btn-primary btn-sm rounded-s' %>
   <p>
     Name: <%= @user.name %>
   </p>
@@ -51,7 +62,4 @@
   <p>
     coins: <%= @user.coins %>
   </p>
-
-  <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
-  <%= link_to 'Back', users_path, class: 'btn btn-primary btn-sm rounded-s' %>
 </article>

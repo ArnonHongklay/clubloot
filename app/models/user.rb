@@ -96,6 +96,8 @@ class User
   # after_save :change_access_token
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
+  has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
+
   def self.hard_update_token
     User.all.each do |user|
       user.update(token: App.generate_code(32)) unless user.token.present?

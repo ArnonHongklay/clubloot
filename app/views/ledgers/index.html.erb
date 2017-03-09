@@ -36,7 +36,11 @@
                       <tr class="odd gradeX">
                         <td class="center-center">
                           <% ledger.transaction.each do |transaction| %>
-                            <%= "<i class='fa fa-#{transaction.action}' aria-hidden='true'></i>".html_safe %><br>
+                            <% if transaction.action == 'plus' %>
+                              <%= "<i class='fa fa-#{transaction.action}' aria-hidden='true'></i>".html_safe %><br>
+                            <% else %>
+                              <%= "<i class='fa fa-#{transaction.action}' aria-hidden='true'></i>".html_safe %><br>
+                            <% end %>
                           <% end %>
                         </td>
                         <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y") %></td>

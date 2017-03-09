@@ -3,11 +3,9 @@
   <p id="notice"><%= notice %></p>
 
   <div class="title-block">
-    <h1 class="title"> Winner Tables
-    <%#= link_to 'Add New', new_user_path, class: 'btn btn-primary btn-sm rounded-s' %>
-    </h1>
+    <h1 class="title"> Winner Tables </h1>
   </div>
-
+  <%= link_to 'Back', user_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
   <section class="section">
     <div class="row">
       <div class="col-md-12">
@@ -28,7 +26,9 @@
                   <tbody>
                     <% @winners.each do |winner| %>
                       <tr>
-                        <td><%= winner.name %></td>
+                        <td><%= link_to winner.name,
+                                      "http://alpha.clubloot.com/contest/program/#{winner.template.program.id}/#{winner.id}",
+                                      target: '_blank' %></td>
                         <td><%= winner.players.count %> users</td>
                         <td><%= winner.fee %></td>
                         <td><%= @user.username %></td>
@@ -42,6 +42,6 @@
         </div>
       </div>
     </div>
-  </section>  <%= link_to 'Back', users_path, class: 'btn btn-primary btn-sm rounded-s' %>
+  </section>
 
 </article>

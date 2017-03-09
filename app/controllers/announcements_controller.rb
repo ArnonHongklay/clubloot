@@ -3,7 +3,7 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: :update
 
   def index
-    @announcements = Announcement.all
+    @announcements = Announcement.active
     @announcement = Announcement.new
   end
 
