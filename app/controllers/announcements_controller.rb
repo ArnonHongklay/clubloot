@@ -44,6 +44,9 @@ class AnnouncementsController < ApplicationController
   def destroy
     @announcement = Announcement.find(params[:id])
     @announcement.update(active: false)
+    User.all.each do |user|
+      user.announcements.delete(@announcement)
+    end
     respond_to do |format|
         format.html { redirect_to announcements_path, notice: 'Announcement was successfully updated.' }
     #   format.html { redirect_to announcements_url, notice: 'Announcement was successfully destroyed.' }

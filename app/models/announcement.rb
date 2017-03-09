@@ -16,20 +16,18 @@ class Announcement
   validates :publish, :description, presence: true
 
   def broadcast_opened
-    # User.all.each do |user|
-    #   self.users << user
-    #   self.save!
+    User.all.each do |user|
+      self.users << user
+      self.save!
 
-    #   ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
-    # end
+      # ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
+    end
   end
 
   def edited
     User.all.each do |user|
       user.messages.create(message: self.description, publish_time: self.publish)
+      # ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
     end
-    # self.users.each do |user|
-    #   ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
-    # end
   end
 end
