@@ -11,4 +11,8 @@ class AnnouncementChannel < ApplicationCable::Channel
     # ActionCable.server.broadcast("announcement_#{params[:announcement_id]}", message: data['message'])
     Announcement.create!(publish: data['publish'], description: data['description'])
   end
+
+  def get_announcement(data)
+    ActionCable.server.broadcast("announcement_channel", Announcement.all)
+  end
 end

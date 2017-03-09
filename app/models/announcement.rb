@@ -7,12 +7,6 @@ class Announcement
   after_create :broadcast
 
   def broadcast
-    # AnnouncementChannel.broadcast_to(
-    #   "announcement_#{self.id}",
-    #   action: "announcement",
-    #   data: self
-    # )
-    # ActionCable.server.broadcast 'announcement', message: render_message(self)
     ActionCable.server.broadcast("announcement_channel", message: self)
   end
 

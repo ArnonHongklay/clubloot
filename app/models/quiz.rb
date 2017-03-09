@@ -11,4 +11,11 @@ class Quiz
   # belongs_to :player, class_name: 'User', inverse_of: :player
   # embeds_many :answers
   # embedded_in :template
+
+  after_create :broadcast
+
+  private
+    def broadcast
+
+    end
 end
