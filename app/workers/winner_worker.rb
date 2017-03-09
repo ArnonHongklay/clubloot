@@ -33,12 +33,13 @@ class WinnerWorker
       prize          = contest.prize || 0
       # prize = fee / total_winner
 
-      rate = Contest.refund_list[prize][total_winner]
+      # rate = Contest.refund_list[prize][total_winner]
+      rate = Contest.gem_matrix[:gem][prize]
 
       transaction = OpenStruct.new(
         status: 'complete',
         format: 'winners',
-        action: 'minus',
+        action: 'plus',
         description: 'Winner contest',
         from: 'coins',
         to: 'winner',
@@ -47,7 +48,7 @@ class WinnerWorker
         tax: 0
       )
 
-      getFund(user, rate)
+      # getFund(user, rate)
       Ledger.create_transaction(user, transaction)
     end
 
