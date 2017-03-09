@@ -33,8 +33,11 @@ class WinnerWorker
       prize          = contest.prize || 0
       # prize = fee / total_winner
 
-      # rate = Contest.refund_list[prize][total_winner]
-      rate = Contest.gem_matrix[:gem][prize]
+      if total_winner == 1
+        rate = Contest.gem_matrix[:gem][prize]
+      elsif total_winner > 1
+        rate = Contest.refund_list[prize][total_winner]
+      end
 
       transaction = OpenStruct.new(
         status: 'complete',

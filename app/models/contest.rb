@@ -151,6 +151,7 @@ class Contest
         {
           id: player.id,
           name: player.name,
+          username: player.username,
           first_name: player.first_name,
           last_name: player.last_name,
           email: player.email,
@@ -182,11 +183,12 @@ class Contest
 
   def loot_prize
     prize = self.prize || 0
-    if winners.count > 0
-      # Contest.refund_list[prize][self.winners.count]
+    if winners.count <= 0
+      false
+    elsif winner.count == 1
       Contest.gem_matrix[:gem][prize]
     else
-      false
+      Contest.refund_list[prize][self.winners.count]
     end
   end
 
@@ -218,22 +220,22 @@ class Contest
         { player: 20, fee: [6, 11, 17, 22, 28, 55, 83, 110, 138, 275, 413, 550, 688] }
       ],
       gem: [
-        { type: 'RUBY', count: 1 },
-        { type: 'RUBY', count: 2 },
-        { type: 'RUBY', count: 3 },
-        { type: 'RUBY', count: 4 },
+        [ { type: 'RUBY', count: 1 } ],
+        [ { type: 'RUBY', count: 2 } ],
+        [ { type: 'RUBY', count: 3 } ],
+        [ { type: 'RUBY', count: 4 } ],
 
-        { type: 'SAPPHIRE', count: 1 },
-        { type: 'SAPPHIRE', count: 2 },
-        { type: 'SAPPHIRE', count: 3 },
-        { type: 'SAPPHIRE', count: 4 },
+        [ { type: 'SAPPHIRE', count: 1 } ],
+        [ { type: 'SAPPHIRE', count: 2 } ],
+        [ { type: 'SAPPHIRE', count: 3 } ],
+        [ { type: 'SAPPHIRE', count: 4 } ],
 
-        { type: 'EMERALD', count: 1 },
-        { type: 'EMERALD', count: 2 },
-        { type: 'EMERALD', count: 3 },
-        { type: 'EMERALD', count: 4 },
+        [ { type: 'EMERALD', count: 1 } ],
+        [ { type: 'EMERALD', count: 2 } ],
+        [ { type: 'EMERALD', count: 3 } ],
+        [ { type: 'EMERALD', count: 4 } ],
 
-        { type: 'DIAMOND', count: 1 }
+        [ { type: 'DIAMOND', count: 1 } ]
       ]
     }
   end
