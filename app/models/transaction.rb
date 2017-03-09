@@ -15,10 +15,10 @@ class Transaction
   embedded_in :ledger
 
   def plus
-    if self.type.present?
-      self.type == :plus
-    else
+    if self.action.present?
       self.action == 'plus'
+    else
+      self.type == :plus
     end
   end
 end
