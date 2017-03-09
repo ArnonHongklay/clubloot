@@ -84,3 +84,27 @@ class GemConvert
   field :emerald,   type: Hash
   field :diamond,   type: Hash
 end
+
+class SigninLog
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :user_id, type: String
+end
+
+class ConomyLog
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :coins, type: Integer
+end
+
+class Tax
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :tax_type, type: String
+  field :contest_id, type: String
+  field :coin, type: String
+  field :user_id, type: String
+end
