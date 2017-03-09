@@ -93,10 +93,11 @@ class User
 
   has_many :host_contests, class_name: 'Contest', inverse_of: :host
 
-  # after_save :change_access_token
-  # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
-
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
+
+  after_create :ledger_log
+  after_save :ledger_log
+  # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
   def self.hard_update_token
     User.all.each do |user|
@@ -160,4 +161,114 @@ class User
   # def remove_score(rating)
   #   $leaderboard.change_score_for(self.id, -get_score_from(rating))
   # end
+
+  private
+    def ledger_log
+      transaction = []
+      action = nil
+
+      if coins_changed?
+        if coins_was < self.coins
+          action = 'plus'
+        else
+          action = 'minus'
+        end
+
+        transaction << OpenStruct.new(
+          status: 'complete',
+          format: 'advanced',
+          action: action,
+          description: 'Admin advanced',
+          from: 'admin',
+          to: 'coins',
+          unit: 'coins',
+          amount: self.coins - coins_was,
+          tax: 0
+        )
+      end
+
+      if diamonds_changed?
+        if diamonds_was < self.diamonds
+          action = 'plus'
+        else
+          action = 'minus'
+        end
+
+        transaction << OpenStruct.new(
+          status: 'complete',
+          format: 'advanced',
+          action: action,
+          description: 'Admin advanced',
+          from: 'admin',
+          to: 'diamonds',
+          unit: 'diamonds',
+          amount: self.diamonds - diamonds_was,
+          tax: 0
+        )
+      end
+
+      if emeralds_changed?
+        if emeralds_was < self.emeralds
+          action = 'plus'
+        else
+          action = 'minus'
+        end
+
+        transaction << OpenStruct.new(
+          status: 'complete',
+          format: 'advanced',
+          action: action,
+          description: 'Admin advanced',
+          from: 'admin',
+          to: 'emeralds',
+          unit: 'emeralds',
+          amount: self.emeralds - emeralds_was,
+          tax: 0
+        )
+      end
+
+      if sapphires_changed?
+        if sapphires_was < self.sapphires
+          action = 'plus'
+        else
+          action = 'minus'
+        end
+
+        transaction << OpenStruct.new(
+          status: 'complete',
+          format: 'advanced',
+          action: action,
+          description: 'Admin advanced',
+          from: 'admin',
+          to: 'sapphires',
+          unit: 'sapphires',
+          amount: self.sapphires - sapphires_was,
+          tax: 0
+        )
+      end
+
+      if rubies_changed?
+        if rubies_was < self.rubies
+          action = 'plus'
+        else
+          action = 'minus'
+        end
+
+        transaction << OpenStruct.new(
+          status: 'complete',
+          format: 'advanced',
+          action: action,
+          description: 'Admin advanced',
+          from: 'admin',
+          to: 'rubies',
+          unit: 'rubies',
+          amount: self.rubies - rubies_was,
+          tax: 0
+        )
+      end
+
+      if transaction.length > 0
+        Ledger.create_transactions(self, transaction)
+      end
+    end
 end

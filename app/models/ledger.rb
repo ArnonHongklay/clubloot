@@ -44,6 +44,44 @@ class Ledger
     )
   end
 
+  def self.create_transactions(user, transactions)
+    ledgers = self.create(
+      status: transactions.first.try(:status) || 'completed',
+      format: transactions.first.try(:format),
+      user: {
+        'id': user._id,
+        username: user.username,
+        name: "#{user.first_name} #{user.last_name}",
+        email: user.email
+      },
+      balance: {
+        coins: user.coins,
+        diamonds: user.diamonds,
+        emeralds: user.emeralds,
+        sapphires: user.sapphires,
+        rubies: user.rubies
+      }
+    )
+
+    # binding.pry
+
+    transactions.each do |transaction|
+      ledgers.transaction.create(
+        action: transaction.try(:action),
+        description: transaction.try(:description),
+        from: transaction.try(:from),
+        to: transaction.try(:to),
+        unit: transaction.try(:unit),
+        amount: transaction.try(:amount),
+        tax: transaction.try(:tax),
+        ref: {
+          format: nil,
+          id: nil
+        }
+      )
+    end
+  end
+
   private
     def default_users
       {
