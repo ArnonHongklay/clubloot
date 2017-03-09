@@ -63,8 +63,6 @@ class Ledger
       }
     )
 
-    # binding.pry
-
     transactions.each do |transaction|
       ledgers.transaction.create(
         action: transaction.try(:action),

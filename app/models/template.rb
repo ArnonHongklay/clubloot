@@ -42,7 +42,54 @@ class Template
   def end_contest
     update(active: false)
     contests.each do |contest|
-      WinnerWorker.perform_async(self.id, contest.id)
+      contest.update(state: :end)
+      contest.leaders.select{ |l| l.position == 1 }.each do |player|
+        user = User.find(player.id)
+        contest.winners << user
+        contest.save!
+
+        total_winner = contest.winners.count
+        prize        = contest.prize || 0
+
+        if total_winner == 1
+          rates = Contest.gem_matrix[:gem][prize]
+        elsif total_winner > 1
+          rates = Contest.refund_list[prize][total_winner]
+        end
+
+        transaction = []
+        rates.each do |rate|
+          if rate[:type].downcase == 'coin'
+            user.update(coins: user.coins + rate[:value])
+          end
+          if rate[:type].downcase == 'ruby'
+            user.update(rubies: user.rubies + rate[:value])
+          end
+          if rate[:type].downcase == 'sapphire'
+            user.update(sapphires: user.sapphires + rate[:value])
+          end
+          if rate[:type].downcase == 'emerald'
+            user.update(emeralds: user.emeralds + rate[:value])
+          end
+          if rate[:type].downcase == 'diamond'
+            user.update(diamonds: user.diamonds + rate[:value])
+          end
+
+          transaction << OpenStruct.new(
+            status: 'complete',
+            format: 'winners',
+            action: 'plus',
+            description: 'Winner contest',
+            from: 'coins',
+            to: 'winner',
+            unit: rate[:type].downcase,
+            amount: rate[:value],
+            tax: 0
+          )
+        end
+
+        Ledger.create_transactions(user, transaction)
+      end
     end
   end
 
