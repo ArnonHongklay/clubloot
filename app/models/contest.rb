@@ -34,7 +34,7 @@ class Contest
     transaction = OpenStruct.new(
       status: 'complete',
       format: 'contest',
-      action: 'plus',
+      action: 'minus',
       description: 'create or join contest',
       from: 'coins',
       to: 'contest',
