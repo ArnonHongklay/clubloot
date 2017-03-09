@@ -97,8 +97,8 @@ class User
 
   embeds_many :messages
 
-  after_create :ledger_log
-  after_save :ledger_log
+  # after_create :ledger_log
+  # after_save :ledger_log
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
   def self.hard_update_token
