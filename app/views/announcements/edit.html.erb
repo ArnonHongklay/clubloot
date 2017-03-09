@@ -1,0 +1,50 @@
+<% content_for :body_id, 'announcement' %>
+
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Editing Announcement <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+
+    <%= link_to 'Show', @announcement, class: 'btn btn-primary btn-sm rounded-s' %>
+    <%= link_to 'Back', announcements_path, class: 'btn btn-primary btn-sm rounded-s' %>
+
+    <section class="section">
+      <div class="row sameheight-container">
+        <div class="col-md-12">
+        <div class="panel-body hidden" id="messages"></div>
+          </div>
+            <div class="col-md-8">
+              <div class="card card-block sameheight-item">
+
+                <%= form_for(@announcement, url: announcement_path(@announcement), html: { method: :put }) do |f| %>
+                <% if @announcement.errors.any? %>
+                    <div id="error_explanation">
+                      <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2>
+
+                      <ul>
+                      <% @announcement.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+
+                  <div class="form-group"> <label class="control-label">Publish at</label>
+                    <%= f.text_field :publish, class: 'form-control', id: "announcement_datetimepicker" %>
+                  </div>
+                  <div class="form-group"> <label class="control-label">Announcement</label>
+                    <%= f.text_area :description, class: 'form-control' %>
+                  </div>
+
+                  <div class="actions">
+                    <%= f.submit %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+</article>

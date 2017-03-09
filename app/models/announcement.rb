@@ -1,7 +1,7 @@
 class Announcement
   include Mongoid::Document
 
-  field :publish, type: Date
+  field :publish, type: DateTime
   field :description, type: String
   field :active, type: Boolean, default: true
 
@@ -12,6 +12,8 @@ class Announcement
   # before_destroy :user_closed
 
   scope :active, -> { where(active: true) }
+
+  validates :publish, :description, presence: true
 
   def broadcast_opened
     User.all.each do |user|

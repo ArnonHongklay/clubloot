@@ -9,6 +9,8 @@
     <%#<p class="title-description"> When blocks aren't enough </p>%>
   </div>
 
+  <p id="notice"><%= notice %></p>
+
   <section class="section">
       <div class="row sameheight-container">
         <div class="col-md-12">
@@ -23,7 +25,7 @@
                   <div class="title-block">
                       <h3 class="title"> New Announcement </h3>
                   </div>
-                    <p id="notice"><%= notice %></p>
+
 
                 <%= render 'form', announcement: @announcement %>
               </div>
@@ -44,8 +46,10 @@
                     <tbody>
                       <% @announcements.each do |announcement| %>
                         <tr>
-                          <td width="20%"><%= announcement.publish || 'NULL' %></td>
-                          <td width="80%"><%= announcement.description || 'NULL' %></td>
+                          <td><%= announcement.publish.try(:strftime, "%B %d, %Y %H:%M") || 'NULL' %></td>
+                          <td><%= announcement.description || 'NULL' %></td>
+                          <td class="center-center"><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
+                          <td class="center-center"><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                         </tr>
                       <% end %>
                     </tbody>
