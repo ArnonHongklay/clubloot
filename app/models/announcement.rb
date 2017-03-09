@@ -8,7 +8,7 @@ class Announcement
   has_and_belongs_to_many :users, class_name: 'User', inverse_of: :announcements
 
   after_create :broadcast_opened
-  after_update :edited
+  after_save :edited
   # before_destroy :user_closed
 
   scope :active, -> { where(active: true) }
@@ -16,17 +16,20 @@ class Announcement
   validates :publish, :description, presence: true
 
   def broadcast_opened
-    User.all.each do |user|
-      self.users << user
-      self.save!
+    # User.all.each do |user|
+    #   self.users << user
+    #   self.save!
 
-      ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
-    end
+    #   ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
+    # end
   end
 
   def edited
-    self.users.each do |user|
-      ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
+    User.all.each do |user|
+      user.messages.create(message: self.description, publish_time: self.publish)
     end
+    # self.users.each do |user|
+    #   ActionCable.server.broadcast("announcement_#{user.token}", announcement: user.announcements)
+    # end
   end
 end

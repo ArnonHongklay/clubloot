@@ -50,6 +50,8 @@ Rails.application.routes.draw do
         resources :users do
           get '/winners', to: 'users#winners'
           get '/contests', to: 'users#contests'
+          get '/transactions', to: 'users#transactions'
+          get '/prizes', to: 'users#prizes'
         end
         resources :gems
       end

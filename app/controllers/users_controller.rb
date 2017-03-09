@@ -26,6 +26,14 @@ class UsersController < ApplicationController
     @contest_past = @user.contests.where(_state: { '$in': [:end, :cancel]})
   end
 
+  def transactions
+
+  end
+
+  def prizes
+
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show

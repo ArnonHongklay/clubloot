@@ -8,18 +8,20 @@
     </h3>
   </div>
 
-
-
   <% if @user.contests.present? %>
     <%= link_to 'Contests', user_contests_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
   <% else %>
     <button class="btn btn-primary btn-sm rounded-s disabled">Contests</button>
   <% end %>
+
   <% if @user.winners.present? %>
     <%= link_to 'Winners', user_winners_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
   <% else %>
     <button class="btn btn-primary btn-sm rounded-s disabled">Winners</button>
   <% end %>
+
+  <%#= link_to 'Transactions', user_transactions_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%#= link_to 'Prizes', user_prizes_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
 
   <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
   <%= link_to 'Back', users_path, class: 'btn btn-primary btn-sm rounded-s' %>

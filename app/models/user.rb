@@ -95,6 +95,8 @@ class User
 
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
 
+  embeds_many :messages
+
   after_create :ledger_log
   after_save :ledger_log
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
