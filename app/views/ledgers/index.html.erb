@@ -36,10 +36,10 @@
                       <tr class="odd gradeX">
                         <td class="center-center">
                           <% ledger.transaction.each do |transaction| %>
-                            <% if transaction.action == :plus %>
-                              <%= "<i class='fa fa-#{transaction.action}' aria-hidden='true' style='color: green'></i>".html_safe %><br>
+                            <% if transaction.plus %>
+                              <%= "<i class='fa fa-plus' aria-hidden='true' style='color: green'></i>".html_safe %><br>
                             <% else %>
-                              <%= "<i class='fa fa-#{transaction.action}' aria-hidden='true' style='color: red'></i>".html_safe %><br>
+                              <%= "<i class='fa fa-minus' aria-hidden='true' style='color: red'></i>".html_safe %><br>
                             <% end %>
                           <% end %>
                         </td>
