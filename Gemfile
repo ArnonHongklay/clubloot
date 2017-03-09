@@ -159,7 +159,7 @@ gem 'sidekiq-cron'
 
 # gem 'react_on_rails', '~> 6'
 
-# gem 'simple_form'
+gem 'simple_form'
 # gem 'show_for'
 # gem 'kaminari'
 # gem 'rails_autolink'

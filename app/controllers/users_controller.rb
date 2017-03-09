@@ -23,11 +23,13 @@ class UsersController < ApplicationController
 
     @contest_upcoming = @user.contests.where(_state: :upcoming)
     @contest_live = @user.contests.where(_state: :live)
+    @contest_end = @user.contests.where(_state: :end)
     @contest_past = @user.contests.where(_state: { '$in': [:end, :cancel]})
   end
 
   def transactions
-
+    @user = User.find(params[:user_id])
+    @ledgers = Ledger.where('user.id' => @user.id)
   end
 
   def prizes

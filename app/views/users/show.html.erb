@@ -1,10 +1,8 @@
 
-
 <article class="content item-editor-page">
   <div class="title-block">
     <h3 class="title">
       Show User <span class="sparkline bar" data-type="bar"></span>
-
     </h3>
   </div>
 
@@ -20,8 +18,8 @@
     <button class="btn btn-primary btn-sm rounded-s disabled">Winners</button>
   <% end %>
 
-  <%#= link_to 'Transactions', user_transactions_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
-  <%#= link_to 'Prizes', user_prizes_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Transactions', user_transactions_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Prizes', user_prizes_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
 
   <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
   <%= link_to 'Back', users_path, class: 'btn btn-primary btn-sm rounded-s' %>

@@ -16,6 +16,21 @@ $(document).on('ready', function() {
     if(bodyId == 'announcement'){
       $('#announcement_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
     }
+
+    $('#datetimepicker6').datetimepicker({
+      format: 'YYYY-MM-DD'
+    });
+    $('#datetimepicker7').datetimepicker({
+      useCurrent: false,
+      format: 'YYYY-MM-DD'
+    });
+    $("#datetimepicker6").on("dp.change", function (e) {
+      $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepicker7").on("dp.change", function (e) {
+      $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+    });
   }
+
   init()
 });

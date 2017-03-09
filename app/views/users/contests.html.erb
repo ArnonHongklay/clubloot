@@ -65,6 +65,26 @@
 
                   <thead class="thead-inverse">
                     <tr>
+                      <th colspan="4" rowspan="2">Completed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @contest_end.each do |contest| %>
+                      <tr>
+                        <td>
+                          <%= link_to contest.name,
+                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
+                                      target: '_blank' %>
+                        </td>
+                        <td><%= contest.players.count %> users</td>
+                        <td><%= contest.fee %></td>
+                        <td><%= @user.username %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+
+                  <thead class="thead-inverse">
+                    <tr>
                       <th colspan="4" rowspan="2">Past</th>
                     </tr>
                   </thead>
