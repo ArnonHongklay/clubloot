@@ -40,10 +40,12 @@ class Template
   end
 
   def end_contest
+    return if questions.where('is_correct' => false).count > 0
+
     update(active: false)
-    contests.each do |contest|
+    contests.where(state: :live).each do |contest|
       contest.update(state: :end)
-      contest.leaders.select{ |l| l.position == 1 }.each do |player|
+      contest.leaders.select{ |ledger| ledger.position == 1 }.each do |player|
         user = User.find(player.id)
         contest.winners << user
         contest.save!
