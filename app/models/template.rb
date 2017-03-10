@@ -43,7 +43,7 @@ class Template
     return if questions.where('is_correct' => false).count > 0
 
     update(active: false)
-    contests.where(state: :live).each do |contest|
+    contests.where(_state: :live).each do |contest|
       contest.update(state: :end)
       contest.leaders.select{ |ledger| ledger.position == 1 }.each do |player|
         user = User.find(player.id)
@@ -91,6 +91,27 @@ class Template
         end
 
         Ledger.create_transactions(user, transaction)
+      end
+    end
+
+    template.contests.where(_state: :cancel).each do |contest|
+      contest.players.each do |player|
+        player.update(coins: player.coins + contest.fee)
+
+        transaction = OpenStruct.new(
+          status: 'complete',
+          format: 'refund',
+          action: 'plus',
+          description: 'Refund contest',
+          from: 'gem',
+          to: 'coins',
+          unit: 'coins',
+          amount: player.coins + contest.fee,
+          tax: 0
+        )
+
+        player.update(coins: player.coins + contest.fee)
+        Ledger.create_transaction(player, transaction)
       end
     end
   end
