@@ -36,12 +36,12 @@ module V1
           begin
             if user = User.find_by(token: params[:token])
               if params[:state].eql?('winners')
-                contests = user.winners
+                contests = user.winners.order(updated_at: :desc)
               else
                 if params[:state].eql?('past')
-                  contests = user.contests.where(_state: { '$in': [:end, :cancel]})
+                  contests = user.contests.where(_state: { '$in': [:end, :cancel]}).order(updated_at: :desc)
                 else
-                  contests = user.contests.where(_state: params[:state])
+                  contests = user.contests.where(_state: params[:state]).order(updated_at: :desc)
                 end
               end
               present :status, :success
