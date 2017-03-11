@@ -94,28 +94,24 @@ class Template
       end
     end
 
+    contests.where(_state: :cancel).each do |contest|
+      contest.players.each do |player|
+        player.update(coins: player.coins + contest.fee)
 
+        transaction = OpenStruct.new(
+          status: 'complete',
+          format: 'refund',
+          action: 'plus',
+          description: 'Refund contest',
+          from: 'gem',
+          to: 'coins',
+          unit: 'coins',
+          amount: contest.fee,
+          tax: 0
+        )
 
-    Template.all.each do |template|
-      template.contests.where(_state: :cancel).each do |contest|
-        contest.players.each do |player|
-          player.update(coins: player.coins + contest.fee)
-
-          transaction = OpenStruct.new(
-            status: 'complete',
-            format: 'refund',
-            action: 'plus',
-            description: 'Refund contest',
-            from: 'gem',
-            to: 'coins',
-            unit: 'coins',
-            amount: contest.fee,
-            tax: 0
-          )
-
-          player.update(coins: player.coins + contest.fee)
-          Ledger.create_transaction(player, transaction)
-        end
+        player.update(coins: player.coins + contest.fee)
+        Ledger.create_transaction(player, transaction)
       end
     end
   end
