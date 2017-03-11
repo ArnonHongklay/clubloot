@@ -11,6 +11,25 @@ class ContestLiveWorker
       if current_time >= end_time
         if contest.players.count < contest.max_players
           contest.update(_state: :cancel, active: false, _status: :unusable)
+
+          contest.players.each do |player|
+            player.update(coins: player.coins + contest.fee)
+
+            transaction = OpenStruct.new(
+              status: 'complete',
+              format: 'refund',
+              action: 'plus',
+              description: 'Refund contest',
+              from: 'gem',
+              to: 'coins',
+              unit: 'coins',
+              amount: contest.fee,
+              tax: 0
+            )
+
+            player.update(coins: player.coins + contest.fee)
+            Ledger.create_transaction(player, transaction)
+          end
         else
           contest.update(_state: :live, active: false)
         end
