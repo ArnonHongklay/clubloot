@@ -49,7 +49,9 @@ class Template
         user = User.find(player.id)
         contest.winners << user
         contest.save!
+      end
 
+      contest.winners.each do |user|
         total_winner = contest.winners.count
         prize        = contest.prize || 0
 
