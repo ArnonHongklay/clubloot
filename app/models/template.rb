@@ -51,31 +51,31 @@ class Template
         contest.save!
       end
 
+      # if contest.winners.count < contest.max_players
+
+      total_winner = contest.winners.count
+      prize        = contest.prize || 0
+
+      if total_winner == 1
+        rates = Contest.gem_matrix[:gem][prize]
+      elsif total_winner > 1
+        rates = Contest.refund_list[total_winner-2][prize]
+      end
+
       contest.winners.each do |user|
-        total_winner = contest.winners.count
-        prize        = contest.prize || 0
-
-        if total_winner == 1
-          rates = Contest.gem_matrix[:gem][prize]
-        elsif total_winner > 1
-          rates = Contest.refund_list[prize][total_winner]
-        end
-
         transaction = []
+
         rates.each do |rate|
-          if rate[:type].downcase == 'coin'
+          case rate[:type].downcase
+          when 'coin'
             user.update(coins: user.coins + rate[:value])
-          end
-          if rate[:type].downcase == 'ruby'
+          when 'ruby'
             user.update(rubies: user.rubies + rate[:value])
-          end
-          if rate[:type].downcase == 'sapphire'
+          when 'sapphire'
             user.update(sapphires: user.sapphires + rate[:value])
-          end
-          if rate[:type].downcase == 'emerald'
+          when 'emerald'
             user.update(emeralds: user.emeralds + rate[:value])
-          end
-          if rate[:type].downcase == 'diamond'
+          when 'diamond'
             user.update(diamonds: user.diamonds + rate[:value])
           end
 
@@ -94,6 +94,9 @@ class Template
 
         Ledger.create_transactions(user, transaction)
       end
+      # else
+
+      # end
     end
   end
 
