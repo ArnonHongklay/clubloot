@@ -56,7 +56,8 @@ class ApplicationAPI < Grape::API
     error_response(message: e.message, status: 422)
   end
 
-  mount V1::TemplatesAPI
+  mount V1::UsersAPI
+  mount V1::ContestsAPI
 
   add_swagger_documentation \
     api_version: '1.0.0',

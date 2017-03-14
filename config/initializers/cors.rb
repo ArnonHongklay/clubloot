@@ -17,8 +17,9 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'clubloot.(com|local)'
-    resource '/v1/*', headers: :any, medthods: [:get, :post, :put, :delete]
+    # origins '*clubloot.(com|local)'
+    origins '*'
+    resource '*', headers: :any, medthods: [:get, :post, :put, :delete]
   end
 
   allow do

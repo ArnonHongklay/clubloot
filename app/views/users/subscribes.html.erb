@@ -1,0 +1,42 @@
+
+<article class="content responsive-tables-page">
+
+
+  <div class="title-block">
+    <h1 class="title"> Subscriber Tables
+    <%= link_to 'Add New', new_user_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    </h1>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-block">
+
+            <section class="example">
+              <div class="table-flip-scroll">
+                <table class="table table-bordered table-hover flip-content">
+                  <thead class="flip-header">
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @subscribes.each do |user| %>
+                      <tr>
+                        <td><%= user.name %></td>
+                        <td><%= user.email %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>

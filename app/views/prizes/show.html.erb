@@ -1,0 +1,27 @@
+
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Show Prize <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+
+
+  <p>
+    Name: <%= @prize.name %>
+  </p>
+  <p>
+    Picture: <%= image_tag @prize.attachment, width: 120, height: 120 %>
+  </p>
+  <p>
+    Price: <%= @prize.price %>
+  </p>
+  <p>
+    Quantity: <%= @prize.quantity %>
+  </p>
+  <p>
+    Description: <pre><%= @prize.description %></pre>
+  </p>
+  <%= link_to 'Edit', edit_prize_path(@prize), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Back', prizes_path, class: 'btn btn-primary btn-sm rounded-s' %>
+</article>

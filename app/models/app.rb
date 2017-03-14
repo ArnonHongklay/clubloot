@@ -24,10 +24,10 @@ class App < Struct.new(:region, :environment, :version)
 
   def root_domain
     if environment.development?
-      'clubloot.local'
+      'clubloot.local' + port
     else
       'clubloot.com'
-    end + port
+    end
   end
 
   def protocol
@@ -48,6 +48,12 @@ class App < Struct.new(:region, :environment, :version)
     end
   end
 
+  def generate_code(digit = 5)
+    o = [(0..9), ('A'..'Z')].map { |i| i.to_a }.flatten
+    o = o - [0 , 'O', 'I', 'L', 1]
+    (0...digit).map { o[rand(o.length)] }.join
+  end
+
   class << self
     attr_accessor :current
 
@@ -57,4 +63,48 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   self.current = new
+end
+
+class Loot
+  include Mongoid::Document
+  store_in collection: "dailies"
+
+  field :base, type: Integer
+  field :minConsecutive, type: Integer
+  field :maxConsecutive, type: Integer
+  field :moreCoin, type: Integer
+end
+
+class GemConvert
+  include Mongoid::Document
+  store_in collection: "gemcs"
+
+  field :ruby,      type: Hash
+  field :sapphire,  type: Hash
+  field :emerald,   type: Hash
+  field :diamond,   type: Hash
+end
+
+class SigninLog
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :user_id, type: String
+end
+
+class ConomyLog
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :coins, type: Integer
+end
+
+class Tax
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :tax_type, type: String
+  field :contest_id, type: String
+  field :coin, type: String
+  field :user_id, type: String
 end

@@ -1,0 +1,114 @@
+
+<article class="content responsive-tables-page">
+
+
+  <div class="title-block">
+    <h1 class="title"> Contest Tables </h1>
+  </div>
+  <%= link_to 'Back', user_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-block">
+
+            <section class="example">
+              <div class="table-flip-scroll">
+                <table class="table table-bordered table-hover flip-content">
+                  <thead class="flip-header">
+                    <tr>
+                      <th>Contest name</th>
+                      <th>Players</th>
+                      <th>Fee</th>
+                      <th>Username</th>
+                    </tr>
+                  </thead>
+                  <thead class="thead-inverse">
+                    <tr>
+                      <th colspan="4" rowspan="2">Upcoming</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @contest_upcoming.each do |contest| %>
+                      <tr>
+                        <td>
+                          <%= link_to contest.name,
+                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
+                                      target: '_blank' %>
+                        </td>
+                        <td><%= contest.players.count %> users</td>
+                        <td><%= contest.fee %></td>
+                        <td><%= @user.username %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+
+                  <thead class="thead-inverse">
+                    <tr>
+                      <th colspan="4" rowspan="2">Live</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @contest_live.each do |contest| %>
+                      <tr>
+                        <td>
+                          <%= link_to contest.name,
+                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
+                                      target: '_blank' %>
+                        </td>
+                        <td><%= contest.players.count %> users</td>
+                        <td><%= contest.fee %></td>
+                        <td><%= @user.username %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+
+                  <thead class="thead-inverse">
+                    <tr>
+                      <th colspan="4" rowspan="2">Completed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @contest_end.each do |contest| %>
+                      <tr>
+                        <td>
+                          <%= link_to contest.name,
+                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
+                                      target: '_blank' %>
+                        </td>
+                        <td><%= contest.players.count %> users</td>
+                        <td><%= contest.fee %></td>
+                        <td><%= @user.username %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+
+                  <thead class="thead-inverse">
+                    <tr>
+                      <th colspan="4" rowspan="2">Past</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @contest_past.each do |contest| %>
+                      <tr>
+                        <td>
+                          <%= link_to contest.name,
+                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
+                                      target: '_blank' %>
+                        </td>
+                        <td><%= contest.players.count %> users</td>
+                        <td><%= contest.fee %></td>
+                        <td><%= @user.username %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</article>
