@@ -33,7 +33,9 @@ class UsersController < ApplicationController
   end
 
   def prizes
-
+    @user = User.find(params[:user_id])
+    @prizes_pending = @user.prizes
+    @prizes_completed = @user.prizes
   end
 
   # GET /users/1
@@ -71,6 +73,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        @user.advanced_ledger(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -99,6 +102,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       # params.fetch(:user, {})
-      params[:user].permit(:name, :username, :first_name, :last_name, :billing_address, :billing_city, :billing_state, :billing_zipcode, :diamonds, :emeralds, :sapphires, :rubies, :coins)
+      params[:user].permit(:name, :username, :first_name, :last_name, :billing_address, :billing_city, :billing_state, :billing_zipcode)
     end
 end
