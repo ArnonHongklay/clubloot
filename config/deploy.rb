@@ -2,9 +2,10 @@ set :application, 'clubloot'
 set :repo_url,    'git@github.com:letsdoitrocks/clubloot.git'
 
 set :deploy_to,   '/home/deploy/clubloot/admin'
+set :pty, true
 
-set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml}
-set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml config/instance.yml}
+set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 def red(str)
   "\e[31m#{str}\e[0m"
@@ -25,6 +26,15 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+
+  desc 'run workers'
+  task :restart_workers do
+    on roles(:app), in: :sequence, wait: 5 do
+      # execute :sudo, "systemctl restart sidekiq"
+      execute :sudo, "service sidekiq stop"
+      execute :sudo, "service sidekiq start"
     end
   end
 
@@ -59,6 +69,7 @@ namespace :deploy do
 
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
+  after :published,   :restart_workers
 end
 
 namespace :node do

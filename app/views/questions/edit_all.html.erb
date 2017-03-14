@@ -1,0 +1,10 @@
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Add new question <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+
+  <%= link_to 'Back', template_path(@template), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= render 'form', questions: @questions, url: update_all_template_questions_path(@template), method: :put %>
+</article>

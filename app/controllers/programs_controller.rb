@@ -1,5 +1,6 @@
 class ProgramsController < ApplicationController
-  before_action :set_program, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_program, only: [:show, :edit, :update, :destroy, :toggle_status]
 
   # GET /programs
   # GET /programs.json
@@ -51,6 +52,18 @@ class ProgramsController < ApplicationController
     end
   end
 
+  def toggle_status
+    respond_to do |format|
+      if @program.update(active: !@program.active)
+        format.html { redirect_to programs_path, notice: 'Program was successfully updated.' }
+        # format.json { render :show, status: :ok, location: @program }
+      else
+        format.html { render :edit }
+        # format.json { render json: @program.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /programs/1
   # DELETE /programs/1.json
   def destroy
@@ -70,6 +83,6 @@ class ProgramsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def program_params
       # params.fetch(:program, {})
-      params.require(:program).permit(:name, :category, :active)
+      params.require(:program).permit(:name, :category, :active, :attachment)
     end
 end

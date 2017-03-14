@@ -1,0 +1,104 @@
+<article class="content responsive-tables-page">
+
+  <div class="title-block">
+    <h1 class="title"> Transaction Tables
+    <%#= link_to 'Add New', new_ledger_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    </h1>
+    <%#<p class="title-description"> When blocks aren't enough </p>%>
+  </div>
+
+  <%= link_to 'Back', user_path(@user), class: 'btn btn-primary btn-sm rounded-s' %>
+
+  <p id="notice"><%= notice %></p>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-block">
+            <div class="card-title-block">
+              <h3 class="title"> Transaction </h3>
+            </div>
+            <section class="example">
+              <div class="table-flip-scroll">
+                <table class="table table-bordered table-hover flip-content">
+                  <thead class="flip-header">
+                    <tr>
+                      <th>Code</th>
+                      <th>Date Time</th>
+                      <th>Username</th>
+                      <th>Transaction</th>
+                      <th>Description</th>
+                      <th>Amount</th>
+                      <th>Balance</th>
+                      <%#<th>&nbsp;</th>%>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @ledgers.each do |ledger| %>
+                      <tr class="odd gradeX">
+                        <td class="center-center">
+                          <% ledger.transaction.each do |transaction| %>
+                            <% if transaction.action == 'plus' %>
+                              <%= "<i class='fa fa-plus' aria-hidden='true' style='color: green'></i>".html_safe %><br>
+                            <% else %>
+                              <%= "<i class='fa fa-minus' aria-hidden='true' style='color: red'></i>".html_safe %><br>
+                            <% end %>
+                          <% end %>
+                        </td>
+                        <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y") %></td>
+                        <td class="center-left"><%= ledger.user[:username] || ledger.user[:email] %></td>
+                        <td>
+                          <% ledger.transaction.each do |transaction| %>
+                            <%= transaction._id %><br>
+                          <% end %>
+                        </td>
+                        <td>
+                          <% ledger.transaction.each do |transaction| %>
+                            <%= "(#{transaction.description}) #{transaction.from} -> #{transaction.to}" %><br>
+                          <% end %>
+                        </td>
+                        <td>
+                          <% ledger.transaction.each do |transaction| %>
+                            <% if ledger.format == 'won' %>
+                              <%= "#{transaction.amount - transaction.tax} #{transaction.unit}" %><br>
+                            <% else %>
+                              <%= "#{transaction.amount} #{transaction.unit}" %><br>
+                            <% end %>
+                          <% end %>
+                        </td>
+                        <td class="center-left">
+                          <span>
+                            <%= ledger.balance[:coins] %>
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                          </span>
+                          <span style="color: #951111">
+                            <%= ledger.balance[:rubies] %>
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                          </span>
+                          <span style="color: #2A4C7A">
+                            <%= ledger.balance[:sapphires] %>
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                          </span>
+                          <span style="color: #758F42">
+                            <%= ledger.balance[:emeralds] %>
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                          </span>
+                          <span style="color: #9F9B93">
+                            <%= ledger.balance[:diamonds] %>
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                          </span>
+                        </td>
+                        <%#<td>= link_to 'Edit', edit_ledger_path(ledger) </td>%>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
