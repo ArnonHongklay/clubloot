@@ -188,7 +188,7 @@ class Contest
     elsif winners.count == 1
       Contest.gem_matrix[:gem][prize]
     else
-      Contest.refund_list[prize][self.winners.count]
+      Contest.refund_list[prize][self.winners.count-2]
     end
   end
 

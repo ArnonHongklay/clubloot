@@ -27,7 +27,8 @@ class WinnerWorker
       if total_winner == 1
         rates = Contest.gem_matrix[:gem][prize]
       elsif total_winner > 1
-        rates = Contest.refund_list[prize][total_winner]
+        # rates = Contest.refund_list[prize][total_winner]
+        rates = Contest.refund_list[prize][total_winner-2]
       end
 
       transaction = []
