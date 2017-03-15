@@ -51,8 +51,6 @@ class Template
         contest.save!
       end
 
-      # if contest.winners.count < contest.max_players
-
       total_winner = contest.winners.count
       prize        = contest.prize || 0
 
@@ -94,9 +92,6 @@ class Template
 
         Ledger.create_transactions(user, transaction)
       end
-      # else
-
-      # end
     end
   end
 

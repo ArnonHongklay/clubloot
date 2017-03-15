@@ -144,7 +144,7 @@ module V1
       end
       get '/templates' do
         begin
-          if templates = Template.where(program: params[:program_id])
+          if templates = Template.active.where(program: params[:program_id])
             present :status, :success
           else
             present :status, :failure
@@ -161,7 +161,7 @@ module V1
       end
       get "/template" do
         begin
-          if template = Template.find(params[:template_id])
+          if template = Template.active.find(params[:template_id])
             present :status, :success
           else
             present :status, :failure
