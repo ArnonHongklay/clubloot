@@ -40,9 +40,9 @@ class Program
   end
 
   def all_contests
-    templates.current_template.contests
-    # templates.sort_by(&:end_time).each do |template|
-    #   template.contests
-    # end
+    # templates.current_template.contests
+    templates.sort_by(&:end_time).each do |template|
+      template.contests
+    end
   end
 end
