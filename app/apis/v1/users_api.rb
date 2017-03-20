@@ -220,59 +220,59 @@ module V1
           end
         end
       end
-    end
 
-    resource :prize do
-      params do
-        requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
-        requires :prize_id, type: String, default: '58b82e942cc3c43e4e31ca2c', desc: "Contest Id"
-      end
-      post ':program_id' do
-        begin
-          prize = Prize.find(params[:prize_id])
-          if prize
-            present :status, :success
-            if prize.present?
-              present :data, programs
+      resource :prize do
+        params do
+          requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
+          requires :prize_id, type: String, default: '58b82e942cc3c43e4e31ca2c', desc: "Contest Id"
+        end
+        post ':program_id' do
+          begin
+            prize = Prize.find(params[:prize_id])
+            if prize
+              present :status, :success
+              if prize.present?
+                present :data, programs
+              else
+                present :data, programs
+              end
             else
-              present :data, programs
+              present :status, :failure
+              present :data, "Can't show data"
             end
-          else
+          rescue Exception => e
             present :status, :failure
-            present :data, "Can't show data"
+            present :data, e
           end
-        rescue Exception => e
-          present :status, :failure
-          present :data, e
         end
       end
-    end
 
-    resource :convert_gem do
-      params do
-        requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
-        requires :type,     type: String, default: 'ruby', desc: "Contest Id"
-      end
-      post ':program_id' do
-        begin
-          # prize = Prize.find(params[:prize_id])
-          # if prize
-            present :status, :success
-          #   if prize.present?
-          #     present :data, programs
-          #   else
-          #     present :data, programs
-          #   end
-          # else
-          #   present :status, :failure
-          #   present :data, "Can't show data"
-          # end
-        rescue Exception => e
-          present :status, :failure
-          present :data, e
+      resource :convert_gem do
+        params do
+          requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
+          requires :type,     type: String, default: 'ruby', desc: "Contest Id"
+        end
+        post ':program_id' do
+          begin
+            # prize = Prize.find(params[:prize_id])
+            # if prize
+              present :status, :success
+            #   if prize.present?
+            #     present :data, programs
+            #   else
+            #     present :data, programs
+            #   end
+            # else
+            #   present :status, :failure
+            #   present :data, "Can't show data"
+            # end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
         end
       end
-    end
 
+    end
   end
 end
