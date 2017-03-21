@@ -36,7 +36,15 @@ class Program
   end
 
   def upcoming_time
-    templates.upcoming_time
+    # templates.upcoming_time
+    ts = templates.active.where(:start_time.lte => Time.zone.now, :end_time.gte => Time.zone.now)
+
+    min = nil
+    ts.each do |template|
+      min = template.end_time if min.nil? or template.end_time < min
+      # p template.end_time
+    end
+    min
   end
 
   def contests

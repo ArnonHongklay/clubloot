@@ -30,6 +30,7 @@ class Template
     upcoming = self.upcoming_program
     min = nil
     upcoming.each do |m|
+      # p m.name
       min = m.end_time if min.nil? or min < m.end_time
     end
     min
@@ -67,14 +68,19 @@ class Template
           case rate[:type].downcase
           when 'coin'
             user.update(coins: user.coins + rate[:value])
+            p "coins #{user.coins}"
           when 'ruby'
             user.update(rubies: user.rubies + rate[:value])
+            p "rubies #{user.rubies}"
           when 'sapphire'
             user.update(sapphires: user.sapphires + rate[:value])
+            p "sapphires #{user.sapphires}"
           when 'emerald'
             user.update(emeralds: user.emeralds + rate[:value])
+            p "emeralds #{user.emeralds}"
           when 'diamond'
             user.update(diamonds: user.diamonds + rate[:value])
+            p "diamonds #{user.diamonds}"
           end
 
           transaction << OpenStruct.new(
