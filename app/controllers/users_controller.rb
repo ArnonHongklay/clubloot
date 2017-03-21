@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def transactions
     @user = User.find(params[:user_id])
-    @ledgers = Ledger.where('user.id' => @user.id)
+    @ledgers = Ledger.where('user.id' => @user.id).order(created_at: :desc)
   end
 
   def prizes

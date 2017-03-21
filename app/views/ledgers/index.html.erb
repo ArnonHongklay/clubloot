@@ -44,7 +44,7 @@
                             <% end %>
                           <% end %>
                         </td>
-                        <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y") %></td>
+                        <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y %H:%M") %></td>
                         <td class="center-left"><%= ledger.user[:username] || ledger.user[:email] %></td>
                         <td>
                           <% ledger.transaction.each do |transaction| %>
