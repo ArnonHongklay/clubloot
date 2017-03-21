@@ -42,7 +42,6 @@ class Template
 
   def end_contest
     return if questions.where('is_correct' => false).count > 0
-    return unless active
 
     update(active: false)
     contests.each do |contest|
