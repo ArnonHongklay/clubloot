@@ -54,11 +54,34 @@ module V1
         end
         get ':program_id' do
           begin
-            programs = Program.find(params[:program_id]).all_contests
+            programs = Program.find(params[:program_id]).contests
             if programs
               present :status, :success
               if programs.present?
                 present :data, programs, with: Entities::ProgramContestsExpose
+              else
+                present :data, programs
+              end
+            else
+              present :status, :failure
+              present :data, "Can't show data"
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+
+        params do
+          requires :program_id, type: String, desc: "Program Id"
+        end
+        get ':program_id/all_contests' do
+          begin
+            programs = Program.find(params[:program_id]).all_contests
+            if programs
+              present :status, :success
+              if programs.present?
+                present :data, programs#, with: Entities::ProgramContestsExpose
               else
                 present :data, programs
               end

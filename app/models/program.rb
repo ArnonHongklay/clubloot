@@ -39,8 +39,11 @@ class Program
     templates.upcoming_time
   end
 
+  def contests
+    templates.current_template.contests
+  end
+
   def all_contests
-    # templates.current_template.contests
     templates.sort_by(&:end_time).each do |template|
       template.contests
     end

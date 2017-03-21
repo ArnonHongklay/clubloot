@@ -1,7 +1,7 @@
 class Entities::ProgramContestsExpose < Grape::Entity
   expose :id
   expose :name
-  # expose :max_players
+  expose :max_players
   expose :status
   expose :state
   expose :prize
