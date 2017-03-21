@@ -96,6 +96,30 @@ module V1
         end
 
         params do
+          # requires :program_id, type: String, desc: "Program Id"
+          requires :contest_id, type: String, desc: "Contest Id"
+        end
+        get 'by_contest' do
+          begin
+            contest = Contest.find(params[:program_id])
+            if contest
+              present :status, :success
+              if contest.present?
+                present :data, contest, with: Entities::ProgramContestsExpose
+              else
+                present :data, contest
+              end
+            else
+              present :status, :failure
+              present :data, "Can't show data"
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+
+        params do
           requires :program_id, type: String, desc: "Program Id"
         end
         get ':program_id/templates' do
