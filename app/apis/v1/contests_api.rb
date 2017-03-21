@@ -54,13 +54,60 @@ module V1
         end
         get ':program_id' do
           begin
-            programs = Program.find(params[:program_id]).all_contests
+            programs = Program.find(params[:program_id]).contests
             if programs
               present :status, :success
               if programs.present?
                 present :data, programs, with: Entities::ProgramContestsExpose
               else
                 present :data, programs
+              end
+            else
+              present :status, :failure
+              present :data, "Can't show data"
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+
+        params do
+          requires :program_id, type: String, desc: "Program Id"
+        end
+        get ':program_id/all_contests' do
+          begin
+            programs = Program.find(params[:program_id]).all_contests
+            if programs
+              present :status, :success
+              if programs.present?
+                present :data, programs, with: Entities::ProgramTemplateContestsExpose
+              else
+                present :data, programs
+              end
+            else
+              present :status, :failure
+              present :data, "Can't show data"
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+
+        params do
+          # requires :program_id, type: String, desc: "Program Id"
+          requires :contest_id, type: String, desc: "Contest Id"
+        end
+        get 'by_contest' do
+          begin
+            contest = Contest.find(params[:contest_id])
+            if contest
+              present :status, :success
+              if contest.present?
+                present :data, contest, with: Entities::ProgramContestsExpose
+              else
+                present :data, contest
               end
             else
               present :status, :failure
@@ -144,7 +191,7 @@ module V1
       end
       get '/templates' do
         begin
-          if templates = Template.where(program: params[:program_id])
+          if templates = Template.active.where(program: params[:program_id])
             present :status, :success
           else
             present :status, :failure
@@ -161,7 +208,7 @@ module V1
       end
       get "/template" do
         begin
-          if template = Template.find(params[:template_id])
+          if template = Template.active.find(params[:template_id])
             present :status, :success
           else
             present :status, :failure
