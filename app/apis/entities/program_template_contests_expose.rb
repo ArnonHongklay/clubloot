@@ -4,6 +4,6 @@ class Entities::ProgramTemplateContestsExpose < Grape::Entity
   # expose :template #, with: ProgramTemplatesShowExpose
 
   expose :contests do |item|
-    item.template.contests
+    item.template
   end
 end
