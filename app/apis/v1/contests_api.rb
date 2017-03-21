@@ -101,7 +101,7 @@ module V1
         end
         get 'by_contest' do
           begin
-            contest = Contest.find(params[:program_id])
+            contest = Contest.find(params[:contest_id])
             if contest
               present :status, :success
               if contest.present?
