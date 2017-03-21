@@ -81,7 +81,7 @@ module V1
             if programs
               present :status, :success
               if programs.present?
-                present :data, programs#, with: Entities::ProgramContestsExpose
+                present :data, programs, with: Entities::ProgramTemplateContestsExpose
               else
                 present :data, programs
               end
