@@ -2,5 +2,5 @@ class Entities::ProgramTemplateContestsExpose < Grape::Entity
   expose :id
   expose :name
   # expose :template #, with: ProgramTemplatesShowExpose
-  expose :contests, with: ProgramContestsExpose
+  expose :contests, with: Entities::ProgramContestsExpose
 end
