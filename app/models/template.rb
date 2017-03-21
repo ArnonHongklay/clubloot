@@ -52,17 +52,17 @@ class Template
         contest.save!
       end
 
-      total_winner = contest.winners.count
-      prize        = contest.prize || 0
-
-      if total_winner == 1
-        rates = Contest.gem_matrix[:gem][prize]
-      elsif total_winner > 1
-        rates = Contest.refund_list[prize][total_winner-2]
-      end
-
       contest.winners.each do |user|
         transaction = []
+
+        total_winner = contest.winners.count
+        prize        = contest.prize || 0
+
+        if total_winner == 1
+          rates = Contest.gem_matrix[:gem][prize]
+        elsif total_winner > 1
+          rates = Contest.refund_list[prize][total_winner-2]
+        end
 
         rates.each do |rate|
           case rate[:type].downcase
