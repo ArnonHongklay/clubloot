@@ -44,7 +44,7 @@ class Template
     return if questions.where('is_correct' => false).count > 0
 
     update(active: false)
-    contests.where(_state: :live).each do |contest|
+    contests.each do |contest|
       contest.update(state: :end)
       contest.leaders.select{ |ledger| ledger.position == 1 }.each do |player|
         user = User.find(player.id)
