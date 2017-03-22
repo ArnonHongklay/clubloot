@@ -40,6 +40,54 @@ class Template
     self.upcoming_program.sort_by(&:end_time).first
   end
 
+  def prize(winner, prize)
+    if winner == 1
+      Contest.gem_matrix[:gem][prize]
+    elsif total_winner > 1
+      Contest.refund_list[prize][winner-2]
+    end
+  end
+
+  def winners(contest, rates)
+    contest.winners.each do |user|
+      transaction = []
+
+      rates.each do |rate|
+        case rate[:type].downcase
+        when 'coin'
+          user.update(coins: user.coins + rate[:value])
+          p "coins #{user.coins}"
+        when 'ruby'
+          user.update(rubies: user.rubies + rate[:value])
+          p "rubies #{user.rubies}"
+        when 'sapphire'
+          user.update(sapphires: user.sapphires + rate[:value])
+          p "sapphires #{user.sapphires}"
+        when 'emerald'
+          user.update(emeralds: user.emeralds + rate[:value])
+          p "emeralds #{user.emeralds}"
+        when 'diamond'
+          user.update(diamonds: user.diamonds + rate[:value])
+          p "diamonds #{user.diamonds}"
+        end
+
+        transaction << OpenStruct.new(
+          status: 'complete',
+          format: 'winners',
+          action: 'plus',
+          description: 'Winner contest',
+          from: 'coins',
+          to: 'winner',
+          unit: rate[:type].downcase,
+          amount: rate[:value],
+          tax: 0
+        )
+      end
+
+      Ledger.create_transactions(user, transaction)
+    end
+  end
+
   def end_contest
     return if questions.where('is_correct' => false).count > 0
 
@@ -52,52 +100,11 @@ class Template
         contest.save!
       end
 
-      contest.winners.each do |user|
-        transaction = []
+      total_winner  = contest.winners.count
+      contest_prize = contest.prize || 0
+      rates = prize(total_winner, contest_prize)
 
-        total_winner = contest.winners.count
-        prize        = contest.prize || 0
-
-        if total_winner == 1
-          rates = Contest.gem_matrix[:gem][prize]
-        elsif total_winner > 1
-          rates = Contest.refund_list[prize][total_winner-2]
-        end
-
-        rates.each do |rate|
-          case rate[:type].downcase
-          when 'coin'
-            user.update(coins: user.coins + rate[:value])
-            p "coins #{user.coins}"
-          when 'ruby'
-            user.update(rubies: user.rubies + rate[:value])
-            p "rubies #{user.rubies}"
-          when 'sapphire'
-            user.update(sapphires: user.sapphires + rate[:value])
-            p "sapphires #{user.sapphires}"
-          when 'emerald'
-            user.update(emeralds: user.emeralds + rate[:value])
-            p "emeralds #{user.emeralds}"
-          when 'diamond'
-            user.update(diamonds: user.diamonds + rate[:value])
-            p "diamonds #{user.diamonds}"
-          end
-
-          transaction << OpenStruct.new(
-            status: 'complete',
-            format: 'winners',
-            action: 'plus',
-            description: 'Winner contest',
-            from: 'coins',
-            to: 'winner',
-            unit: rate[:type].downcase,
-            amount: rate[:value],
-            tax: 0
-          )
-        end
-
-        Ledger.create_transactions(user, transaction)
-      end
+      winners(contest, rates)
     end
   end
 
