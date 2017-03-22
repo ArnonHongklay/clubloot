@@ -43,7 +43,7 @@ class Template
   def prize(winner, prize)
     if winner == 1
       Contest.gem_matrix[:gem][prize]
-    elsif total_winner > 1
+    elsif winner > 1
       Contest.refund_list[prize][winner-2]
     end
   end
