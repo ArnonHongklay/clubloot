@@ -99,7 +99,9 @@ class Template
   end
 
   def end_contest
-    return false if questions.where('is_correct' => false).count > 0 or self.active == false
+    if self.active == false or questions.where('is_correct' => false).count > 0
+      return false
+    end
 
     update(active: false)
     contests.each do |contest|

@@ -98,7 +98,12 @@
             url: '/systems/templates/'+ template +'/questions/'+ question +'/answers/' + answer,
             type: 'PUT',
             success: function(result) {
-              $.alert('Confirmed!');
+              console.log(result);
+              if(result.status == 'success'){
+                $.alert(result.message);
+              }else {
+                $.alert(result.message);
+              }
             }
           });
         },
