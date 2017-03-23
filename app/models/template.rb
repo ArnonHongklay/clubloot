@@ -49,8 +49,14 @@ class Template
   end
 
   def winners(contest, rates)
+    p "=================================== in winners contest ==================================="
+    p contest.inspect
+    p rates.inspect
+
     contest.winners.each do |user|
       transaction = []
+      p "=================================== in winners rate ==================================="
+      p rates.inspect
 
       rates.each do |rate|
         case rate[:type].downcase
@@ -83,6 +89,7 @@ class Template
           tax: 0
         )
       end
+      p "=================================== after rate ==================================="
 
       Ledger.create_transactions(user, transaction)
     end
@@ -100,9 +107,15 @@ class Template
         contest.save!
       end
 
+      p "=================================== winners ==================================="
+      p contest.winners.inspect
+
       total_winner  = contest.winners.count
       contest_prize = contest.prize || 0
       rates = prize(total_winner, contest_prize)
+
+      p "=================================== rates ==================================="
+      p rates.inspect
 
       winners(contest, rates)
     end
