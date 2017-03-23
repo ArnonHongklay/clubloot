@@ -39,19 +39,7 @@ class Template
     self.upcoming_program.sort_by(&:end_time).first
   end
 
-  def prize(winner, prize)
-    p "=================================== in prize ==================================="
-    # p winner
-    # p prize
-
-    if winner == 1
-      Contest.gem_matrix[:gem][prize]
-    elsif winner > 1
-      Contest.refund_list[prize][winner-2]
-    end
-  end
-
-  def winners(contest, rates)
+  def self.winners(contest, rates)
     p "=================================== in winners contest ==================================="
     p contest.inspect
     p rates.inspect
@@ -114,12 +102,16 @@ class Template
 
     total_winner  = winners.count
     contest_prize = contest.prize || 0
-    rates = prize(total_winner, contest_prize)
 
     p "=================================== rates ==================================="
     p rates.inspect
+    rates = if winner == 1
+      Contest.gem_matrix[:gem][prize]
+    elsif winner > 1
+      Contest.refund_list[prize][winner-2]
+    end
 
-    winners(contest, rates)
+    Template.winners(contest, rates)
   end
 
   private
