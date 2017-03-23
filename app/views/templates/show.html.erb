@@ -53,10 +53,16 @@
       <% end %>
       <div class="row">
         <div class="col-sm-9">
-          <div class="btn btn-primary btn-sm rounded-s pull-right"
-               onClick="answerQuestion('<%= @template._id %>', '<%= question._id %>')">
-            Enter Question <%= question_index + 1 %>
-          </div>
+          <% if @template.active %>
+            <div class="btn btn-primary btn-sm rounded-s pull-right"
+                 onClick="answerQuestion('<%= @template._id %>', '<%= question._id %>')">
+              Enter Question <%= question_index + 1 %>
+            </div>
+          <% else %>
+            <div class="btn btn-primary btn-sm rounded-s pull-right disabled">
+              End contest
+            </div>
+          <% end %>
         </div>
       </div>
       <hr />
