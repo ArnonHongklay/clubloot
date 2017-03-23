@@ -115,6 +115,7 @@ class Template
 
       p "=================================== winners ==================================="
       p contest.winners.inspect
+      p contest.winners.count
 
       total_winner  = contest.winners.count
       contest_prize = contest.prize || 0
