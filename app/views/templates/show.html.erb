@@ -53,13 +53,24 @@
       <% end %>
       <div class="row">
         <div class="col-sm-9">
-          <div class="btn btn-primary btn-sm rounded-s pull-right" onClick="answerQuestion('<%= @template._id %>', '<%= question._id %>')">Enter Question<%= question_index + 1 %></div>
+          <div class="btn btn-primary btn-sm rounded-s pull-right"
+               onClick="answerQuestion('<%= @template._id %>', '<%= question._id %>')">
+            Enter Question <%= question_index + 1 %>
+          </div>
         </div>
       </div>
       <hr />
     <% end %>
-
-    <%= link_to 'End contest', end_contest_template_path(@template), class: 'btn btn-primary btn-sm rounded-s' %>
+    <% if @template.active %>
+      <div class="btn btn-primary btn-lg"
+           onClick="endContest()">
+        End contest
+      </div>
+    <% else %>
+      <div class="btn btn-primary btn-lg disabled">
+        End contest
+      </div>
+    <% end %>
   </div>
 </article>
 
@@ -73,24 +84,57 @@
     }
 
     $.confirm({
-        title: 'Confirm!',
-        content: 'Simple confirm!',
-        buttons: {
-          confirm: function () {
-            $.ajax({
-                url: '/systems/templates/'+ template +'/questions/'+ question +'/answers/' + answer,
-                type: 'PUT',
-                success: function(result) {
-                  $.alert('Confirmed!');
-                }
-            });
-          },
-          cancel: function () {
-              $.alert('Canceled!');
-          },
-        }
+      title: 'Confirm!',
+      // content: 'Simple confirm!',
+      buttons: {
+        confirm: function () {
+          $.ajax({
+            url: '/systems/templates/'+ template +'/questions/'+ question +'/answers/' + answer,
+            type: 'PUT',
+            success: function(result) {
+              $.alert('Confirmed!');
+            }
+          });
+        },
+        cancel: function () {
+          $.alert('Canceled!');
+        },
+      }
     });
   }
+
+  function endContest(){
+
+    $.confirm({
+      title: 'Confirm!',
+      // content: 'Simple confirm!',
+      buttons: {
+        confirm: function () {
+
+          $.ajax({
+            url: '<%= end_contest_template_path(@template, format: :json) %>',
+            type: 'GET',
+            success: function(result) {
+              console.log(result)
+              if(result.active) {
+                $.alert('Error can not end contest!');
+              }
+              else {
+                location.reload();
+              }
+            },
+            error: function(result) {
+              $.alert('Error can not end contest!');
+            }
+          });
+        },
+        cancel: function () {
+          $.alert('Canceled!');
+        },
+      }
+    });
+  }
+
 </script>
 
 

@@ -50,10 +50,9 @@ class TemplatesController < ApplicationController
   end
 
   def end_contest
-    @template.end_contest
     respond_to do |format|
-      format.html { redirect_to templates_url, notice: 'Template was successfully updated.' }
-      format.json { head :no_content }
+      @template.end_contest
+      format.json { render :show, status: :ok }
     end
   end
 

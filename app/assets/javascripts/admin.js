@@ -7,7 +7,7 @@ $(document).on('ready', function() {
   // console.log(bodyId);
 
   function init() {
-    console.log("xxxx")
+    // console.log("xxxx")
     if(bodyId == 'edit-template' || bodyId == 'new-template') {
         $('#datetimepicker1').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
         $('#datetimepicker2').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });

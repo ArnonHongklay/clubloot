@@ -30,7 +30,6 @@ class Template
     upcoming = self.upcoming_program
     min = nil
     upcoming.each do |m|
-      # p m.name
       min = m.end_time if min.nil? or min < m.end_time
     end
     min
@@ -42,16 +41,14 @@ class Template
 
   def prize(winner, prize)
     p "=================================== in prize ==================================="
-    p winner
-    p prize
+    # p winner
+    # p prize
 
-    xxxx = if winner == 1
+    if winner == 1
       Contest.gem_matrix[:gem][prize]
     elsif winner > 1
       Contest.refund_list[prize][winner-2]
     end
-
-    p xxxx
   end
 
   def winners(contest, rates)
@@ -102,7 +99,7 @@ class Template
   end
 
   def end_contest
-    return if questions.where('is_correct' => false).count > 0
+    return false if questions.where('is_correct' => false).count > 0 or self.active == false
 
     update(active: false)
     contests.each do |contest|
@@ -122,8 +119,8 @@ class Template
       contest_prize = contest.prize || 0
       rates = prize(total_winner, contest_prize)
 
-      # p "=================================== rates ==================================="
-      # p rates.inspect
+      p "=================================== rates ==================================="
+      p rates.inspect
 
       winners(contest, rates)
     end
