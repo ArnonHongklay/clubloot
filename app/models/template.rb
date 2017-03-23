@@ -103,13 +103,14 @@ class Template
     total_winner  = winners.count
     contest_prize = contest.prize || 0
 
+    rates = if total_winner == 1
+      Contest.gem_matrix[:gem][contest_prize]
+    elsif total_winner > 1
+      Contest.refund_list[contest_prize][total_winner-2]
+    end
+
     p "=================================== rates ==================================="
     p rates.inspect
-    rates = if winner == 1
-      Contest.gem_matrix[:gem][prize]
-    elsif winner > 1
-      Contest.refund_list[prize][winner-2]
-    end
 
     Template.winners(contest, rates)
   end

@@ -50,6 +50,7 @@ class TemplatesController < ApplicationController
   end
 
   def end_contest
+    # @template.update(active: true)
     # @template = Template.last
     @template.contests.each do |contest|
       p contest
