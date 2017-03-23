@@ -41,11 +41,17 @@ class Template
   end
 
   def prize(winner, prize)
-    if winner == 1
+    p "=================================== in prize ==================================="
+    p winner
+    p prize
+
+    xxxx = if winner == 1
       Contest.gem_matrix[:gem][prize]
     elsif winner > 1
       Contest.refund_list[prize][winner-2]
     end
+
+    p xxxx
   end
 
   def winners(contest, rates)
