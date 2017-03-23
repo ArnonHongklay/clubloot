@@ -98,6 +98,23 @@ class Template
     end
   end
 
+  def winner_get_prize
+    contests.each do |contest|
+      p "=================================== winners ==================================="
+      # p contest.winners.inspect
+      p contest.winners.count
+
+      total_winner  = contest.winners.count
+      contest_prize = contest.prize || 0
+      rates = prize(total_winner, contest_prize)
+
+      p "=================================== rates ==================================="
+      p rates.inspect
+
+      winners(contest, rates)
+    end
+  end
+
   def end_contest
     if self.active == false or questions.where('is_correct' => false).count > 0
       return false
@@ -108,23 +125,9 @@ class Template
       contest.update(state: :end)
       winners = contest.leaders.select{ |ledger| ledger.position == 1 }
       winners.each do |player|
-        user = User.find(player.id)
-        contest.winners << user
+        contest.winners << User.find(player.id)
         contest.save!
       end
-
-      p "=================================== winners ==================================="
-      # p contest.winners.inspect
-      p winners.count
-
-      total_winner  = winners.count
-      contest_prize = contest.prize || 0
-      rates = prize(total_winner, contest_prize)
-
-      p "=================================== rates ==================================="
-      p rates.inspect
-
-      winners(contest, rates)
     end
   end
 
