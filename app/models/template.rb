@@ -98,8 +98,8 @@ class Template
     end
   end
 
-  def self.end_contest(contest)
-    return false if self.active == false or self.questions.where('is_correct' => false).count > 0
+  def self.end_contest(template, contest)
+    return false if template.active == false or template.questions.where('is_correct' => false).count > 0
 
     contest.update(state: :end)
     winners = contest.leaders.select{ |ledger| ledger.position == 1 }

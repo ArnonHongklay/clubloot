@@ -52,7 +52,7 @@ class TemplatesController < ApplicationController
   def end_contest
     @template.update(active: false)
     @template.contests.each do |contest|
-      Template.end_contest(contest)
+      Template.end_contest(@template, contest)
     end
     respond_to do |format|
       @template.end_contest
