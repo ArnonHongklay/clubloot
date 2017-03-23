@@ -86,9 +86,10 @@ class Template
     end
   end
 
-  def self.end_contest(template, contest)
+  def self.end_contest(template, contest_id)
     return false if template.active == false or template.questions.where('is_correct' => false).count > 0
 
+    # contest = Contest.find(contest_id)
     contest.update(state: :end)
     winners = contest.leaders.select{ |ledger| ledger.position == 1 }
     winners.each do |player|
