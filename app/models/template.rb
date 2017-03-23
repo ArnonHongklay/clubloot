@@ -107,22 +107,23 @@ class Template
     update(active: false)
     contests.each do |contest|
       contest.update(state: :end)
-      contest.leaders.select{ |ledger| ledger.position == 1 }.each do |player|
+      winners = contest.leaders.select{ |ledger| ledger.position == 1 }
+      winners.each do |player|
         user = User.find(player.id)
         contest.winners << user
         contest.save!
       end
 
       p "=================================== winners ==================================="
-      p contest.winners.inspect
-      p contest.winners.count
+      # p contest.winners.inspect
+      p winners.count
 
-      total_winner  = contest.winners.count
+      total_winner  = winners.count
       contest_prize = contest.prize || 0
       rates = prize(total_winner, contest_prize)
 
-      p "=================================== rates ==================================="
-      p rates.inspect
+      # p "=================================== rates ==================================="
+      # p rates.inspect
 
       winners(contest, rates)
     end
