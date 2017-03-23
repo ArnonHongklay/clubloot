@@ -50,8 +50,8 @@ class TemplatesController < ApplicationController
   end
 
   def end_contest
-    # @template.update(active: true)
-    # @template = Template.last
+    @template = Template.first
+    @template.update(active: true)
     @template.contests.each do |contest|
       p contest
       Template.end_contest(@template, contest)
@@ -59,7 +59,6 @@ class TemplatesController < ApplicationController
     @template.update(active: false)
 
     respond_to do |format|
-      @template.end_contest
       format.json { render :show, status: :ok }
     end
   end
