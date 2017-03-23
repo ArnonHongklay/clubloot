@@ -129,6 +129,8 @@ class Template
         contest.save!
       end
     end
+
+    true
   end
 
   private
