@@ -51,10 +51,9 @@ class TemplatesController < ApplicationController
 
   def end_contest
     respond_to do |format|
-      if @template.end_contest
-        @template.winner_get_prize
-        format.json { render :show, status: :ok }
-      end
+      @template.end_contest
+      @template.winner_get_prize
+      format.json { render :show, status: :ok }
     end
   end
 

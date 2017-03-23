@@ -118,19 +118,18 @@ class Template
   def end_contest
     if self.active == false or questions.where('is_correct' => false).count > 0
       return false
-    end
-
-    update(active: false)
-    contests.each do |contest|
-      contest.update(state: :end)
-      winners = contest.leaders.select{ |ledger| ledger.position == 1 }
-      winners.each do |player|
-        contest.winners << User.find(player.id)
-        contest.save!
+    else
+      update(active: false)
+      contests.each do |contest|
+        contest.update(state: :end)
+        contest.leaders.select{ |ledger| ledger.position == 1 }.each do |player|
+          contest.winners << User.find(player.id)
+          contest.save!
+        end
       end
-    end
 
-    true
+      return true
+    end
   end
 
   private
