@@ -39,67 +39,6 @@ class Template
     self.upcoming_program.sort_by(&:end_time).first
   end
 
-  def winners(contest_id)
-    sleep 5
-    contest = Contest.find(contest_id)
-    p "=================================== in winners contest ==================================="
-    p contest.inspect
-    p contest.winners.count
-
-    total_winner  = contest.winners.count
-    contest_prize = contest.prize || 0
-
-    rates = if total_winner == 1
-      Contest.gem_matrix[:gem][contest_prize]
-    elsif total_winner > 1
-      Contest.refund_list[contest_prize][total_winner-2]
-    end
-
-    p "=================================== rates ==================================="
-    p rates.inspect
-
-    contest.winners.each do |user|
-      transaction = []
-      p "=================================== in winners rate ==================================="
-      p rates.inspect
-
-      rates.each do |rate|
-        case rate[:type].downcase
-        when 'coin'
-          user.update(coins: user.coins + rate[:value])
-          p "coins #{user.coins}"
-        when 'ruby'
-          user.update(rubies: user.rubies + rate[:value])
-          p "rubies #{user.rubies}"
-        when 'sapphire'
-          user.update(sapphires: user.sapphires + rate[:value])
-          p "sapphires #{user.sapphires}"
-        when 'emerald'
-          user.update(emeralds: user.emeralds + rate[:value])
-          p "emeralds #{user.emeralds}"
-        when 'diamond'
-          user.update(diamonds: user.diamonds + rate[:value])
-          p "diamonds #{user.diamonds}"
-        end
-
-        transaction << OpenStruct.new(
-          status: 'complete',
-          format: 'winners',
-          action: 'plus',
-          description: 'Winner contest',
-          from: 'coins',
-          to: 'winner',
-          unit: rate[:type].downcase,
-          amount: rate[:value],
-          tax: 0
-        )
-      end
-
-      p "=================================== after rate ==================================="
-      Ledger.create_transactions(user, transaction)
-    end
-  end
-
   def end_contest
     template = self #Template.find(template_id)
     return false if template.active == false or template.questions.where('is_correct' => "false").count > 0
@@ -115,8 +54,68 @@ class Template
       end
       contest.save!
       p "=================================== winners ==================================="
-      winners(contest.id)
-      contest.update(state: :end)
+      # winners(contest.id)
+      # # sleep 5
+      # contest = Contest.find(contest_id)
+      p "=================================== in winners contest ==================================="
+      p contest.inspect
+      p contest.winners.count
+
+      realtime_contest = Contest.find(contest)
+      total_winner  = realtime_contest.winners.count
+      contest_prize = realtime_contest.prize || 0
+
+      rates = if total_winner == 1
+        Contest.gem_matrix[:gem][contest_prize]
+      elsif total_winner > 1
+        Contest.refund_list[contest_prize][total_winner-2]
+      end
+
+      p "=================================== rates ==================================="
+      p rates.inspect
+
+      realtime_contest.winners.each do |user|
+        transaction = []
+        p "=================================== in winners rate ==================================="
+        p rates.inspect
+
+        rates.each do |rate|
+          case rate[:type].downcase
+          when 'coin'
+            user.update(coins: user.coins + rate[:value])
+            p "coins #{user.coins}"
+          when 'ruby'
+            user.update(rubies: user.rubies + rate[:value])
+            p "rubies #{user.rubies}"
+          when 'sapphire'
+            user.update(sapphires: user.sapphires + rate[:value])
+            p "sapphires #{user.sapphires}"
+          when 'emerald'
+            user.update(emeralds: user.emeralds + rate[:value])
+            p "emeralds #{user.emeralds}"
+          when 'diamond'
+            user.update(diamonds: user.diamonds + rate[:value])
+            p "diamonds #{user.diamonds}"
+          end
+
+          transaction << OpenStruct.new(
+            status: 'complete',
+            format: 'winners',
+            action: 'plus',
+            description: 'Winner contest',
+            from: 'coins',
+            to: 'winner',
+            unit: rate[:type].downcase,
+            amount: rate[:value],
+            tax: 0
+          )
+        end
+
+        p "=================================== after rate ==================================="
+        Ledger.create_transactions(user, transaction)
+      end
+
+      realtime_contest.update(state: :end)
     end
     template.update(active: false)
   end
