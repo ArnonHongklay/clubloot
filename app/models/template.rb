@@ -39,31 +39,17 @@ class Template
     self.upcoming_program.sort_by(&:end_time).first
   end
 
-  def end_contest
-    template = self #Template.find(template_id)
-    return false if template.active == false or template.questions.where('is_correct' => "false").count > 0
-
+  def winners(template_obj)
+    template = Template.find(template_obj)
     template.contests.each do |contest|
-      player = contest.quizes.all.group_by(&:player_id).map do |key, val|
-        { id: key, score: val.sum(&:correct) }
-      end
-      position = player.sort!{ |a, b| b[:score] <=> a[:score] }
-      position.each_with_index do |winner, i|
-        break if i != 0 && position[i-1][:score] > position[i][:score]
-        contest.winners << User.find(winner[:id])
-      end
-      contest.save!
-      p "=================================== winners ==================================="
-      # winners(contest.id)
       # # sleep 5
       # contest = Contest.find(contest_id)
       p "=================================== in winners contest ==================================="
       p contest.inspect
       p contest.winners.count
 
-      realtime_contest = Contest.find(contest)
-      total_winner  = realtime_contest.winners.count
-      contest_prize = realtime_contest.prize || 0
+      total_winner  = contest.winners.count
+      contest_prize = contest.prize || 0
 
       rates = if total_winner == 1
         Contest.gem_matrix[:gem][contest_prize]
@@ -74,7 +60,7 @@ class Template
       p "=================================== rates ==================================="
       p rates.inspect
 
-      realtime_contest.winners.each do |user|
+      contest.winners.each do |user|
         transaction = []
         p "=================================== in winners rate ==================================="
         p rates.inspect
@@ -115,9 +101,30 @@ class Template
         Ledger.create_transactions(user, transaction)
       end
 
-      realtime_contest.update(state: :end)
+      contest.update(state: :end)
     end
     template.update(active: false)
+  end
+
+
+  def end_contest
+    template = self
+    return false if template.active == false or template.questions.where('is_correct' => "false").count > 0
+
+    template.contests.each do |contest|
+      player = contest.quizes.all.group_by(&:player_id).map do |key, val|
+        { id: key, score: val.sum(&:correct) }
+      end
+      position = player.sort!{ |a, b| b[:score] <=> a[:score] }
+      position.each_with_index do |winner, i|
+        break if i != 0 && position[i-1][:score] > position[i][:score]
+        contest.winners << User.find(winner[:id])
+      end
+      contest.save!
+      # p "=================================== winners ==================================="
+    end
+
+    winners(template)
   end
 
   private
