@@ -102,7 +102,7 @@ class Template
   def end_contest
     return false if self.active == false or self.questions.where('is_correct' => false).count > 0
 
-    contests.each do |contest|
+    find(self.id).contests.each do |contest|
       player = contest.quizes.all.group_by(&:player_id).map do |key, val|
         { id: key, score: val.sum(&:correct) }
       end
@@ -116,8 +116,6 @@ class Template
       winners(contest.id)
       contest.update(state: :end)
     end
-
-
     self.update(active: false)
   end
 
