@@ -40,6 +40,7 @@ class Template
   end
 
   def winners(contest_id)
+    sleep 5
     contest = Contest.find(contest_id)
     p "=================================== in winners contest ==================================="
     p contest.inspect
@@ -100,9 +101,10 @@ class Template
   end
 
   def end_contest
-    return false if self.active == false or self.questions.where('is_correct' => false).count > 0
+    template = self #Template.find(template_id)
+    return false if template.active == false or template.questions.where('is_correct' => "false").count > 0
 
-    contests.each do |contest|
+    template.contests.each do |contest|
       player = contest.quizes.all.group_by(&:player_id).map do |key, val|
         { id: key, score: val.sum(&:correct) }
       end
@@ -110,13 +112,13 @@ class Template
       position.each_with_index do |winner, i|
         break if i != 0 && position[i-1][:score] > position[i][:score]
         contest.winners << User.find(winner[:id])
-        contest.save!
       end
+      contest.save!
       p "=================================== winners ==================================="
       winners(contest.id)
       contest.update(state: :end)
     end
-    self.update(active: false)
+    template.update(active: false)
   end
 
   private
