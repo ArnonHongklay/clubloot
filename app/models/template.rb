@@ -42,7 +42,7 @@ class Template
   def winners(template_obj)
     template = Template.find(template_obj)
     template.contests.each do |contest|
-      # # sleep 5
+      # sleep 5
       # contest = Contest.find(contest_id)
       p "=================================== in winners contest ==================================="
       p contest.inspect
@@ -121,7 +121,6 @@ class Template
         contest.winners << User.find(winner[:id])
       end
       contest.save!
-      # p "=================================== winners ==================================="
     end
 
     winners(template)

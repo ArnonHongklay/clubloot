@@ -33,7 +33,7 @@ class ContestLiveWorker
         else
           contest.update(_state: :live, active: false)
         end
-        contest.template.update(active: false) if contest.template.active
+        # contest.template.update(active: false) if contest.template.active
       end
     end
   end
