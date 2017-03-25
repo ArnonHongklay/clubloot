@@ -1,12 +1,10 @@
-//= require jquery-ujs
 //= require cable
 
 $(document).on('ready', function() {
-
+  var Clubloot = function(){};
   var bodyId = $('body').attr('id');
-  // console.log(bodyId);
 
-  function init() {
+  Clubloot.load = function() {
     // console.log("xxxx")
     if(bodyId == 'edit-template' || bodyId == 'new-template') {
         $('#datetimepicker1').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
@@ -32,5 +30,5 @@ $(document).on('ready', function() {
     });
   }
 
-  init()
+  Clubloot.load();
 });

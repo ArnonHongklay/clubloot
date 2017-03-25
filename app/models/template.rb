@@ -39,10 +39,30 @@ class Template
     self.upcoming_program.sort_by(&:end_time).first
   end
 
-  def self.winners(contest, rates)
+  def add_to_win(contest_id, player_id)
+    contest = Contest.find(contest_id)
+    contest.winners << User.find(player_id)
+    contest.save!
+  end
+
+  def winners(contest_id)
+    contest = Contest.find(contest_id)
     p "=================================== in winners contest ==================================="
     p contest.inspect
+    p contest.winners.count
+
+    total_winner  = contest.winners.count
+    contest_prize = contest.prize || 0
+
+    rates = if total_winner == 1
+      Contest.gem_matrix[:gem][contest_prize]
+    elsif total_winner > 1
+      Contest.refund_list[contest_prize][total_winner-2]
+    end
+
+    p "=================================== rates ==================================="
     p rates.inspect
+    # winners(contest, rates)
 
     contest.winners.each do |user|
       transaction = []
@@ -86,34 +106,20 @@ class Template
     end
   end
 
-  def self.end_contest(template, contest_id)
-    return false if template.active == false or template.questions.where('is_correct' => false).count > 0
+  def end_contest
+    update(active: true)
+    return false if self.active == false or self.questions.where('is_correct' => false).count > 0
 
-    # contest = Contest.find(contest_id)
-    contest.update(state: :end)
-    winners = contest.leaders.select{ |ledger| ledger.position == 1 }
-    winners.each do |player|
-      contest.winners << User.find(player.id)
-      contest.save!
+    contests.update(state: :end)
+    contests.each do |contest|
+      winners = contest.leaders.select{ |ledger| ledger.position == 1 }
+      winners.each do |player|
+        add_to_win(contest.id, player.id)
+      end
+
+      p "=================================== winners ==================================="
+      winners(contest.id)
     end
-
-    p "=================================== winners ==================================="
-    # p contest.winners.inspect
-    p winners.count
-
-    total_winner  = winners.count
-    contest_prize = contest.prize || 0
-
-    rates = if total_winner == 1
-      Contest.gem_matrix[:gem][contest_prize]
-    elsif total_winner > 1
-      Contest.refund_list[contest_prize][total_winner-2]
-    end
-
-    p "=================================== rates ==================================="
-    p rates.inspect
-
-    Template.winners(contest, rates)
   end
 
   private
