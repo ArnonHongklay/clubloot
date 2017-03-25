@@ -114,8 +114,9 @@ class Template
       end
       p "=================================== winners ==================================="
       winners(contest.id)
+      contest.update(state: :end)
     end
-    contests.update(state: :end)
+
 
     self.update(active: false)
   end
