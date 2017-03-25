@@ -109,7 +109,6 @@ class Template
   def end_contest
     return false if self.active == false or self.questions.where('is_correct' => false).count > 0
 
-    update(active: false)
     contests.update(state: :end)
     contests.each do |contest|
       winners = contest.leaders.select{ |ledger| ledger.position == 1 }
@@ -120,6 +119,8 @@ class Template
       p "=================================== winners ==================================="
       winners(contest.id)
     end
+
+    self.update(active: false)
   end
 
   private
