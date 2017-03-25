@@ -65,6 +65,14 @@ class App < Struct.new(:region, :environment, :version)
   self.current = new
 end
 
+# class ContestWinner
+#   include Mongoid::Document
+#   store_in collection: 'contest_winners'
+
+#   belongs_to :contest_winner, class_name: 'Contest'
+#   belongs_to :winner_contest, class_name: 'User'
+# end
+
 class Loot
   include Mongoid::Document
   store_in collection: "dailies"

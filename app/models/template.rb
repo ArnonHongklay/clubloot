@@ -39,12 +39,6 @@ class Template
     self.upcoming_program.sort_by(&:end_time).first
   end
 
-  def add_to_win(contest_id, player_id)
-    contest = Contest.find(contest_id)
-    contest.winners << User.find(player_id)
-    contest.save!
-  end
-
   def winners(contest_id)
     contest = Contest.find(contest_id)
     p "=================================== in winners contest ==================================="
@@ -62,7 +56,6 @@ class Template
 
     p "=================================== rates ==================================="
     p rates.inspect
-    # winners(contest, rates)
 
     contest.winners.each do |user|
       transaction = []
@@ -100,8 +93,8 @@ class Template
           tax: 0
         )
       end
-      p "=================================== after rate ==================================="
 
+      p "=================================== after rate ==================================="
       Ledger.create_transactions(user, transaction)
     end
   end
@@ -109,16 +102,20 @@ class Template
   def end_contest
     return false if self.active == false or self.questions.where('is_correct' => false).count > 0
 
-    contests.update(state: :end)
     contests.each do |contest|
-      winners = contest.leaders.select{ |ledger| ledger.position == 1 }
-      winners.each do |player|
-        add_to_win(contest.id, player.id)
+      player = contest.quizes.all.group_by(&:player_id).map do |key, val|
+        { id: key, score: val.sum(&:correct) }
       end
-
+      position = player.sort!{ |a, b| b[:score] <=> a[:score] }
+      position.each_with_index do |winner, i|
+        break if i != 0 && position[i-1][:score] > position[i][:score]
+        contest.winners << User.find(winner[:id])
+        contest.save!
+      end
       p "=================================== winners ==================================="
       winners(contest.id)
     end
+    contests.update(state: :end)
 
     self.update(active: false)
   end
