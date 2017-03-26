@@ -18,6 +18,7 @@ class Template
   has_many :contests
 
   after_save :check_choice
+  after_create :perform_at
 
   scope :active, -> { where(active: true) }
   scope :expired, -> { where(active: false) }
@@ -131,5 +132,9 @@ class Template
       if number_answers_changed? or number_questions_changed?
         self.questions.destroy_all
       end
+    end
+
+    def perform_at
+      ContestLiveWorker.perform_at(self.end_time)
     end
 end
