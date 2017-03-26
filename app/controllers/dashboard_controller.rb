@@ -30,7 +30,7 @@ class DashboardController < ApplicationController
     @total_conomy = number_to_currency(conomy.sum(&:coins) / conomy.count, :unit => "", precision: 0)
     @total_prizes = prize.where('transaction.format' => 'prizes').count
     @total_tax = number_to_currency(tax.sum(&:coin), :unit => "", precision: 0)
-    @total_signin = number_to_percentage(sign_in.count, precision: 0)
+    @total_signin = number_to_percentage(players.count / sign_in.count, precision: 0)
   end
 
   def loot
