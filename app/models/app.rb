@@ -99,6 +99,10 @@ class SigninLog
   store_in collection: "signinlogs"
 
   field :user_id, type: String
+
+  def group_by_criteria
+    created_at.to_date.to_s(:db)
+  end
 end
 
 class ConomyLog
