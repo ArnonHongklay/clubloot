@@ -124,6 +124,11 @@ class Template
     end
 
     winners(template)
+
+    ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
+    ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
+    ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
+
     template.update(active: false)
   end
 
