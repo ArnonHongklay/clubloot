@@ -30,7 +30,8 @@ class DashboardController < ApplicationController
     @total_players = players.count
     @total_contests = contests.count
 
-    @total_conomy = number_to_currency(conomy.sum(&:coins) / conomy.count, :unit => "", precision: 0)
+    conomy_cal = conomy.count > 0 ? conomy.sum(&:coins) / conomy.count : 0
+    @total_conomy = number_to_currency(conomy_cal, :unit => "", precision: 0)
     @total_prizes = prize.where('transaction.format' => 'prizes').count
     @total_tax = number_to_currency(tax.sum(&:coin), :unit => "", precision: 0)
 
