@@ -96,6 +96,7 @@ end
 class SigninLog
   include Mongoid::Document
   include Mongoid::Timestamps
+  store_in collection: "signinlogs"
 
   field :user_id, type: String
 end
@@ -103,6 +104,7 @@ end
 class ConomyLog
   include Mongoid::Document
   include Mongoid::Timestamps
+  store_in collection: "conomylogs"
 
   field :coins, type: Integer
 end
@@ -113,6 +115,6 @@ class Tax
 
   field :tax_type, type: String
   field :contest_id, type: String
-  field :coin, type: String
+  field :coin, type: Integer
   field :user_id, type: String
 end
