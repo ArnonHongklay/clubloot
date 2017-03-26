@@ -104,7 +104,6 @@ class Template
 
       contest.update(state: :end)
     end
-    template.update(active: false)
   end
 
 
@@ -125,6 +124,7 @@ class Template
     end
 
     winners(template)
+    template.update(active: false)
   end
 
   private
@@ -135,6 +135,6 @@ class Template
     end
 
     def perform_at
-      ContestLiveWorker.perform_at(self.end_time)
+      ContestLiveWorker.perform_at(self.end_time + 3.seconds)
     end
 end
