@@ -3,8 +3,8 @@ class ContestLiveWorker
 
   def perform(*args)
     current_time = Time.zone.now
-
-    Contest.where(_state: :upcoming).includes(:template).each do |contest|
+    contests = Contest.where(_state: :upcoming).includes(:template)
+    contests.each do |contest|
       start_time  = contest.template.start_time
       end_time    = contest.template.end_time
 
@@ -33,6 +33,8 @@ class ContestLiveWorker
         else
           contest.update(_state: :live, active: false)
         end
+        ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
+        ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
         # contest.template.update(active: false) if contest.template.active
       end
     end

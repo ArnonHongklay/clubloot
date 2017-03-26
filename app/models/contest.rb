@@ -109,6 +109,9 @@ class Contest
           raise "this question don't exists"
         end
       end
+      ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
+      ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
+      ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
     else
       this_contest.players.delete(user)
     end
