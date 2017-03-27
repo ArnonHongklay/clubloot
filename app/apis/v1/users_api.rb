@@ -30,19 +30,19 @@ module V1
       resource :contests do
         params do
           requires :token, type: String, default: nil, desc: 'User Token'
-          optional :state, type: String, default: "upcoming", desc: 'upcoming, live, past, winners'
+          optional :state, type: String, default: "upcoming", desc: 'all, upcoming, live, past, winners'
         end
         get "/" do
           begin
             if user = User.find_by(token: params[:token])
               if params[:state].eql?('winners')
                 contests = user.winners.order(updated_at: :desc)
+              elsif params[:state].eql?('past')
+                contests = user.contests.where(_state: { '$in': [:end, :cancel]}).order(updated_at: :desc)
+              elsif params[:state].eql?('all')
+                contests = user.contests.order(updated_at: :desc)
               else
-                if params[:state].eql?('past')
-                  contests = user.contests.where(_state: { '$in': [:end, :cancel]}).order(updated_at: :desc)
-                else
-                  contests = user.contests.where(_state: params[:state]).order(updated_at: :desc)
-                end
+                contests = user.contests.where(_state: params[:state]).order(updated_at: :desc)
               end
               present :status, :success
               present :data, contests, with: Entities::ContestAllExpose
@@ -224,17 +224,17 @@ module V1
       resource :prize do
         params do
           requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
-          requires :prize_id, type: String, default: '58b82e942cc3c43e4e31ca2c', desc: "Contest Id"
+          requires :prize_id, type: String, desc: "Prize Id"
         end
-        post ':program_id' do
+        post '/' do
           begin
-            prize = Prize.find(params[:prize_id])
-            if prize
+            prizes = User.find_by(token: params[:token]).get_prizes(params[:prize_id])
+            if prizes
               present :status, :success
-              if prize.present?
-                present :data, programs
+              if prizes.present?
+                present :data, prizes
               else
-                present :data, programs
+                present :data, prizes
               end
             else
               present :status, :failure

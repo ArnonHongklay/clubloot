@@ -21,5 +21,8 @@ class Question
           end
         end
       end
+
+      data = { page: 'contest_details', action: 'update' }
+      ActionCable.server.broadcast("contest_channel", data)
     end
 end

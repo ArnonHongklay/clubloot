@@ -65,6 +65,14 @@ class App < Struct.new(:region, :environment, :version)
   self.current = new
 end
 
+# class ContestWinner
+#   include Mongoid::Document
+#   store_in collection: 'contest_winners'
+
+#   belongs_to :contest_winner, class_name: 'Contest'
+#   belongs_to :winner_contest, class_name: 'User'
+# end
+
 class Loot
   include Mongoid::Document
   store_in collection: "dailies"
@@ -88,13 +96,19 @@ end
 class SigninLog
   include Mongoid::Document
   include Mongoid::Timestamps
+  store_in collection: "signinlogs"
 
   field :user_id, type: String
+
+  def group_by_criteria
+    created_at.to_date.to_s(:db)
+  end
 end
 
 class ConomyLog
   include Mongoid::Document
   include Mongoid::Timestamps
+  store_in collection: "conomylogs"
 
   field :coins, type: Integer
 end
@@ -105,6 +119,31 @@ class Tax
 
   field :tax_type, type: String
   field :contest_id, type: String
-  field :coin, type: String
+  field :coin, type: Integer
   field :user_id, type: String
+end
+
+class UserPrize
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
+
+  field :tracking_code, type: String
+  field :carrier, type: String
+  field :status, type: String
+
+  field :state, type: Integer, default: 0
+
+  field :shipped_at, type: DateTime
+
+  belongs_to :user #, class: 'User' #, inverse_of: :prizes
+  belongs_to :prize #, class: 'Prize' #, inverse_of: :users
+
+  def update_complete(tracking_code, carrier)
+    self.tracking_code = tracking_code
+    self.carrier = carrier
+    self.state = 1
+    self.shipped_at = Time.zone.now
+    self.save!
+  end
 end

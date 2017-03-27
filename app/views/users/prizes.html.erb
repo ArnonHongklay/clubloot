@@ -1,4 +1,4 @@
-<% content_for :body_id, 'announcement' %>
+<% content_for :body_id, 'prizes' %>
 
 <article class="content forms-page">
 
@@ -18,17 +18,28 @@
           <table class="table">
             <thead>
               <tr>
-                <th colspan="2">Pending</th>
+                <th>Date Time</th>
+                <th>Prize</th>
+                <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              <%# @prizes.each do |announcement| %>
+              <% @prizes_pending.each do |prizes| %>
                 <tr>
-                  <td class="center-center"><%#= link_to 'Edit', edit_announcement_path(announcement) %></td>
-                  <td class="center-center"><%#= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= prizes.created_at.try(:strftime, "%B %d, %Y %H:%M") %></td>
+                  <td><%= prizes.prize.name %></td>
+                  <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#exampleModalLong"
+                            data-id="<%= prizes.id %>">
+                      Complete
+                    </button>
+                  </td>
                 </tr>
-              <%# end %>
+              <% end %>
             </tbody>
           </table>
         </div>
@@ -38,17 +49,22 @@
           <table class="table">
             <thead>
               <tr>
-                <th colspan="2">Completed</th>
+                <th>Ship Date Time</th>
+                <th>Prize</th>
+                <th>Tracking #</th>
+                <th>Status</th>
               </tr>
             </thead>
 
             <tbody>
-              <%# @ledgers.each do |announcement| %>
+              <% @prizes_completed.each do |prizes| %>
                 <tr>
-                  <td class="center-center"><%#= link_to 'Edit', edit_announcement_path(announcement) %></td>
-                  <td class="center-center"><%#= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                </tr>
-              <%# end %>
+                  <td><%= prizes.shipped_at.try(:strftime, "%B %d, %Y %H:%M") %></td>
+                  <td><%= prizes.prize.name %></td>
+                  <td><%= prizes.id %></td>
+                  <td><%= prizes.status %></td>
+               </tr>
+              <% end %>
             </tbody>
           </table>
         </div>
@@ -57,3 +73,39 @@
   </section>
 </article>
 
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Tracking code</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <input type="hidden" id="userPrizeId">
+          <input type="hidden" id="userPrizePath" value="<%= user_prize_complete_path %>">
+          <div class="form-group">
+            <label for="tracking_code">Tracking Code</label>
+            <input type="text" class="form-control" id="tracking_code" aria-describedby="emailHelp" placeholder="Tracking Code">
+            <%#<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>%>
+          </div>
+          <div class="form-group">
+            <label for="carrier">Carrier</label>
+            <input type="text" class="form-control" id="carrier" aria-describedby="emailHelp" placeholder="Carrier">
+            <%#<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>%>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="submitPrize">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

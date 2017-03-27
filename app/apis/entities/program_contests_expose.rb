@@ -11,5 +11,6 @@ class Entities::ProgramContestsExpose < Grape::Entity
   expose :host
   expose :template #, with: ProgramTemplatesShowExpose
   expose :players
+  expose :winners
   # expose :quizes
 end

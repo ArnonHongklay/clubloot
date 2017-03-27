@@ -3,5 +3,13 @@
 //   disconnected: function() {},
 //   received: function(data) {
 //     console.log(data);
+//   },
+//   // show: function(message) {
+//   //   return this.perform(data);
+//   // }
+//   speak: function(message) {
+//     return this.perform('speak', {
+//       message: message
+//     });
 //   }
 // });

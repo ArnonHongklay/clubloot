@@ -52,6 +52,7 @@ Rails.application.routes.draw do
           get '/contests', to: 'users#contests'
           get '/transactions', to: 'users#transactions'
           get '/prizes', to: 'users#prizes'
+          put '/prize_complete', to: 'users#prize_complete'
         end
         resources :gems
       end
