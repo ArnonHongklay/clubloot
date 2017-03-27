@@ -43,6 +43,7 @@ class Contest
       tax: 0
     )
     user.update(coins: (user.coins - contest.fee))
+    Tax.create(user_id: user.id, contest_id: contest.id, coin: (user.coins - contest.fee))
     Ledger.create_transaction(user, transaction)
   end
 
@@ -109,9 +110,11 @@ class Contest
           raise "this question don't exists"
         end
       end
+
       ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
       ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
       ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
+
     else
       this_contest.players.delete(user)
     end
