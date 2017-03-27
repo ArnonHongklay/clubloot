@@ -44,7 +44,9 @@ class DashboardController < ApplicationController
     conomy_cal = conomy.count > 0 ? conomy.sum(&:coins) / conomy.count : 0
     @total_conomy = number_to_currency(conomy_cal, :unit => "", precision: 0)
     @total_prizes = prize.where('transaction.format' => 'prizes').count
-    @total_tax = number_to_currency(tax.sum(&:coin), :unit => "", precision: 0)
+
+    tax_cal = tax.count > 0 ? tax.sum(&:coin) : 0
+    @total_tax = number_to_currency(tax_cal, :unit => "", precision: 0)
 
     sign_in_cal = sign_in > 0 ? (sign_in*100) / @total_players : 0
     @total_signin = number_to_percentage(sign_in_cal, precision: 2)
