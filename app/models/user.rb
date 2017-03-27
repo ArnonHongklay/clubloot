@@ -122,7 +122,7 @@ class User
       status: 'complete',
       format: 'prizes',
       action: 'minus',
-      description: 'create or join contest',
+      description: 'Prizes',
       from: 'diamonds',
       to: 'prizes',
       unit: 'diamonds',
@@ -137,6 +137,7 @@ class User
 
   def advanced_ledger(params)
     coins_was = self.coins
+    diamonds_was = self.diamonds
     emeralds_was = self.emeralds
     sapphires_was = self.sapphires
     rubies_was = self.rubies

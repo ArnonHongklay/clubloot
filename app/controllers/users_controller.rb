@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: :prize_complete
 
   def index
     @users = User.all
@@ -32,8 +33,15 @@ class UsersController < ApplicationController
 
   def prizes
     @user = User.find(params[:user_id])
-    @prizes_pending = @user.prizes
-    @prizes_completed = @user.prizes
+    @prizes_pending = @user.prizes.where(state: 0)
+    @prizes_completed = @user.prizes.where(state: 1)
+  end
+
+  def prize_complete
+    UserPrize.find(params[:id]).update_complete(params[:tracking_code], params[:carrier])
+    respond_to do |format|
+      format.html { render json: { data: 'successfully' } }
+    end
   end
 
   def show

@@ -1,41 +1,63 @@
 
 <article class="content dashboard-page">
 
-  <form action="/" method="get">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="row">
-            <div class='col-md-4'>
-              <div class="form-group">
-                <div class='input-group date' id='datetimepicker6'>
-                  <input type='text' name="start" class="form-control" />
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-block">
+            <form action="/" method="get">
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <ul class="nav nav-pills nav-justified">
+                      <li class="nav-item">
+                        <a class="nav-link <%= 'active' unless params[:all].nil? %>" href="<%= root_path(all: true) %>">All</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link <%= 'active' if params[:all].nil? %>" href="<%= root_path %>">Today</a>
+                      </li>
+                    </ul>
+                    <br>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="row">
+                      <div class='col-md-4'>
+                        <div class="form-group">
+                          <div class='input-group date' id='datetimepicker6'>
+                            <input type='text' name="start" class="form-control" />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='col-md-4'>
+                        <div class="form-group">
+                          <div class='input-group date' id='datetimepicker7'>
+                            <input type='text' name="end" class="form-control" />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='col-md-4'>
+                        <div class="form-group">
+                          <input type="submit" class="btn btn-primary" onclick="dashboard_submit()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class='col-md-4'>
-              <div class="form-group">
-                <div class='input-group date' id='datetimepicker7'>
-                  <input type='text' name="end" class="form-control" />
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class='col-md-4'>
-              <div class="form-group">
-                <input type="submit" class="btn btn-primary" onclick="dashboard_submit()">
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </form>
+  </section>
+
   <section class="section">
     <div class="row sameheight-container">
       <div class="col col-xs-12 col-sm-12 col-md-6 col-xl-5 stats-col">
@@ -43,19 +65,6 @@
           <div class="card-block" style="padding: 20px 40px;">
             <div class="title-block">
               <h4 class="title"> Dashboard </h4>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <ul class="nav nav-pills nav-justified">
-                  <li class="nav-item">
-                    <a class="nav-link <%= 'active' unless params[:all].nil? %>" href="<%= root_path(all: true) %>">All</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link <%= 'active' if params[:all].nil? %>" href="<%= root_path %>">Today</a>
-                  </li>
-                </ul>
-                <br>
-              </div>
             </div>
             <div class="row row-sm stats-container">
               <div class="col-xs-12 col-sm-6 stat-col" style="margin-bottom: 25px">
