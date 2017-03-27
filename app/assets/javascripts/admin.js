@@ -60,6 +60,7 @@ $(document).on('ready', function() {
           type: 'PUT',
           success: function(result) {
             console.log(result)
+            $('#exampleModalLong').modal('hide');
           }
         });
       });
