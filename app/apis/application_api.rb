@@ -58,6 +58,7 @@ class ApplicationAPI < Grape::API
 
   mount V1::UsersAPI
   mount V1::ContestsAPI
+  mount V1::PrizesAPI
 
   add_swagger_documentation \
     api_version: '1.0.0',

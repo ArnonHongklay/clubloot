@@ -122,3 +122,11 @@ class Tax
   field :coin, type: Integer
   field :user_id, type: String
 end
+
+class UserPrize
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  belongs_to :user #, class: 'User' #, inverse_of: :prizes
+  belongs_to :prize #, class: 'Prize' #, inverse_of: :users
+end

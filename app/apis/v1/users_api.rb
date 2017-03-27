@@ -224,17 +224,17 @@ module V1
       resource :prize do
         params do
           requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
-          requires :prize_id, type: String, default: '58b82e942cc3c43e4e31ca2c', desc: "Contest Id"
+          requires :prize_id, type: String, desc: "Prize Id"
         end
-        post ':program_id' do
+        post '/' do
           begin
-            prize = Prize.find(params[:prize_id])
-            if prize
+            prizes = User.find_by(token: params[:token]).get_prizes(params[:prize_id])
+            if prizes
               present :status, :success
-              if prize.present?
-                present :data, programs
+              if prizes.present?
+                present :data, prizes
               else
-                present :data, programs
+                present :data, prizes
               end
             else
               present :status, :failure

@@ -92,7 +92,8 @@ class User
 
   has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
 
-  has_and_belongs_to_many :prizes, class_name: 'Prize', inverse_of: :users
+  # has_and_belongs_to_many :prizes, class_name: 'Prize', inverse_of: :users
+  has_many :prizes, class_name: 'UserPrize', inverse_of: :user
 
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
 
@@ -106,6 +107,32 @@ class User
     User.all.each do |user|
       user.update(token: App.generate_code(32)) unless user.token.present?
     end
+  end
+
+  def get_prizes(prize_id)
+    user = self
+    prize = Prize.find(prize_id)
+    raise "error prize" unless prize.present?
+    raise "dimonds less" if user.diamonds < prize.price
+    raise "prize is not available" if prize.out_of_stock?
+
+    amount = user.diamonds - prize.price
+
+    transaction = OpenStruct.new(
+      status: 'complete',
+      format: 'prizes',
+      action: 'minus',
+      description: 'create or join contest',
+      from: 'diamonds',
+      to: 'prizes',
+      unit: 'diamonds',
+      amount: amount,
+      tax: 0
+    )
+    Ledger.create_transaction(user, transaction)
+
+    user.update(diamonds: amount)
+    user.prizes.create(prize: prize.id)
   end
 
   def advanced_ledger(params)
