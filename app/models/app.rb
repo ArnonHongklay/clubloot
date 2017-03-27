@@ -132,7 +132,7 @@ class UserPrize
   field :carrier, type: String
   field :status, type: String
 
-  field :state, type: Integer
+  field :state, type: Integer, default: 0
 
   field :shipped_at, type: DateTime
 
