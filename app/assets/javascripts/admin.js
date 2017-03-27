@@ -61,6 +61,7 @@ $(document).on('ready', function() {
           success: function(result) {
             console.log(result)
             $('#exampleModalLong').modal('hide');
+            location.reload();
           }
         });
       });
