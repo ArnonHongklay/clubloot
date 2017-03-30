@@ -122,13 +122,3 @@ class Tax
   field :coin, type: Integer
   field :user_id, type: String
 end
-
-class Conomy
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :ledger_id,  type: String
-  field :amount,  type: Float, default: 0
-  field :tax,     type: Float, default: 0
-  field :logged_at, type: DateTime
-end

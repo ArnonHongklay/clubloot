@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
         players = User.where(:created_at.gte => Time.zone.parse(params[:start]), :created_at.lte => Time.zone.parse(params[:end]))
         contests = Contest.where(:created_at.gte => Time.zone.parse(params[:start]), :created_at.lte => Time.zone.parse(params[:end]))
 
-        conomy = Conomy.where(:logged_at.gte => Time.zone.parse(params[:start]), :logged_at.lte => Time.zone.parse(params[:end]))
+        economy = Economy.where(:logged_at.gte => Time.zone.parse(params[:start]), :logged_at.lte => Time.zone.parse(params[:end]))
         prize = Ledger.where(:created_at.gte => Time.zone.parse(params[:start]), :created_at.lte => Time.zone.parse(params[:end]))
 
         sign_in_range = SigninLog.where(:created_at.gte => Time.zone.parse(params[:start]), :created_at.lte => Time.zone.parse(params[:end]))
@@ -21,7 +21,7 @@ class DashboardController < ApplicationController
         players = User.where(:created_at.gte => Time.zone.now.beginning_of_day)
         contests = Contest.where(:created_at.gte => Time.zone.now.beginning_of_day)
 
-        conomy = Conomy.where(:logged_at.gte => Time.zone.now.beginning_of_day)
+        economy = Economy.where(:logged_at.gte => Time.zone.now.beginning_of_day)
         prize = Ledger.where(:created_at.gte => Time.zone.now.beginning_of_day)
         sign_in = SigninLog.where(:created_at.gte => Time.zone.now.beginning_of_day).count
       end
@@ -29,7 +29,7 @@ class DashboardController < ApplicationController
       players = User.all
       contests = Contest.all
 
-      conomy = Conomy.all
+      economy = Economy.all
       prize = Ledger.all
 
       sign_in_range = SigninLog.all
@@ -39,8 +39,11 @@ class DashboardController < ApplicationController
     @total_players = players.count
     @total_contests = contests.count
 
-    @total_conomy = number_to_currency(conomy.sum(&:amount), :unit => "", precision: 0)
-    @total_tax = number_to_currency(conomy.sum(&:tax), :unit => "", precision: 0)
+    loot = economy.where(kind: 'loot').last.try(:value) || 0
+    tax = economy.where(kind: 'tax').last.try(:value) || 0
+
+    @total_conomy = number_to_currency(loot, :unit => "", precision: 0)
+    @total_tax = number_to_currency(tax, :unit => "", precision: 0)
 
     @total_prizes = prize.where(format: 'prizes').count
 

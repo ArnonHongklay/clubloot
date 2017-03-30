@@ -10,7 +10,7 @@ class Ledger
   field :details, type: Hash, default: lambda { default_details }
   embeds_many :transaction
 
-  after_create :loot_log
+  # after_create :loot_log
 
   def self.create_transaction(user, transaction)
     ledgers = self.create(
@@ -88,8 +88,8 @@ class Ledger
 
   private
     def loot_log
-      transaction.each do |t|
-        Conomy.create(amount: t.amount, tax: t.tax, logged_at: created_at)
+      self.transaction.each do |t|
+        Conomy.create(ledger_id: self.id, amount: t.amount, tax: t.tax, logged_at: self.created_at)
       end
     end
 
