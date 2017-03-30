@@ -292,7 +292,7 @@ module V1
       end
 
       resource :gems do
-        post '/' do
+        get '/' do
           begin
             g = GemConvert.first
 
