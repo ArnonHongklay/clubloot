@@ -412,7 +412,7 @@ class Contest
   private
     def tax_collected
       economy = 0
-      all.each do |contest|
+      Contest.all.each do |contest|
         economy += contest.fee - (contest.fee * 10 / 11)
       end
 
