@@ -270,7 +270,7 @@ module V1
       resource :convert_gem do
         params do
           requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
-          requires :type,     type: String, default: 'ruby', desc: "type"
+          requires :type,     type: String, default: 'sapphire', desc: "diamond, emerald, sapphire, "
         end
         post '/' do
           begin
