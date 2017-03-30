@@ -41,7 +41,7 @@ class Contest
       from: 'coins',
       to: 'contest',
       unit: 'coins',
-      amount: amount,
+      amount: contest.fee,
       tax: 0
     )
     user.update(coins: (user.coins - contest.fee))
@@ -412,6 +412,7 @@ class Contest
   private
     def tax_collected
       economy = 0
+
       Contest.all.each do |contest|
         economy += contest.fee - (contest.fee * 10 / 11)
       end
