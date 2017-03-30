@@ -44,7 +44,7 @@ class DashboardController < ApplicationController
     conomy_cal = conomy.count > 0 ? conomy.sum(&:coins) / conomy.count : 0
     @total_conomy = number_to_currency(conomy_cal, :unit => "", precision: 0)
 
-    @total_prizes = prize.where('transaction.format' => 'prizes').count
+    @total_prizes = prize.where(format: 'prizes').count
 
     tax_cal = tax.count > 0 ? tax.sum(&:coin) : 0
     @total_tax = number_to_currency(tax_cal, :unit => "", precision: 0)
