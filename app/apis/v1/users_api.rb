@@ -291,6 +291,24 @@ module V1
         end
       end
 
+      resource :gems do
+        post '/' do
+          begin
+            g = GemConvert.first
+
+            if g.present?
+              present :status, :success
+              present :data, g
+            else
+              present :status, :failure
+              present :data, g
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+      end
     end
   end
 end
