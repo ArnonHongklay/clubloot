@@ -270,22 +270,20 @@ module V1
       resource :convert_gem do
         params do
           requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
-          requires :type,     type: String, default: 'ruby', desc: "Contest Id"
+          requires :type,     type: String, default: 'ruby', desc: "type"
         end
-        post ':program_id' do
+        post '/' do
           begin
-            # prize = Prize.find(params[:prize_id])
-            # if prize
+            user = User.find_by(token: params[:token])
+            g = GemConvert.exchange(user, params[:type])
+
+            if g.present?
               present :status, :success
-            #   if prize.present?
-            #     present :data, programs
-            #   else
-            #     present :data, programs
-            #   end
-            # else
-            #   present :status, :failure
-            #   present :data, "Can't show data"
-            # end
+              present :data, g
+            else
+              present :status, :failure
+              present :data, g
+            end
           rescue Exception => e
             present :status, :failure
             present :data, e
