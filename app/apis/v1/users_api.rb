@@ -27,6 +27,26 @@ module V1
     end
 
     resource :user do
+      resource :profile do
+        params do
+          requires :token, type: String, default: nil, desc: 'User Token'
+        end
+        get "/" do
+          begin
+            if user = User.find_by(token: params[:token])
+              present :status, :success
+              present :data, user, with: Entities::UserAllExpose
+            else
+              present :status, :failure
+              present :data, "Users don't have in our system."
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+      end
+
       resource :contests do
         params do
           requires :token, type: String, default: nil, desc: 'User Token'

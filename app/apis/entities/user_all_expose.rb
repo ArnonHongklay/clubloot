@@ -5,4 +5,12 @@ class Entities::UserAllExpose < Grape::Entity
   expose :last_name
   expose :token
   expose :is_admin
+  expose :diamonds
+  expose :emeralds
+  expose :sapphires
+  expose :rubies
+  expose :coins
+  expose :winners do |item|
+    item.winners.count
+  end
 end

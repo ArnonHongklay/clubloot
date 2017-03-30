@@ -33,6 +33,8 @@ class Contest
   after_save :tax_collected
 
   def self.save_transaction(user, contest)
+    fee = (contest.fee * 10 / 11)
+    amount = contest.fee - fee
     transaction = OpenStruct.new(
       status: 'complete',
       format: 'contest',
@@ -41,8 +43,8 @@ class Contest
       from: 'coins',
       to: 'contest',
       unit: 'coins',
-      amount: contest.fee,
-      tax: 0
+      amount: amount,
+      tax: fee
     )
     user.update(coins: (user.coins - contest.fee))
     Ledger.create_transaction(user, transaction)
