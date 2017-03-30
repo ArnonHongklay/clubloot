@@ -99,33 +99,8 @@ class User
 
   embeds_many :messages
 
-  # after_save :economy
+  after_save :loot_economy
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
-
-  def self.fixes_wallet
-    all.each do |u|
-      u.update(coins: 0) if u.coins.nil?
-      u.update(rubies: 0) if u.rubies.nil?
-      u.update(sapphires: 0) if u.sapphires.nil?
-      u.update(emeralds: 0) if u.emeralds.nil?
-      u.update(diamonds: 0) if u.diamonds.nil?
-    end
-  end
-
-  def self.loot_economy
-    economy = 0
-    all.each do |u|
-      c = u.coins
-      r = u.rubies * 100
-      s = u.sapphires * 500
-      e = u.emeralds * 2500
-      d = u.diamonds * 12500
-      all = c + r + s + e + d
-      economy += all
-    end
-
-    Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
-  end
 
   def self.hard_update_token
     User.all.each do |user|
@@ -288,12 +263,26 @@ class User
     end
   end
 
-  # private
-    # def economy
-    #   if self.coins_changed? or self.diamonds_changed? or self.emeralds_changed? or self.sapphires_changed? or self.rubies_changed?
-    #
-    #
-    #     self.diamonds_was
-    #   end
-    # end
+  private
+    def loot_economy
+      u.update(coins: 0) if u.coins.nil?
+      u.update(rubies: 0) if u.rubies.nil?
+      u.update(sapphires: 0) if u.sapphires.nil?
+      u.update(emeralds: 0) if u.emeralds.nil?
+      u.update(diamonds: 0) if u.diamonds.nil?
+
+      economy = 0
+
+      all.each do |u|
+        c = u.coins
+        r = u.rubies * 100
+        s = u.sapphires * 500
+        e = u.emeralds * 2500
+        d = u.diamonds * 12500
+        all = c + r + s + e + d
+        economy += all
+      end
+
+      Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
+    end
 end

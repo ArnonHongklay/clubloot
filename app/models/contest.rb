@@ -30,14 +30,7 @@ class Contest
   scope :active,  -> { where(active: true) }
   scope :pending, -> { where(active: false) }
 
-  def self.tax_collected
-    economy = 0
-    all.each do |contest|
-      economy += contest.fee - (contest.fee * 10 / 11)
-    end
-
-    Economy.create(kind: 'tax', value: economy, logged_at: Time.zone.now)
-  end
+  after_save :tax_collected
 
   def self.save_transaction(user, contest)
     transaction = OpenStruct.new(
@@ -415,4 +408,14 @@ class Contest
       ]
     ]
   end
+
+  private
+    def tax_collected
+      economy = 0
+      all.each do |contest|
+        economy += contest.fee - (contest.fee * 10 / 11)
+      end
+
+      Economy.create(kind: 'tax', value: economy, logged_at: Time.zone.now)
+    end
 end
