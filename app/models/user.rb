@@ -265,15 +265,15 @@ class User
 
   private
     def loot_economy
-      u.update(coins: 0) if u.coins.nil?
-      u.update(rubies: 0) if u.rubies.nil?
-      u.update(sapphires: 0) if u.sapphires.nil?
-      u.update(emeralds: 0) if u.emeralds.nil?
-      u.update(diamonds: 0) if u.diamonds.nil?
-
       economy = 0
 
       all.each do |u|
+        u.update(coins: 0) if u.coins.nil?
+        u.update(rubies: 0) if u.rubies.nil?
+        u.update(sapphires: 0) if u.sapphires.nil?
+        u.update(emeralds: 0) if u.emeralds.nil?
+        u.update(diamonds: 0) if u.diamonds.nil?
+
         c = u.coins
         r = u.rubies * 100
         s = u.sapphires * 500
