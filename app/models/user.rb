@@ -279,7 +279,7 @@ class User
         s = u.sapphires * 500
         e = u.emeralds * 2500
         d = u.diamonds * 12500
-        economy += c + r + s + e + d
+        economy += (c + r + s + e + d)
       end
 
       Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
