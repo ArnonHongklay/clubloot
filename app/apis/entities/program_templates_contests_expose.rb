@@ -8,7 +8,7 @@ class Entities::ProgramTemplatesContestsExpose < Grape::Entity
   expose :fee
   expose :public
 
-  expose :host
+  expose :host, with: Entities::UserAllExpose
   expose :template #, with: ProgramTemplatesShowExpose
   expose :players
   # expose :quizes
