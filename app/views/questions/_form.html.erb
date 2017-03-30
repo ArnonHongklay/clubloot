@@ -11,6 +11,7 @@
       </div>
       <% question.answers.each_with_index do |answer, answer_index| %>
         <div class="row">
+          <%= f.file_field "f[#{question_index}][#{answer_index}]" %>
           <label class="col-sm-3 form-control-label text-xs-right"> Answer: <%= answer_index + 1 %> </label>
           <div class="col-sm-6">
             <div class="form-group row">

@@ -4,5 +4,6 @@ class Entities::TemplateExpose < Grape::Entity
   expose :program_name do |item|
     item.program.name
   end
-  expose :questions
+
+  expose :questions, with: Entities::QuestionExpose
 end

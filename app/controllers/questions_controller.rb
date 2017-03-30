@@ -18,8 +18,10 @@ class QuestionsController < ApplicationController
     questions.each do |question|
       temp = @template.questions.create(name: questions[question])
       answers[question].each do |answer|
-        temp.answers.create(name: answers[question][answer])
+        attach = params[:question]["f"]["#{question}"]["#{answer}"]
+        temp.answers.create(name: answers[question][answer], attachment: attach)
       end
+
     end
 
     # @question = Question.new(question_params)
