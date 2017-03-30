@@ -267,7 +267,7 @@ class User
     def loot_economy
       economy = 0
 
-      all.each do |u|
+      Contest.all.each do |u|
         u.update(coins: 0) if u.coins.nil?
         u.update(rubies: 0) if u.rubies.nil?
         u.update(sapphires: 0) if u.sapphires.nil?
