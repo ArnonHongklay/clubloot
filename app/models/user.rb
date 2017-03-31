@@ -99,7 +99,7 @@ class User
 
   embeds_many :messages
 
-  after_save :loot_economy
+  after_save :update_loot_economy
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
   def self.hard_update_token
@@ -263,25 +263,29 @@ class User
     end
   end
 
+  def self.loot_economy
+    economy = 0
+
+    User.all.each do |u|
+      u.update(coins: 0) if u.coins.nil?
+      u.update(rubies: 0) if u.rubies.nil?
+      u.update(sapphires: 0) if u.sapphires.nil?
+      u.update(emeralds: 0) if u.emeralds.nil?
+      u.update(diamonds: 0) if u.diamonds.nil?
+
+      c = u.coins
+      r = u.rubies * 100
+      s = u.sapphires * 500
+      e = u.emeralds * 2500
+      d = u.diamonds * 12500
+      economy += (c + r + s + e + d)
+    end
+
+    Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
+  end
+
   private
-    def loot_economy
-      economy = 0
-
-      User.all.each do |u|
-        u.update(coins: 0) if u.coins.nil?
-        u.update(rubies: 0) if u.rubies.nil?
-        u.update(sapphires: 0) if u.sapphires.nil?
-        u.update(emeralds: 0) if u.emeralds.nil?
-        u.update(diamonds: 0) if u.diamonds.nil?
-
-        c = u.coins
-        r = u.rubies * 100
-        s = u.sapphires * 500
-        e = u.emeralds * 2500
-        d = u.diamonds * 12500
-        economy += (c + r + s + e + d)
-      end
-
-      Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
+    def update_loot_economy
+      User.loot_economy
     end
 end

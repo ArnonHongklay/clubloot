@@ -30,7 +30,7 @@ class Contest
   scope :active,  -> { where(active: true) }
   scope :pending, -> { where(active: false) }
 
-  after_save :tax_collected
+  after_save :update_tax_collected
 
   def self.save_transaction(user, contest)
     fee = (contest.fee * 10 / 11)
@@ -411,14 +411,18 @@ class Contest
     ]
   end
 
+  def self.tax_collected
+    economy = 0
+
+    Contest.all.each do |contest|
+      economy += contest.fee - (contest.fee * 10 / 11)
+    end
+
+    Economy.create(kind: 'tax', value: economy, logged_at: Time.zone.now)
+  end
+
   private
-    def tax_collected
-      economy = 0
-
-      Contest.all.each do |contest|
-        economy += contest.fee - (contest.fee * 10 / 11)
-      end
-
-      Economy.create(kind: 'tax', value: economy, logged_at: Time.zone.now)
+    def update_tax_collected
+      Contest.tax_collected
     end
 end
