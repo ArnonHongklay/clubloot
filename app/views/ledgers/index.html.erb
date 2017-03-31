@@ -58,7 +58,7 @@
                         </td>
                         <td>
                           <% ledger.transaction.each do |transaction| %>
-                            <% if ledger.format == 'won' %>
+                            <% if ledger.format == 'winners' %>
                               <%= "#{transaction.amount.to_i - transaction.tax.to_i} #{transaction.unit}" %><br>
                             <% else %>
                               <%= "#{transaction.amount.to_i} #{transaction.unit}" %><br>
