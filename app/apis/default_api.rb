@@ -82,8 +82,8 @@ class DefaultAPI < Grape::API
       title: 'Clubloot API'
     },
     include_base_url: true,
-    mount_path: '/v1',
-    base_path: '/',
+    mount_path: 'docs',
+    # base_path: '/',
     security_definitions: {
       api_key: {
         type: "apiKey",
