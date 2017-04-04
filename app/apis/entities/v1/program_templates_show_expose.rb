@@ -1,4 +1,4 @@
-class Entities::ProgramTemplatesShowExpose < Grape::Entity
+class Entities::V1::ProgramTemplatesShowExpose < Grape::Entity
   expose :id
   expose :name
   expose :start_time

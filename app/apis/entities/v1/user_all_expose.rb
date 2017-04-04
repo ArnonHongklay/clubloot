@@ -1,4 +1,4 @@
-class Entities::UserAllExpose < Grape::Entity
+class Entities::V1::UserAllExpose < Grape::Entity
   expose :email
   expose :username
   expose :first_name

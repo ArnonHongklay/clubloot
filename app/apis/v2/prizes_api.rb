@@ -8,7 +8,7 @@ module V2
           if prizes
             present :status, :success
             if prizes.present?
-              present :data, prizes, with: Entities::PrizesExpose
+              present :data, prizes, with: Entities::V2::PrizesExpose
             else
               present :data, prizes
             end

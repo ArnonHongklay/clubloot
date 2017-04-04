@@ -16,7 +16,7 @@ module V2
       get '/' do
         begin
           present :status, :success
-          present :data, User.all, with: Entities::UserAllExpose
+          present :data, User.all, with: Entities::V2::UserAllExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
@@ -33,7 +33,7 @@ module V2
           begin
             if user = User.find_by(token: params[:token])
               present :status, :success
-              present :data, user, with: Entities::UserAllExpose
+              present :data, user, with: Entities::V2::UserAllExpose
             else
               present :status, :failure
               present :data, "Users don't have in our system."
@@ -63,7 +63,7 @@ module V2
                 contests = user.contests.where(_state: params[:state]).order(updated_at: :desc)
               end
               present :status, :success
-              present :data, contests, with: Entities::ContestAllExpose
+              present :data, contests, with: Entities::V2::ContestAllExpose
             else
               present :status, :failure
               present :data, "Users don't have in our system."
@@ -84,7 +84,7 @@ module V2
             if user = User.find_by(token: params[:token])
               if contest = user.contests.find(params[:contest_id])
                 present :status, :success
-                present :data, contest, with: Entities::ContestAllExpose
+                present :data, contest, with: Entities::V2::ContestAllExpose
               else
                 present :status, :failure
                 present :data, "Can't creating a new contest."
@@ -115,7 +115,7 @@ module V2
             if user = User.find_by(token: params[:token])
               if contest = Contest.create_contest(user, template, params[:details])
                 present :status, :success
-                present :data, contest, with: Entities::ContestExpose
+                present :data, contest, with: Entities::V2::ContestExpose
               else
                 present :status, :failure
                 present :data, "Can't creating a new contest."
@@ -139,7 +139,7 @@ module V2
             if user = User.find_by(token: params[:token])
               if contest = Contest.join_contest(user, params[:contest_id])
                 present :status, :success
-                present :data, contest, with: Entities::ContestExpose
+                present :data, contest, with: Entities::V2::ContestExpose
               else
                 present :status, :failure
                 present :data, "Can't join a contest."
@@ -163,7 +163,7 @@ module V2
             if user = User.find_by(token: params[:token])
               if contest = Contest.edit_contest(user, params[:contest_id])
                 present :status, :success
-                present :data, contest, with: Entities::ContestEditExpose
+                present :data, contest, with: Entities::V2::ContestEditExpose
               else
                 present :status, :failure
                 present :data, "Can't join a contest."
@@ -189,7 +189,7 @@ module V2
               if contest = user.contests.find(params[:contest_id])
                 if quiz_contest = Contest.quiz(user, contest, params[:details])
                   present :status, :success
-                  present :data, quiz_contest #, with: Entities::AuthExpose
+                  present :data, quiz_contest #, with: Entities::V2::AuthExpose
                 else
                   present :status, :failure
                   present :data, "Can't complete quiz"
@@ -219,7 +219,7 @@ module V2
               if contest = user.contests.find(params[:contest_id])
                 if quiz_contest = Contest.edit_quiz(user, contest, params[:details])
                   present :status, :success
-                  present :data, quiz_contest #, with: Entities::AuthExpose
+                  present :data, quiz_contest #, with: Entities::V2::AuthExpose
                 else
                   present :status, :failure
                   present :data, "Can't complete quiz"

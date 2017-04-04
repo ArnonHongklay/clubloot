@@ -33,7 +33,7 @@ module V2
             if programs = Program.upcoming
               present :status, :success
               if programs.present?
-                present :data, programs, with: Entities::ProgramsExpose
+                present :data, programs, with: Entities::V2::ProgramsExpose
               else
                 present :data, programs
               end
@@ -57,7 +57,7 @@ module V2
             if programs
               present :status, :success
               if programs.present?
-                present :data, programs, with: Entities::ProgramContestsExpose
+                present :data, programs, with: Entities::V2::ProgramContestsExpose
               else
                 present :data, programs
               end
@@ -80,7 +80,7 @@ module V2
             if programs
               present :status, :success
               if programs.present?
-                present :data, programs, with: Entities::ProgramTemplateContestsExpose
+                present :data, programs, with: Entities::V2::ProgramTemplateContestsExpose
               else
                 present :data, programs
               end
@@ -104,7 +104,7 @@ module V2
             if contest
               present :status, :success
               if contest.present?
-                present :data, contest, with: Entities::ProgramContestsExpose
+                present :data, contest, with: Entities::V2::ProgramContestsExpose
               else
                 present :data, contest
               end
@@ -127,7 +127,7 @@ module V2
             if programs
               present :status, :success
               if programs.present?
-                present :data, programs, with: Entities::ProgramTemplatesExpose
+                present :data, programs, with: Entities::V2::ProgramTemplatesExpose
               else
                 present :data, programs
               end
@@ -151,7 +151,7 @@ module V2
             contests = template.contests
             if contests.present?
               present :status, :success
-              present :data, contests, with: Entities::ProgramTemplatesContestExpose
+              present :data, contests, with: Entities::V2::ProgramTemplatesContestExpose
             else
               present :status, :failure
               present :data, "Can't show data"
@@ -173,7 +173,7 @@ module V2
             contest = template.contests.find(params[:contest_id])
             if contest.present?
               present :status, :success
-              present :data, contest, with: Entities::ProgramTemplatesContestExpose
+              present :data, contest, with: Entities::V2::ProgramTemplatesContestExpose
             else
               present :status, :failure
               present :data, "Can't show data"
@@ -195,7 +195,7 @@ module V2
           else
             present :status, :failure
           end
-          present :data, templates, with: Entities::TemplatesExpose
+          present :data, templates, with: Entities::V2::TemplatesExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
@@ -212,7 +212,7 @@ module V2
           else
             present :status, :failure
           end
-          present :data, template, with: Entities::TemplateExpose
+          present :data, template, with: Entities::V2::TemplateExpose
         rescue Exception => e
           present :status, :failure
           present :data, e

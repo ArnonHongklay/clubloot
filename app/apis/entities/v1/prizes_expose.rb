@@ -1,4 +1,4 @@
-class Entities::PrizesExpose < Grape::Entity
+class Entities::V1::PrizesExpose < Grape::Entity
   expose :id
   expose :attachment
   expose :name

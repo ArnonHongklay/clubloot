@@ -1,4 +1,4 @@
-class Entities::ContestAllExpose < Grape::Entity
+class Entities::V1::ContestAllExpose < Grape::Entity
   expose :id
   expose :name
   expose :max_players

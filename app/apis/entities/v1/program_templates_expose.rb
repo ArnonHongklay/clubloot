@@ -1,4 +1,4 @@
-class Entities::ProgramTemplatesExpose < Grape::Entity
+class Entities::V1::ProgramTemplatesExpose < Grape::Entity
   expose :id
   # expose :attachment
   # expose :category

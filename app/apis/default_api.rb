@@ -92,5 +92,5 @@ class DefaultAPI < Grape::API
       }
     }
     # models: ::Entities.constants.select { | c | Class === ::Entities.const_get(c) }
-    #                         .map { | c | "::Entities::#{c.to_s}".constantize }
+    #                         .map { | c | "::Entities::V1::#{c.to_s}".constantize }
 end
