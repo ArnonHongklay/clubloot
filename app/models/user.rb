@@ -9,6 +9,8 @@ class User
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
+        #  :invitable,
+        #  :timeoutable,
          :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
@@ -99,8 +101,29 @@ class User
 
   embeds_many :messages
 
+  before_save :ensure_authentication_token
   after_save :update_loot_economy
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
+
+  def ensure_authentication_token
+    self.authentication_token ||= generate_authentication_token
+  end
+
+  # def has_password?(password_soumis)
+  #   encrypted_password == encrypt(password_soumis)
+  #   # Compare encrypted_password avec la version cryptée de
+  #   # password_soumis.
+  # end
+
+  # def authenticate(submitted_password)
+  #   self.has_password?(submitted_password)
+  # end
+
+  # def self.authenticate(email, submitted_password)
+  #   user = find_by_email(email)
+  #   return nil  if user.nil?
+  #   return user if user.has_password?(submitted_password)
+  # end
 
   def self.hard_update_token
     User.all.each do |user|
@@ -285,7 +308,22 @@ class User
   end
 
   private
+    def encrypt(string)
+      secure_hash("#{salt}--#{string}")
+    end
+
+    def secure_hash(string)
+      Digest::SHA2.hexdigest(string)
+    end
+
     def update_loot_economy
       User.loot_economy
+    end
+
+    def generate_authentication_token
+      # loop do
+      #   token = Devise.friendly_token
+      #   break token unless User.where(authentication_token: token).first
+      # end
     end
 end

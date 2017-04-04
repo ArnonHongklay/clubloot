@@ -1,6 +1,6 @@
 module V1
   class UsersAPI < Grape::API
-    extend Defaults::Engine
+    # extend Defaults::Engine
 
     helpers do
       params :token do

@@ -1,6 +1,6 @@
 module V1
   class ContestsAPI < Grape::API
-    extend Defaults::Engine
+    # extend Defaults::Engine
 
     resource :program do
       params do

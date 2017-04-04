@@ -1,6 +1,6 @@
 module V1
   class PrizesAPI < Grape::API
-    extend Defaults::Engine
+    # extend Defaults::Engine
 
     resource :prizes do
       get '/' do

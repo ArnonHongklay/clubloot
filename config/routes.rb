@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/workers'
     mount ActionCable.server => "/cable"
 
-    mount ApplicationAPI, at: '/'
+    mount DefaultAPI, at: '/'
     mount GrapeSwaggerRails::Engine, at: '/explorer'
   end
 
