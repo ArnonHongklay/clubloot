@@ -68,12 +68,8 @@ class DefaultAPI < Grape::API
   #   error_response(message: e.message, status: 422)
   # end
 
-  # mount V1::AuthAPI
-  # mount V1::UsersAPI
-  # mount V1::ContestsAPI
-  # mount V1::PrizesAPI
-  # mount V1::Root
   mount ApiV1
+  mount ApiV2
 
   add_swagger_documentation \
     api_version: '1.0.0',

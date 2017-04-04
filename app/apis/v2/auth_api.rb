@@ -1,17 +1,23 @@
-module V1
+module V2
   class AuthAPI < Grape::API
-    # extend Defaults::Engine
 
     resource :auth do
-      desc "Creates and returns access_token if valid login"
+      desc ""
       params do
-        requires :login, type: String, desc: "Username or email address"
+      end
+      post :sign_up do
+
+      end
+
+      desc "Creates and returns access_token if valid signin"
+      params do
+        requires :email, type: String, desc: "email address"
         requires :password, type: String, desc: "Password"
       end
-      post :login do
+      post :sign_in do
         binding.pry
-        if params[:login].include?("@")
-          user = User.find_by(email: params[:login].downcase)
+        if params[:email].include?("@")
+          user = User.find_by(email: params[:email].downcase)
         # else
         #   user = User.find_by(login: params[:login].downcase)
         end

@@ -1,13 +1,14 @@
-class ApiV1 < ApplicationAPI
+class Current < ApplicationAPI
   extend ActiveSupport::Concern
 
   # prefix "api"
-  # version 'v1', using: :path
+  version '', using: :path
   default_format :json
   format :json
   formatter :json, Grape::Formatter::ActiveModelSerializers
 
-  mount V1::UsersAPI
-  mount V1::ContestsAPI
-  mount V1::PrizesAPI
+  mount V2::AuthAPI
+  mount V2::UsersAPI
+  mount V2::ContestsAPI
+  mount V2::PrizesAPI
 end
