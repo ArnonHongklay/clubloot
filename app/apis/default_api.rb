@@ -1,5 +1,6 @@
 class DefaultAPI < Grape::API
   extend ActiveSupport::Concern
+  include ActionController::HttpAuthentication::Token
 
   # Follow: http://dreamingechoes.github.io/api/ruby/rails/create-a-super-fancy-api-with-grape/
   before do
@@ -34,12 +35,15 @@ class DefaultAPI < Grape::API
     end
 
     def current_user
-      token = ApiKey.where(access_token: params[:token]).first
+      access_token = request.headers['Authorization'] || params[:token]
+
+      token = ApiKey.where(access_token: access_token).first
       if token && !token.expired?
         @current_user = User.find(token.user_id)
       else
         false
       end
+
       # warden.user || @user
     end
 

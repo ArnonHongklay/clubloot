@@ -20,9 +20,6 @@ class Contest
   belongs_to :host, class_name: 'User', inverse_of: :host_contests
 
   has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
-  # has_many :user_contests
-  # has_many :players, class_name: 'User', inverse_of: :contests, through: :user_contests
-
   has_and_belongs_to_many :winners, class_name: 'User', inverse_of: :winners
 
   embeds_many :quizes, class_name: 'Quiz' #, dependent: :nullify
@@ -34,7 +31,7 @@ class Contest
 
   def self.save_transaction(user, contest)
     fee = (contest.fee * 10 / 11)
-    amount = contest.fee - fee
+    tax = contest.fee - fee
     transaction = OpenStruct.new(
       status: 'complete',
       format: 'contest',
@@ -43,8 +40,8 @@ class Contest
       from: 'coins',
       to: 'contest',
       unit: 'coins',
-      amount: amount,
-      tax: fee
+      amount: contest.fee,
+      tax: tax
     )
     user.update(coins: (user.coins - contest.fee))
     Ledger.create_transaction(user, transaction)
