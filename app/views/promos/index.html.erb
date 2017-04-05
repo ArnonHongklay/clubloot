@@ -35,7 +35,9 @@
                       <tr>
                         <td><%= promo.code %></td>
                         <td><%= promo.quantity %></td>
-                        <td><%= promo.bonus %></td>
+                        <td>
+                          <%= promo.bonus %> <%= currency_icon(promo.currency_unit) %>
+                        </td>
                         <td><%= promo.expires_at.try(:strftime, "%B %d, %Y") %></td>
                         <td><%= link_to 'Show', promo %></td>
                         <td><%= link_to 'Edit', edit_promo_path(promo) %></td>

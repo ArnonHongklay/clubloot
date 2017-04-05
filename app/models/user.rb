@@ -2,15 +2,12 @@ class User
   include Mongoid::Document
   include Mongoid::Paperclip
   include Mongoid::Timestamps
-
   # store_in collection: 'accounts'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-        #  :invitable,
-        #  :timeoutable,
          :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
@@ -97,13 +94,21 @@ class User
   # has_and_belongs_to_many :prizes, class_name: 'Prize', inverse_of: :users
   has_many :prizes, class_name: 'UserPrize', inverse_of: :user
 
+  belongs_to :promo, class_name: 'Promo', inverse_of: :users, optional: true
+
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
 
   embeds_many :messages
 
   before_save :ensure_authentication_token
   after_save :update_loot_economy
+  after_create :payout_promo
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
+
+  def payout_promo
+    self.update(coins: self.coins + self.promo.amount)
+    # ledger
+  end
 
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token

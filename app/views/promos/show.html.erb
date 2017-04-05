@@ -17,8 +17,18 @@
   </p>
 
   <p>
+    <strong>Used:</strong>
+    <%= @promo.used %>
+  </p>
+
+  <p>
+    <strong>Available:</strong>
+    <%= @promo.available %>
+  </p>
+
+  <p>
     <strong>Bonus:</strong>
-    <%= @promo.bonus %>
+    <%= @promo.bonus %> <%= currency_icon(@promo.currency_unit) %>
   </p>
 
   <p>
