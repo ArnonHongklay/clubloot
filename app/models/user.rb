@@ -106,7 +106,9 @@ class User
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
   def payout_promo
-    self.update(coins: self.coins + self.promo.amount)
+    amount = self.promo.try(:amount) || 0
+    return true if amount == 0
+    self.update(coins: self.coins + amount)
     # ledger
   end
 

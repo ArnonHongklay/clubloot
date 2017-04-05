@@ -18,10 +18,12 @@ module V2
 
           if params[:password].present? and params[:username].present?
             if params[:password] == params[:confirm_password]
-              user = User.create!(email: params[:email], username: params[:username], password: params[:password], date_of_birth: params[:date_of_birth])
               if Promo.available?(params[:promo])
-                user.update(promo: Promo.find_by(code: params[:promo]))
+                promo = Promo.find_by(code: params[:promo])
+              else
+                promo = nil
               end
+              user = User.create!(email: params[:email], username: params[:username], password: params[:password], date_of_birth: params[:date_of_birth], promo: promo)
               api_response({ status: :success, data: user })
             else
               api_response({ status: :failure, data: "password not match" })
