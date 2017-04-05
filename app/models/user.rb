@@ -48,7 +48,7 @@ class User
   field :username,        type: String, default: ""
   field :first_name,      type: String, default: ""
   field :last_name,       type: String, default: ""
-  field :birthday,        type: Date
+  field :date_of_birth,   type: Date
 
   field :billing_address, type: String
   field :billing_city,    type: String

@@ -1,0 +1,21 @@
+<% content_for :body_id, 'promo' %>
+
+<%= simple_form_for(@promo, html: { class: 'item' }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :code %>
+    <%= f.input :quantity %>
+    <%= f.input :bonus %>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.input :expires_at, input_html: { id: 'expires_datetimepicker' } %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
