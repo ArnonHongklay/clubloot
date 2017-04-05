@@ -2,15 +2,12 @@ class User
   include Mongoid::Document
   include Mongoid::Paperclip
   include Mongoid::Timestamps
-
   # store_in collection: 'accounts'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-        #  :invitable,
-        #  :timeoutable,
          :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
@@ -48,7 +45,7 @@ class User
   field :username,        type: String, default: ""
   field :first_name,      type: String, default: ""
   field :last_name,       type: String, default: ""
-  field :birthday,        type: Date
+  field :date_of_birth,   type: Date
 
   field :billing_address, type: String
   field :billing_city,    type: String
@@ -97,13 +94,23 @@ class User
   # has_and_belongs_to_many :prizes, class_name: 'Prize', inverse_of: :users
   has_many :prizes, class_name: 'UserPrize', inverse_of: :user
 
+  belongs_to :promo, class_name: 'Promo', inverse_of: :users, optional: true
+
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
 
   embeds_many :messages
 
   before_save :ensure_authentication_token
   after_save :update_loot_economy
+  after_create :payout_promo
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
+
+  def payout_promo
+    amount = self.promo.try(:amount) || 0
+    return true if amount == 0
+    self.update(coins: self.coins + amount)
+    # ledger
+  end
 
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token

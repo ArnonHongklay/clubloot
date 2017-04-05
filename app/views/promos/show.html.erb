@@ -1,0 +1,41 @@
+
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Show Promo <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+
+  <p>
+    <strong>Code:</strong>
+    <%= @promo.code %>
+  </p>
+
+  <p>
+    <strong>Quantity:</strong>
+    <%= @promo.quantity %>
+  </p>
+
+  <p>
+    <strong>Used:</strong>
+    <%= @promo.used %>
+  </p>
+
+  <p>
+    <strong>Available:</strong>
+    <%= @promo.available %>
+  </p>
+
+  <p>
+    <strong>Bonus:</strong>
+    <%= @promo.bonus %> <%= currency_icon(@promo.currency_unit) %>
+  </p>
+
+  <p>
+    <strong>Expires:</strong>
+    <%= @promo.expires_at.try(:strftime, "%B %d, %Y") %>
+  </p>
+
+  <%= link_to 'Edit', edit_promo_path(@promo), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Back', promos_path, class: 'btn btn-primary btn-sm rounded-s' %>
+</article>
