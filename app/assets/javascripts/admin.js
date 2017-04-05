@@ -1,3 +1,4 @@
+//= require jquery-ujs
 //= require cable
 
 $(document).on('ready', function() {

@@ -84,19 +84,14 @@ class User
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   validates_uniqueness_of :username
 
-  has_and_belongs_to_many :contests, inverse_of: :players
-  # has_many :user_contests
-  # has_many :contests, inverse_of: :players, through: :user_contests
-  has_many :host_contests, class_name: 'Contest', inverse_of: :host
-
-  has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
-
-  # has_and_belongs_to_many :prizes, class_name: 'Prize', inverse_of: :users
+  belongs_to :promo, class_name: 'Promo', inverse_of: :users, optional: true
   has_many :prizes, class_name: 'UserPrize', inverse_of: :user
 
-  belongs_to :promo, class_name: 'Promo', inverse_of: :users, optional: true
-
+  has_many :host_contests, class_name: 'Contest', inverse_of: :host
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
+
+  has_and_belongs_to_many :contests, inverse_of: :players
+  has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
 
   embeds_many :messages
 
