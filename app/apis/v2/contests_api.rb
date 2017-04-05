@@ -1,6 +1,5 @@
-module V1
+module V2
   class ContestsAPI < Grape::API
-    # extend Defaults::Engine
 
     resource :program do
       params do
@@ -34,7 +33,7 @@ module V1
             if programs = Program.upcoming
               present :status, :success
               if programs.present?
-                present :data, programs, with: Entities::V1::ProgramsExpose
+                present :data, programs, with: Entities::V2::ProgramsExpose
               else
                 present :data, programs
               end
@@ -58,7 +57,7 @@ module V1
             if programs
               present :status, :success
               if programs.present?
-                present :data, programs, with: Entities::V1::ProgramContestsExpose
+                present :data, programs, with: Entities::V2::ProgramContestsExpose
               else
                 present :data, programs
               end
@@ -81,7 +80,7 @@ module V1
             if programs
               present :status, :success
               if programs.present?
-                present :data, programs, with: Entities::V1::ProgramTemplateContestsExpose
+                present :data, programs, with: Entities::V2::ProgramTemplateContestsExpose
               else
                 present :data, programs
               end
@@ -105,7 +104,7 @@ module V1
             if contest
               present :status, :success
               if contest.present?
-                present :data, contest, with: Entities::V1::ProgramContestsExpose
+                present :data, contest, with: Entities::V2::ProgramContestsExpose
               else
                 present :data, contest
               end
@@ -128,7 +127,7 @@ module V1
             if programs
               present :status, :success
               if programs.present?
-                present :data, programs, with: Entities::V1::ProgramTemplatesExpose
+                present :data, programs, with: Entities::V2::ProgramTemplatesExpose
               else
                 present :data, programs
               end
@@ -152,7 +151,7 @@ module V1
             contests = template.contests
             if contests.present?
               present :status, :success
-              present :data, contests, with: Entities::V1::ProgramTemplatesContestExpose
+              present :data, contests, with: Entities::V2::ProgramTemplatesContestExpose
             else
               present :status, :failure
               present :data, "Can't show data"
@@ -174,7 +173,7 @@ module V1
             contest = template.contests.find(params[:contest_id])
             if contest.present?
               present :status, :success
-              present :data, contest, with: Entities::V1::ProgramTemplatesContestExpose
+              present :data, contest, with: Entities::V2::ProgramTemplatesContestExpose
             else
               present :status, :failure
               present :data, "Can't show data"
@@ -196,7 +195,7 @@ module V1
           else
             present :status, :failure
           end
-          present :data, templates, with: Entities::V1::TemplatesExpose
+          present :data, templates, with: Entities::V2::TemplatesExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
@@ -213,7 +212,7 @@ module V1
           else
             present :status, :failure
           end
-          present :data, template, with: Entities::V1::TemplateExpose
+          present :data, template, with: Entities::V2::TemplateExpose
         rescue Exception => e
           present :status, :failure
           present :data, e

@@ -1,6 +1,5 @@
-module V1
+module V2
   class PrizesAPI < Grape::API
-    # extend Defaults::Engine
 
     resource :prizes do
       get '/' do
@@ -9,7 +8,7 @@ module V1
           if prizes
             present :status, :success
             if prizes.present?
-              present :data, prizes, with: Entities::V1::PrizesExpose
+              present :data, prizes, with: Entities::V2::PrizesExpose
             else
               present :data, prizes
             end

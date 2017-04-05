@@ -9,12 +9,14 @@ class User
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
+        #  :invitable,
+        #  :timeoutable,
          :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
-  field :email,               type: String, default: ""
-  field :encrypted_password,  type: String, default: ""
-  field :token,               type: String, default: ""
+  field :email,                 type: String, default: ""
+  field :encrypted_password,    type: String, default: ""
+  field :authentication_token,  type: String, default: ""
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -99,8 +101,13 @@ class User
 
   embeds_many :messages
 
+  before_save :ensure_authentication_token
   after_save :update_loot_economy
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
+
+  def ensure_authentication_token
+    self.authentication_token ||= generate_authentication_token
+  end
 
   def self.hard_update_token
     User.all.each do |user|
@@ -285,7 +292,15 @@ class User
   end
 
   private
+
     def update_loot_economy
       User.loot_economy
+    end
+
+    def generate_authentication_token
+      loop do
+        token = Devise.friendly_token
+        break token unless User.where(authentication_token: token).first
+      end
     end
 end
