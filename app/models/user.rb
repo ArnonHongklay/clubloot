@@ -14,9 +14,9 @@ class User
          :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
-  field :email,               type: String, default: ""
-  field :encrypted_password,  type: String, default: ""
-  field :token,               type: String, default: ""
+  field :email,                 type: String, default: ""
+  field :encrypted_password,    type: String, default: ""
+  field :authentication_token,  type: String, default: ""
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -108,22 +108,6 @@ class User
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token
   end
-
-  # def has_password?(password_soumis)
-  #   encrypted_password == encrypt(password_soumis)
-  #   # Compare encrypted_password avec la version cryptée de
-  #   # password_soumis.
-  # end
-
-  # def authenticate(submitted_password)
-  #   self.has_password?(submitted_password)
-  # end
-
-  # def self.authenticate(email, submitted_password)
-  #   user = find_by_email(email)
-  #   return nil  if user.nil?
-  #   return user if user.has_password?(submitted_password)
-  # end
 
   def self.hard_update_token
     User.all.each do |user|
@@ -308,22 +292,15 @@ class User
   end
 
   private
-    def encrypt(string)
-      secure_hash("#{salt}--#{string}")
-    end
-
-    def secure_hash(string)
-      Digest::SHA2.hexdigest(string)
-    end
 
     def update_loot_economy
       User.loot_economy
     end
 
     def generate_authentication_token
-      # loop do
-      #   token = Devise.friendly_token
-      #   break token unless User.where(authentication_token: token).first
-      # end
+      loop do
+        token = Devise.friendly_token
+        break token unless User.where(authentication_token: token).first
+      end
     end
 end

@@ -9,18 +9,8 @@ class DefaultAPI < Grape::API
 
   helpers do
     def api_response response
-      case response
-      when Integer
-        status response
-      when String
-        response
-      when Hash
-        response
-      when Net::HTTPResponse
-        "#{response.code}: #{response.message}"
-      else
-        status 400 # Bad request
-      end
+      present :status, response[:status]
+      present :data, response[:data]
     end
 
     def permitted_params
@@ -37,26 +27,24 @@ class DefaultAPI < Grape::API
 
     # https://mikecoutermarsh.com/rails-grape-api-key-authentication/
     def authenticate!
+      # return true if warden.authenticated?
+      # params[:access_token] && @user = User.find_by_authentication_token(params[:access_token])
+
       error!('Unauthorized. Invalid or expired token.', 401) unless current_user
     end
 
     def current_user
-      # token = ApiKey.where(access_token: params[:token]).first
-      # if token && !token.expired?
-      #   @current_user = User.find(token.user_id)
-      # else
-      #   false
-      # end
-      warden.user || @user
+      token = ApiKey.where(access_token: params[:token]).first
+      if token && !token.expired?
+        @current_user = User.find(token.user_id)
+      else
+        false
+      end
+      # warden.user || @user
     end
 
     def warden
       env['warden']
-    end
-
-    def authenticated
-      return true if warden.authenticated?
-      params[:access_token] && @user = User.find_by_authentication_token(params[:access_token])
     end
   end
 

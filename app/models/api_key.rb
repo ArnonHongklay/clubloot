@@ -11,17 +11,17 @@ class ApiKey
   belongs_to :user
 
   def expired?
-    DateTime.now >= self.expires_at
+    Time.zone.now >= self.expires_at
   end
 
   private
     def generate_access_token
       begin
-        self.access_token = SecureRandom.hex
-      end while self.class.exists?(access_token: access_token)
+        self.access_token = Devise.friendly_token
+      end while self.class.where(access_token: access_token).exists?
     end
 
     def set_expiration
-      self.expires_at = DateTime.now+30
+      self.expires_at = Time.zone.now + 30
     end
 end

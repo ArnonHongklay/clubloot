@@ -31,9 +31,9 @@ module V2
         end
         get "/" do
           begin
-            if user = User.find_by(token: params[:token])
+            if current_user
               present :status, :success
-              present :data, user, with: Entities::V2::UserAllExpose
+              present :data, current_user, with: Entities::V2::UserAllExpose
             else
               present :status, :failure
               present :data, "Users don't have in our system."
@@ -52,15 +52,15 @@ module V2
         end
         get "/" do
           begin
-            if user = User.find_by(token: params[:token])
+            if current_user
               if params[:state].eql?('winners')
-                contests = user.winners.order(updated_at: :desc)
+                contests = current_user.winners.order(updated_at: :desc)
               elsif params[:state].eql?('past')
-                contests = user.contests.where(_state: { '$in': [:end, :cancel]}).order(updated_at: :desc)
+                contests = current_user.contests.where(_state: { '$in': [:end, :cancel]}).order(updated_at: :desc)
               elsif params[:state].eql?('all')
-                contests = user.contests.order(updated_at: :desc)
+                contests = current_user.contests.order(updated_at: :desc)
               else
-                contests = user.contests.where(_state: params[:state]).order(updated_at: :desc)
+                contests = current_user.contests.where(_state: params[:state]).order(updated_at: :desc)
               end
               present :status, :success
               present :data, contests, with: Entities::V2::ContestAllExpose
@@ -81,8 +81,8 @@ module V2
         end
         get ":contest_id" do
           begin
-            if user = User.find_by(token: params[:token])
-              if contest = user.contests.find(params[:contest_id])
+            if current_user
+              if contest = current_user.contests.find(params[:contest_id])
                 present :status, :success
                 present :data, contest, with: Entities::V2::ContestAllExpose
               else
@@ -112,8 +112,8 @@ module V2
           begin
             template = Template.find(params[:template_id])
 
-            if user = User.find_by(token: params[:token])
-              if contest = Contest.create_contest(user, template, params[:details])
+            if current_user
+              if contest = Contest.create_contest(current_user, template, params[:details])
                 present :status, :success
                 present :data, contest, with: Entities::V2::ContestExpose
               else
@@ -136,8 +136,8 @@ module V2
         end
         post "/join" do
           begin
-            if user = User.find_by(token: params[:token])
-              if contest = Contest.join_contest(user, params[:contest_id])
+            if current_user
+              if contest = Contest.join_contest(current_user, params[:contest_id])
                 present :status, :success
                 present :data, contest, with: Entities::V2::ContestExpose
               else
@@ -160,8 +160,8 @@ module V2
         end
         post "/edit" do
           begin
-            if user = User.find_by(token: params[:token])
-              if contest = Contest.edit_contest(user, params[:contest_id])
+            if current_user
+              if contest = Contest.edit_contest(current_user, params[:contest_id])
                 present :status, :success
                 present :data, contest, with: Entities::V2::ContestEditExpose
               else
@@ -185,9 +185,9 @@ module V2
         end
         post "/quiz" do
           begin
-            if user = User.find_by(token: params[:token])
-              if contest = user.contests.find(params[:contest_id])
-                if quiz_contest = Contest.quiz(user, contest, params[:details])
+            if current_user
+              if contest = current_user.contests.find(params[:contest_id])
+                if quiz_contest = Contest.quiz(current_user, contest, params[:details])
                   present :status, :success
                   present :data, quiz_contest #, with: Entities::V2::AuthExpose
                 else
@@ -215,9 +215,9 @@ module V2
         end
         post "/edit_quiz" do
           begin
-            if user = User.find_by(token: params[:token])
-              if contest = user.contests.find(params[:contest_id])
-                if quiz_contest = Contest.edit_quiz(user, contest, params[:details])
+            if current_user
+              if contest = current_user.contests.find(params[:contest_id])
+                if quiz_contest = Contest.edit_quiz(current_user, contest, params[:details])
                   present :status, :success
                   present :data, quiz_contest #, with: Entities::V2::AuthExpose
                 else
@@ -272,8 +272,8 @@ module V2
         end
         post '/' do
           begin
-            user = User.find_by(token: params[:token])
-            g = GemConvert.exchange(user, params[:type])
+            current_user
+            g = GemConvert.exchange(current_user, params[:type])
 
             if g.present?
               present :status, :success

@@ -9,8 +9,8 @@ class ApiV2 < ApplicationAPI
 
   resource :v2 do
     mount V2::AuthAPI
-    # mount V2::UsersAPI
-    # mount V2::ContestsAPI
-    # mount V2::PrizesAPI
+    mount V2::UsersAPI
+    mount V2::ContestsAPI
+    mount V2::PrizesAPI
   end
 end
