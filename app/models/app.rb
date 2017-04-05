@@ -54,6 +54,10 @@ class App < Struct.new(:region, :environment, :version)
     (0...digit).map { o[rand(o.length)] }.join
   end
 
+  def currency_unit
+    ['coins', 'rubies', 'sapphires', 'emeralds', 'diamonds']
+  end
+
   class << self
     attr_accessor :current
 
@@ -112,7 +116,6 @@ class GemConvert
       user.emeralds = user.emeralds - gemc.emerald[:rate].to_i
       user.diamonds = user.diamonds + 1
     end
-
 
     user.save!
   end

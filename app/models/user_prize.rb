@@ -11,8 +11,8 @@ class UserPrize
 
   field :shipped_at, type: DateTime
 
-  belongs_to :user #, class: 'User' #, inverse_of: :prizes
-  belongs_to :prize #, class: 'Prize' #, inverse_of: :users
+  belongs_to :user
+  belongs_to :prize
 
   def update_complete(tracking_code, carrier)
     self.tracking_code = tracking_code

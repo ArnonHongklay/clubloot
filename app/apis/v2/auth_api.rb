@@ -8,6 +8,8 @@ module V2
         requires :password, type: String, desc: "Password"
         requires :confirm_password, type: String, desc: "Confirm Passoword"
         requires :username, type: String, desc: "Username"
+        requires :date_of_birth, type: String, desc: "Username"
+        optional :promo, type: String, desc: "promo code"
       end
       post :sign_up do
         begin
@@ -16,7 +18,12 @@ module V2
 
           if params[:password].present? and params[:username].present?
             if params[:password] == params[:confirm_password]
-              user = User.create!(email: params[:email], username: params[:username], password: params[:password])
+              if Promo.available?(params[:promo])
+                promo = Promo.find_by(code: params[:promo])
+              else
+                promo = nil
+              end
+              user = User.create!(email: params[:email], username: params[:username], password: params[:password], date_of_birth: params[:date_of_birth], promo: promo)
               api_response({ status: :success, data: user })
             else
               api_response({ status: :failure, data: "password not match" })

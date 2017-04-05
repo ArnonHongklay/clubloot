@@ -15,6 +15,10 @@ $(document).on('ready', function() {
       $('#announcement_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
     }
 
+    if(bodyId == 'promo'){
+      $('#expires_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
+    }
+
     $('#datetimepicker6').datetimepicker({
       format: 'YYYY-MM-DD'
     });
