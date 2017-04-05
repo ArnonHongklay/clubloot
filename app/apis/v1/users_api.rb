@@ -33,7 +33,7 @@ module V1
         end
         get "/" do
           begin
-            if user = User.find_by(authentication_token: params[:token])
+            if user = User.find_by(token: params[:token])
               present :status, :success
               present :data, user, with: Entities::V1::UserAllExpose
             else
@@ -54,7 +54,7 @@ module V1
         end
         get "/" do
           begin
-            if user = User.find_by(authentication_token: params[:token])
+            if user = User.find_by(token: params[:token])
               if params[:state].eql?('winners')
                 contests = user.winners.order(updated_at: :desc)
               elsif params[:state].eql?('past')
@@ -83,7 +83,7 @@ module V1
         end
         get ":contest_id" do
           begin
-            if user = User.find_by(authentication_token: params[:token])
+            if user = User.find_by(token: params[:token])
               if contest = user.contests.find(params[:contest_id])
                 present :status, :success
                 present :data, contest, with: Entities::V1::ContestAllExpose
@@ -114,7 +114,7 @@ module V1
           begin
             template = Template.find(params[:template_id])
 
-            if user = User.find_by(authentication_token: params[:token])
+            if user = User.find_by(token: params[:token])
               if contest = Contest.create_contest(user, template, params[:details])
                 present :status, :success
                 present :data, contest, with: Entities::V1::ContestExpose
@@ -138,7 +138,7 @@ module V1
         end
         post "/join" do
           begin
-            if user = User.find_by(authentication_token: params[:token])
+            if user = User.find_by(token: params[:token])
               if contest = Contest.join_contest(user, params[:contest_id])
                 present :status, :success
                 present :data, contest, with: Entities::V1::ContestExpose
@@ -162,7 +162,7 @@ module V1
         end
         post "/edit" do
           begin
-            if user = User.find_by(authentication_token: params[:token])
+            if user = User.find_by(token: params[:token])
               if contest = Contest.edit_contest(user, params[:contest_id])
                 present :status, :success
                 present :data, contest, with: Entities::V1::ContestEditExpose
@@ -187,7 +187,7 @@ module V1
         end
         post "/quiz" do
           begin
-            if user = User.find_by(authentication_token: params[:token])
+            if user = User.find_by(token: params[:token])
               if contest = user.contests.find(params[:contest_id])
                 if quiz_contest = Contest.quiz(user, contest, params[:details])
                   present :status, :success
@@ -217,7 +217,7 @@ module V1
         end
         post "/edit_quiz" do
           begin
-            if user = User.find_by(authentication_token: params[:token])
+            if user = User.find_by(token: params[:token])
               if contest = user.contests.find(params[:contest_id])
                 if quiz_contest = Contest.edit_quiz(user, contest, params[:details])
                   present :status, :success
@@ -248,7 +248,7 @@ module V1
         end
         post '/' do
           begin
-            prizes = User.find_by(authentication_token: params[:token]).get_prizes(params[:prize_id])
+            prizes = User.find_by(token: params[:token]).get_prizes(params[:prize_id])
             if prizes
               present :status, :success
               if prizes.present?
@@ -274,7 +274,7 @@ module V1
         end
         post '/' do
           begin
-            user = User.find_by(authentication_token: params[:token])
+            user = User.find_by(token: params[:token])
             g = GemConvert.exchange(user, params[:type])
 
             if g.present?
