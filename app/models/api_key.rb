@@ -37,7 +37,7 @@ class ApiKey
       amount = 2000
       return if self.created_at.nil?
       if self.class.where(user: self.user.id).where(:created_at.gte => Time.zone.now.beginning_of_day).count <= 1
-        self.user.update(coins: self.user.coins + amount, daily_loot: false)
+        self.user.update(coins: self.user.coins + amount)
 
         transaction = OpenStruct.new(
           status: 'complete',

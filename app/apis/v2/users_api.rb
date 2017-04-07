@@ -45,6 +45,20 @@ module V2
         end
       end
 
+      resource :daily_loot do
+        params do
+          requires :token, type: String, default: nil, desc: 'User Token'
+        end
+        get "/" do
+          begin
+            current_user.update(daily_loot: false)
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+      end
+
       resource :contests do
         params do
           requires :token, type: String, default: nil, desc: 'User Token'
