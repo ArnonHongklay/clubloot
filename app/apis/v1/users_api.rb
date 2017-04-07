@@ -58,7 +58,7 @@ module V1
               if params[:state].eql?('winners')
                 contests = user.winners.order(updated_at: :desc)
               elsif params[:state].eql?('past')
-                contests = user.contests.where(_state: { '$in': [:end, :cancel]}).order(updated_at: :desc)
+                contests = user.contests.where(_state: { '$in': [:end, :cancel] } ).order(updated_at: :desc)
               elsif params[:state].eql?('all')
                 contests = user.contests.order(updated_at: :desc)
               else

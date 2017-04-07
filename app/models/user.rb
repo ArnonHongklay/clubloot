@@ -75,6 +75,8 @@ class User
   field :rubies,          type: Integer, default: 0
   field :coins,           type: Integer, default: 0
 
+  field :free_loot,       type: Boolean, default: true
+
   has_mongoid_attached_file :avatar,
     styles: {
       :medium   => ['250x250',    :jpg]
