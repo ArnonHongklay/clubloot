@@ -35,8 +35,8 @@ class DefaultAPI < Grape::API
     end
 
     def current_user
-      access_token = request.headers['Authorization'] || params[:token]
-
+      # access_token = request.headers['Authorization'] || params[:token]
+      access_token = params[:token]
       token = ApiKey.where(access_token: access_token).first
       if token && !token.expired?
         @current_user = User.find(token.user_id)
