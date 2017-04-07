@@ -51,7 +51,9 @@ module V2
         end
         get "/" do
           begin
-            current_user.update(daily_loot: false)
+            current_user.update(free_loot: false)
+            present :status, :success
+            present :data, current_user, with: Entities::V2::UserAllExpose
           rescue Exception => e
             present :status, :failure
             present :data, e
