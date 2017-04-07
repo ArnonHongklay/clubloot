@@ -31,10 +31,24 @@ class ApiKey
       self.expires_at = Time.zone.now + 30
     end
 
-    def set_signin_log
-      if where(:created_at.gte => Time.zone.now.beginning_of_day).count <= 0
-        self.user.update(coins: self.user.coins + 2000)
-        # Ledger.
+    def daily_loot
+      amount = 2000
+      if ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day).count <= 0
+        self.user.update(coins: self.user.coins + amount)
+
+        transaction = OpenStruct.new(
+          status: 'complete',
+          format: 'daily loot',
+          action: 'plus',
+          description: 'loot',
+          from: 'promo',
+          to: 'coins',
+          unit: 'coins',
+          amount: amount,
+          tax: 0
+        )
+
+        Ledger.create_transaction(self.user, transaction)
       end
     end
 end

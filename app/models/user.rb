@@ -102,10 +102,36 @@ class User
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
   def payout_promo
-    amount = self.promo.try(:amount) || 0
-    return true if amount == 0
-    self.update(coins: self.coins + amount)
-    # ledger
+    currency_unit = self.promo.try(:currency_unit) || 0
+    return true if currency_unit == 0
+    bonus = self.promo.try(:bonus)
+
+    case currency_unit
+    when 'diamonds'
+      self.update(coins: self.diamonds + bonus)
+    when 'emeralds'
+      self.update(coins: self.emeralds + bonus)
+    when 'sapphires'
+      self.update(coins: self.sapphires + bonus)
+    when 'rubies'
+      self.update(coins: self.rubies + bonus)
+    when 'coins'
+      self.update(coins: self.coins + bonus)
+    end
+
+    transaction = OpenStruct.new(
+      status: 'complete',
+      format: 'promo',
+      action: 'plus',
+      description: currency_unit,
+      from: 'promo',
+      to: currency_unit,
+      unit: currency_unit,
+      amount: bonus,
+      tax: 0
+    )
+
+    Ledger.create_transaction(self, transaction)
   end
 
   def ensure_authentication_token
