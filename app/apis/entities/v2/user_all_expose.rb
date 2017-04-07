@@ -1,4 +1,5 @@
 class Entities::V2::UserAllExpose < Grape::Entity
+  expose :id
   expose :email
   expose :username
   expose :first_name
