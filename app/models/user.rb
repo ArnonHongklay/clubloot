@@ -108,13 +108,13 @@ class User
 
     case currency_unit
     when 'diamonds'
-      self.update(coins: self.diamonds + bonus)
+      self.update(diamonds: self.diamonds + bonus)
     when 'emeralds'
-      self.update(coins: self.emeralds + bonus)
+      self.update(emeralds: self.emeralds + bonus)
     when 'sapphires'
-      self.update(coins: self.sapphires + bonus)
+      self.update(sapphires: self.sapphires + bonus)
     when 'rubies'
-      self.update(coins: self.rubies + bonus)
+      self.update(rubies: self.rubies + bonus)
     when 'coins'
       self.update(coins: self.coins + bonus)
     end
@@ -132,6 +132,8 @@ class User
     )
 
     Ledger.create_transaction(self, transaction)
+
+    ActionCable.server.broadcast("notification_channel", { user_id: self.id, popup: 'promo' })
   end
 
   def ensure_authentication_token

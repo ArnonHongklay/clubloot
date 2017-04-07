@@ -52,6 +52,7 @@ class ApiKey
         )
 
         Ledger.create_transaction(self.user, transaction)
+        ActionCable.server.broadcast("notification_channel", { user_id: self.user.id, popup: 'loot' })
       end
     end
 end
