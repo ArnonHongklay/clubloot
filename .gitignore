@@ -35,6 +35,13 @@ config/application.yml
 public/system/*
 !public/system/.keep
 
+public/js/*
+!public/js/.keep
+public/css/*
+!public/css/.keep
+public/fonts/*
+!public/fonts/.keep
+
 /client/assets/uploads/prizes/*
 !/client/assets/uploads/prizes/.keep
 /client/assets/uploads/program/*

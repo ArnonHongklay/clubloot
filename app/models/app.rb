@@ -69,14 +69,6 @@ class App < Struct.new(:region, :environment, :version)
   self.current = new
 end
 
-# class ContestWinner
-#   include Mongoid::Document
-#   store_in collection: 'contest_winners'
-
-#   belongs_to :contest_winner, class_name: 'Contest'
-#   belongs_to :winner_contest, class_name: 'User'
-# end
-
 class Loot
   include Mongoid::Document
   store_in collection: "dailies"
@@ -119,34 +111,4 @@ class GemConvert
 
     user.save!
   end
-end
-
-class SigninLog
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  store_in collection: "signinlogs"
-
-  field :user_id, type: String
-
-  def group_by_criteria
-    created_at.to_date.to_s(:db)
-  end
-end
-
-class ConomyLog
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  store_in collection: "conomylogs"
-
-  field :coins, type: Integer
-end
-
-class Tax
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :tax_type, type: String
-  field :contest_id, type: String
-  field :coin, type: Integer
-  field :user_id, type: String
 end

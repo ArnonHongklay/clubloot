@@ -13,7 +13,6 @@ module V2
       end
       post :sign_up do
         begin
-          # binding.pry
           api_response({ status: :failure, data: 'not @' }) unless params[:email].include?("@")
           api_response({ status: :failure, data: 'email is already' }) unless User.where(email: params[:email].downcase).exists?
 
