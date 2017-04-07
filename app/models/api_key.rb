@@ -1,5 +1,7 @@
 class ApiKey
   include Mongoid::Document
+  include Mongoid::Timestamps
+
   field :access_token, type: String
   field :expires_at, type: Time
   # field :user_id, type: String
@@ -33,7 +35,8 @@ class ApiKey
 
     def daily_loot
       amount = 2000
-      if ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day).count <= 0
+      return if self.created_at.nil?
+      if ApiKey.where(user: self.user.id).where(:created_at.gte => Time.zone.now.beginning_of_day).count <= 1
         self.user.update(coins: self.user.coins + amount)
 
         transaction = OpenStruct.new(
