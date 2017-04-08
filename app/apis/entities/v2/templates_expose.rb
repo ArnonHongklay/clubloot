@@ -1,4 +1,4 @@
 class Entities::V2::TemplatesExpose < Grape::Entity
-  expose :_id
+  expose :id
   expose :name
 end

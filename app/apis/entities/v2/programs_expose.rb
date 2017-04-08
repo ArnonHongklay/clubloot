@@ -1,5 +1,5 @@
 class Entities::V2::ProgramsExpose < Grape::Entity
-  expose :_id
+  expose :id
   expose :attachment
   expose :category
   expose :name

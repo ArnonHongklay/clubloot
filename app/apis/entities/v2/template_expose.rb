@@ -1,5 +1,5 @@
 class Entities::V2::TemplateExpose < Grape::Entity
-  expose :_id
+  expose :id
   expose :name
   expose :program_name do |item|
     item.program.name
