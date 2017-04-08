@@ -23,7 +23,10 @@ class DashboardController < ApplicationController
 
         economy = Economy.where(:logged_at.gte => Time.zone.now.beginning_of_day)
         prize = Ledger.where(:created_at.gte => Time.zone.now.beginning_of_day)
-        sign_in = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day).count
+
+        sign_in_range = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day)
+        sign_in_all   = sign_in_range.group_by(&:group_by_criteria).map {|k,v| v.length }
+        sign_in       = sign_in_all.inject{ |sum, el| sum + el }.to_f / sign_in_all.size
       end
     else
       players = User.all
