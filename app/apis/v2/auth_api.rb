@@ -18,11 +18,12 @@ module V2
 
           if params[:password].present? and params[:username].present?
             if params[:password] == params[:confirm_password]
-              if Promo.available?(params[:promo])
-                promo = Promo.find_by(code: params[:promo])
-              else
-                promo = nil
-              end
+              # if Promo.available?(params[:promo])
+              #   promo = Promo.where(code: params[:promo])
+              # else
+              #   promo = nil
+              # end
+              promo = Promo.where(code: params[:promo]).first
               user = User.create!(email: params[:email], username: params[:username], password: params[:password], date_of_birth: params[:date_of_birth], promo: promo)
               api_response({ status: :success, data: user })
             else

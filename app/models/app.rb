@@ -104,9 +104,9 @@ class GemConvert
       user.emeralds  = user.emeralds + 1
     when 'diamond'
       raise "coins or emerald less" if user.coins < gemc.emerald[:fee].to_i or user.emeralds < gemc.emerald[:rate].to_i
-      user.coins    = user.coins - gemc.emerald[:fee].to_i
-      user.emeralds = user.emeralds - gemc.emerald[:rate].to_i
-      user.diamonds = user.diamonds + 1
+      user.coins     = user.coins - gemc.emerald[:fee].to_i
+      user.emeralds  = user.emeralds - gemc.emerald[:rate].to_i
+      user.diamonds  = user.diamonds + 1
     end
 
     user.save!
