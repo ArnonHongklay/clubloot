@@ -105,38 +105,42 @@ class User
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
   def payout_promo
-    currency_unit = self.promo.try(:currency_unit) || 0
-    return true if currency_unit == 0
-    bonus = self.promo.try(:bonus)
+    if promo.present?
+      currency_unit = self.promo.try(:currency_unit) || 0
+      return true if currency_unit == 0
+      bonus = self.promo.try(:bonus)
 
-    case currency_unit
-    when 'diamonds'
-      self.update(diamonds: self.diamonds + bonus)
-    when 'emeralds'
-      self.update(emeralds: self.emeralds + bonus)
-    when 'sapphires'
-      self.update(sapphires: self.sapphires + bonus)
-    when 'rubies'
-      self.update(rubies: self.rubies + bonus)
-    when 'coins'
-      self.update(coins: self.coins + bonus)
+      case currency_unit
+      when 'diamonds'
+        self.update(diamonds: self.diamonds + bonus)
+      when 'emeralds'
+        self.update(emeralds: self.emeralds + bonus)
+      when 'sapphires'
+        self.update(sapphires: self.sapphires + bonus)
+      when 'rubies'
+        self.update(rubies: self.rubies + bonus)
+      when 'coins'
+        self.update(coins: self.coins + bonus)
+      end
+
+      transaction = OpenStruct.new(
+        status: 'complete',
+        format: 'promo',
+        action: 'plus',
+        description: currency_unit,
+        from: 'promo',
+        to: currency_unit,
+        unit: currency_unit,
+        amount: bonus,
+        tax: 0
+      )
+
+      Ledger.create_transaction(self, transaction)
+
+      ActionCable.server.broadcast("notification_channel", { user_id: self.id, popup: 'promo' })
+    else
+      self.update(promo_code: false)
     end
-
-    transaction = OpenStruct.new(
-      status: 'complete',
-      format: 'promo',
-      action: 'plus',
-      description: currency_unit,
-      from: 'promo',
-      to: currency_unit,
-      unit: currency_unit,
-      amount: bonus,
-      tax: 0
-    )
-
-    Ledger.create_transaction(self, transaction)
-
-    ActionCable.server.broadcast("notification_channel", { user_id: self.id, popup: 'promo' })
   end
 
   def ensure_authentication_token
