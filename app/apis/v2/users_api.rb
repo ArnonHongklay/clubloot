@@ -61,6 +61,22 @@ module V2
         end
       end
 
+      resource :promo_code do
+        params do
+          requires :token, type: String, default: nil, desc: 'User Token'
+        end
+        get "/" do
+          begin
+            current_user.update(promo_code: false)
+            present :status, :success
+            present :data, current_user, with: Entities::V2::UserAllExpose
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+      end
+
       resource :contests do
         params do
           requires :token, type: String, default: nil, desc: 'User Token'

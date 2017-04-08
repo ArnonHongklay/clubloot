@@ -76,6 +76,7 @@ class User
   field :coins,           type: Integer, default: 0
 
   field :free_loot,       type: Boolean, default: true
+  field :promo_code,      type: Boolean, default: true
 
   has_mongoid_attached_file :avatar,
     styles: {

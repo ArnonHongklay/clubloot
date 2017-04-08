@@ -11,6 +11,7 @@ class Entities::V2::UserAllExpose < Grape::Entity
   expose :rubies
   expose :coins
   expose :free_loot
+  expose :promo_code
   expose :winners do |item|
     item.winners.count
   end
