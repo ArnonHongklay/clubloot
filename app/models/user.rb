@@ -328,7 +328,7 @@ class User
     end
 
     Contest.all.each do |contest|
-      fee = contest.fee - (contest.fee * 10 / 11)
+      fee = ((contest.fee - (contest.fee * 10 / 11)) * contest.players.count)
       if contest.state != :cancel
         economy += fee
         tax_collected += fee
