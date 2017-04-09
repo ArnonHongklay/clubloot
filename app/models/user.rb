@@ -310,6 +310,7 @@ class User
 
   def self.loot_economy
     economy = 0
+    tax_collected = 0
 
     User.all.each do |u|
       u.update(coins: 0) if u.coins.nil?
@@ -326,10 +327,12 @@ class User
       economy += (c + r + s + e + d)
     end
 
-    tax_collected = 0
     Contest.all.each do |contest|
-      economy += contest.fee * 10 / 11
-      tax_collected += contest.fee - (contest.fee * 10 / 11)
+      fee = contest.fee - (contest.fee * 10 / 11)
+      if contest.state != :cancel
+        economy += fee
+        tax_collected += fee
+      end
     end
 
     Economy.create(kind: 'tax', value: tax_collected, logged_at: Time.zone.now)
