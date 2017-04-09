@@ -331,6 +331,7 @@ class User
       economy += contest.fee * 10 / 11
       tax_collected += contest.fee - (contest.fee * 10 / 11)
     end
+
     Economy.create(kind: 'tax', value: tax_collected, logged_at: Time.zone.now)
     Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
   end
