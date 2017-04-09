@@ -420,6 +420,7 @@ class Contest
 
   private
     def update_tax_collected
-      Contest.tax_collected
+      # Contest.tax_collected
+      User.loot_economy
     end
 end
