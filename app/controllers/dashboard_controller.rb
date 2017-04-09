@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
         economy = Economy.where(:logged_at.gte => Time.zone.parse(params[:start]), :logged_at.lte => Time.zone.parse(params[:end]))
         prize = Ledger.where(:created_at.gte => Time.zone.parse(params[:start]), :created_at.lte => Time.zone.parse(params[:end]))
 
-        sign_in_range = ApiKey.where(:created_at.gte => Time.zone.parse(params[:start]), :created_at.lte => Time.zone.parse(params[:end]))
+        sign_in_range = ApiKey.where(:created_at.gte => Time.zone.parse(params[:start]), :created_at.lte => Time.zone.parse(params[:end])).uniq { |p| p.user_id }
         sign_in_all   = sign_in_range.group_by(&:group_by_criteria).map {|k,v| v.length }
         sign_in       = sign_in_all.inject{ |sum, el| sum + el }.to_f / sign_in_all.size
       else
@@ -24,7 +24,7 @@ class DashboardController < ApplicationController
         economy = Economy.where(:logged_at.gte => Time.zone.now.beginning_of_day)
         prize = Ledger.where(:created_at.gte => Time.zone.now.beginning_of_day)
 
-        sign_in_range = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day)
+        sign_in_range = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day).uniq { |p| p.user_id }
         sign_in_all   = sign_in_range.group_by(&:group_by_criteria).map {|k,v| v.length }
         sign_in       = sign_in_all.inject{ |sum, el| sum + el }.to_f / sign_in_all.size
       end
@@ -35,7 +35,7 @@ class DashboardController < ApplicationController
       economy = Economy.all
       prize = Ledger.all
 
-      sign_in_range = ApiKey.all
+      sign_in_range = ApiKey.all.uniq { |p| p.user_id }
       sign_in_all   = sign_in_range.group_by(&:group_by_criteria).map {|k,v| v.length }
       sign_in       = sign_in_all.inject{ |sum, el| sum + el }.to_f / sign_in_all.size
     end
