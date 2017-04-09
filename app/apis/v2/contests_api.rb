@@ -190,7 +190,7 @@ module V2
       end
       get '/templates' do
         begin
-          if templates = Template.active.where(program: params[:program_id])
+          if templates = Template.active.where(program: params[:program_id]).where(:end_time.gte => Time.zone.now)
             present :status, :success
           else
             present :status, :failure
