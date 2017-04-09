@@ -12,6 +12,12 @@ class Entities::V2::UserAllExpose < Grape::Entity
   expose :coins
   expose :free_loot
   expose :promo_code
+  expose :promo_value do |item|
+    item.promo.bonus
+  end
+  expose :promo_currency do |item|
+    item.promo.currency_unit
+  end
   expose :winners do |item|
     item.winners.count
   end
