@@ -169,7 +169,26 @@
                   <% @richs.each do |rich| %>
                   <tr>
                     <th scope="row"><%= rich.username %></th>
-                    <td><%= rich.coins %> coins</td>
+                    <td>
+                      <%= rich.coins %>
+                      <i class="fa fa-money" aria-hidden="true"></i>
+                    </td>
+                    <td style="color: #951111">
+                      <%= rich.rubies %>
+                      <i class="fa fa-diamond" aria-hidden="true"></i>
+                    </td>
+                    <td style="color: #2A4C7A">
+                      <%= rich.sapphires %>
+                      <i class="fa fa-diamond" aria-hidden="true"></i>
+                    </td>
+                    <td style="color: #758F42">
+                      <%= rich.emeralds %>
+                      <i class="fa fa-diamond" aria-hidden="true"></i>
+                    </td>
+                    <td style="color: #9F9B93">
+                      <%= rich.diamonds %>
+                      <i class="fa fa-diamond" aria-hidden="true"></i>
+                    </td>
                   </tr>
                   <% end %>
                 </tbody>
