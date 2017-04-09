@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @richs = User.order(coins: :desc).limit(10)
+    @richs = User.order(dimonds: :desc, emeralds: :desc, sapphires: :desc, rubies: :desc, coins: :desc).limit(10)
     @contests = Contest.upcoming
     if params[:all].nil?
       if params[:start].present? and params[:end].present?
