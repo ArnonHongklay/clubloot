@@ -5,7 +5,7 @@ set :deploy_to,   '/home/deploy/clubloot/admin'
 set :pty, true
 
 set :linked_files, %w{config/database.yml config/mongoid.yml config/application.yml config/instance.yml}
-set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/js public/css public/fonts}
 
 def red(str)
   "\e[31m#{str}\e[0m"

@@ -54,6 +54,10 @@ class App < Struct.new(:region, :environment, :version)
     (0...digit).map { o[rand(o.length)] }.join
   end
 
+  def currency_unit
+    ['coins', 'rubies', 'sapphires', 'emeralds', 'diamonds']
+  end
+
   class << self
     attr_accessor :current
 
@@ -64,14 +68,6 @@ class App < Struct.new(:region, :environment, :version)
 
   self.current = new
 end
-
-# class ContestWinner
-#   include Mongoid::Document
-#   store_in collection: 'contest_winners'
-
-#   belongs_to :contest_winner, class_name: 'Contest'
-#   belongs_to :winner_contest, class_name: 'User'
-# end
 
 class Loot
   include Mongoid::Document
@@ -91,34 +87,28 @@ class GemConvert
   field :sapphire,  type: Hash
   field :emerald,   type: Hash
   field :diamond,   type: Hash
-end
 
-class SigninLog
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  store_in collection: "signinlogs"
+  def self.exchange(user, type)
+    gemc = first
 
-  field :user_id, type: String
+    case type
+    when 'sapphire'
+      raise "coins or ruby less" if user.coins < gemc.ruby[:fee].to_i or user.rubies < gemc.ruby[:rate].to_i
+      user.coins     = user.coins - gemc.sapphire[:fee].to_i
+      user.rubies    = user.rubies - gemc.ruby[:rate].to_i
+      user.sapphires = user.sapphires + 1
+    when 'emerald'
+      raise "coins or sapphire less" if user.coins < gemc.sapphire[:fee].to_i or user.sapphires < gemc.sapphire[:rate].to_i
+      user.coins     = user.coins - gemc.emerald[:fee].to_i
+      user.sapphires = user.sapphires - gemc.sapphire[:rate].to_i
+      user.emeralds  = user.emeralds + 1
+    when 'diamond'
+      raise "coins or emerald less" if user.coins < gemc.emerald[:fee].to_i or user.emeralds < gemc.emerald[:rate].to_i
+      user.coins     = user.coins - gemc.diamond[:fee].to_i
+      user.emeralds  = user.emeralds - gemc.emerald[:rate].to_i
+      user.diamonds  = user.diamonds + 1
+    end
 
-  def group_by_criteria
-    created_at.to_date.to_s(:db)
+    user.save!
   end
-end
-
-class ConomyLog
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  store_in collection: "conomylogs"
-
-  field :coins, type: Integer
-end
-
-class Tax
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :tax_type, type: String
-  field :contest_id, type: String
-  field :coin, type: Integer
-  field :user_id, type: String
 end

@@ -9,8 +9,8 @@ class Transaction
   field :from,        type: String
   field :to,          type: String
   field :unit,        type: String
-  field :amount,      type: Float
-  field :tax,         type: Float
+  field :amount,      type: Float, default: 0
+  field :tax,         type: Float, default: 0
   field :ref,         type: Hash, default: { format: '', id: '' }
   embedded_in :ledger
 
@@ -22,4 +22,3 @@ class Transaction
   #   end
   # end
 end
-

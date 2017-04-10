@@ -32,6 +32,12 @@
 # every 30 minutes
 # */30 * * * *
 
+EconomyWorker:
+  cron: "30 0 1 * *"
+  class: "EconomyWorker"
+  queue: default
+  # active_job: true
+
 ContestLiveWorker:
   cron: "*/1 * * * *"
   class: "ContestLiveWorker"
@@ -49,4 +55,3 @@ TokenWorker:
   class: "TokenWorker"
   queue: default
   # active_job: true
-

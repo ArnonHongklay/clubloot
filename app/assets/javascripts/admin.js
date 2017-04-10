@@ -1,3 +1,4 @@
+//= require jquery-ujs
 //= require cable
 
 $(document).on('ready', function() {
@@ -13,6 +14,10 @@ $(document).on('ready', function() {
 
     if(bodyId == 'announcement'){
       $('#announcement_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
+    }
+
+    if(bodyId == 'promo'){
+      $('#expires_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
     }
 
     $('#datetimepicker6').datetimepicker({

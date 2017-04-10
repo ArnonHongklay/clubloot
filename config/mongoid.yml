@@ -130,7 +130,7 @@ development:
     # Set the Mongoid and Ruby driver log levels when not in a Rails
     # environment. The Mongoid logger will be set to the Rails logger
     # otherwise.(default: :info)
-    # log_level: :info
+    log_level: :info
 test:
   clients:
     default:

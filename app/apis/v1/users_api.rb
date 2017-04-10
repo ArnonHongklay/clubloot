@@ -1,6 +1,6 @@
 module V1
   class UsersAPI < Grape::API
-    extend Defaults::Engine
+    # extend Defaults::Engine
 
     helpers do
       params :token do
@@ -18,7 +18,7 @@ module V1
       get '/' do
         begin
           present :status, :success
-          present :data, User.all, with: Entities::UserAllExpose
+          present :data, User.all, with: Entities::V1::UserAllExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
@@ -27,6 +27,26 @@ module V1
     end
 
     resource :user do
+      resource :profile do
+        params do
+          requires :token, type: String, default: nil, desc: 'User Token'
+        end
+        get "/" do
+          begin
+            if user = User.find_by(token: params[:token])
+              present :status, :success
+              present :data, user, with: Entities::V1::UserAllExpose
+            else
+              present :status, :failure
+              present :data, "Users don't have in our system."
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+      end
+
       resource :contests do
         params do
           requires :token, type: String, default: nil, desc: 'User Token'
@@ -38,14 +58,14 @@ module V1
               if params[:state].eql?('winners')
                 contests = user.winners.order(updated_at: :desc)
               elsif params[:state].eql?('past')
-                contests = user.contests.where(_state: { '$in': [:end, :cancel]}).order(updated_at: :desc)
+                contests = user.contests.where(_state: { '$in': [:end, :cancel] } ).order(updated_at: :desc)
               elsif params[:state].eql?('all')
                 contests = user.contests.order(updated_at: :desc)
               else
                 contests = user.contests.where(_state: params[:state]).order(updated_at: :desc)
               end
               present :status, :success
-              present :data, contests, with: Entities::ContestAllExpose
+              present :data, contests, with: Entities::V1::ContestAllExpose
             else
               present :status, :failure
               present :data, "Users don't have in our system."
@@ -66,7 +86,7 @@ module V1
             if user = User.find_by(token: params[:token])
               if contest = user.contests.find(params[:contest_id])
                 present :status, :success
-                present :data, contest, with: Entities::ContestAllExpose
+                present :data, contest, with: Entities::V1::ContestAllExpose
               else
                 present :status, :failure
                 present :data, "Can't creating a new contest."
@@ -97,7 +117,7 @@ module V1
             if user = User.find_by(token: params[:token])
               if contest = Contest.create_contest(user, template, params[:details])
                 present :status, :success
-                present :data, contest, with: Entities::ContestExpose
+                present :data, contest, with: Entities::V1::ContestExpose
               else
                 present :status, :failure
                 present :data, "Can't creating a new contest."
@@ -121,7 +141,7 @@ module V1
             if user = User.find_by(token: params[:token])
               if contest = Contest.join_contest(user, params[:contest_id])
                 present :status, :success
-                present :data, contest, with: Entities::ContestExpose
+                present :data, contest, with: Entities::V1::ContestExpose
               else
                 present :status, :failure
                 present :data, "Can't join a contest."
@@ -145,7 +165,7 @@ module V1
             if user = User.find_by(token: params[:token])
               if contest = Contest.edit_contest(user, params[:contest_id])
                 present :status, :success
-                present :data, contest, with: Entities::ContestEditExpose
+                present :data, contest, with: Entities::V1::ContestEditExpose
               else
                 present :status, :failure
                 present :data, "Can't join a contest."
@@ -171,7 +191,7 @@ module V1
               if contest = user.contests.find(params[:contest_id])
                 if quiz_contest = Contest.quiz(user, contest, params[:details])
                   present :status, :success
-                  present :data, quiz_contest #, with: Entities::AuthExpose
+                  present :data, quiz_contest #, with: Entities::V1::AuthExpose
                 else
                   present :status, :failure
                   present :data, "Can't complete quiz"
@@ -201,7 +221,7 @@ module V1
               if contest = user.contests.find(params[:contest_id])
                 if quiz_contest = Contest.edit_quiz(user, contest, params[:details])
                   present :status, :success
-                  present :data, quiz_contest #, with: Entities::AuthExpose
+                  present :data, quiz_contest #, with: Entities::V1::AuthExpose
                 else
                   present :status, :failure
                   present :data, "Can't complete quiz"
@@ -250,22 +270,20 @@ module V1
       resource :convert_gem do
         params do
           requires :token,    type: String, default: 'EJGB2R9ETPHNJSHGDYSJ283KTXCBSR6X', desc: 'User Token'
-          requires :type,     type: String, default: 'ruby', desc: "Contest Id"
+          requires :type,     type: String, default: 'sapphire', desc: "diamond, emerald, sapphire, "
         end
-        post ':program_id' do
+        post '/' do
           begin
-            # prize = Prize.find(params[:prize_id])
-            # if prize
+            user = User.find_by(token: params[:token])
+            g = GemConvert.exchange(user, params[:type])
+
+            if g.present?
               present :status, :success
-            #   if prize.present?
-            #     present :data, programs
-            #   else
-            #     present :data, programs
-            #   end
-            # else
-            #   present :status, :failure
-            #   present :data, "Can't show data"
-            # end
+              present :data, g
+            else
+              present :status, :failure
+              present :data, g
+            end
           rescue Exception => e
             present :status, :failure
             present :data, e
@@ -273,6 +291,24 @@ module V1
         end
       end
 
+      resource :gems do
+        get '/' do
+          begin
+            g = GemConvert.first
+
+            if g.present?
+              present :status, :success
+              present :data, g
+            else
+              present :status, :failure
+              present :data, g
+            end
+          rescue Exception => e
+            present :status, :failure
+            present :data, e
+          end
+        end
+      end
     end
   end
 end

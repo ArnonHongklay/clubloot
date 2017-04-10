@@ -13,25 +13,17 @@
 
   <div class="row form-group">
     <div class="col-xs-6">
-      <label class="control-label">Diamond</label>
+      <label class="control-label">Ruby</label>
       <div class="input-group">
-        <%= f.number_field :diamond_rate, class: 'form-control', value: gem_convert.diamond[:rate] %>
-        <span class="input-group-addon" style="color: #758F42">
-          <i class="fa fa-diamond" aria-hidden="true"></i>
-        </span>
-      </div>
-    </div>
-    <div class="col-xs-6">
-      <label class="control-label">Fee</label>
-      <div class="input-group">
-        <%= f.number_field :diamond_fee, class: 'form-control', value: gem_convert.diamond[:fee] %>
+        <%= f.number_field :ruby_rate, class: 'form-control', value: gem_convert.ruby[:rate] %>
         <span class="input-group-addon">
           <i class="fa fa-money" aria-hidden="true"></i>
         </span>
       </div>
     </div>
   </div>
-  <hr>
+  <hr />
+
   <div class="row form-group">
     <div class="col-xs-6">
       <label class="control-label">Sapphire</label>
@@ -74,26 +66,28 @@
     </div>
   </div>
   <hr>
+
   <div class="row form-group">
     <div class="col-xs-6">
-      <label class="control-label">Ruby</label>
+      <label class="control-label">Diamond</label>
       <div class="input-group">
-        <%= f.number_field :ruby_rate, class: 'form-control', value: gem_convert.ruby[:rate] %>
-        <span class="input-group-addon">
-          <i class="fa fa-money" aria-hidden="true"></i>
+        <%= f.number_field :diamond_rate, class: 'form-control', value: gem_convert.diamond[:rate] %>
+        <span class="input-group-addon" style="color: #758F42">
+          <i class="fa fa-diamond" aria-hidden="true"></i>
         </span>
       </div>
     </div>
     <div class="col-xs-6">
       <label class="control-label">Fee</label>
       <div class="input-group">
-        <%= f.number_field :ruby_fee, class: 'form-control', value: gem_convert.ruby[:fee] %>
+        <%= f.number_field :diamond_fee, class: 'form-control', value: gem_convert.diamond[:fee] %>
         <span class="input-group-addon">
           <i class="fa fa-money" aria-hidden="true"></i>
         </span>
       </div>
     </div>
   </div>
+  <hr>
 
   <div class="actions">
     <%= f.submit %>

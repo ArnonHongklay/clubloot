@@ -52,8 +52,6 @@ class Program
   end
 
   def all_contests
-    templates.sort_by(&:end_time).each do |template|
-      template.contests
-    end
+    templates.sort_by(&:end_time).select { |template| template.contests }
   end
 end

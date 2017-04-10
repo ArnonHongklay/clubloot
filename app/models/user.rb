@@ -2,7 +2,6 @@ class User
   include Mongoid::Document
   include Mongoid::Paperclip
   include Mongoid::Timestamps
-
   # store_in collection: 'accounts'
 
   # Include default devise modules. Others available are:
@@ -12,9 +11,10 @@ class User
          :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
-  field :email,               type: String, default: ""
-  field :encrypted_password,  type: String, default: ""
-  field :token,               type: String, default: ""
+  field :email,                 type: String, default: ""
+  field :encrypted_password,    type: String, default: ""
+  field :authentication_token,  type: String, default: ""
+  field :token,                 type: String, default: ""
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -46,7 +46,7 @@ class User
   field :username,        type: String, default: ""
   field :first_name,      type: String, default: ""
   field :last_name,       type: String, default: ""
-  field :birthday,        type: Date
+  field :date_of_birth,   type: Date
 
   field :billing_address, type: String
   field :billing_city,    type: String
@@ -75,6 +75,9 @@ class User
   field :rubies,          type: Integer, default: 0
   field :coins,           type: Integer, default: 0
 
+  field :free_loot,       type: Boolean, default: true
+  field :promo_code,      type: Boolean, default: true
+
   has_mongoid_attached_file :avatar,
     styles: {
       :medium   => ['250x250',    :jpg]
@@ -85,46 +88,63 @@ class User
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   validates_uniqueness_of :username
 
-  has_and_belongs_to_many :contests, inverse_of: :players
-  # has_many :user_contests
-  # has_many :contests, inverse_of: :players, through: :user_contests
-  has_many :host_contests, class_name: 'Contest', inverse_of: :host
-
-  has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
-
-  # has_and_belongs_to_many :prizes, class_name: 'Prize', inverse_of: :users
+  belongs_to :promo, class_name: 'Promo', inverse_of: :users, optional: true
   has_many :prizes, class_name: 'UserPrize', inverse_of: :user
 
+  has_many :host_contests, class_name: 'Contest', inverse_of: :host
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
+
+  has_and_belongs_to_many :contests, inverse_of: :players
+  has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
 
   embeds_many :messages
 
-  # after_save :economy
+  before_save :ensure_authentication_token
+  after_save :update_loot_economy
+  after_create :payout_promo
   # validates :username, :first_name, :last_name, :bio, :dob, :gender, :zip_code, presence: true
 
-  def self.fixes_wallet
-    all.each do |u|
-      u.update(coins: 0) if u.coins.nil?
-      u.update(rubies: 0) if u.rubies.nil?
-      u.update(sapphires: 0) if u.sapphires.nil?
-      u.update(emeralds: 0) if u.emeralds.nil?
-      u.update(diamonds: 0) if u.diamonds.nil?
+  def payout_promo
+    if promo.present?
+      currency_unit = self.promo.try(:currency_unit) || 0
+      return true if currency_unit == 0
+      bonus = self.promo.try(:bonus)
+
+      case currency_unit
+      when 'diamonds'
+        self.update(diamonds: self.diamonds + bonus)
+      when 'emeralds'
+        self.update(emeralds: self.emeralds + bonus)
+      when 'sapphires'
+        self.update(sapphires: self.sapphires + bonus)
+      when 'rubies'
+        self.update(rubies: self.rubies + bonus)
+      when 'coins'
+        self.update(coins: self.coins + bonus)
+      end
+
+      transaction = OpenStruct.new(
+        status: 'complete',
+        format: 'promo',
+        action: 'plus',
+        description: currency_unit,
+        from: 'promo',
+        to: currency_unit,
+        unit: currency_unit,
+        amount: bonus,
+        tax: 0
+      )
+
+      Ledger.create_transaction(self, transaction)
+
+      ActionCable.server.broadcast("notification_channel", { user_id: self.id, popup: 'promo' })
+    else
+      self.update(promo_code: false)
     end
   end
 
-  def self.loot_economy
-    economy = 0
-    all.each do |u|
-      c = u.coins
-      r = u.rubies * 100
-      s = u.sapphires * 500
-      e = u.emeralds * 2500
-      d = u.diamonds * 12500
-      all = c + r + s + e + d
-      economy += all
-    end
-
-    Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
+  def ensure_authentication_token
+    self.authentication_token ||= generate_authentication_token
   end
 
   def self.hard_update_token
@@ -288,12 +308,46 @@ class User
     end
   end
 
-  # private
-    # def economy
-    #   if self.coins_changed? or self.diamonds_changed? or self.emeralds_changed? or self.sapphires_changed? or self.rubies_changed?
-    #
-    #
-    #     self.diamonds_was
-    #   end
-    # end
+  def self.loot_economy
+    economy = 0
+    tax_collected = 0
+
+    User.all.each do |u|
+      u.update(coins: 0) if u.coins.nil?
+      u.update(rubies: 0) if u.rubies.nil?
+      u.update(sapphires: 0) if u.sapphires.nil?
+      u.update(emeralds: 0) if u.emeralds.nil?
+      u.update(diamonds: 0) if u.diamonds.nil?
+
+      c = u.coins
+      r = u.rubies * 100
+      s = u.sapphires * 500
+      e = u.emeralds * 2500
+      d = u.diamonds * 12500
+      economy += (c + r + s + e + d)
+    end
+
+    Contest.all.each do |contest|
+      if contest.state != :cancel
+        economy += ((contest.fee * 10 / 11) * contest.players.count)
+        tax_collected += ((contest.fee - (contest.fee * 10 / 11)) * contest.players.count)
+      end
+    end
+
+    Economy.create(kind: 'tax', value: tax_collected, logged_at: Time.zone.now)
+    Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
+  end
+
+  private
+
+    def update_loot_economy
+      User.loot_economy
+    end
+
+    def generate_authentication_token
+      loop do
+        token = Devise.friendly_token
+        break token unless User.where(authentication_token: token).first
+      end
+    end
 end

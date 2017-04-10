@@ -2,6 +2,9 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_template, only: [:new, :create, :edit_all, :update_all]
 
+  def index
+  end
+
   def new
     @questions = []
     (0..@template.number_questions.to_i - 1).each do |question|
@@ -18,7 +21,12 @@ class QuestionsController < ApplicationController
     questions.each do |question|
       temp = @template.questions.create(name: questions[question])
       answers[question].each do |answer|
-        attach = params[:question]["f"]["#{question}"]["#{answer}"]
+        if params[:question].nil?
+          attach = nil
+        else
+          attach = params[:question]["f"]["#{question}"]["#{answer}"]
+        end
+
         temp.answers.create(name: answers[question][answer], attachment: attach)
       end
 

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/workers'
     mount ActionCable.server => "/cable"
 
-    mount ApplicationAPI, at: '/'
+    mount DefaultAPI, at: '/'
     mount GrapeSwaggerRails::Engine, at: '/explorer'
   end
 
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         resources :programs do
           put 'toggle_status', on: :member
         end
+
         resources :templates do
           member do
             get 'end_contest'
@@ -45,7 +46,10 @@ Rails.application.routes.draw do
           end
           resources :contests
         end
+
         resources :prizes
+        resources :promos
+
         get '/subscribes', to: 'users#subscribes'
         resources :users do
           get '/winners', to: 'users#winners'
@@ -55,6 +59,7 @@ Rails.application.routes.draw do
           put '/prize_complete', to: 'users#prize_complete'
         end
         resources :gems
+
       end
     end
   end
