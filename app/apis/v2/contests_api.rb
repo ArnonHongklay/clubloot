@@ -219,6 +219,24 @@ module V2
         end
       end
 
+
+      params do
+        requires :contest_id, type: String, desc: "Contest Id"
+      end
+      get "/contest" do
+        begin
+          if contest = Contest.find(params[:contest_id])
+            present :status, :success
+          else
+            present :status, :failure
+          end
+          present :data, contest, with: Entities::V2::ProgramTemplateContestsExpose
+        rescue Exception => e
+          present :status, :failure
+          present :data, e
+        end
+      end
+
       params do
         requires :player, type: Integer, desc: "number of player"
       end
