@@ -230,7 +230,7 @@ module V2
           else
             present :status, :failure
           end
-          present :data, contest, with: Entities::V2::ProgramTemplateContestsExpose
+          present :data, contest, with: Entities::V2::ContestAllExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
