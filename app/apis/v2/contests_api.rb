@@ -219,7 +219,6 @@ module V2
         end
       end
 
-
       params do
         requires :contest_id, type: String, desc: "Contest Id"
       end
