@@ -9,9 +9,16 @@ class UserBehavior(TaskSet):
     def on_start(self):
         """ on_start is called when a Locust start before any task is scheduled """
 
-    def sign_in(self):
-        self.client.post("/v2/auth/sign_in", { "email": "a@a.com", "password": "12341234" })
+    # @task(3)
+    # def index(self):
+    #     self.client.get("/")
 
+    @task(2)
+    def sign_in(self):
+        params = { "email": "a@a.com", "password": "12341234" }
+        self.client.post("/v2/auth/sign_in", params)
+
+    @task(1)
     def sign_up(self):
         uniq_id = id_generator()
         params = {
@@ -23,16 +30,6 @@ class UserBehavior(TaskSet):
             "promo": ""
         }
         self.client.post("/v2/auth/sign_up", params)
-
-    # @task(2)
-    # def index(self):
-    #     self.client.get("/")
-
-    @task(1)
-    def profile(self):
-        self.sign_up()
-        # self.sign_in()
-        # self.client.get("/")
 
 class WebsiteUser(HttpLocust):
     task_set = UserBehavior

@@ -41,7 +41,9 @@ class App < Struct.new(:region, :environment, :version)
 
   def host(subdomain = nil)
     case environment
-    when 'staging', 'alpha'
+    when 'staging'
+      subdomain.nil? ? 'staging' : "staging-#{subdomain}"
+    when 'alpha'
       subdomain.nil? ? 'alpha' : "alpha-#{subdomain}"
     else
       "#{subdomain}"
