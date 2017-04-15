@@ -11,15 +11,17 @@ class UserBehavior(TaskSet):
 
     @task(3)
     def join_contest(self):
-      """ join contest """
+        """ join contest """
 
     @task(2)
     def create_contest(self):
-      """ create contest """
+        """ create contest """
 
     @task(1)
     def sign_in(self):
-      """ sign in """
+        """ sign in """
+        params = { "email": "a@a.com", "password": "12341234" }
+        self.client.post("/v2/auth/sign_in", params)
 
     # @task(3)
     # def index(self):
