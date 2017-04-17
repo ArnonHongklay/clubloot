@@ -13,9 +13,15 @@ class UserBehavior(TaskSet):
     # def index(self):
     #     self.client.get("/")
 
+    @task(3)
+    def get_all_contests(self):
+        """ create contest """
+        token = "58ea4924ed5f2c6c9971ac62"
+        self.client.get("/v2/contests/program/" + token + "/all_contests")
+
     @task(2)
     def sign_in(self):
-        params = { "email": "a@a.com", "password": "12341234" }
+        params = { "email": "arnon@hongklay.com", "password": "12341234" }
         self.client.post("/v2/auth/sign_in", params)
 
     @task(1)
