@@ -46,3 +46,5 @@ public/fonts/*
 !/client/assets/uploads/prizes/.keep
 /client/assets/uploads/program/*
 !/client/assets/uploads/program/.keep
+
+locust/*.pyc
