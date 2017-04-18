@@ -6,10 +6,9 @@ class Contest
   field :name,  type: String
   field :max_players, type: Integer, default: 2
 
-  # field :status, type: String
   enum :status, [:usable, :unusable], default: :usable
-  field :active, type: Boolean, default: false
   enum :state, [:upcoming, :live, :end, :cancel], default: :upcoming
+  field :active, type: Boolean, default: false
 
   field :prize, type: Integer
   field :fee, type: Integer
@@ -26,6 +25,9 @@ class Contest
 
   scope :active,  -> { where(active: true) }
   scope :pending, -> { where(active: false) }
+
+  # field :ssn
+  # index({ ssn: 1 }, { unique: true, name: "ssn_index" })
 
   after_save :update_tax_collected
 

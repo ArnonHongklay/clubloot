@@ -16,6 +16,9 @@ class User
   field :authentication_token,  type: String, default: ""
   field :token,                 type: String, default: ""
 
+  index({ token: 1 }, { unique: true, name: "token_index" })
+  index({ authentication_token: 1 }, { unique: true, name: "authentication_token_index" })
+
   ## Recoverable
   field :reset_password_token,   type: String
   field :reset_password_sent_at, type: Time
