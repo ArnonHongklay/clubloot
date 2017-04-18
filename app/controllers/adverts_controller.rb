@@ -5,12 +5,14 @@ class AdvertsController < ApplicationController
   # GET /adverts
   # GET /adverts.json
   def index
-    @adverts = Advert.all
+    @adverts = Advert.order(daily_at: :desc)
   end
 
   # GET /adverts/1
   # GET /adverts/1.json
   def show
+    user = ApiKey.where(:created_at.gte => @advert.daily_at.beginning_of_day, :created_at.lte => @advert.daily_at.end_of_day).uniq { |u| u.user_id }
+    @users = User.find(user.pluck(:user_id))
   end
 
   # GET /adverts/new
