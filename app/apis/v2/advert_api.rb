@@ -6,7 +6,7 @@ module V2
       # end
       get '/' do
         begin
-          ads = Advert.where(:daily_at.gte => Time.zone.now.beginning_of_day, :daily_at.lte => Time.zone.now.end_of_day)
+          ads = Advert.where(:start_date.lte => Time.zone.now, :end_date.gte => Time.zone.now)
 
           present :status, :success
           present :data, ads, with: Entities::V2::AdvertExpose

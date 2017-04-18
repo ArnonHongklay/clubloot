@@ -20,7 +20,8 @@ $(document).on('ready', function() {
     }
 
     if(bodyId == 'advert'){
-      $('#daily_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD' });
+      $('#start_date_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD' });
+      $('#end_date_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD' });
     }
 
     $('#datetimepicker6').datetimepicker({

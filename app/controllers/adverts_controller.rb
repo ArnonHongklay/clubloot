@@ -2,17 +2,19 @@ class AdvertsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_advert, only: [:show, :edit, :update, :destroy]
 
+  def giveaways
+    user = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).uniq { |u| u.user_id }
+    @users = User.find(user.pluck(:user_id))
+  end
   # GET /adverts
   # GET /adverts.json
   def index
-    @adverts = Advert.order(daily_at: :desc)
+    @adverts = Advert.order(start_date: :desc)
   end
 
   # GET /adverts/1
   # GET /adverts/1.json
   def show
-    user = ApiKey.where(:created_at.gte => @advert.daily_at.beginning_of_day, :created_at.lte => @advert.daily_at.end_of_day).uniq { |u| u.user_id }
-    @users = User.find(user.pluck(:user_id))
   end
 
   # GET /adverts/new
@@ -72,6 +74,6 @@ class AdvertsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advert_params
-      params.require(:advert).permit(:description, :daily_at, :attachment)
+      params.require(:advert).permit(:description, :start_date, :end_date, :attachment)
     end
 end
