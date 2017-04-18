@@ -60,6 +60,9 @@
                         <td><%= link_to 'Suspend', user, data: { confirm: 'Are you sure?' } %></td>
                       </tr>
                     <% end %>
+                    <tr>
+                      <td colspan="7"><%= paginate @users %></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>

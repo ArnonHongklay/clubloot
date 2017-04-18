@@ -8,6 +8,7 @@ class ApiV2 < ApplicationAPI
   formatter :json, Grape::Formatter::ActiveModelSerializers
 
   resource :v2 do
+    mount V2::AdvertAPI
     mount V2::AuthAPI
     mount V2::UsersAPI
     mount V2::ContestsAPI

@@ -1,0 +1,35 @@
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Advert Giveaways <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+
+  <%= link_to 'Back', adverts_path, class: 'btn btn-primary btn-sm rounded-s' %>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <table class="table table-bordered table-hover flip-content">
+        <thead class="flip-header">
+          <tr>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.username %></td>
+              <td><%= user.first_name %></td>
+              <td><%= user.last_name %></td>
+              <td><%= link_to 'Get Prize', "user", data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</article>

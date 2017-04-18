@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :adverts
   get 'landing/index'
   post 'landing/subscribes'
 
@@ -59,7 +60,11 @@ Rails.application.routes.draw do
           put '/prize_complete', to: 'users#prize_complete'
         end
         resources :gems
-
+        resources :adverts do
+          collection do
+            get 'giveaways'
+          end
+        end
       end
     end
   end

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :prize_complete
 
   def index
-    @users = User.all
+    @users = User.order(created_at: :desc).page(params[:page].to_i).per(25)
   end
 
   def subscribes

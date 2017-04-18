@@ -1,0 +1,49 @@
+<article class="content responsive-tables-page">
+  <div class="title-block">
+    <h1 class="title"> Advert Tables
+      <%= link_to 'Add New', new_advert_path, class: 'btn btn-primary btn-sm rounded-s' %>
+      <%= link_to 'Giveaways', giveaways_adverts_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    </h1>
+  </div>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-block">
+            <div class="card-title-block">
+              <h3 class="title"> Advert </h3>
+            </div>
+            <section class="example">
+              <div class="table-flip-scroll">
+                <table class="table table-bordered table-hover flip-content">
+                  <thead class="flip-header">
+                    <tr>
+                      <th>Attachment</th>
+                      <th>Description</th>
+                      <th colspan="2">start to end</th>
+                      <th colspan="3"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @adverts.each do |advert| %>
+                      <tr>
+                        <td><%= image_tag advert.attachment, width: 120, height: 120 %></td>
+                        <td><%= advert.description %></td>
+                        <td><%= advert.start_date.try(:strftime, "%B %d, %Y") %></td>
+                        <td><%= advert.end_date.try(:strftime, "%B %d, %Y") %></td>
+                        <td><%= link_to 'Show', advert %></td>
+                        <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
+                        <td><%= link_to 'Destroy', advert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
