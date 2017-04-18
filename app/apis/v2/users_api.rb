@@ -305,7 +305,7 @@ module V2
         post '/' do
           begin
             current_user
-            g = GemConvert.exchange(current_user, params[:type])
+            g = AppConfigure.exchange(current_user, params[:type])
 
             if g.present?
               present :status, :success
@@ -324,7 +324,7 @@ module V2
       resource :gems do
         get '/' do
           begin
-            g = GemConvert.first
+            g = AppConfigure.first
 
             if g.present?
               present :status, :success

@@ -1,9 +1,8 @@
-
 <article class="content responsive-tables-page">
 
   <div class="title-block">
-    <h1 class="title"> Promo Tables
-    <%= link_to 'Add New', new_promo_path, class: 'btn btn-primary btn-sm rounded-s' %>
+    <h1 class="title"> Advert Tables
+    <%= link_to 'Add New', new_advert_path, class: 'btn btn-primary btn-sm rounded-s' %>
     </h1>
     <%#<p class="title-description"> When blocks aren't enough </p>%>
   </div>
@@ -14,32 +13,28 @@
         <div class="card">
           <div class="card-block">
             <div class="card-title-block">
-              <h3 class="title"> Promo </h3>
+              <h3 class="title"> Advert </h3>
             </div>
             <section class="example">
               <div class="table-flip-scroll">
                 <table class="table table-bordered table-hover flip-content">
                   <thead class="flip-header">
                     <tr>
-                      <th>Code</th>
-                      <th>Quantity</th>
-                      <th>Bonus</th>
-                      <th>Expires</th>
+                      <th>Attachment</th>
+                      <th>Description</th>
+                      <th>Daily at</th>
                       <th colspan="3"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% @promos.each do |promo| %>
+                    <% @adverts.each do |advert| %>
                       <tr>
-                        <td><%= promo.code %></td>
-                        <td><%= promo.quantity %></td>
-                        <td>
-                          <%= promo.bonus %> <%= currency_icon(promo.currency_unit) %>
-                        </td>
-                        <td><%= promo.expires_at.try(:strftime, "%B %d, %Y") %></td>
-                        <td><%= link_to 'Show', promo %></td>
-                        <td><%= link_to 'Edit', edit_promo_path(promo) %></td>
-                        <td><%= link_to 'Destroy', promo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        <td><%= image_tag advert.attachment, width: 120, height: 120 %></td>
+                        <td><%= advert.description %></td>
+                        <td><%= advert.daily_at %></td>
+                        <td><%= link_to 'Show', advert %></td>
+                        <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
+                        <td><%= link_to 'Destroy', advert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                       </tr>
                     <% end %>
                   </tbody>

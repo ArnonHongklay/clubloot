@@ -6,7 +6,6 @@ $(document).on('ready', function() {
   var bodyId = $('body').attr('id');
 
   Clubloot.load = function() {
-    // console.log("xxxx")
     if(bodyId == 'edit-template' || bodyId == 'new-template') {
         $('#datetimepicker1').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
         $('#datetimepicker2').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
@@ -18,6 +17,10 @@ $(document).on('ready', function() {
 
     if(bodyId == 'promo'){
       $('#expires_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD HH:mm' });
+    }
+
+    if(bodyId == 'advert'){
+      $('#daily_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD' });
     }
 
     $('#datetimepicker6').datetimepicker({
