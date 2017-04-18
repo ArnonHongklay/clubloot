@@ -160,8 +160,10 @@ gem 'sidekiq-cron'
 # gem 'react_on_rails', '~> 6'
 
 gem 'simple_form'
-# gem 'show_for'
-# gem 'kaminari'
+gem 'show_for'
+gem 'kaminari'
+gem 'kaminari-mongoid'
+gem 'kaminari-actionview'
 # gem 'rails_autolink'
 # gem 'rails-controller-testing'
 

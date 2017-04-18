@@ -4,13 +4,18 @@
   <%#= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :attachment, as: :file %>
     <%= f.input :description %>
   </div>
 
   <div class="row">
     <div class="col-xs-12">
       <%= f.input :daily_at, input_html: { id: 'daily_datetimepicker' } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.input :attachment, as: :file, label: false %>
     </div>
   </div>
 

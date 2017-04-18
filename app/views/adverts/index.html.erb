@@ -29,7 +29,7 @@
                       <tr>
                         <td><%= image_tag advert.attachment, width: 120, height: 120 %></td>
                         <td><%= advert.description %></td>
-                        <td><%= advert.daily_at %></td>
+                        <td><%= advert.daily_at.try(:strftime, "%B %d, %Y") %></td>
                         <td><%= link_to 'Show', advert %></td>
                         <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
                         <td><%= link_to 'Destroy', advert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
