@@ -3,7 +3,11 @@ class AdvertsController < ApplicationController
   before_action :set_advert, only: [:show, :edit, :update, :destroy]
 
   def giveaways
-    user = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).uniq { |u| u.user_id }
+    if params[:daily].present?
+      user = ApiKey.where(:created_at.gte => Time.zone.parse(params[:daily]).beginning_of_day, :created_at.lte => Time.zone.parse(params[:daily]).end_of_day).uniq { |u| u.user_id }
+    else
+      user = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).uniq { |u| u.user_id }
+    end
     @users = User.find(user.pluck(:user_id))
   end
   # GET /adverts

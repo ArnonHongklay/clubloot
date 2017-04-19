@@ -24,6 +24,8 @@ $(document).on('ready', function() {
       $('#end_date_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD' });
     }
 
+    $('#datetimepickergiveaways').datetimepicker({ format: 'YYYY-MM-DD' });
+
     $('#datetimepicker6').datetimepicker({
       format: 'YYYY-MM-DD'
     });
