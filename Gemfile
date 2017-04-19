@@ -28,6 +28,7 @@ platform :ruby do
 end
 
 # default
+gem 'webpacker', github: 'rails/webpacker'
 gem 'uglifier', '>= 1.3.0'
 gem 'sprockets', '~> 3.0'
 gem 'sprockets-es6'
