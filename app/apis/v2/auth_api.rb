@@ -43,14 +43,19 @@ module V2
         requires :password, type: String, desc: "Password"
       end
       post :sign_in do
-        api_response({ status: :failure, data: 'not @' }) unless params[:email].include?("@")
+        begin
+          api_response({ status: :failure, data: 'not @' }) unless params[:email].include?("@")
 
-        user = User.find_by(email: params[:email].downcase)
-        if user && user.valid_password?(params[:password])
-          key = ApiKey.create(user_id: user.id)
-          { token: key.access_token }
-        else
-          error!('Unauthorized.', 401)
+          user = User.find_by(email: params[:email].downcase)
+          if user && user.valid_password?(params[:password])
+            key = ApiKey.create(user_id: user.id)
+            { token: key.access_token }
+          else
+            error!('Unauthorized.', 401)
+          end
+        rescue Exception => e
+          present :status, :failure
+          present :data, e
         end
       end
 
