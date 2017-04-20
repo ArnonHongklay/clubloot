@@ -34,7 +34,7 @@ class Contest
     tax = contest.fee - fee
 
     transaction = []
-    transaction < OpenStruct.new(
+    transaction << OpenStruct.new(
       status: 'complete',
       format: 'contest',
       action: 'minus',
