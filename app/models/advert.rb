@@ -5,13 +5,22 @@ class Advert
 
   field :description, type: String
   field :daily_at, type: DateTime
+  # index({ daily_at: 1 }, { unique: true })
+
   field :start_date, type: DateTime
   field :end_date, type: DateTime
 
   has_mongoid_attached_file :attachment, :default_url => "#{App.domain}/no-image.png"
   validates_attachment :attachment, content_type: { content_type: /\Aimage\/.*\Z/ }
 
-  validates :description, :daily_at, presence: true
+  validates :description, :daily_at, :check_date, presence: true
 
-  after_save :check_date
+  private
+    def check_date
+      if self.class.where(:daily_at.gte => self.daily_at.beginning_of_day, :daily_at.lte => self.daily_at.end_of_day).count > 0
+        errors.add(:daily_at, "duplicate date")
+      else
+        true
+      end
+    end
 end
