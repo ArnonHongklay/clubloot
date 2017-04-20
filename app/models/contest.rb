@@ -42,7 +42,7 @@ class Contest
       from: 'coins',
       to: 'contest',
       unit: 'coins',
-      amount: contest.fee
+      amount: fee
       # tax: tax
     )
 
