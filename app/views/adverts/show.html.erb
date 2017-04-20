@@ -17,12 +17,8 @@
   </p>
 
   <p>
-    <strong>start_date at:</strong>
-    <%= @advert.start_date.try(:strftime, "%B %d, %Y") %>
-  </p>
-  <p>
-    <strong>end_date at:</strong>
-    <%= @advert.end_date.try(:strftime, "%B %d, %Y") %>
+    <strong>Daily at:</strong>
+    <%= @advert.daily_at.try(:strftime, "%B %d, %Y") %>
   </p>
 
   <%= link_to 'Edit', edit_advert_path(@advert), class: 'btn btn-primary btn-sm rounded-s' %>

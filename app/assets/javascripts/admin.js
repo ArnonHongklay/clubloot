@@ -21,7 +21,7 @@ $(document).on('ready', function() {
 
     if(bodyId == 'advert'){
       $('#start_date_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD' });
-      $('#end_date_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD' });
+      // $('#end_date_datetimepicker').datetimepicker({ format: 'YYYY-MM-DD' });
     }
 
     $('#datetimepickergiveaways').datetimepicker({ format: 'YYYY-MM-DD' });
