@@ -278,7 +278,7 @@ module V2
         end
         post '/' do
           begin
-            prizes = User.find_by(token: params[:token]).get_prizes(params[:prize_id])
+            prizes = current_user.get_prizes(params[:prize_id])
             if prizes
               present :status, :success
               if prizes.present?
