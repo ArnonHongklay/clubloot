@@ -13,7 +13,7 @@ class AdvertsController < ApplicationController
   # GET /adverts
   # GET /adverts.json
   def index
-    @adverts = Advert.order(start_date: :desc)
+    @adverts = Advert.order(daily_at: :desc)
   end
 
   # GET /adverts/1
@@ -78,6 +78,6 @@ class AdvertsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advert_params
-      params.require(:advert).permit(:description, :start_date, :end_date, :attachment)
+      params.require(:advert).permit(:description, :daily_at, :attachment)
     end
 end
