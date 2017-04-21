@@ -56,11 +56,35 @@
                         </td>
                         <td>
                           <% ledger.transaction.each do |transaction| %>
+
                             <% if ledger.format == 'winners' %>
-                              <%= "#{transaction.amount - transaction.tax} #{transaction.unit}" %><br>
+                              <%= number_to_currency(transaction.amount - transaction.tax , unit: "", precision: 0) %><br>
                             <% else %>
-                              <%= "#{transaction.amount} #{transaction.unit}" %><br>
+                              <%= number_to_currency(transaction.amount, unit: "", precision: 0) %>
                             <% end %>
+
+                            <% if transaction.unit == 'coins' %>
+                            <span>
+                              <i class="fa fa-money" aria-hidden="true"></i>
+                            </span>
+                            <% elsif transaction.unit == 'rubies' %>
+                              <span style="color: #951111">
+                                <i class="fa fa-diamond" aria-hidden="true"></i>
+                              </span>
+                            <% elsif transaction.unit == 'sapphires' %>
+                              <span style="color: #2A4C7A">
+                                <i class="fa fa-diamond" aria-hidden="true"></i>
+                              </span>
+                            <% elsif transaction.unit == 'emeralds' %>
+                              <span style="color: #758F42">
+                                <i class="fa fa-diamond" aria-hidden="true"></i>
+                              </span>
+                            <% elsif transaction.unit == 'diamonds' %>
+                              <span style="color: #9F9B93">
+                                <i class="fa fa-diamond" aria-hidden="true"></i>
+                              </span>
+                            <% end %>
+                            <br>
                           <% end %>
                         </td>
                         <td class="center-left">
