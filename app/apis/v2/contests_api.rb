@@ -104,7 +104,7 @@ module V2
             if contest
               present :status, :success
               if contest.present?
-                present :data, contest, with: Entities::V2::ProgramContestsExpose
+                present :data, contest, with: Entities::V2::ContestAllExpose
               else
                 present :data, contest
               end
