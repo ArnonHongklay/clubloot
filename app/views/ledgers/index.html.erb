@@ -89,23 +89,23 @@
                         </td>
                         <td class="center-left">
                           <span>
-                            <%= ledger.balance[:coins] %>
+                            <%= number_to_currency(ledger.balance[:coins], unit: "", precision: 0) %>
                             <i class="fa fa-money" aria-hidden="true"></i>
                           </span>
                           <span style="color: #951111">
-                            <%= ledger.balance[:rubies] %>
+                            <%= number_to_currency(ledger.balance[:rubies], unit: "", precision: 0) %>
                             <i class="fa fa-diamond" aria-hidden="true"></i>
                           </span>
                           <span style="color: #2A4C7A">
-                            <%= ledger.balance[:sapphires] %>
+                            <%= number_to_currency(ledger.balance[:sapphires], unit: "", precision: 0) %>
                             <i class="fa fa-diamond" aria-hidden="true"></i>
                           </span>
                           <span style="color: #758F42">
-                            <%= ledger.balance[:emeralds] %>
+                            <%= number_to_currency(ledger.balance[:emeralds], unit: "", precision: 0) %>
                             <i class="fa fa-diamond" aria-hidden="true"></i>
                           </span>
                           <span style="color: #9F9B93">
-                            <%= ledger.balance[:diamonds] %>
+                            <%= number_to_currency(ledger.balance[:diamonds], unit: "", precision: 0) %>
                             <i class="fa fa-diamond" aria-hidden="true"></i>
                           </span>
                         </td>
