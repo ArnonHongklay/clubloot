@@ -3,7 +3,6 @@ class LootsController < ApplicationController
   before_action :set_loot, only: [:index, :update]
 
   def index
-    # @loots = Loot.all
   end
 
   def update
@@ -22,12 +21,12 @@ class LootsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_loot
       # @loot = Loot.find(params[:id])
-      @loot = Loot.first
+      @loot = AppConfigure.first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def loot_params
       # params.fetch(:loot, {})
-      params[:loot].permit(:base, :minConsecutive, :maxConsecutive, :moreCoin)
+      params[:app_configure].permit(:daily_loot, :min_consecutive, :max_consecutive, :more_coin)
     end
 end

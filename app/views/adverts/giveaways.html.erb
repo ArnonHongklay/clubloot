@@ -1,0 +1,54 @@
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Advert Giveaways <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+
+  <%= link_to 'Back', adverts_path, class: 'btn btn-primary btn-sm rounded-s' %>
+
+  <div class="row">
+    <form action="<%= giveaways_adverts_path %>" method="get">
+      <div class='col-md-4'>
+        <div class="form-group">
+          <div class='input-group date' id='datetimepickergiveaways'>
+            <input type='text' name="daily" class="form-control" value="<%= params[:daily] %>" />
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <table class="table table-bordered table-hover flip-content">
+        <thead class="flip-header">
+          <tr>
+            <th></th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><input type="checkbox" /></td>
+              <td><%= user.username %></td>
+              <td><%= user.email %></td>
+              <td><%= user.first_name %></td>
+              <td><%= user.last_name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</article>

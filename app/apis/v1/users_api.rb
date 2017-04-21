@@ -275,7 +275,7 @@ module V1
         post '/' do
           begin
             user = User.find_by(token: params[:token])
-            g = GemConvert.exchange(user, params[:type])
+            g = AppConfigure.exchange(user, params[:type])
 
             if g.present?
               present :status, :success
@@ -294,7 +294,7 @@ module V1
       resource :gems do
         get '/' do
           begin
-            g = GemConvert.first
+            g = AppConfigure.first
 
             if g.present?
               present :status, :success

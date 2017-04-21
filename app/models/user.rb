@@ -161,6 +161,7 @@ class User
     raise "prize is not available" if prize.out_of_stock?
 
     amount = user.diamonds - prize.price
+    user.update(diamonds: amount)
 
     transaction = OpenStruct.new(
       status: 'complete',
@@ -170,12 +171,10 @@ class User
       from: 'diamonds',
       to: 'prizes',
       unit: 'diamonds',
-      amount: amount,
+      amount: prize.price,
       tax: 0
     )
     Ledger.create_transaction(user, transaction)
-
-    user.update(diamonds: amount)
     user.prizes.create(prize: prize.id)
   end
 

@@ -1,0 +1,26 @@
+
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Advert <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
+
+  <p>
+    <strong>Attachment:</strong>
+    <%= image_tag @advert.attachment, with: 120, height: 120 %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @advert.description %>
+  </p>
+
+  <p>
+    <strong>Daily at:</strong>
+    <%= @advert.daily_at.try(:strftime, "%B %d, %Y") %>
+  </p>
+
+  <%= link_to 'Edit', edit_advert_path(@advert), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Back', adverts_path, class: 'btn btn-primary btn-sm rounded-s' %>
+</article>

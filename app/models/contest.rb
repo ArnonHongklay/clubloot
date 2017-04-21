@@ -32,7 +32,9 @@ class Contest
   def self.save_transaction(user, contest)
     fee = (contest.fee * 10 / 11)
     tax = contest.fee - fee
-    transaction = OpenStruct.new(
+
+    transaction = []
+    transaction << OpenStruct.new(
       status: 'complete',
       format: 'contest',
       action: 'minus',
@@ -40,11 +42,25 @@ class Contest
       from: 'coins',
       to: 'contest',
       unit: 'coins',
-      amount: contest.fee,
-      tax: tax
+      amount: fee
+      # tax: tax
     )
+
+    transaction << OpenStruct.new(
+      status: 'complete',
+      format: 'contest',
+      action: 'minus',
+      description: 'tax',
+      from: 'coins',
+      to: 'contest',
+      unit: 'coins',
+      amount: tax
+      # tax: tax
+    )
+
     user.update(coins: (user.coins - contest.fee))
-    Ledger.create_transaction(user, transaction)
+
+    Ledger.create_transactions(user, transaction)
   end
 
   def self.create_contest(user, template, contest)
@@ -56,6 +72,8 @@ class Contest
     fee_select = self.gem_matrix[:list].select do |x|
       x[:player] == player
     end.first[:fee][fee]
+
+    raise "Your money is not enough." if user.coins < fee_select
 
     contest = new( host: user,
                    template: template,
@@ -78,6 +96,7 @@ class Contest
     raise "joined already" if contest.players.where(id: user.id).present?
     raise "full player" if contest.players.count >= contest.max_players
     raise "live already" if contest._state != :upcoming
+    raise "Your money is not enough." if user.coins < contest.fee
 
     if user.contests.where(id: contest_id).blank?
       contest.players << user

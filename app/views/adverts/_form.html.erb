@@ -1,0 +1,25 @@
+<% content_for :body_id, 'advert' %>
+
+<%= simple_form_for(@advert) do |f| %>
+  <%#= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :description %>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.input :daily_at, input_html: { id: 'start_date_datetimepicker' } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.input :attachment, as: :file, label: false %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -104,7 +104,7 @@ module V2
             if contest
               present :status, :success
               if contest.present?
-                present :data, contest, with: Entities::V2::ProgramContestsExpose
+                present :data, contest, with: Entities::V2::ContestAllExpose
               else
                 present :data, contest
               end
@@ -213,6 +213,23 @@ module V2
             present :status, :failure
           end
           present :data, template, with: Entities::V2::TemplateExpose
+        rescue Exception => e
+          present :status, :failure
+          present :data, e
+        end
+      end
+
+      params do
+        requires :contest_id, type: String, desc: "Contest Id"
+      end
+      get "/contest" do
+        begin
+          if contest = Contest.find(params[:contest_id])
+            present :status, :success
+          else
+            present :status, :failure
+          end
+          present :data, contest, with: Entities::V2::ContestAllExpose
         rescue Exception => e
           present :status, :failure
           present :data, e

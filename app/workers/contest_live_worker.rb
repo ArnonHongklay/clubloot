@@ -13,8 +13,6 @@ class ContestLiveWorker
           contest.update(_state: :cancel, active: false, _status: :unusable)
 
           contest.players.each do |player|
-            player.update(coins: player.coins + contest.fee)
-
             transaction = OpenStruct.new(
               status: 'complete',
               format: 'refund',

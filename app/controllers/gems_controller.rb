@@ -29,13 +29,13 @@ class GemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_gem
-      @gem = GemConvert.first #.find(params[:id])
+      @gem = AppConfigure.first #.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gem_params
       # params.fetch(:gem, {})
-      params[:gem_convert].permit(
+      params[:app_configure].permit(
         :ruby_rate, :ruby_fee,
         :sapphire_rate, :sapphire_fee,
         :emerald_rate, :emerald_fee,
