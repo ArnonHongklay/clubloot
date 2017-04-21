@@ -30,6 +30,7 @@
       <table class="table table-bordered table-hover flip-content">
         <thead class="flip-header">
           <tr>
+            <th></th>
             <th>Username</th>
             <th>Email</th>
             <th>First Name</th>
@@ -39,6 +40,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
+              <td><input type="checkbox" /></td>
               <td><%= user.username %></td>
               <td><%= user.email %></td>
               <td><%= user.first_name %></td>
@@ -49,5 +51,4 @@
       </table>
     </div>
   </div>
-
 </article>
