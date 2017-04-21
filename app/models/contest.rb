@@ -96,7 +96,7 @@ class Contest
     raise "joined already" if contest.players.where(id: user.id).present?
     raise "full player" if contest.players.count >= contest.max_players
     raise "live already" if contest._state != :upcoming
-    raise "Your money is not enough." if user.coins < fee_select
+    raise "Your money is not enough." if user.coins < contest.fee
 
     if user.contests.where(id: contest_id).blank?
       contest.players << user
