@@ -19,15 +19,15 @@ class QuestionsController < ApplicationController
     questions = params[:q]
     answers = params[:a]
     questions.each do |question|
-      temp = @template.questions.create(name: questions[question])
+      q = @template.questions.create!(name: questions[question])
       answers[question].each do |answer|
-        if params[:question].nil?
-          attach = nil
+        fq = params[:question]["f"]["#{question}"]
+        if fq.present?
+          attach = fq["#{answer}"]
         else
-          attach = params[:question]["f"]["#{question}"]["#{answer}"]
+          attach = nil
         end
-
-        temp.answers.create(name: answers[question][answer], attachment: attach)
+        q.answers.create!(name: answers[question][answer], attachment: attach)
       end
 
     end
