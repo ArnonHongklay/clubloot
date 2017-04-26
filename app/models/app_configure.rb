@@ -16,37 +16,37 @@ class AppConfigure
     case type
     when 'sapphire'
       raise "coins or ruby less" if user.coins < gemc.ruby[:fee].to_i or user.rubies < gemc.ruby[:rate].to_i
-      amount_coins = user.coins - gemc.sapphire[:fee].to_i
-      amount_from  = user.rubies - gemc.ruby[:rate].to_i
-      amount_to    = user.sapphires + 1
+      amount_coins = gemc.sapphire[:fee].to_i
+      amount_from  = gemc.ruby[:rate].to_i
+      amount_to    = 1
 
-      user.coins     = amount_coins
-      user.rubies    = amount_from
-      user.sapphires = amount_to
+      user.coins     = user.coins - amount_coins
+      user.rubies    = user.rubies - amount_from
+      user.sapphires = user.sapphires + amount_to
 
       from = 'rubies'
       to = 'sapphires'
     when 'emerald'
       raise "coins or sapphire less" if user.coins < gemc.sapphire[:fee].to_i or user.sapphires < gemc.sapphire[:rate].to_i
-      amount_coins = user.coins - gemc.emerald[:fee].to_i
-      amount_from  = user.sapphires - gemc.sapphire[:rate].to_i
-      amount_to    = user.emeralds + 1
+      amount_coins = gemc.emerald[:fee].to_i
+      amount_from  = gemc.sapphire[:rate].to_i
+      amount_to    = 1
 
-      user.coins     = amount_coins
-      user.sapphires = amount_from
-      user.emeralds  = amount_to
+      user.coins     = user.coins - amount_coins
+      user.sapphires = user.sapphires - amount_from
+      user.emeralds  = user.emeralds + amount_to
 
       from = 'sapphires'
       to = 'emeralds'
     when 'diamond'
       raise "coins or emerald less" if user.coins < gemc.emerald[:fee].to_i or user.emeralds < gemc.emerald[:rate].to_i
-      amount_coins = user.coins - gemc.diamond[:fee].to_i
-      amount_from  = user.emeralds - gemc.emerald[:rate].to_i
-      amount_to    = user.diamonds + 1
+      amount_coins = gemc.diamond[:fee].to_i
+      amount_from  = gemc.emerald[:rate].to_i
+      amount_to    = 1
 
-      user.coins     = amount_coins
-      user.emeralds  = amount_from
-      user.diamonds  = amount_to
+      user.coins     = user.coins - amount_coins
+      user.emeralds  = user.emeralds - amount_from
+      user.diamonds  = user.diamonds + amount_to
 
       from = 'emeralds'
       to = 'diamonds'
