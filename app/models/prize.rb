@@ -20,11 +20,4 @@ class Prize
   def out_of_stock?
     quantity <= users.count
   end
-
-  def list_available
-    prizes = []
-    all.each do |prize|
-      prizes.push(prize) unless prize.out_of_stock?
-    end
-  end
 end

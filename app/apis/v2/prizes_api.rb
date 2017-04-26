@@ -4,7 +4,7 @@ module V2
     resource :prizes do
       get '/' do
         begin
-          prizes = Prize.list_available
+          prizes = Prize.all.select{|prize| !prize.out_of_stock? }
           if prizes
             present :status, :success
             if prizes.present?
