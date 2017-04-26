@@ -10,7 +10,6 @@ class Entities::V1::UserAllExpose < Grape::Entity
   expose :sapphires
   expose :rubies
   expose :coins
-  expose :prizes
   expose :winners do |item|
     item.winners.count
   end
