@@ -21,5 +21,5 @@ class Entities::V2::UserAllExpose < Grape::Entity
   expose :winners do |item|
     item.winners.count
   end
-  expose :prizes, with: Entities::V2::PrizesExpose
+  expose :prizes, with: Entities::V2::PrizeExpose
 end
