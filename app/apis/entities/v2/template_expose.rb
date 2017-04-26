@@ -13,6 +13,6 @@ class Entities::V2::TemplateExpose < Grape::Entity
 
   expose :created_at
   expose :updated_at
-  expose :is_correct
+  # expose :is_correct
   expose :end_time
 end
