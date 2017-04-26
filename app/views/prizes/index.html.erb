@@ -35,7 +35,7 @@
                         <td class="center-left"><%= prize.name %></td>
                         <td><%= image_tag prize.attachment, width: 120, height: 120 %></td>
                         <td class="center-left"><%= prize.price %></td>
-                        <td class="center-left"><%= prize.quantity %></td>
+                        <td class="center-left"><%= prize.users.count %>/ <%= prize.quantity %></td>
                         <td class="center-left"><%= prize.description %></td>
                         <td class="center-center"><%= link_to 'Edit', edit_prize_path(prize) %></td>
                         <td class="center-center"><%= link_to 'Destroy', prize, method: :delete, data: { confirm: 'Are you sure?' } %></td>
