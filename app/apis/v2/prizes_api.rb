@@ -4,7 +4,7 @@ module V2
     resource :prizes do
       get '/' do
         begin
-          prizes = Prize.all
+          prizes = Prize.list_available
           if prizes
             present :status, :success
             if prizes.present?
