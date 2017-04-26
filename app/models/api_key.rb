@@ -37,7 +37,7 @@ class ApiKey
       amount = 2000
       return if self.created_at.nil?
       if self.class.where(user: self.user.id).where(:created_at.gte => Time.zone.now.beginning_of_day).count <= 1
-        self.user.update(coins: self.user.coins + amount)
+        self.user.update(coins: self.user.coins + amount, promo_code: true)
 
         transaction = OpenStruct.new(
           status: 'complete',
@@ -52,7 +52,7 @@ class ApiKey
         )
 
         Ledger.create_transaction(self.user, transaction)
-        ActionCable.server.broadcast("notification_channel", { user_id: self.user.id, popup: 'loot' })
+        # ActionCable.server.broadcast("notification_channel", { user_id: self.user.id, popup: 'loot' })
       end
     end
 end
