@@ -25,3 +25,56 @@
   <%= link_to 'Edit', edit_prize_path(@prize), class: 'btn btn-primary btn-sm rounded-s' %>
   <%= link_to 'Back', prizes_path, class: 'btn btn-primary btn-sm rounded-s' %>
 </article>
+
+
+
+<article>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-block sameheight-item">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @user_pending.each do |user| %>
+                  <tr>
+                    <td><%= user.email %></td>]
+                    <td><%= user.username %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-block sameheight-item">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @puser_completed.each do |user| %>
+                  <tr>
+                    <td><%= user.email %></td>]
+                    <td><%= user.username %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
