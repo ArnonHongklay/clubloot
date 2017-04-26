@@ -17,7 +17,7 @@
     Price: <%= @prize.price %>
   </p>
   <p>
-    Quantity: <%= @prize.quantity %>
+    Quantity: <%= @prize.quantity - @prize.users.count %> / <%= @prize.quantity %>
   </p>
   <p>
     Description: <pre><%= @prize.description %></pre>
@@ -43,10 +43,10 @@
               </thead>
 
               <tbody>
-                <% @user_pending.each do |user| %>
+                <% @user_pending.each do |x| %>
                   <tr>
-                    <td><%= user.email %></td>]
-                    <td><%= user.username %></td>
+                    <td><%= x.user.email %></td>]
+                    <td><%= x.user.username %></td>
                   </tr>
                 <% end %>
               </tbody>
@@ -64,10 +64,10 @@
               </thead>
 
               <tbody>
-                <% @puser_completed.each do |user| %>
+                <% @puser_completed.each do |x| %>
                   <tr>
-                    <td><%= user.email %></td>]
-                    <td><%= user.username %></td>
+                    <td><%= x.user.email %></td>]
+                    <td><%= x.user.username %></td>
                   </tr>
                 <% end %>
               </tbody>
