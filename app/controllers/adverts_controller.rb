@@ -10,6 +10,15 @@ class AdvertsController < ApplicationController
     end
     @users = User.find(user.pluck(:user_id))
   end
+
+  def giveaways_checked
+    gtime = Time.zone.parse(params[:daily])
+    user = ApiKey.where(:created_at.gte => gtime.beginning_of_day, :created_at.lte => gtime.end_of_day).where(user_id: params[:user_id])
+
+    user.update_all(giveaways: !user.first.giveaways)
+  end
+
+
   # GET /adverts
   # GET /adverts.json
   def index
