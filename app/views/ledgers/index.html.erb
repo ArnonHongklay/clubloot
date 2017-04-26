@@ -23,7 +23,7 @@
                       <th>Code</th>
                       <th>Date Time</th>
                       <th>Username</th>
-                      <th>Transaction</th>
+                      <!--<th>Transaction</th>-->
                       <th>Description</th>
                       <th>Amount</th>
                       <th>Balance</th>
@@ -44,11 +44,11 @@
                         </td>
                         <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y %H:%M") %></td>
                         <td class="center-left"><%= ledger.user[:username] || ledger.user[:email] %></td>
-                        <td>
+                        <!--<td>
                           <% ledger.transaction.each do |transaction| %>
                             <%= transaction._id %><br>
                           <% end %>
-                        </td>
+                        </td>-->
                         <td>
                           <% ledger.transaction.each do |transaction| %>
                             <%= "(#{transaction.description}) #{transaction.from} -> #{transaction.to}" %><br>

@@ -16,25 +16,37 @@ class AppConfigure
     case type
     when 'sapphire'
       raise "coins or ruby less" if user.coins < gemc.ruby[:fee].to_i or user.rubies < gemc.ruby[:rate].to_i
-      user.coins     = user.coins - gemc.sapphire[:fee].to_i
-      user.rubies    = user.rubies - gemc.ruby[:rate].to_i
-      user.sapphires = user.sapphires + 1
+      amount_coins = user.coins - gemc.sapphire[:fee].to_i
+      amount_from  = user.rubies - gemc.ruby[:rate].to_i
+      amount_to    = user.sapphires + 1
+
+      user.coins     = amount_coins
+      user.rubies    = amount_from
+      user.sapphires = amount_to
 
       from = 'rubies'
       to = 'sapphires'
     when 'emerald'
       raise "coins or sapphire less" if user.coins < gemc.sapphire[:fee].to_i or user.sapphires < gemc.sapphire[:rate].to_i
-      user.coins     = user.coins - gemc.emerald[:fee].to_i
-      user.sapphires = user.sapphires - gemc.sapphire[:rate].to_i
-      user.emeralds  = user.emeralds + 1
+      amount_coins = user.coins - gemc.emerald[:fee].to_i
+      amount_from  = user.sapphires - gemc.sapphire[:rate].to_i
+      amount_to    = user.emeralds + 1
+
+      user.coins     = amount_coins
+      user.sapphires = amount_from
+      user.emeralds  = amount_to
 
       from = 'sapphires'
       to = 'emeralds'
     when 'diamond'
       raise "coins or emerald less" if user.coins < gemc.emerald[:fee].to_i or user.emeralds < gemc.emerald[:rate].to_i
-      user.coins     = user.coins - gemc.diamond[:fee].to_i
-      user.emeralds  = user.emeralds - gemc.emerald[:rate].to_i
-      user.diamonds  = user.diamonds + 1
+      amount_coins = user.coins - gemc.diamond[:fee].to_i
+      amount_from  = user.emeralds - gemc.emerald[:rate].to_i
+      amount_to    = user.diamonds + 1
+
+      user.coins     = amount_coins
+      user.emeralds  = amount_from
+      user.diamonds  = amount_to
 
       from = 'emeralds'
       to = 'diamonds'
@@ -42,8 +54,8 @@ class AppConfigure
 
     user.save!
 
-
     transactions = []
+
     transactions << OpenStruct.new(
       status: 'complete',
       format: 'Convert Gem',
@@ -51,10 +63,11 @@ class AppConfigure
       description: 'Convert Gem',
       from: 'coins',
       to: to,
-      unit: to,
-      amount: 0,
+      unit: 'coins',
+      amount: amount_coins,
       tax: 0
     )
+
     transactions << OpenStruct.new(
       status: 'complete',
       format: 'Convert Gem',
@@ -63,9 +76,10 @@ class AppConfigure
       from: from,
       to: to,
       unit: from,
-      amount: 0,
+      amount: amount_from,
       tax: 0
     )
+
     transactions << OpenStruct.new(
       status: 'complete',
       format: 'Convert Gem',
@@ -74,7 +88,7 @@ class AppConfigure
       from: to,
       to: "#{from} & coins",
       unit: to,
-      amount: 0,
+      amount: amount_to,
       tax: 0
     )
 
