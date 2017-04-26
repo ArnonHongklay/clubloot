@@ -97,6 +97,8 @@ class User
   has_and_belongs_to_many :contests, inverse_of: :players
   has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
 
+  has_many :api_keys, class_name: 'ApiKey', inverse_of: :user
+
   embeds_many :messages
 
   before_save :ensure_authentication_token

@@ -6,7 +6,7 @@ class ApiKey
   field :expires_at, type: Time
   # field :user_id, type: String
   field :active, type: Mongoid::Boolean
-
+  field :giveaways, type: Mongoid::Boolean, default: false
   # attr_accessible :access_token, :expires_at, :user_id, :active, :application
   belongs_to :user
 

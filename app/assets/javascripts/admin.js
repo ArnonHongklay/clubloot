@@ -39,6 +39,23 @@ $(document).on('ready', function() {
     $("#datetimepicker7").on("dp.change", function (e) {
       $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
     });
+
+    $('#checkboxGiveAways').on('change', function(event){
+      userId = this.value;
+      daily = $('#dailyGiveAways').val();
+
+      console.log(userId);
+      console.log(daily);
+
+      console.log("xxxx");
+      $.post( "/systems/adverts/giveaways", { user_id: userId, daily: daily }, function( data ) {
+        // $( ".result" ).html( data );
+        console.log("zzzzzzzzz");
+        console.log(data);
+      });
+
+      console.log("yyyy");
+    });
   }
 
   Clubloot.prizes = function() {

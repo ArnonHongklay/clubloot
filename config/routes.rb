@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         resources :adverts do
           collection do
             get 'giveaways'
+            post 'giveaways', to: 'adverts#giveaways_checked'
           end
         end
       end
