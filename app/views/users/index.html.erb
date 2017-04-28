@@ -18,6 +18,7 @@
                   <thead class="flip-header">
                     <tr>
                       <th>Username</th>
+                      <th>Email</th>
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Balance</th>
@@ -27,6 +28,7 @@
                   <tbody>
                     <% @users.each do |user| %>
                       <tr>
+                        <td><%= user.email %></td>
                         <td><%= user.username %></td>
                         <td><%= user.first_name %></td>
                         <td><%= user.last_name %></td>
