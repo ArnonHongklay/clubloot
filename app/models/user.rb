@@ -341,36 +341,40 @@ class User
     Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
   end
 
-  def join_contest(contest, details)
-    raise "Joined already"            if contest.players.where(id: user.id).present?
+  def join_contest(contest, quizes)
+    raise "Joined already"            if contest.players.where(id: self.id).present?
     raise "Full player"               if contest.players.count >= contest.max_players
     raise "Live already"              if contest._state != :upcoming
-    raise "Your money is not enough." if user.coins < contest.fee
+    raise "Your money is not enough." if self.coins < contest.fee
 
-    contest_details = Contest.join_permitted_params(details)
+    questions = contest.template.questions
 
-    if contest.players.create!(user: user)
-      contest_details.quizes.each do |quiz|
+    unless questions.count == quizes.count
+      raise "You still don't answer the question."
+    end
+
+    if contest.players.create!(user: self)
+      quizes.each do |quiz|
         question = questions.where(id: quiz[:question_id]).first
         raise "This question don't exists" unless question.present?
 
         if question.answers.find(quiz[:answer_id]).present?
-          contest.quizes.create(quiz.merge!(player_id: user.id))
+          contest.quizes.create(quiz.merge!(player_id: self.id))
         else
           raise "This question don't exists"
         end
       end
 
       p contest
-      save_transaction(user, contest)
+      Contest.save_transaction(self, contest)
 
       ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
       ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
       ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
     end
   rescue Exception => e
-    contest.players.where(id: user.id).delete
-    e
+    contest.players.where(id: self.id).delete
+    raise e
   end
 
   private

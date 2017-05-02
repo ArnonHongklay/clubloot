@@ -36,13 +36,13 @@ module V3
           requires :name, type: String
           requires :player, type: Integer
           requires :fee, type: Integer
-          requires :quiz, type: Array[JSON], default: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]', desc: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]'
         end
+        requires :quizes, type: Array[JSON], default: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]', desc: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]'
       end
       post "/new" do
         begin
           template = Template.find(params[:template_id])
-          template.new_contest(current_user, params[:details])
+          template.new_contest(current_user, params[:details], params[:quizes])
 
           present :status, :success
           present :data, template #, with: Entities::V2::ContestExpose
@@ -55,14 +55,12 @@ module V3
       params do
         requires :token, type: String, default: nil, desc: 'User Token'
         requires :contest_id, type: String, desc: 'contest_id'
-        requires :details, type: Hash do
-          requires :quiz, type: Array[JSON], default: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]', desc: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]'
-        end
+        requires :quizes, type: Array[JSON], default: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]', desc: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]'
       end
       post "/join" do
         begin
           contest = Contest.find(params[:contest_id])
-          result = current_user.join_contest(contest, params[:details])
+          result = current_user.join_contest(contest, params[:quizes])
 
           present :status, :success
           present :data, result #, with: Entities::V2::ContestExpose

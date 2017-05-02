@@ -140,14 +140,14 @@ class Template
   # user = User.first
 
   # Template.first.new_contest(user, details)
-  def new_contest(user, details)
+  def new_contest(user, details, quizes)
     contest_details = Contest.new_permitted_params(details)
 
     raise "Data is wrong"             unless contest_details.present?
     raise "Your money is not enough." if user.coins < contest_details.fee
 
-    if questions.count == contest_details.quizes.count
-      raise "You still do not answer the question."
+    unless questions.count == quizes.count
+      raise "You still don't answer the question."
     end
 
     contest = self.contests.create!(
@@ -159,7 +159,7 @@ class Template
     )
 
     if contest.players.create!(user: user)
-      contest_details.quizes.each do |quiz|
+      quizes.each do |quiz|
         question = questions.where(id: quiz[:question_id]).first
         raise "This question don't exists" unless question.present?
 
@@ -171,7 +171,7 @@ class Template
       end
 
       p contest
-      save_transaction(user, contest)
+      Contest.save_transaction(user, contest)
 
       ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
       ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
@@ -179,7 +179,7 @@ class Template
     end
   rescue Exception => e
     contest.destroy if contest.present?
-    e
+    raise e
   end
 
   private

@@ -466,7 +466,6 @@ class Contest
     contest_details.player    = contest_player
     contest_details.fee       = contest_fee
     contest_details.fee_index = contest_fee_index
-    contest_details.quizes    = details[:quiz]
 
     contest_details
   rescue
@@ -475,7 +474,6 @@ class Contest
 
   def self.join_permitted_params(details)
     contest_details           = OpenStruct.new
-    contest_details.quizes    = details[:quiz]
     contest_details
   rescue
     false
