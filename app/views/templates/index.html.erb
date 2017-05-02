@@ -44,6 +44,9 @@
           <div class="item-col item-col-header item-col-title">
             <div> <span>Name</span> </div>
           </div>
+          <div class="item-col item-col-header item-col-stats">
+            <div class="no-overflow"> <span>Program</span> </div>
+          </div>
           <div class="item-col item-col-header item-col-sales">
             <div class="no-overflow"> <span>Question</span> </div>
           </div>
@@ -70,6 +73,10 @@
                   </h4>
                 <% end %>
               </div>
+            </div>
+            <div class="item-col item-col-stats">
+              <div class="item-heading">Program</div>
+              <div><%= template.program.name %></div>
             </div>
             <div class="item-col item-col-sales">
               <div class="item-heading">Question</div>
