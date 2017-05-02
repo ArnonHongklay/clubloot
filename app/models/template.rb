@@ -120,7 +120,7 @@ class Template
       position = player.sort!{ |a, b| b[:score] <=> a[:score] }
       position.each_with_index do |winner, i|
         break if i != 0 && position[i-1][:score] > position[i][:score]
-        contest.winners << User.find(winner[:id])
+        contest.winners.create!(user: User.find(winner[:id]))
       end
       contest.save!
     end
