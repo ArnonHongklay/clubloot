@@ -444,7 +444,7 @@ class Contest
     Economy.create(kind: 'tax', value: economy, logged_at: Time.zone.now)
   end
 
-  def self.permitted_params(details)
+  def self.new_permitted_params(details)
     contest_name      = details[:name]
     contest_player    = details[:player].to_i
     contest_fee_index = details[:fee].to_i
@@ -468,6 +468,14 @@ class Contest
     contest_details.fee_index = contest_fee_index
     contest_details.quizes    = details[:quiz]
 
+    contest_details
+  rescue
+    false
+  end
+
+  def self.join_permitted_params(details)
+    contest_details           = OpenStruct.new
+    contest_details.quizes    = details[:quiz]
     contest_details
   rescue
     false

@@ -141,7 +141,7 @@ class Template
 
   # Template.first.new_contest(user, details)
   def new_contest(user, details)
-    contest_details = Contest.permitted_params(details)
+    contest_details = Contest.new_permitted_params(details)
 
     raise "Data is wrong"             unless contest_details.present?
     raise "Your money is not enough." if user.coins < contest_details.fee

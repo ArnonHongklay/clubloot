@@ -341,6 +341,38 @@ class User
     Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
   end
 
+  def join_contest(contest, details)
+    raise "Joined already"            if contest.players.where(id: user.id).present?
+    raise "Full player"               if contest.players.count >= contest.max_players
+    raise "Live already"              if contest._state != :upcoming
+    raise "Your money is not enough." if user.coins < contest.fee
+
+    contest_details = Contest.join_permitted_params(details)
+
+    if contest.players.create!(user: user)
+      contest_details.quizes.each do |quiz|
+        question = questions.where(id: quiz[:question_id]).first
+        raise "This question don't exists" unless question.present?
+
+        if question.answers.find(quiz[:answer_id]).present?
+          contest.quizes.create(quiz.merge!(player_id: user.id))
+        else
+          raise "This question don't exists"
+        end
+      end
+
+      p contest
+      save_transaction(user, contest)
+
+      ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
+      ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
+      ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
+    end
+  rescue Exception => e
+    contest.players.where(id: user.id).delete
+    e
+  end
+
   private
 
     def update_loot_economy

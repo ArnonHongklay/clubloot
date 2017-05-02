@@ -52,29 +52,25 @@ module V3
         end
       end
 
-      # params do
-      #   requires :token, type: String, default: nil, desc: 'User Token'
-      #   requires :contest_id, type: String, desc: 'contest_id'
-      # end
-      # post "/join" do
-      #   begin
-      #     if current_user
-      #       if contest = Contest.join_contest(current_user, params[:contest_id])
-      #         present :status, :success
-      #         present :data, contest, with: Entities::V2::ContestExpose
-      #       else
-      #         present :status, :failure
-      #         present :data, "Can't join a contest."
-      #       end
-      #     else
-      #       present :status, :failure
-      #       present :data, "Users don't have in our system."
-      #     end
-      #   rescue Exception => e
-      #     present :status, :failure
-      #     present :data, e
-      #   end
-      # end
+      params do
+        requires :token, type: String, default: nil, desc: 'User Token'
+        requires :contest_id, type: String, desc: 'contest_id'
+        requires :details, type: Hash do
+          requires :quiz, type: Array[JSON], default: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]', desc: '[{"question_id": "58b06a592cc3c47a89de1a28", "answer_id": "58b06a592cc3c47a89de1a29"}, {"question_id": "58b06a592cc3c47a89de1a2b", "answer_id": "58b06a592cc3c47a89de1a2d"}]'
+        end
+      end
+      post "/join" do
+        begin
+          contest = Contest.find(params[:contest_id])
+          result = current_user.join_contest(contest, params[:details])
+
+          present :status, :success
+          present :data, result #, with: Entities::V2::ContestExpose
+        rescue Exception => e
+          present :status, :failure
+          present :data, e
+        end
+      end
     end
   end
 end
