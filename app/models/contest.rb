@@ -19,13 +19,20 @@ class Contest
   belongs_to :template, inverse_of: :contests
   belongs_to :host, class_name: 'User', inverse_of: :host_contests
 
-  has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
-  has_and_belongs_to_many :winners, class_name: 'User', inverse_of: :winners
+  # has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
+  # has_and_belongs_to_many :winners, class_name: 'User', inverse_of: :winners
+  has_many :players, class_name: 'ContestPlayer', inverse_of: :contest
+  has_many :winners, class_name: 'ContestWinner', inverse_of: :contest
 
   embeds_many :quizes, class_name: 'Quiz' #, dependent: :nullify
 
   scope :active,  -> { where(active: true) }
   scope :pending, -> { where(active: false) }
+
+  PLAYER_MIN = 2
+  PLAYER_MAX = 20
+  FEE_MIN = 0
+  FEE_MAX = 10
 
   after_save :update_tax_collected
 
@@ -435,6 +442,35 @@ class Contest
     end
 
     Economy.create(kind: 'tax', value: economy, logged_at: Time.zone.now)
+  end
+
+  def self.permitted_params(details)
+    contest_name      = details[:name]
+    contest_player    = details[:player].to_i
+    contest_fee_index = details[:fee].to_i
+
+    p contest_name
+    p contest_player
+    p contest_fee_index
+
+    raise 'Name is wrong'       if contest_name.blank? || Contest.where(name: contest_name).present?
+    raise 'Out of player range' if contest_player < PLAYER_MIN && contest_player > PLAYER_MAX
+    raise 'Fee is wrong'        if contest_fee_index < FEE_MIN && contest_fee_index > FEE_MAX
+
+    contest_fee = Contest.gem_matrix[:list].select do |matrix|
+      matrix[:player] == contest_player
+    end.first[:fee][contest_fee_index]
+
+    contest_details           = OpenStruct.new
+    contest_details.name      = contest_name
+    contest_details.player    = contest_player
+    contest_details.fee       = contest_fee
+    contest_details.fee_index = contest_fee_index
+    contest_details.quizes    = details[:quiz]
+
+    contest_details
+  rescue
+    false
   end
 
   private

@@ -94,8 +94,10 @@ class User
   has_many :host_contests, class_name: 'Contest', inverse_of: :host
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
 
-  has_and_belongs_to_many :contests, inverse_of: :players
-  has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
+  # has_and_belongs_to_many :contests, class_name: 'Contest', inverse_of: :players
+  # has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
+  has_many :contests, class_name: 'ContestPlayer', inverse_of: :user
+  has_many :winners, class_name: 'ContestWinner', inverse_of: :user
 
   has_many :api_keys, class_name: 'ApiKey', inverse_of: :user
 
