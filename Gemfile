@@ -1,16 +1,16 @@
-source 'https://rubygems.org'
 ruby '2.4.1'
+source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.0'
 
 platform :ruby do
   gem 'pg', '~> 0.18'
-  gem 'puma', '~> 3.0'
+  gem 'puma', '~> 3.7'
   gem 'unicorn'
   gem 'mini_racer'
 
@@ -23,7 +23,8 @@ platform :ruby do
   gem 'mongoid_rails_migrations'
 
   gem 'bson_ext'
-  gem 'redis', '~> 3.0'
+  gem 'redis', '~> 3.2'
+  gem 'redis-namespace'
   gem 'redis-rails'
 end
 
@@ -33,7 +34,6 @@ gem 'sprockets', '~> 3.0'
 gem 'sprockets-es6'
 gem 'turbolinks', '~> 5'
 gem 'sass-rails', '~> 5.0'
-gem 'coffee-rails'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
@@ -47,6 +47,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-slick.js'
   gem 'rails-assets-parsleyjs'
 end
+gem 'coffee-rails', '~> 4.2'
+gem 'jquery-rails'
 
 group :production do
   gem 'rails_12factor'
@@ -112,14 +114,30 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 # gem 'knock', '~> 2.0'
 gem 'hashie', '3.5.1'
-gem 'devise'
+gem 'devise', github: 'plataformatec/devise'
+gem 'erubis'
 gem 'omniauth-facebook'
 gem 'koala'
 
 gem 'jbuilder', '~> 2.5'
-gem 'json', git: 'https://github.com/nonmadden/json', branch: 'v1.8'
 gem 'rack-cors'
 gem 'rack-attack'
+
+
+# ------------------------------------------
+
+gem 'bootstrap-sass'
+gem 'font-awesome-sass', '~> 4.6.2'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
+
+gem 'jquery-ui-rails'
+gem 'jquery-turbolinks'
+gem 'jquery-slick-rails'
+gem 'jquery-validation-rails'
+gem 'parsley-rails'
+gem 'momentjs-rails'
+
+# ------------------------------------------
 
 gem 'grape'
 gem 'grape-entity'
@@ -132,21 +150,21 @@ gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'
 gem 'hashie-forbidden_attributes'
 gem 'open_uri_redirections'
-# gem 'jsonapi'
-# gem 'jsonapi-parser', '~> 0.1.1.beta2'
+gem 'jsonapi'
+gem 'jsonapi-parser', '~> 0.1.1.beta2'
 
 # ActiveRecord Helper
-gem 'figaro'
+# gem 'figaro'
 # gem 'annotate'
 # gem 'has_scope'
-# gem 'enumerize'
-# gem 'friendly_id', '~> 5.1.0'
-# gem 'paranoia', git: 'https://github.com/nonmadden/paranoia', branch: 'rails5'
-# gem 'paperclip', git: 'https://github.com/nonmadden/paperclip'
+# gem 'friendly_id'
+# # gem 'acts_as_paranoid', '~> 0.5.0'
+# gem 'paperclip', git: 'https://github.com/thoughtbot/paperclip'
 # gem 'paperclip-ffmpeg'
 # gem 'rqrcode_png'
 # gem 'dragonfly', '~> 1.0.12'
 # gem 'money-rails'
+# gem 'monetize'
 
 # gem 'rubyzip', '= 1.0.0'
 # gem 'axlsx', '= 2.0.1'
@@ -160,12 +178,12 @@ gem 'sidekiq-cron'
 # gem 'react_on_rails', '~> 6'
 
 gem 'simple_form'
+gem 'country_select'
 gem 'show_for'
+gem 'cocoon'
 gem 'kaminari'
-gem 'kaminari-mongoid'
-gem 'kaminari-actionview'
-# gem 'rails_autolink'
-# gem 'rails-controller-testing'
+gem 'rails_autolink'
+gem 'rails-controller-testing'
 
 # gem 'firebase'
 # gem 'gcloud'
