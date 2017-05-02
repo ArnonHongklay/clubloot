@@ -17,7 +17,6 @@ class Advert
 
   private
     def check_date
-
       if self.daily_at_changed? && self.class.where(:daily_at.gte => self.daily_at.beginning_of_day, :daily_at.lte => self.daily_at.end_of_day).count > 0
         errors.add(:daily_at, "duplicate date")
       else

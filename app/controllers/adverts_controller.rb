@@ -4,11 +4,12 @@ class AdvertsController < ApplicationController
 
   def giveaways
     if params[:daily].present?
-      user = ApiKey.where(:created_at.gte => Time.zone.parse(params[:daily]).beginning_of_day, :created_at.lte => Time.zone.parse(params[:daily]).end_of_day).uniq { |u| u.user_id }
+      user = ApiKey.where(can_giveaways: true).where(:created_at.gte => Time.zone.parse(params[:daily]).beginning_of_day, :created_at.lte => Time.zone.parse(params[:daily]).end_of_day).uniq { |u| u.user_id }
     else
-      user = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).uniq { |u| u.user_id }
+      user = ApiKey.where(can_giveaways: true).where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).uniq { |u| u.user_id }
     end
-    @users = User.find(user.pluck(:user_id))
+    user_ids = user.pluck(:user_id)
+    @users = User.find(user_ids)
   end
 
   def giveaways_checked
@@ -18,29 +19,20 @@ class AdvertsController < ApplicationController
     user.update_all(giveaways: !user.first.giveaways)
   end
 
-
-  # GET /adverts
-  # GET /adverts.json
   def index
     @adverts = Advert.order(daily_at: :desc)
   end
 
-  # GET /adverts/1
-  # GET /adverts/1.json
   def show
   end
 
-  # GET /adverts/new
   def new
     @advert = Advert.new
   end
 
-  # GET /adverts/1/edit
   def edit
   end
 
-  # POST /adverts
-  # POST /adverts.json
   def create
     @advert = Advert.new(advert_params)
 
@@ -55,8 +47,6 @@ class AdvertsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /adverts/1
-  # PATCH/PUT /adverts/1.json
   def update
     respond_to do |format|
       if @advert.update(advert_params)
@@ -69,8 +59,6 @@ class AdvertsController < ApplicationController
     end
   end
 
-  # DELETE /adverts/1
-  # DELETE /adverts/1.json
   def destroy
     @advert.destroy
     respond_to do |format|
