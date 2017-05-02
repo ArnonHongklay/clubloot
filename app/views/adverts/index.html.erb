@@ -20,7 +20,7 @@
                   <thead class="flip-header">
                     <tr>
                       <th>Attachment</th>
-                      <th>Description</th>
+                      <th colspan="2">Description</th>
                       <th>Date</th>
                       <th colspan="3"></th>
                     </tr>
@@ -29,7 +29,7 @@
                     <% @adverts.each do |advert| %>
                       <tr>
                         <td><%= image_tag advert.attachment, width: 120, height: 120 %></td>
-                        <td><%= advert.description %></td>
+                        <td><%= advert.above_description %></td>
                         <td><%= advert.daily_at.try(:strftime, "%B %d, %Y") %></td>
                         <td><%= link_to 'Show', advert %></td>
                         <td><%= link_to 'Edit', edit_advert_path(advert) %></td>
