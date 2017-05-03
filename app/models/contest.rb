@@ -453,13 +453,18 @@ class Contest
     p contest_player
     p contest_fee_index
 
-    raise 'Name is wrong'       if contest_name.blank? || Contest.where(name: contest_name).present?
+    raise 'Name is wrong'       if contest_name.blank?
     raise 'Out of player range' if contest_player < PLAYER_MIN && contest_player > PLAYER_MAX
     raise 'Fee is wrong'        if contest_fee_index < FEE_MIN && contest_fee_index > FEE_MAX
 
     contest_fee = Contest.gem_matrix[:list].select do |matrix|
       matrix[:player] == contest_player
     end.first[:fee][contest_fee_index]
+
+    duplicate_name = Contest.where(name: contest_name)
+    if duplicate_name.present?
+      contest_name = "#{contest_name} - #{duplicate_name.count}"
+    end
 
     contest_details           = OpenStruct.new
     contest_details.name      = contest_name
