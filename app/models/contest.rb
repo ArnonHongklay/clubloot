@@ -461,9 +461,8 @@ class Contest
       matrix[:player] == contest_player
     end.first[:fee][contest_fee_index]
 
-    duplicate_name = Contest.where(name: contest_name)
-    if duplicate_name.present?
-      contest_name = "#{contest_name} - #{duplicate_name.count}"
+    if Contest.where(name: contest_name).present?
+      contest_name = "#{contest_name} - #{Time.zone.now.to_i}"
     end
 
     contest_details           = OpenStruct.new
