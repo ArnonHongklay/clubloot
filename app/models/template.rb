@@ -42,9 +42,8 @@ class Template
     self.upcoming_program.sort_by(&:end_time).first
   end
 
-  def winners(template_obj)
-    template = Template.find(template_obj)
-    template.contests.each do |contest|
+  def winners(contests)
+    contests.each do |contest|
       # sleep 5
       # contest = Contest.find(contest_id)
       p "=================================== in winners contest ==================================="
@@ -113,7 +112,8 @@ class Template
     template = self
     return false if template.active == false or template.questions.where('is_correct' => "false").count > 0
 
-    template.contests.where(_state: :upcoming).each do |contest|
+    contests = template.contests.where(_state: :live)
+    contests.each do |contest|
       player = contest.quizes.all.group_by(&:player_id).map do |key, val|
         { id: key, score: val.sum(&:correct) }
       end
@@ -126,7 +126,7 @@ class Template
       contest.save!
     end
 
-    winners(template)
+    winners(contests)
 
     ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
     ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
