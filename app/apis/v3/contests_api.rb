@@ -45,7 +45,7 @@ module V3
           template.new_contest(current_user, params[:details], params[:quizes])
 
           present :status, :success
-          present :data, template #, with: Entities::V2::ContestExpose
+          present :data, [] #, with: Entities::V2::ContestExpose
         rescue Exception => e
           present :status, :failure
           present :data, e
@@ -63,7 +63,7 @@ module V3
           result = current_user.join_contest(contest, params[:quizes])
 
           present :status, :success
-          present :data, result #, with: Entities::V2::ContestExpose
+          present :data, [] #, with: Entities::V2::ContestExpose
         rescue Exception => e
           present :status, :failure
           present :data, e

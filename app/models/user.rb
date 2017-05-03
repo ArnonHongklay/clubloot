@@ -342,7 +342,7 @@ class User
   end
 
   def join_contest(contest, quizes)
-    raise "Joined already"            if contest.players.where(player: self).present?
+    raise "Joined already"            if contest.players.where(id: self.id).present?
     raise "Full player"               if contest.players.count >= contest.max_players
     raise "Live already"              if contest._state != :upcoming
     raise "Your money is not enough." if self.coins < contest.fee
@@ -375,7 +375,7 @@ class User
       ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
     end
   rescue Exception => e
-    contest.players.where(id: self.id).delete
+    contest.players.delete(self)
     raise e
   end
 
