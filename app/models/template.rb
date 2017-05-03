@@ -120,7 +120,8 @@ class Template
       position = player.sort!{ |a, b| b[:score] <=> a[:score] }
       position.each_with_index do |winner, i|
         break if i != 0 && position[i-1][:score] > position[i][:score]
-        contest.winners.create!(user: User.find(winner[:id]))
+        # contest.winners.create!(user: User.find(winner[:id]))
+        contest.winners << User.find(winner[:id])
       end
       contest.save!
     end
@@ -158,7 +159,9 @@ class Template
       prize:        contest_details.fee_index
     )
 
-    if contest.players.create!(user: user)
+    # contest.players.create!(player: user)
+    contest.players << user
+    if contest.save!
       quizes.each do |quiz|
         question = questions.where(id: quiz[:question_id]).first
         raise "This question don't exists" unless question.present?

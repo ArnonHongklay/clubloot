@@ -96,6 +96,7 @@ module V2
               else
                 contests = current_user.contests.where(_state: params[:state]).order(updated_at: :desc)
               end
+
               present :status, :success
               present :data, contests, with: Entities::V2::ContestAllExpose
             else

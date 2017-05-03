@@ -19,10 +19,10 @@ class Contest
   belongs_to :template, inverse_of: :contests
   belongs_to :host, class_name: 'User', inverse_of: :host_contests
 
-  # has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
-  # has_and_belongs_to_many :winners, class_name: 'User', inverse_of: :winners
-  has_many :players, class_name: 'ContestPlayer', inverse_of: :contest
-  has_many :winners, class_name: 'ContestWinner', inverse_of: :contest
+  has_and_belongs_to_many :players, class_name: 'User', inverse_of: :contests
+  has_and_belongs_to_many :winners, class_name: 'User', inverse_of: :winners
+  # has_many :players, class_name: 'ContestPlayer', inverse_of: :contest
+  # has_many :winners, class_name: 'ContestWinner', inverse_of: :contest
 
   embeds_many :quizes, class_name: 'Quiz' #, dependent: :nullify
 

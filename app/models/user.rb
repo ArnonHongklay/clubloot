@@ -94,10 +94,10 @@ class User
   has_many :host_contests, class_name: 'Contest', inverse_of: :host
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
 
-  # has_and_belongs_to_many :contests, class_name: 'Contest', inverse_of: :players
-  # has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
-  has_many :contests, class_name: 'ContestPlayer', inverse_of: :user
-  has_many :winners, class_name: 'ContestWinner', inverse_of: :user
+  has_and_belongs_to_many :contests,  class_name: 'Contest', inverse_of: :players
+  has_and_belongs_to_many :winners,   class_name: 'Contest', inverse_of: :winners
+  # has_many :contests, class_name: 'ContestPlayer', inverse_of: :player
+  # has_many :winners, class_name: 'ContestWinner', inverse_of: :user
 
   has_many :api_keys, class_name: 'ApiKey', inverse_of: :user
 
@@ -342,7 +342,7 @@ class User
   end
 
   def join_contest(contest, quizes)
-    raise "Joined already"            if contest.players.where(id: self.id).present?
+    raise "Joined already"            if contest.players.where(player: self).present?
     raise "Full player"               if contest.players.count >= contest.max_players
     raise "Live already"              if contest._state != :upcoming
     raise "Your money is not enough." if self.coins < contest.fee
@@ -353,7 +353,9 @@ class User
       raise "You still don't answer the question."
     end
 
-    if contest.players.create!(user: self)
+    # contest.players.create!(player: self)
+    contest.players << self
+    if contest.save!
       quizes.each do |quiz|
         question = questions.where(id: quiz[:question_id]).first
         raise "This question don't exists" unless question.present?
