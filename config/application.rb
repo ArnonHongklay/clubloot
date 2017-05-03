@@ -28,7 +28,7 @@ module Clubloot
     # config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     # config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
 
-    # config.time_zone = 'Pacific Time (US & Canada)'
+    config.time_zone = 'Pacific Time (US & Canada)'
     # config.active_record.default_timezone = :local
     # config.active_record.time_zone_aware_types = [:datetime, :time]
     # config.active_record.raise_in_transactional_callbacks = true
