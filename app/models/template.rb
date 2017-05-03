@@ -113,7 +113,7 @@ class Template
     template = self
     return false if template.active == false or template.questions.where('is_correct' => "false").count > 0
 
-    template.contests.each do |contest|
+    template.contests.where(_state: :upcoming).each do |contest|
       player = contest.quizes.all.group_by(&:player_id).map do |key, val|
         { id: key, score: val.sum(&:correct) }
       end
