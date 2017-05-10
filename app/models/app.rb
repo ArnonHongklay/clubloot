@@ -15,11 +15,11 @@ class App < Struct.new(:region, :environment, :version)
     when 'admin'
       "#{host('admin')}.#{root_domain}"
     else
-      if environment.production?
-        root_domain
-      else
-        "#{host}.#{root_domain}"
-      end
+      # if environment.production?
+      root_domain
+      # else
+      #   "#{host}.#{root_domain}"
+      # end
     end
 
     protocol + '//' + domain

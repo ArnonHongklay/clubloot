@@ -17,19 +17,24 @@ class QuestionsController < ApplicationController
 
   def create
     questions = params[:q]
-    answers = params[:a]
-    questions.each do |question|
-      q = @template.questions.create!(name: questions[question])
-      answers[question].each do |answer|
-        fq = params[:question]["f"]["#{question}"]
-        if fq.present?
-          attach = fq["#{answer}"]
-        else
-          attach = nil
-        end
-        q.answers.create!(name: answers[question][answer], attachment: attach)
-      end
+    answers   = params[:a]
 
+    questions.each do |question|
+      template_question = @template.questions.create!(name: questions[question])
+
+      answers[question].each do |answer|
+        if params[:question].present?
+          qa_file = params[:question]["f"]["#{question}"]
+
+          if qa_file.present?
+            attach = qa_file["#{answer}"]
+          else
+            attach = nil
+          end
+        end
+
+        template_question.answers.create!(name: answers[question][answer], attachment: attach)
+      end
     end
 
     # @question = Question.new(question_params)

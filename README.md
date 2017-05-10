@@ -1,2 +1,2 @@
-# clubloot-api
+# clubloot
 Clubloot Admin &amp; API

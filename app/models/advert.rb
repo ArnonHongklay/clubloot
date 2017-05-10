@@ -4,6 +4,8 @@ class Advert
   include Mongoid::Timestamps
 
   field :description, type: String
+  field :above_description, type: String
+  field :below_description, type: String
   field :daily_at, type: DateTime
   # index({ daily_at: 1 }, { unique: true })
 
@@ -13,7 +15,7 @@ class Advert
   has_mongoid_attached_file :attachment, :default_url => "#{App.domain}/no-image.png"
   validates_attachment :attachment, content_type: { content_type: /\Aimage\/.*\Z/ }
 
-  validates :description, :daily_at, :check_date, presence: true
+  validates :above_description, :below_description, :daily_at, :check_date, presence: true
 
   private
     def check_date
