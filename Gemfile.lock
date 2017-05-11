@@ -25,6 +25,15 @@ GIT
       warden (~> 1.2.3)
 
 GIT
+  remote: https://github.com/rails/webpacker.git
+  revision: 7c6f2cfcd1d3898645e02e53d24b826dd0d49660
+  specs:
+    webpacker (1.2)
+      activesupport (>= 4.2)
+      multi_json (~> 1.2)
+      railties (>= 4.2)
+
+GIT
   remote: https://github.com/rspec/rspec-core.git
   revision: 551c365197c8cae045967f872d3cd6ecf4c593a8
   branch: master
@@ -731,6 +740,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   web-console
+  webpacker!
 
 RUBY VERSION
    ruby 2.4.1p111

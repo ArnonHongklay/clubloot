@@ -81,8 +81,8 @@ class User
   has_mongoid_attached_file :avatar,
     styles: {
       :medium   => ['250x250',    :jpg]
-    },
-    default_url: ActionController::Base.helpers.asset_path('user_no_avatar.png')
+    } #,
+    # default_url: ActionController::Base.helpers.asset_path('user_no_avatar.png')
   validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
