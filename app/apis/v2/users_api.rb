@@ -51,6 +51,7 @@ module V2
         end
         get "/" do
           begin
+            current_user.api_keys.update_all(can_giveaways: true)
             current_user.update(free_loot: false)
             present :status, :success
             present :data, current_user, with: Entities::V2::UserAllExpose
