@@ -11,6 +11,7 @@ class ContestsController < ApplicationController
   # GET /contests/1
   # GET /contests/1.json
   def show
+    @players = @contest.players
   end
 
   # GET /contests/new

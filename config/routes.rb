@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         resources :users do
           get '/winners', to: 'users#winners'
           get '/contests', to: 'users#contests'
+          get '/contests_show', to: 'user#contests_show'
           get '/transactions', to: 'users#transactions'
           get '/prizes', to: 'users#prizes'
           put '/prize_complete', to: 'users#prize_complete'
@@ -66,6 +67,8 @@ Rails.application.routes.draw do
             post 'giveaways', to: 'adverts#giveaways_checked'
           end
         end
+
+        resources :contests
       end
     end
   end

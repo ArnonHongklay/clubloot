@@ -1,4 +1,81 @@
 
+<article class="content item-editor-page">
+  <div class="title-block">
+    <h3 class="title">
+      Show Contest Details <span class="sparkline bar" data-type="bar"></span>
+    </h3>
+  </div>
 
-<%= link_to 'Edit', edit_contest_path(@contest) %> |
-<%= link_to 'Back', contests_path %>
+
+  <p>
+    Name: <%= @contest.name %>
+  </p>
+  <%= link_to 'Edit', edit_contest_path(@contest), class: 'btn btn-primary btn-sm rounded-s' %>
+  <%= link_to 'Back', contests_path, class: 'btn btn-primary btn-sm rounded-s' %>
+
+  <div class="row">
+    <div class="col-xs-12">
+          <div class="card card-block sameheight-item">
+            <h2>Q & A</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>Answers</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @contest.template.questions.each do |question| %>
+                  <tr>
+                    <td><%= question.name %></td>
+                    <td>
+                      <table>
+                        <% question.answers.each_with_index do |answer, i|
+                          next if answer.name.blank?
+                        %>
+                          <tr>
+                            <td><%= i+1 %>: <%= answer.name %></td>
+                          </tr>
+                        <% end %>
+                      </table>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+            <h2>User</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Username</th>
+                  <th>Q/A</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @players.each do |user| %>
+                  <tr>
+                    <td><%= user.email %></td>
+                    <td><%= user.username %></td>
+                    <td>
+                      <table border="0">
+                        <% @contest.quizes.where(player_id: user.id).each do |contest| %>
+                          <% question = @contest.template.questions.where(id: contest.question_id).first %>
+                          <tr>
+                            <td><%= question.name %></td>
+                            <td><%= question.answers.where(id: contest.answer_id).first.name %></td>
+                          </tr>
+                        <% end %>
+                      </table>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+      </div>
+    </div>
+  </div>
+</article>

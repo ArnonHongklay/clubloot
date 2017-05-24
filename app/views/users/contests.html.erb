@@ -32,9 +32,7 @@
                     <% @contest_upcoming.each do |contest| %>
                       <tr>
                         <td>
-                          <%= link_to contest.name,
-                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
-                                      target: '_blank' %>
+                          <%= link_to contest.name, contest_path(contest.id) %>
                         </td>
                         <td><%= contest.players.count %> users</td>
                         <td><%= contest.fee %></td>
@@ -52,9 +50,7 @@
                     <% @contest_live.each do |contest| %>
                       <tr>
                         <td>
-                          <%= link_to contest.name,
-                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
-                                      target: '_blank' %>
+                          <%= link_to contest.name, contest_path(contest.id) %>
                         </td>
                         <td><%= contest.players.count %> users</td>
                         <td><%= contest.fee %></td>
@@ -72,9 +68,7 @@
                     <% @contest_end.each do |contest| %>
                       <tr>
                         <td>
-                          <%= link_to contest.name,
-                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
-                                      target: '_blank' %>
+                          <%= link_to contest.name, contest_path(contest.id) %>
                         </td>
                         <td><%= contest.players.count %> users</td>
                         <td><%= contest.fee %></td>
@@ -92,9 +86,7 @@
                     <% @contest_past.each do |contest| %>
                       <tr>
                         <td>
-                          <%= link_to contest.name,
-                                      "http://alpha.clubloot.com/contest/program/#{contest.template.program.id}/#{contest.id}",
-                                      target: '_blank' %>
+                          <%= link_to contest.name, contest_path(contest.id) %>
                         </td>
                         <td><%= contest.players.count %> users</td>
                         <td><%= contest.fee %></td>

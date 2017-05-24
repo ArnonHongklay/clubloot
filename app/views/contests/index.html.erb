@@ -1,25 +1,41 @@
+<article class="content responsive-tables-page">
 
+  <div class="title-block">
+    <h1 class="title"> Contest Tables</h1>
+    <%#<p class="title-description"> When blocks aren't enough </p>%>
+  </div>
 
-<h1>Contests</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @contests.each do |contest| %>
-      <tr>
-        <td><%= link_to 'Show', contest %></td>
-        <td><%= link_to 'Edit', edit_contest_path(contest) %></td>
-        <td><%= link_to 'Destroy', contest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Contest', new_contest_path %>
+  <section class="section">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-block">
+            <div class="card-title-block">
+              <h3 class="title">  </h3>
+            </div>
+            <section class="example">
+              <div class="table-flip-scroll">
+                <table class="table table-bordered table-hover flip-content">
+                  <thead class="flip-header">
+                    <tr>
+                      <th>Name</th>
+                      <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @contests.each do |contest| %>
+                      <tr class="odd gradeX">
+                        <td class="center-left"><%= contest.name %></td>
+                        <td class="center-center"><%= link_to 'Details', contest %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
