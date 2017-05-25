@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-xs-12">
           <div class="card card-block sameheight-item">
-            <h2>Q & A</h2>
+            <!-- <h2>Q & A</h2>
             <table class="table">
               <thead>
                 <tr>
@@ -43,30 +43,32 @@
                   </tr>
                 <% end %>
               </tbody>
-            </table>
+            </table> -->
 
             <h2>User</h2>
             <table class="table">
               <thead>
                 <tr>
-                  <th>Email</th>
+                  <th>Question Name</th>
                   <th>Username</th>
-                  <th>Q/A</th>
+                  <!-- <th>Q/A</th> -->
                 </tr>
               </thead>
-
               <tbody>
-                <% @players.each do |user| %>
+                <% @contest.template.questions.each do |question| %>
                   <tr>
-                    <td><%= user.email %></td>
-                    <td><%= user.username %></td>
+                    <td><%= question.name %></td>
                     <td>
-                      <table border="0">
-                        <% @contest.quizes.where(player_id: user.id).each do |contest| %>
-                          <% question = @contest.template.questions.where(id: contest.question_id).first %>
-                          <tr>
-                            <td><%= question.name %></td>
-                            <td><%= question.answers.where(id: contest.answer_id).first.name %></td>
+                      <table class="table table-bordered">
+                        <% @contest.quizes.where(question_id: question.id).each do |contest| %>
+                          <tr class="<%= 'table-success' if question.is_correct == contest.answer_id %>">
+                            <% question = @contest.template.questions.where(id: contest.question_id).first %>
+                            <td>
+                              <%= User.find(contest.player_id).username %>
+                            </td>
+                            <td>
+                              <%= question.answers.where(id: contest.answer_id).first.name %>
+                            </td>
                           </tr>
                         <% end %>
                       </table>
