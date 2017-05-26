@@ -6,77 +6,88 @@
     </h3>
   </div>
 
-
   <p>
     Name: <%= @contest.name %>
   </p>
-  <%= link_to 'Edit', edit_contest_path(@contest), class: 'btn btn-primary btn-sm rounded-s' %>
+
   <%= link_to 'Back', contests_path, class: 'btn btn-primary btn-sm rounded-s' %>
 
   <div class="row">
     <div class="col-xs-12">
-          <div class="card card-block sameheight-item">
-            <!-- <h2>Q & A</h2>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Question</th>
-                  <th>Answers</th>
-                </tr>
-              </thead>
+      <div class="card card-block sameheight-item">
+        <h2>Leaders this contest</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>Position</th>
+              <th>Score</th>
+              <th>Username</th>
+              <th>Email</th>
+            </thead>
+            <% @contest.leaders.sort_by(&:position).each do |player| %>
+            <tr>
+              <td><%= player.position %></td>
+              <td><%= player.score %></td>
+              <td><%= player.username %></td>
+              <td><%= player.email %></td>
+            </tr>
+            <% end %>
+          </table>
 
-              <tbody>
-                <% @contest.template.questions.each do |question| %>
-                  <tr>
-                    <td><%= question.name %></td>
-                    <td>
-                      <table>
-                        <% question.answers.each_with_index do |answer, i|
-                          next if answer.name.blank?
-                        %>
-                          <tr>
-                            <td><%= i+1 %>: <%= answer.name %></td>
-                          </tr>
-                        <% end %>
-                      </table>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table> -->
 
-            <h2>Q / A</h2>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Question Name</th>
-                  <th>Username</th>
-                  <!-- <th>Q/A</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                <% @contest.template.questions.each do |question| %>
-                  <tr>
-                    <td><%= question.name %></td>
-                    <td>
-                      <table class="table table-bordered">
-                        <% @contest.quizes.where(question_id: question.id).each do |contest| %>
-                          <tr class="<%= 'table-success' if question.is_correct == contest.answer_id %>">
-                            <% question = @contest.template.questions.where(id: contest.question_id).first %>
-                            <td>
-                              <%= User.find(contest.player_id).username %>
-                            </td>
-                            <td>
-                              <%= question.answers.where(id: contest.answer_id).first.name %>
-                            </td>
-                          </tr>
+        <h2>Q & A</h2>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-4">Question</div>
+              <div class="col-xs-8">Answer</div>
+            </div>
+
+            <% @contest.template.questions.each do |question| %>
+              <div class="row">
+                <div class="col-xs-4">
+                  <h5><%= question.name %></h5>
+                  <p>
+                    <% question.answers.each_with_index do |answer, i|
+                      next if answer.name.blank?
+                    %>
+                      <%= i+1 %>: (<%= @contest.quizes.where(question_id: question.id, answer_id: answer.id).count %>)
+                        <% if answer.id.to_s == question.is_correct %>
+                          <i class="fa fa-check" aria-hidden="true" style="color: green"></i>
+                        <% else %>
+                          <i class="fa fa-close" aria-hidden="true" style="color: red"></i>
                         <% end %>
-                      </table>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+                        <%= answer.name %><br />
+                    <% end %>
+                  </p>
+                </div>
+
+                <div class="col-xs-8">
+                  <table class="table table-bordered" style="display: block; overflow: scroll">
+                    <tr>
+                      <% @contest.quizes.where(question_id: question.id).each do |contest| %>
+                        <td width="150px">
+                          <div style="width: 100%; height: 35px; border-bottom: 1px solid #ccc;">
+                            <%= User.find(contest.player_id).username %>
+                          </div>
+                          <div style="width: 100%; text-align: center; vertical-align: text-bottom">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="<%= question.answers.where(id: contest.answer_id).first.name %>">
+                              <% if question.is_correct == contest.answer_id %>
+                                <i class="fa fa-check" aria-hidden="true" style="color: green"></i>
+                              <% else %>
+                                <i class="fa fa-close" aria-hidden="true" style="color: red"></i>
+                              <% end %>
+                            </a>
+                          </div>
+                        </td>
+                      <% end %>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <hr>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

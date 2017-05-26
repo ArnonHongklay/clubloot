@@ -2,40 +2,111 @@
 
   <div class="title-block">
     <h1 class="title"> Contest Tables</h1>
-    <%#<p class="title-description"> When blocks aren't enough </p>%>
   </div>
 
   <section class="section">
     <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-block">
-            <div class="card-title-block">
-              <h3 class="title">  </h3>
-            </div>
-            <section class="example">
-              <div class="table-flip-scroll">
-                <table class="table table-bordered table-hover flip-content">
-                  <thead class="flip-header">
-                    <tr>
-                      <th>Name</th>
-                      <th>&nbsp;</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% @contests.each do |contest| %>
-                      <tr class="odd gradeX">
-                        <td class="center-left"><%= contest.name %></td>
-                        <td class="center-center"><%= link_to 'Details', contest %></td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
+      <% if params[:program].nil? and params[:template].nil? and params[:contest].nil? %>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-block">
+              <div class="card-title-block">
+                <h3 class="title">Programs</h3>
               </div>
-            </section>
+              <section class="example">
+                <div class="table-flip-scroll">
+                  <table class="table table-bordered table-hover flip-content">
+                    <thead class="flip-header">
+                      <tr>
+                        <th>Program</th>
+                        <th>&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @programs.each do |program| %>
+                        <tr class="odd gradeX">
+                          <td><%= program.name %></td>
+                          <td class="center-center"><%= link_to 'Click', contests_path(program: program.id) %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
+
+      <% if params[:program].present? and params[:template].nil? and params[:contest].nil? %>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-block">
+              <div class="card-title-block">
+                <h3 class="title">  </h3>
+              </div>
+              <section class="example">
+                <div class="table-flip-scroll">
+                  <table class="table table-bordered table-hover flip-content">
+                    <thead class="flip-header">
+                      <tr>
+                        <th>Program</th>
+                        <th>Template</th>
+                        <th>&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @templates.each do |template| %>
+                        <tr class="odd gradeX">
+                          <td><%= template.program.name %></td>
+                          <td><%= template.name %></td>
+                          <td class="center-center"><%= link_to 'Click', contests_path(program: params[:program], template: template.id)  %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if params[:program].present? and params[:template].present? and params[:contest].nil? %>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-block">
+              <div class="card-title-block">
+                <h3 class="title">  </h3>
+              </div>
+              <section class="example">
+                <div class="table-flip-scroll">
+                  <table class="table table-bordered table-hover flip-content">
+                    <thead class="flip-header">
+                      <tr>
+                        <th>Program</th>
+                        <th>Template</th>
+                        <th>Contest Name</th>
+                        <th>&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @contests.each do |contest| %>
+                        <tr class="odd gradeX">
+                          <td><%= contest.template.program.name %></td>
+                          <td><%= contest.template.name %></td>
+                          <td class="center-left"><%= contest.name %></td>
+                          <td class="center-center"><%= link_to 'Click', contest %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </section>
 </article>

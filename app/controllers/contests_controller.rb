@@ -5,7 +5,15 @@ class ContestsController < ApplicationController
   # GET /contests
   # GET /contests.json
   def index
-    @contests = Contest.all
+    if params[:program].nil? && params[:template].nil? && params[:contest].nil?
+      @programs = Program.all
+    elsif params[:program].present? && params[:template].nil? && params[:contest].nil?
+      @program = Program.find(params[:program])
+      @templates = @program.templates
+    elsif params[:program].present? && params[:template].present? && params[:contest].nil?
+      @template = Template.find(params[:template])
+      @contests = @template.contests
+    end
   end
 
   # GET /contests/1
