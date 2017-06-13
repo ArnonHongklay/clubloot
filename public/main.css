@@ -1,0 +1,92 @@
+body {
+  background-image: url("../images/bg.png");
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+.smb {
+  display: none;
+}
+
+.container {
+  min-height: 100%;
+}
+
+.logo {
+  position: relative;
+  width: 172px;
+  margin: auto;
+  display: block;
+  margin-bottom: 50px;
+}
+
+.login-btn {
+  position: relative;
+  display: inline-block;
+  width: 160px;
+  height: 60px;
+  cursor: pointer;
+  background-image: url("../images/login.png");
+}
+
+.howto {
+  width: 100%;
+  max-width: 1000px;
+  display: inline-block;
+}
+
+.big-img-box {
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.signup-btn {
+  position: relative;
+  display: inline-block;
+  width: 160px;
+  height: 60px;
+  cursor: pointer;
+  background-image: url("../images/signup.png");
+}
+
+.or-text {
+  color: #fff;
+  position: relative;
+  font-weight: bold;
+  font-size: 12px;
+  top: -20px;
+}
+
+.signup-box {
+  padding-top: 40px;
+  position: relative;
+  width: 346px;
+  margin: auto;
+  display: block;
+}
+
+.footer {
+  position: fixed;
+  background: #238EAA;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  color: #fff;
+  line-height: 50px;
+  bottom: 0px;
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    padding-bottom: 100px;
+  }
+  .howto {
+    padding-right: 7%;
+  }
+  .hmb {
+    display: none;
+  }
+  .smb {
+    display: block;
+  }
+}
