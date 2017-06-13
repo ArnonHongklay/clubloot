@@ -74,6 +74,6 @@ Rails.application.routes.draw do
   end
 
   constraints(subdomain: App.host(''))  do
-    root 'landing#index'
+    root 'landing#show'
   end
 end
