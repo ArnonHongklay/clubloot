@@ -76,4 +76,8 @@ Rails.application.routes.draw do
   constraints(subdomain: App.host(''))  do
     root 'landing#show'
   end
+
+  constraints(subdomain: App.host('www'))  do
+    root 'landing#show'
+  end
 end
