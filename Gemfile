@@ -174,7 +174,7 @@ gem 'aws-sdk', '~> 2'
 # gem 'mailgun'
 # gem 'one_signal'
 # gem 'slack-notifier'
-# gem 'rollbar'
+gem 'rollbar'
 
 # marketing
 # gem 'meta-tags'
