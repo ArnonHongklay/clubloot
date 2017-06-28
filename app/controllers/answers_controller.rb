@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  skip_before_filter :verify_authenticity_token, only: :update
+  skip_before_action :verify_authenticity_token, only: :update
 
   def update
     template = Template.find(params[:template_id])
