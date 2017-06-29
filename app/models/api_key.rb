@@ -31,7 +31,8 @@ class ApiKey
     end
 
     def set_expiration
-      self.expires_at = Time.zone.now + 30.days
+      # self.expires_at = Time.zone.now + 30.days
+      self.expires_at = Time.zone.now.end_of_day
     end
 
     def daily_loot
