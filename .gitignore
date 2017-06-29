@@ -48,3 +48,5 @@ public/fonts/*
 !/client/assets/uploads/program/.keep
 
 locust/*.pyc
+/public/packs
+/node_modules

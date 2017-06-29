@@ -17,11 +17,62 @@
     Price: <%= @prize.price %>
   </p>
   <p>
-    Quantity: <%= @prize.quantity %>
+    Quantity: <%= @prize.quantity - @prize.users.count %> / <%= @prize.quantity %>
   </p>
   <p>
     Description: <pre><%= @prize.description %></pre>
   </p>
   <%= link_to 'Edit', edit_prize_path(@prize), class: 'btn btn-primary btn-sm rounded-s' %>
   <%= link_to 'Back', prizes_path, class: 'btn btn-primary btn-sm rounded-s' %>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-block sameheight-item">
+            <h2>Pedding</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @user_pending.each do |x| %>
+                  <tr>
+                    <td><%= x.user.email %></td>
+                    <td><%= x.user.username %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-block sameheight-item">
+            <h2>Completed</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @user_completed.each do |x| %>
+                  <tr>
+                    <td><%= x.user.email %></td>
+                    <td><%= x.user.username %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </article>

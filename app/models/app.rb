@@ -13,9 +13,13 @@ class App < Struct.new(:region, :environment, :version)
     when 'api'
       "#{host('api')}.#{root_domain}"
     when 'admin'
-      "admin.#{root_domain}"
+      "#{host('admin')}.#{root_domain}"
     else
+      # if environment.production?
       root_domain
+      # else
+      #   "#{host}.#{root_domain}"
+      # end
     end
 
     protocol + '//' + domain

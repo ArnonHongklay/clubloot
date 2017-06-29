@@ -11,6 +11,8 @@ class PrizesController < ApplicationController
   # GET /prizes/1
   # GET /prizes/1.json
   def show
+    @user_pending = @prize.users.where(state: 0)
+    @user_completed = @prize.users.where(state: 1)
   end
 
   # GET /prizes/new

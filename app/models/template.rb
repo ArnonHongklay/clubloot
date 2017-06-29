@@ -23,6 +23,8 @@ class Template
   scope :active, -> { where(active: true) }
   scope :expired, -> { where(active: false) }
 
+  scope :show, -> { active.where(:questions.ne => nil).where(:'questions.answers'.ne => nil) }
+
   scope :upcoming_program, -> { active.where(:start_time.lte => Time.zone.now, :end_time.gte => Time.zone.now) }
   scope :live_program, -> { active.where(:end_time.lte => Time.zone.now) }
   scope :past_program, -> { expired }
@@ -40,9 +42,8 @@ class Template
     self.upcoming_program.sort_by(&:end_time).first
   end
 
-  def winners(template_obj)
-    template = Template.find(template_obj)
-    template.contests.each do |contest|
+  def winners(contests)
+    contests.each do |contest|
       # sleep 5
       # contest = Contest.find(contest_id)
       p "=================================== in winners contest ==================================="
@@ -111,25 +112,77 @@ class Template
     template = self
     return false if template.active == false or template.questions.where('is_correct' => "false").count > 0
 
-    template.contests.each do |contest|
+    contests = template.contests.where(_state: :live)
+    contests.each do |contest|
       player = contest.quizes.all.group_by(&:player_id).map do |key, val|
         { id: key, score: val.sum(&:correct) }
       end
       position = player.sort!{ |a, b| b[:score] <=> a[:score] }
       position.each_with_index do |winner, i|
         break if i != 0 && position[i-1][:score] > position[i][:score]
+        # contest.winners.create!(user: User.find(winner[:id]))
         contest.winners << User.find(winner[:id])
       end
       contest.save!
     end
 
-    winners(template)
+    winners(contests)
 
     ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
     ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
     ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
 
     template.update(active: false)
+  end
+
+  # Just for testing
+  # name = 8.times.map { [*'0'..'9', *'a'..'z'].sample }.join
+  # details = { name: name, player: 2, fee: 3 }
+  # user = User.first
+
+  # Template.first.new_contest(user, details)
+  def new_contest(user, details, quizes)
+    contest_details = Contest.new_permitted_params(details)
+
+    raise "Data is wrong"             unless contest_details.present?
+    raise "Your money is not enough." if user.coins < contest_details.fee
+
+    unless questions.count == quizes.count
+      raise "You still don't answer the question."
+    end
+
+    contest = self.contests.create!(
+      host:         user,
+      name:         contest_details.name,
+      max_players:  contest_details.player,
+      fee:          contest_details.fee,
+      prize:        contest_details.fee_index
+    )
+
+    # contest.players.create!(player: user)
+    contest.players << user
+    if contest.save!
+      quizes.each do |quiz|
+        question = questions.where(id: quiz[:question_id]).first
+        raise "This question don't exists" unless question.present?
+
+        if question.answers.find(quiz[:answer_id]).present?
+          contest.quizes.create(quiz.merge!(player_id: user.id))
+        else
+          raise "This question don't exists"
+        end
+      end
+
+      p contest
+      Contest.save_transaction(user, contest)
+
+      ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
+      ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
+      ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
+    end
+  rescue Exception => e
+    contest.destroy if contest.present?
+    raise e
   end
 
   private

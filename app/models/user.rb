@@ -94,8 +94,12 @@ class User
   has_many :host_contests, class_name: 'Contest', inverse_of: :host
   has_and_belongs_to_many :announcements, class_name: 'Announcement', inverse_of: :users
 
-  has_and_belongs_to_many :contests, inverse_of: :players
-  has_and_belongs_to_many :winners, class_name: 'Contest', inverse_of: :winners
+  has_and_belongs_to_many :contests,  class_name: 'Contest', inverse_of: :players
+  has_and_belongs_to_many :winners,   class_name: 'Contest', inverse_of: :winners
+  # has_many :contests, class_name: 'ContestPlayer', inverse_of: :player
+  # has_many :winners, class_name: 'ContestWinner', inverse_of: :user
+
+  has_many :api_keys, class_name: 'ApiKey', inverse_of: :user
 
   embeds_many :messages
 
@@ -337,8 +341,45 @@ class User
     Economy.create(kind: 'loot', value: economy, logged_at: Time.zone.now)
   end
 
-  private
+  def join_contest(contest, quizes)
+    raise "Joined already"            if contest.players.where(id: self.id).present?
+    raise "Full player"               if contest.players.count >= contest.max_players
+    raise "Live already"              if contest._state != :upcoming
+    raise "Your money is not enough." if self.coins < contest.fee
 
+    questions = contest.template.questions
+
+    unless questions.count == quizes.count
+      raise "You still don't answer the question."
+    end
+
+    # contest.players.create!(player: self)
+    contest.players << self
+    if contest.save!
+      quizes.each do |quiz|
+        question = questions.where(id: quiz[:question_id]).first
+        raise "This question don't exists" unless question.present?
+
+        if question.answers.find(quiz[:answer_id]).present?
+          contest.quizes.create(quiz.merge!(player_id: self.id))
+        else
+          raise "This question don't exists"
+        end
+      end
+
+      p contest
+      Contest.save_transaction(self, contest)
+
+      ActionCable.server.broadcast("contest_channel", { page: 'dashboard', action: 'update' })
+      ActionCable.server.broadcast("contest_channel", { page: 'all_contest', action: 'update' })
+      ActionCable.server.broadcast("contest_channel", { page: 'contest_details', action: 'update' })
+    end
+  rescue Exception => e
+    contest.players.delete(self)
+    raise e
+  end
+
+  private
     def update_loot_economy
       User.loot_economy
     end

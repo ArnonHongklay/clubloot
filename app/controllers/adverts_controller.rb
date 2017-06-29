@@ -4,12 +4,22 @@ class AdvertsController < ApplicationController
 
   def giveaways
     if params[:daily].present?
-      user = ApiKey.where(:created_at.gte => Time.zone.parse(params[:daily]).beginning_of_day, :created_at.lte => Time.zone.parse(params[:daily]).end_of_day).uniq { |u| u.user_id }
+      user = ApiKey.where(can_giveaways: true).where(:created_at.gte => Time.zone.parse(params[:daily]).beginning_of_day, :created_at.lte => Time.zone.parse(params[:daily]).end_of_day).uniq { |u| u.user_id }
     else
-      user = ApiKey.where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).uniq { |u| u.user_id }
+      user = ApiKey.where(can_giveaways: true).where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).uniq { |u| u.user_id }
     end
-    @users = User.find(user.pluck(:user_id))
+    user_ids = user.pluck(:user_id)
+    @users = User.find(user_ids)
   end
+
+  def giveaways_checked
+    gtime = Time.zone.parse(params[:daily])
+    user = ApiKey.where(:created_at.gte => gtime.beginning_of_day, :created_at.lte => gtime.end_of_day).where(user_id: params[:user_id])
+
+    user.update_all(giveaways: !user.first.giveaways)
+  end
+
+
   # GET /adverts
   # GET /adverts.json
   def index
@@ -19,6 +29,8 @@ class AdvertsController < ApplicationController
   # GET /adverts/1
   # GET /adverts/1.json
   def show
+    user_ids = ApiKey.where(can_giveaways: true, :created_at.gte => @advert.daily_at.beginning_of_day, :created_at.lte => @advert.daily_at.end_of_day).pluck(:user_id)
+    @users = User.find(user_ids)
   end
 
   # GET /adverts/new
@@ -78,6 +90,6 @@ class AdvertsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advert_params
-      params.require(:advert).permit(:description, :daily_at, :attachment)
+      params.require(:advert).permit(:above_description, :below_description, :daily_at, :attachment)
     end
 end

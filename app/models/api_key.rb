@@ -6,7 +6,8 @@ class ApiKey
   field :expires_at, type: Time
   # field :user_id, type: String
   field :active, type: Mongoid::Boolean
-
+  field :can_giveaways, type: Mongoid::Boolean, default: false
+  field :giveaways, type: Mongoid::Boolean, default: false
   # attr_accessible :access_token, :expires_at, :user_id, :active, :application
   belongs_to :user
 
@@ -30,14 +31,15 @@ class ApiKey
     end
 
     def set_expiration
-      self.expires_at = Time.zone.now + 30.days
+      # self.expires_at = Time.zone.now + 30.days
+      self.expires_at = Time.zone.now.end_of_day
     end
 
     def daily_loot
       amount = 2000
       return if self.created_at.nil?
       if self.class.where(user: self.user.id).where(:created_at.gte => Time.zone.now.beginning_of_day).count <= 1
-        self.user.update(coins: self.user.coins + amount)
+        self.user.update(coins: self.user.coins + amount, free_loot: true)
 
         transaction = OpenStruct.new(
           status: 'complete',
@@ -52,7 +54,7 @@ class ApiKey
         )
 
         Ledger.create_transaction(self.user, transaction)
-        ActionCable.server.broadcast("notification_channel", { user_id: self.user.id, popup: 'loot' })
+        # ActionCable.server.broadcast("notification_channel", { user_id: self.user.id, popup: 'loot' })
       end
     end
 end

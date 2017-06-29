@@ -23,7 +23,7 @@
                       <th>Code</th>
                       <th>Date Time</th>
                       <th>Username</th>
-                      <th>Transaction</th>
+                      <!--<th>Transaction</th>-->
                       <th>Description</th>
                       <th>Amount</th>
                       <th>Balance</th>
@@ -44,11 +44,11 @@
                         </td>
                         <td class="center-left"><%= ledger.created_at.try(:strftime, "%B %d, %Y %H:%M") %></td>
                         <td class="center-left"><%= ledger.user[:username] || ledger.user[:email] %></td>
-                        <td>
+                        <!--<td>
                           <% ledger.transaction.each do |transaction| %>
                             <%= transaction._id %><br>
                           <% end %>
-                        </td>
+                        </td>-->
                         <td>
                           <% ledger.transaction.each do |transaction| %>
                             <%= "(#{transaction.description}) #{transaction.from} -> #{transaction.to}" %><br>
@@ -58,28 +58,28 @@
                           <% ledger.transaction.each do |transaction| %>
 
                             <% if ledger.format == 'winners' %>
-                              <%= number_to_currency(transaction.amount - transaction.tax , unit: "", precision: 0) %><br>
+                              <%= number_to_currency(transaction.amount - transaction.tax , unit: "", precision: 0) %>
                             <% else %>
                               <%= number_to_currency(transaction.amount, unit: "", precision: 0) %>
                             <% end %>
 
-                            <% if transaction.unit == 'coins' %>
+                            <% if transaction.unit == 'coins' or transaction.unit == 'coin' %>
                             <span>
                               <i class="fa fa-money" aria-hidden="true"></i>
                             </span>
-                            <% elsif transaction.unit == 'rubies' %>
+                            <% elsif transaction.unit == 'rubies' or transaction.unit == 'ruby' %>
                               <span style="color: #951111">
                                 <i class="fa fa-diamond" aria-hidden="true"></i>
                               </span>
-                            <% elsif transaction.unit == 'sapphires' %>
+                            <% elsif transaction.unit == 'sapphires' or transaction.unit == 'sapphire' %>
                               <span style="color: #2A4C7A">
                                 <i class="fa fa-diamond" aria-hidden="true"></i>
                               </span>
-                            <% elsif transaction.unit == 'emeralds' %>
+                            <% elsif transaction.unit == 'emeralds' or transaction.unit == 'emerald' %>
                               <span style="color: #758F42">
                                 <i class="fa fa-diamond" aria-hidden="true"></i>
                               </span>
-                            <% elsif transaction.unit == 'diamonds' %>
+                            <% elsif transaction.unit == 'diamonds' or transaction.unit == 'diamond' %>
                               <span style="color: #9F9B93">
                                 <i class="fa fa-diamond" aria-hidden="true"></i>
                               </span>

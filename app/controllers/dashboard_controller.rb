@@ -48,7 +48,7 @@ class DashboardController < ApplicationController
     @total_conomy = number_to_currency(loot, :unit => "", precision: 0)
     @total_tax = number_to_currency(tax, :unit => "", precision: 0)
 
-    @total_prizes = prize.where(format: 'prizes').count
+    @total_prizes = Prize.sum{ |prize| prize.users.count }
 
     sign_in_cal = sign_in > 0 ? (sign_in*100) / User.all.count : 0
     @total_signin = number_to_percentage(sign_in_cal, precision: 2)

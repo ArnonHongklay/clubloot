@@ -37,7 +37,7 @@ module V2
         end
       end
 
-      desc "Creates and returns access_token if valid signin"
+      desc "Created and return access_token if valid signin"
       params do
         requires :email, type: String, desc: "email address"
         requires :password, type: String, desc: "Password"

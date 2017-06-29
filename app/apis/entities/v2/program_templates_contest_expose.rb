@@ -9,7 +9,7 @@ class Entities::V2::ProgramTemplatesContestExpose < Grape::Entity
   expose :public
 
   expose :host
-  expose :template #, with: ProgramTemplatesShowExpose
+  expose :template, with: Entities::V2::TemplateExpose
   expose :leaders
   expose :winners
 end

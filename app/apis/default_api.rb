@@ -37,13 +37,12 @@ class DefaultAPI < Grape::API
     def current_user
       # access_token = request.headers['Authorization'] || params[:token]
       access_token = params[:token]
-      token = ApiKey.where(access_token: access_token).first
+      token = ApiKey.where(access_token: access_token).last
       if token && !token.expired?
         @current_user = User.find(token.user_id)
       else
         false
       end
-
       # warden.user || @user
     end
 
@@ -60,8 +59,9 @@ class DefaultAPI < Grape::API
   #   error_response(message: e.message, status: 422)
   # end
 
-  mount ApiV1
+  # mount ApiV1
   mount ApiV2
+  mount ApiV3
 
   add_swagger_documentation \
     api_version: '1.0.0',

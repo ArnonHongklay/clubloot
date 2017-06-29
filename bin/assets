@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+begin
+  `scp -r deploy@clubloot.com:/home/deploy/clubloot/admin/current/public/js ./public`
+  `scp -r deploy@clubloot.com:/home/deploy/clubloot/admin/current/public/css ./public`
+  `scp -r deploy@clubloot.com:/home/deploy/clubloot/admin/current/public/fonts ./public`
+rescue LoadError => e
+  raise unless e.message.include?('spring')
+end

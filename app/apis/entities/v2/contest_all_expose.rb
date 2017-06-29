@@ -10,7 +10,7 @@ class Entities::V2::ContestAllExpose < Grape::Entity
   expose :public
   expose :host
   expose :players
-  expose :template
+  expose :template, with: Entities::V2::TemplateExpose
   expose :winners
   expose :quizes
   expose :program do |item|

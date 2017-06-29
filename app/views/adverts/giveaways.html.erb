@@ -12,7 +12,7 @@
       <div class='col-md-4'>
         <div class="form-group">
           <div class='input-group date' id='datetimepickergiveaways'>
-            <input type='text' name="daily" class="form-control" value="<%= params[:daily] %>" />
+            <input type='text' name="daily" id="dailyGiveAways" class="form-control" value="<%= params[:daily] %>" />
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -40,7 +40,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><input type="checkbox" /></td>
+              <td><input type="checkbox" id="checkboxGiveAways" value="<%= user.id %>" <%= 'checked' if user.api_keys.first.giveaways %> /></td>
               <td><%= user.username %></td>
               <td><%= user.email %></td>
               <td><%= user.first_name %></td>
