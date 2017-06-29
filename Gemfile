@@ -6,8 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', github: 'rails/rails'
-gem 'webpacker'
+gem 'rails', '~> 5.0.1'
 
 platform :ruby do
   gem 'pg', '~> 0.18'
@@ -15,7 +14,7 @@ platform :ruby do
   gem 'unicorn'
   gem 'mini_racer'
 
-  gem 'mongoid', git: 'https://github.com/mongodb/mongoid.git', branch: 'master'
+  gem 'mongoid', '~> 6.0.0'
   gem "mongoid-enum", git: 'https://github.com/monster-media/mongoid-enum'
   gem 'mongoid-slug'
   gem 'mongoid-paperclip'
@@ -113,7 +112,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 # gem 'knock', '~> 2.0'
 gem 'hashie', '3.5.1'
-gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'master'
+gem 'devise'
 gem 'omniauth-facebook'
 gem 'koala'
 

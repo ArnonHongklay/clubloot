@@ -7,15 +7,6 @@ GIT
       sshkit (~> 1.3)
 
 GIT
-  remote: https://github.com/mongodb/mongoid.git
-  revision: a26341e3fd2aad7d7281f5855b75342b4275721c
-  branch: master
-  specs:
-    mongoid (6.2.0)
-      activemodel (~> 5.1)
-      mongo (>= 2.4.1, < 3.0.0)
-
-GIT
   remote: https://github.com/monster-media/mongoid-enum
   revision: 270323f3d71d837e04e55a0cae83b537722819b9
   specs:
@@ -28,78 +19,6 @@ GIT
   branch: v1.8
   specs:
     json (1.8.5)
-
-GIT
-  remote: https://github.com/plataformatec/devise.git
-  revision: 71fc5b351a8e8473733b0ca29d60c06e43a0efe1
-  branch: master
-  specs:
-    devise (4.3.0)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.2)
-      responders
-      warden (~> 1.2.3)
-
-GIT
-  remote: https://github.com/rails/rails.git
-  revision: 1e798ccb8ff83cc5a014d333e7a1e92e5d146c23
-  specs:
-    actioncable (5.2.0.alpha)
-      actionpack (= 5.2.0.alpha)
-      nio4r (~> 2.0)
-      websocket-driver (~> 0.6.1)
-    actionmailer (5.2.0.alpha)
-      actionpack (= 5.2.0.alpha)
-      actionview (= 5.2.0.alpha)
-      activejob (= 5.2.0.alpha)
-      mail (~> 2.5, >= 2.5.4)
-      rails-dom-testing (~> 2.0)
-    actionpack (5.2.0.alpha)
-      actionview (= 5.2.0.alpha)
-      activesupport (= 5.2.0.alpha)
-      rack (~> 2.0)
-      rack-test (~> 0.6.3)
-      rails-dom-testing (~> 2.0)
-      rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (5.2.0.alpha)
-      activesupport (= 5.2.0.alpha)
-      builder (~> 3.1)
-      erubi (~> 1.4)
-      rails-dom-testing (~> 2.0)
-      rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    activejob (5.2.0.alpha)
-      activesupport (= 5.2.0.alpha)
-      globalid (>= 0.3.6)
-    activemodel (5.2.0.alpha)
-      activesupport (= 5.2.0.alpha)
-    activerecord (5.2.0.alpha)
-      activemodel (= 5.2.0.alpha)
-      activesupport (= 5.2.0.alpha)
-      arel (~> 8.0)
-    activesupport (5.2.0.alpha)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (~> 0.7)
-      minitest (~> 5.1)
-      tzinfo (~> 1.1)
-    rails (5.2.0.alpha)
-      actioncable (= 5.2.0.alpha)
-      actionmailer (= 5.2.0.alpha)
-      actionpack (= 5.2.0.alpha)
-      actionview (= 5.2.0.alpha)
-      activejob (= 5.2.0.alpha)
-      activemodel (= 5.2.0.alpha)
-      activerecord (= 5.2.0.alpha)
-      activesupport (= 5.2.0.alpha)
-      bundler (>= 1.3.0, < 2.0)
-      railties (= 5.2.0.alpha)
-      sprockets-rails (>= 2.0.0)
-    railties (5.2.0.alpha)
-      actionpack (= 5.2.0.alpha)
-      activesupport (= 5.2.0.alpha)
-      method_source
-      rake (>= 0.8.7)
-      thor (>= 0.18.1, < 2.0)
 
 GIT
   remote: https://github.com/rspec/rspec-core.git
@@ -152,21 +71,58 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
+    actioncable (5.0.4)
+      actionpack (= 5.0.4)
+      nio4r (>= 1.2, < 3.0)
+      websocket-driver (~> 0.6.1)
+    actionmailer (5.0.4)
+      actionpack (= 5.0.4)
+      actionview (= 5.0.4)
+      activejob (= 5.0.4)
+      mail (~> 2.5, >= 2.5.4)
+      rails-dom-testing (~> 2.0)
+    actionpack (5.0.4)
+      actionview (= 5.0.4)
+      activesupport (= 5.0.4)
+      rack (~> 2.0)
+      rack-test (~> 0.6.3)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview (5.0.4)
+      activesupport (= 5.0.4)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_model_serializers (0.10.6)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.2)
+    activejob (5.0.4)
+      activesupport (= 5.0.4)
+      globalid (>= 0.3.6)
+    activemodel (5.0.4)
+      activesupport (= 5.0.4)
     activemodel-serializers-xml (1.0.1)
       activemodel (> 5.x)
       activerecord (> 5.x)
       activesupport (> 5.x)
       builder (~> 3.1)
+    activerecord (5.0.4)
+      activemodel (= 5.0.4)
+      activesupport (= 5.0.4)
+      arel (~> 7.0)
+    activesupport (5.0.4)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     airbrussh (1.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    arel (8.0.0)
+    arel (7.1.4)
     aws-sdk (2.10.4)
       aws-sdk-resources (= 2.10.4)
     aws-sdk-core (2.10.4)
@@ -241,11 +197,16 @@ GEM
     declarative-option (0.1.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    devise (4.3.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.2)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.3)
     docile (1.1.5)
     easy_diff (1.0.0)
     equalizer (0.0.11)
-    erubi (1.6.1)
     erubis (2.7.0)
     et-orbi (1.0.5)
       tzinfo
@@ -349,6 +310,9 @@ GEM
     minitest (5.10.2)
     mongo (2.4.2)
       bson (>= 4.2.1, < 5.0.0)
+    mongoid (6.0.3)
+      activemodel (~> 5.0)
+      mongo (~> 2.3)
     mongoid-compatibility (0.4.1)
       activesupport
       mongoid (>= 2.0)
@@ -439,6 +403,18 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rails (5.0.4)
+      actioncable (= 5.0.4)
+      actionmailer (= 5.0.4)
+      actionpack (= 5.0.4)
+      actionview (= 5.0.4)
+      activejob (= 5.0.4)
+      activemodel (= 5.0.4)
+      activerecord (= 5.0.4)
+      activesupport (= 5.0.4)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 5.0.4)
+      sprockets-rails (>= 2.0.0)
     rails-assets-bootstrap (2.3.2)
       rails-assets-jquery (>= 1.8.0, < 2.1.0)
     rails-assets-bootstrap-datepicker (1.7.0)
@@ -467,6 +443,12 @@ GEM
       rails_stdout_logging
     rails_serve_static_assets (0.0.5)
     rails_stdout_logging (0.0.5)
+    railties (5.0.4)
+      actionpack (= 5.0.4)
+      activesupport (= 5.0.4)
+      method_source
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
     raindrops (0.18.0)
     rake (12.0.0)
     rb-fsevent (0.10.1)
@@ -583,10 +565,6 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webpacker (2.0)
-      activesupport (>= 4.2)
-      multi_json (~> 1.2)
-      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -614,7 +592,7 @@ DEPENDENCIES
   capybara-webkit
   coffee-rails
   database_cleaner
-  devise!
+  devise
   factory_girl_rails
   faker
   ffaker
@@ -640,7 +618,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   meta_request
   mini_racer
-  mongoid!
+  mongoid (~> 6.0.0)
   mongoid-enum!
   mongoid-history
   mongoid-locker
@@ -659,7 +637,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rack-attack
   rack-cors
-  rails!
+  rails (~> 5.0.1)
   rails-assets-bootstrap!
   rails-assets-bootstrap-datepicker!
   rails-assets-bootstrap-datetimepicker!
@@ -698,7 +676,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   web-console
-  webpacker
 
 RUBY VERSION
    ruby 2.4.1p0
