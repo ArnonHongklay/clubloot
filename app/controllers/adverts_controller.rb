@@ -29,7 +29,8 @@ class AdvertsController < ApplicationController
   # GET /adverts/1
   # GET /adverts/1.json
   def show
-    @users = User.find(ApiKey.where(can_giveaways: true, created_at: @advert.daily_at.to_date).pluck(:user_id))
+    user_ids = ApiKey.where(can_giveaways: true, :created_at.gte => @advert.daily_at.beginning_of_day, :created_at.lte => @advert.daily_at.end_of_day).pluck(:user_id)
+    @users = User.find(user_ids)
   end
 
   # GET /adverts/new
