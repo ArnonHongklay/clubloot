@@ -7,6 +7,15 @@ GIT
       sshkit (~> 1.3)
 
 GIT
+  remote: https://github.com/mongodb/mongoid.git
+  revision: a26341e3fd2aad7d7281f5855b75342b4275721c
+  branch: master
+  specs:
+    mongoid (6.2.0)
+      activemodel (~> 5.1)
+      mongo (>= 2.4.1, < 3.0.0)
+
+GIT
   remote: https://github.com/monster-media/mongoid-enum
   revision: 270323f3d71d837e04e55a0cae83b537722819b9
   specs:
@@ -21,8 +30,20 @@ GIT
     json (1.8.5)
 
 GIT
+  remote: https://github.com/plataformatec/devise.git
+  revision: 71fc5b351a8e8473733b0ca29d60c06e43a0efe1
+  branch: master
+  specs:
+    devise (4.3.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.2)
+      responders
+      warden (~> 1.2.3)
+
+GIT
   remote: https://github.com/rails/rails.git
-  revision: f138ffab130488348cc41cba1bceba9535141373
+  revision: 1e798ccb8ff83cc5a014d333e7a1e92e5d146c23
   specs:
     actioncable (5.2.0.alpha)
       actionpack (= 5.2.0.alpha)
@@ -122,7 +143,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-support.git
-  revision: abc412493345b247396ceddd3b9a6a3c7b507361
+  revision: d7d80534a9badb58f58949fe3355693e798f9f6c
   branch: master
   specs:
     rspec-support (3.7.0.pre)
@@ -220,12 +241,6 @@ GEM
     declarative-option (0.1.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (4.3.0)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.2)
-      responders
-      warden (~> 1.2.3)
     diff-lcs (1.3)
     docile (1.1.5)
     easy_diff (1.0.0)
@@ -334,9 +349,6 @@ GEM
     minitest (5.10.2)
     mongo (2.4.2)
       bson (>= 4.2.1, < 5.0.0)
-    mongoid (6.0.3)
-      activemodel (~> 5.0)
-      mongo (~> 2.3)
     mongoid-compatibility (0.4.1)
       activesupport
       mongoid (>= 2.0)
@@ -457,7 +469,7 @@ GEM
     rails_stdout_logging (0.0.5)
     raindrops (0.18.0)
     rake (12.0.0)
-    rb-fsevent (0.9.8)
+    rb-fsevent (0.10.1)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redis (3.3.3)
@@ -602,7 +614,7 @@ DEPENDENCIES
   capybara-webkit
   coffee-rails
   database_cleaner
-  devise
+  devise!
   factory_girl_rails
   faker
   ffaker
@@ -628,7 +640,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   meta_request
   mini_racer
-  mongoid (~> 6.0.0)
+  mongoid!
   mongoid-enum!
   mongoid-history
   mongoid-locker

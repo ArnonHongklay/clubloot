@@ -380,7 +380,6 @@ class User
   end
 
   private
-
     def update_loot_economy
       User.loot_economy
     end

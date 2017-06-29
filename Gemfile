@@ -15,7 +15,7 @@ platform :ruby do
   gem 'unicorn'
   gem 'mini_racer'
 
-  gem 'mongoid', '~> 6.0.0'
+  gem 'mongoid', git: 'https://github.com/mongodb/mongoid.git', branch: 'master'
   gem "mongoid-enum", git: 'https://github.com/monster-media/mongoid-enum'
   gem 'mongoid-slug'
   gem 'mongoid-paperclip'
@@ -113,7 +113,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 # gem 'knock', '~> 2.0'
 gem 'hashie', '3.5.1'
-gem 'devise'
+gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'master'
 gem 'omniauth-facebook'
 gem 'koala'
 
