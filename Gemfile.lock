@@ -120,6 +120,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    airbrake (6.1.2)
+      airbrake-ruby (~> 2.2, >= 2.2.5)
+    airbrake-ruby (2.2.7)
     airbrussh (1.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (7.1.4)
@@ -577,6 +580,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   activemodel-serializers-xml
+  airbrake (~> 6.1)
   airbrussh
   aws-sdk (~> 2)
   bcrypt (~> 3.1.7)
