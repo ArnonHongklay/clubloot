@@ -52,6 +52,7 @@ module V2
         get "/" do
           begin
             current_user.update(free_loot: false)
+            current_user.api_keys.where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).update_all(can_giveaways: true)
 
             present :status, :success
             present :data, current_user, with: Entities::V2::UserAllExpose
@@ -69,7 +70,6 @@ module V2
         get "/" do
           begin
             current_user.update(promo_code: false)
-            current_user.api_keys.where(:created_at.gte => Time.zone.now.beginning_of_day, :created_at.lte => Time.zone.now.end_of_day).update_all(can_giveaways: true)
 
             present :status, :success
             present :data, current_user, with: Entities::V2::UserAllExpose
