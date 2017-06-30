@@ -1,2 +1,2 @@
-# clubloot
+# Clubloot.com
 Clubloot Admin &amp; API
